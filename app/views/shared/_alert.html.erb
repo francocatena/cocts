@@ -1,0 +1,5 @@
+<div id="alert">
+  <p><%= flash[:alert] %></p>
+  <div id="close_alert"><%= link_to_function 'X', "Element.fade('alert')",
+    :title => t(:'labels.close') %></div>
+</div>

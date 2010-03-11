@@ -35,4 +35,23 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+
+  # Función para utilizar en las pruebas de los métodos que requieren
+  # autenticación
+  def perform_auth(user = users(:admin))
+    temp_controller, @controller = @controller, UsersController.new
+
+    post :create_session, :user => {:user => user.user, :password => user.password}
+    assert_redirected_to :action => :index
+    assert_not_nil session[:user_id]
+    auth_user = User.find(session[:user_id])
+    assert_not_nil auth_user
+    assert_equal user.user, auth_user.user
+
+    @controller = temp_controller
+  end
+
+  def error_message_from_model(model, attribute, message, extra = {})
+    ::ActiveRecord::Error.new(model, attribute, message, extra).to_s
+  end
 end

@@ -1,0 +1,198 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+a {
+    padding: 1px 3px;
+}
+
+a:link {
+    background: inherit;
+    color: #2c2c2c;
+}
+
+a:visited {
+    background: inherit;
+    color: #6e6e6e;
+}
+
+a:hover {
+    background: #2c2c2c;
+    color: #ffffff;
+}
+
+body {
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 12px;
+    color: #2c2c2c;
+    background-color: #ffffff;
+}
+
+div#app_content {
+    width: 95%;
+    margin: 1% auto;
+    padding: 1em;
+    background-color: #f6f6f6;
+    border: 2px solid #dedede;
+}
+
+div#errorExplanation {
+    width: 95%;
+    border: 4px solid #dedede;
+    padding-bottom: 1em;
+    margin: 1.5em 0em;
+    background-color: #ffffff;
+}
+
+div#errorExplanation h2 {
+    text-align: left;
+    font-weight: bold;
+    padding: .5em .5em .5em 1em;
+    font-size: 1.2em;
+    background-color: #ffff99;
+    color: #000000;
+    border-bottom: 4px solid #dedede;
+}
+
+div#errorExplanation p {
+    font-weight: bold;
+    padding: .5em .5em .5em 1em;
+}
+
+div#errorExplanation ul {
+    margin-left: 3em;
+    list-style: square;
+}
+
+div#links {
+    margin: 1%;
+}
+
+div#login {
+    margin: 10em auto 0em auto;
+    width: 20em;
+    background-color: #f6f6f6;
+    border: 2px solid #dedede;
+    padding: 1em;
+}
+
+div#menu_container {
+    padding: .5em 3em;
+    height: 1.2em;
+    background-color: #f6f6f6;
+    border-bottom: 2px solid #dedede;
+}
+
+div#menu_container ul {
+    margin: 0em 2em;
+}
+
+div#menu_container ul li {
+    display: inline;
+}
+
+div#menu_container div#user_info {
+    position: absolute;
+    right: 3em;
+    top: .5em;
+}
+
+div#menu_container div#user_info a {
+
+}
+
+div#notice, div#alert {
+    position: absolute;
+    bottom: .5em;
+    left: 5%;
+    right: 5%;
+    background: #ffff99;
+    color: #000000;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    padding: .5em .8em;
+    border: 4px solid #dedede;
+}
+
+div#notice div#close_notice, div#alert div#close_alert {
+    position: absolute;
+    top: .5em;
+    right: 1em;
+    font-size: .6em;
+    font-weight: normal;
+    border: 2px solid #6e6e6e;
+}
+
+div#notice div#close_notice a, div#alert div#close_alert a {
+    background: inherit;
+    color: #6e6e6e;
+    text-decoration: none;
+    font-size: 1.2em;
+    font-weight: 600;
+    padding: 1px 5px;
+}
+
+div#showed_data {
+    margin: 1%;
+}
+
+div.form_container {
+    margin: 1%;
+}
+
+div.form_container label{
+    display: block;
+}
+
+div.form_container div.one_column_form {
+    width: 50%;
+}
+
+form.button-to input[type="submit"] {
+    margin: 0px;
+}
+
+input[type="submit"] {
+    margin: .5em 0em;
+}
+
+input[type="text"], input[type="password"], select, textarea {
+    width: 95%;
+    font-size: inherit;
+    font-family: inherit;
+    padding: 1px;
+}
+
+table {
+    margin: 1%;
+    width: 98%;
+    empty-cells: show;
+    border-collapse: collapse;
+    border: 4px solid #dedede;
+    background-color: #ffffff;
+}
+
+td {
+    padding: .3em .5em;
+}
+
+textarea {
+    font: inherit;
+    height: 10em;
+}
+
+th {
+    padding: .5em .5em;
+    text-align: left;
+    border-bottom: 4px solid #dedede;
+}
+
+tr.even {
+    background: #f8f8f8;
+}
+
+tr.odd {
+    background: #ffffff;
+}

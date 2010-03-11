@@ -1,0 +1,19 @@
+<% salt = Digest::SHA512.hexdigest("admin#{rand}") %>
+admin:
+  user: admin
+  password: <%= Digest::SHA512.hexdigest("#{salt}-admin123") %>
+  name: Administrator
+  lastname: Administrator
+  enable: true
+  email: administrator@users.com
+  salt: <%= salt %>
+
+<% salt = Digest::SHA512.hexdigest("disable#{rand}") %>
+disable:
+  user: disable
+  password: <%= Digest::SHA512.hexdigest("#{salt}-disable123") %>
+  name: Disabled
+  lastname: User
+  enable: false
+  email: disable@users.com
+  salt: <%= salt %>

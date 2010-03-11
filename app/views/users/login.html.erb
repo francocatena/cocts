@@ -1,0 +1,17 @@
+<div id="login">
+  <% form_for @user, :url => create_session_users_path do |f| -%>
+    <%= f.error_messages %>
+    <div class="field">
+      <%= f.label :user %>
+      <%= f.text_field :user, :maxlength => 30 %>
+    </div>
+    <div class="field">
+      <%= f.label :password %>
+      <%= f.password_field :password, :maxlength => 128 %>
+    </div>
+    <div class="actions">
+      <span><%= f.submit t(:'users.enter') %></span>
+    </div>
+  <% end -%>
+</div>
+<%= set_focus_to_first_element %>

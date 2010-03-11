@@ -1,0 +1,33 @@
+<div class="form_container">
+  <% form_for @user, :url => update_personal_data_user_path(@user) do |f| -%>
+    <div class="one_column_form">
+      <%= f.error_messages %>
+      <div class="field">
+        <%= f.label :user %>
+        <%= f.text_field :user, :readonly => true, :size => nil %>
+      </div>
+      <div class="field">
+        <%= f.label :name %>
+        <%= f.text_field :name, :maxlength => 255 %>
+      </div>
+      <div class="field">
+        <%= f.label :lastname %>
+        <%= f.text_field :lastname, :maxlength => 255 %>
+      </div>
+      <div class="field">
+        <%= f.label :email %>
+        <%= f.text_field :email, :maxlength => 100 %>
+      </div>
+    </div>
+
+    <%= hidden_lock_version(f) %>
+    <div class="actions">
+      <span><%= f.submit t(:'labels.modify') %></span>
+    </div>
+  <% end -%>
+</div>
+
+<div id="links">
+  <%= link_to t(:'users.edit_password_title'), edit_password_user_path(@user) %>
+</div>
+<%= set_focus_to_first_element %>

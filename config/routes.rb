@@ -1,4 +1,15 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :users, :collection => {
+    :login => :get,
+    :create_session => :post
+  }, :member => {
+    :logout => :get,
+    :edit_password => :get,
+    :update_password => :put,
+    :edit_personal_data => :get,
+    :update_personal_data => :put
+  }
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

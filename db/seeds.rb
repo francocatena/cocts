@@ -1,7 +1,21 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#   
-#   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
-#   Major.create(:name => 'Daley', :city => cities.first)
+def self.check_errors(record)
+  if record.errors.size > 0
+    puts "Error in #{record.class}:"
+    puts record.errors.full_messages.join("\n")
+    return false
+  else
+    puts "#{record.class} ... [OK]"
+    return true
+  end
+end
+
+user = User.create(
+  :name => 'Administrador',
+  :lastname => 'Administrador',
+  :email => 'admin@cocts.edu',
+  :enable => true,
+  :user => 'admin',
+  :password => 'admin123'
+)
+
+check_errors user

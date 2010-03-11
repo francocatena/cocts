@@ -1,0 +1,43 @@
+<!--[form:user]-->
+<% form_for @user do |f| -%>
+  <%= f.error_messages %>
+  <div class="one_column_form">
+    <div class="field">
+      <%= f.label :name %>
+      <%= f.text_field :name, :maxlength => 255 %>
+    </div>
+    <div class="field">
+      <%= f.label :lastname %>
+      <%= f.text_field :lastname, :maxlength => 255 %>
+    </div>
+    <div class="field">
+      <%= f.label :user %>
+      <%= f.text_field :user, :maxlength => 30 %>
+    </div>
+    <% if [:new, :create].include?(controller.action_name.to_sym) -%>
+      <div class="field">
+        <%= f.label :password %>
+        <%= f.password_field :password, :maxlength => 128 %>
+      </div>
+      <div class="field">
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation, :maxlength => 128 %>
+      </div>
+    <% end -%>
+    <div class="field">
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+    </div>
+    <div class="field">
+      <%= f.label :enable %>
+      <%= f.check_box :enable %>
+    </div>
+  </div>
+
+  <%= hidden_lock_version(f) %>
+  <div class="actions">
+    <span><%= f.submit submit_text %></span>
+  </div>
+<% end -%>
+<!--[eoform:user] -->
+<%= set_focus_to_first_element %>
