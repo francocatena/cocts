@@ -21,10 +21,7 @@ var FormHelper = {
                 var readonly = element && (element.readAttribute('readonly') ||
                     element.readAttribute('disabled'));
 
-                if(element && !readonly) {
-                    element.focus();
-                    element = undefined;
-                }
+                if(element && !readonly) { element.focus(); }
             } while(readonly);
         }
     }

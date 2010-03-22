@@ -1,4 +1,12 @@
 module ApplicationHelper
+  # Ordena un array que será utilizado en un select por el valor de los campos
+  # que serán mostrados
+  #
+  # * _options_array_:: Arreglo con las opciones que se quieren ordenar
+  def sort_options_array(options_array)
+    options_array.sort { |o_1, o_2| o_1.first <=> o_2.first }
+  end
+  
   # Devuelve el HTML devuelto por un render :partial => 'form', con el texto en
   # el botón submit reemplazado por el indicado. El resultado está "envuelto" en
   # un div con la clase "form_container"

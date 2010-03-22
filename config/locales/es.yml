@@ -1,4 +1,8 @@
 es:
+  actioncontroller:
+    users: 'Usuarios'
+    projects: 'Proyectos'
+
   activerecord:
     attribute_commons: &commons
       created_at: 'Creación'
@@ -7,8 +11,8 @@ es:
     errors:
       template:
         header:
-          one:   'no se pudo guardar porque se encontró 1 error'
-          other:  'no se pudo guardar porque se encontraron {{count}} errores'
+          one:   'No se pudo guardar porque se encontró 1 error'
+          other:  'No se pudo guardar porque se encontraron {{count}} errores'
         # The variable :count is also available
         body: 'Se encontraron problemas con los siguientes campos:'
 
@@ -35,10 +39,15 @@ es:
         odd: 'debe ser impar'
         even: 'debe ser par'
         record_invalid: 'La validación falló: {{errors}}'
-        # Append your own errors here or at the model/attributes scope.
+        before: "debe ser anterior a {{restriction}}"
+        on_or_before: "debe ser anterior o igual a {{restriction}}"
+        after: "debe ser posterior a {{restriction}}"
+        on_or_after: "debe ser posterior o igual a {{restriction}}"
+        between: "debe estar entre {{earliest}} y {{latest}}"
 
     models:
       user: 'Usuario'
+      project: 'Proyecto'
 
     attributes:
       user:
@@ -49,6 +58,13 @@ es:
         lastname: 'Apellido'
         email: 'E-Mail'
         enable: 'Habilitado'
+        <<: *commons
+      project:
+        name: 'Nombre'
+        description: 'Descripción'
+        year: 'Año'
+        valid_until: 'Vencimiento'
+        project_type: 'Tipo de carga'
         <<: *commons
   
   app_title: 'COCTS'
@@ -143,6 +159,7 @@ es:
     search: 'Buscar'
   
   menu:
+    projects: 'Proyectos'
     users: 'Usuarios'
 
   messages:
@@ -214,10 +231,21 @@ es:
           gb: 'GB'
           tb: 'TB'
 
+  projects:
+    index_title: 'Listado de proyectos'
+    show_title: 'Detalle del proyecto'
+    new_title: 'Nuevo proyecto'
+    edit_title: 'Modificar proyecto'
+    correctly_created: 'Proyecto agregado correctamente.'
+    correctly_updated: 'Proyecto actualizado correctamente.'
+    stale_object_error: 'El proyecto no pudo ser actualizado, intente nuevamente.'
+    manual_type: 'Manual'
+    interactive_type: 'Interactivo'
+
   support:
     select:
       # default value for :prompt => true in FormOptionsHelper
-      prompt: 'Por favor seleccione'
+      prompt: 'Seleccionar ...'
     # Used in array.to_sentence.
     array:
       words_connector: ', '
@@ -237,7 +265,7 @@ es:
     logout: 'Salir'
     index_title: 'Listado de usuarios'
     login_title: 'Autenticación de usuarios'
-    show_title: 'Detalle usuario'
+    show_title: 'Detalle del usuario'
     new_title: 'Nuevo usuario'
     edit_title: 'Modificar usuario'
     edit_password_title: 'Modificar contraseña'

@@ -138,12 +138,19 @@ div#showed_data {
     margin: 1%;
 }
 
-div.form_container {
-    margin: 1%;
+div.field label {
+    display: inline-block;
+    margin-bottom: .2em;
+    font-weight: bold;
+    color: #6e6e6e;
 }
 
-div.form_container label{
-    display: block;
+div.field {
+    margin-bottom: .5em;
+}
+
+div.form_container {
+    margin: 1%;
 }
 
 div.form_container div.one_column_form {
@@ -195,4 +202,14 @@ tr.even {
 
 tr.odd {
     background: #ffffff;
+}
+
+.calendar_date_select a {
+    padding: 0px;
+}
+
+.calendar_date_select table {
+    width: 100%;
+    border: none;
+    empty-cells: hide;
 }

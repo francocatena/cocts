@@ -1,0 +1,13 @@
+manual:
+  name: Manual Project
+  description: Description of the manual project
+  year: 2010
+  project_type: <%= Project::TYPES[:manual] %>
+  valid_until: <%= 1.month.from_now.to_date %>
+
+interactive:
+  name: Interactive project
+  description: Description of the interactive project
+  year: 2009
+  project_type: <%= Project::TYPES[:interactive] %>
+  valid_until: <%= 3.days.from_now.to_date %>

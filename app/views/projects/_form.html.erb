@@ -1,0 +1,34 @@
+<!--[form:user]-->
+<% form_for @project do |f| -%>
+  <%= f.error_messages %>
+  <div class="one_column_form">
+    <div class="field">
+      <%= f.label :name %><br />
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <%= f.label :description %><br />
+      <%= f.text_area :description %>
+    </div>
+    <div class="field">
+      <%= f.label :year %><br />
+      <%= f.text_field :year %>
+    </div>
+    <div class="field">
+      <%= f.label :project_type %><br />
+      <%= project_type_field f %>
+    </div>
+    <div class="field">
+      <%= f.label :valid_until %><br />
+      <%= f.calendar_date_select :valid_until,
+        :valid_date_check => 'date.stripTime() >= (new Date()).stripTime()' %>
+    </div>
+  </div>
+
+  <%= hidden_lock_version(f) %>
+  <div class="actions">
+    <span><%= f.submit submit_text %></span>
+  </div>
+<% end -%>
+<!--[eoform:user] -->
+<%= set_focus_to_first_element %>
