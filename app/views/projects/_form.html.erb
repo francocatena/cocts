@@ -25,6 +25,25 @@
     </div>
   </div>
 
+  <p>
+    <%= link_to_function t(:'projects.sociodemographic_label'),
+      "Effect.toggle('sociodemographic', 'slide')" %>
+  </p>
+
+  <div id="sociodemographic" style="display: none;">
+    <div style="margin: 1em 0em;">
+      <% Project::SOCIODEMOGRAPHIC_FORMS.each do |sociodemographic_form| -%>
+        <div class="field">
+          <%= check_box_tag "sociodemographic[#{sociodemographic_form}]",
+            sociodemographic_form, true  %>
+          <%= label_tag "sociodemographic_#{sociodemographic_form}_label",
+            t("projects.sociodemographic_forms.#{sociodemographic_form}.question"),
+            :for => "sociodemographic_#{sociodemographic_form}" %>
+        </div>
+      <% end -%>
+    </div>
+  </div>
+
   <%= hidden_lock_version(f) %>
   <div class="actions">
     <span><%= f.submit submit_text %></span>

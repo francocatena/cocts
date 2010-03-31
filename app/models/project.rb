@@ -5,6 +5,17 @@ class Project < ActiveRecord::Base
     :interactive => 1
   }
 
+  SOCIODEMOGRAPHIC_FORMS = [
+    'country',
+    'age',
+    'genre',
+    'student',
+    'teacher',
+    'teacher_level',
+    'degree',
+    'profession'
+  ]
+
   # Restricciones
   validates_presence_of :name, :description
   validates_numericality_of :year, :only_integer => true, :allow_nil => true,

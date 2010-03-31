@@ -241,6 +241,24 @@ es:
     stale_object_error: 'El proyecto no pudo ser actualizado, intente nuevamente.'
     manual_type: 'Manual'
     interactive_type: 'Interactivo'
+    sociodemographic_label: 'Datos sociodemográficos'
+    sociodemographic_forms:
+      country:
+        question: '¿En qué país vive?'
+      age:
+        question: '¿Cuál es su edad en años?'
+      genre:
+        question: '¿Es hombre o mujer?'
+      student:
+        question: '¿Es estudiante?'
+      teacher:
+        question: '¿Es profesor/a...?'
+      teacher_level:
+        question: 'Si es profesor, en formación o en ejercicio, ¿de qué nivel educativo...?'
+      degree:
+        question: '¿Cuál es su titulación o grado académico más alto?'
+      profession:
+        question: '¿Cómo definiría la especialidad principal de...'
 
   support:
     select:
