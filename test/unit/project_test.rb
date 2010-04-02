@@ -67,7 +67,6 @@ class ProjectTest < ActiveSupport::TestCase
   test 'validates formated attributes' do
     @project.valid_until = '13/13/13'
     assert @project.invalid?
-    puts @project.errors.full_messages.join('; ')
     assert_equal 1, @project.errors.count
     assert_equal error_message_from_model(@project, :valid_until,
       :invalid_date), @project.errors.on(:valid_until)
@@ -79,5 +78,13 @@ class ProjectTest < ActiveSupport::TestCase
     assert_equal 1, @project.errors.count
     assert_equal error_message_from_model(@project, :name, :too_long,
       :count => 255), @project.errors.on(:name)
+  end
+
+  test 'validates included attributes' do
+    @project.forms = ['invalid_form']
+    assert @project.invalid?
+    assert_equal 1, @project.errors.count
+    assert_equal error_message_from_model(@project, :forms, :inclusion),
+      @project.errors.on(:forms)
   end
 end

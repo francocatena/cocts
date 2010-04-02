@@ -3,23 +3,23 @@
   <%= f.error_messages %>
   <div class="one_column_form">
     <div class="field">
-      <%= f.label :name %><br />
+      <%= f.label :name %>
       <%= f.text_field :name %>
     </div>
     <div class="field">
-      <%= f.label :description %><br />
+      <%= f.label :description %>
       <%= f.text_area :description %>
     </div>
     <div class="field">
-      <%= f.label :year %><br />
+      <%= f.label :year %>
       <%= f.text_field :year %>
     </div>
     <div class="field">
-      <%= f.label :project_type %><br />
+      <%= f.label :project_type %>
       <%= project_type_field f %>
     </div>
     <div class="field">
-      <%= f.label :valid_until %><br />
+      <%= f.label :valid_until %>
       <%= f.calendar_date_select :valid_until,
         :valid_date_check => 'date.stripTime() >= (new Date()).stripTime()' %>
     </div>
@@ -34,11 +34,12 @@
     <div style="margin: 1em 0em;">
       <% Project::SOCIODEMOGRAPHIC_FORMS.each do |sociodemographic_form| -%>
         <div class="field">
-          <%= check_box_tag "sociodemographic[#{sociodemographic_form}]",
-            sociodemographic_form, true  %>
-          <%= label_tag "sociodemographic_#{sociodemographic_form}_label",
+          <%= check_box_tag "project[forms][]", sociodemographic_form,
+            @project.forms.include?(sociodemographic_form),
+            :id => "project_form_#{sociodemographic_form}" %>
+          <%= label_tag "project_form_#{sociodemographic_form}_label",
             t("projects.sociodemographic_forms.#{sociodemographic_form}.question"),
-            :for => "sociodemographic_#{sociodemographic_form}" %>
+            :for => "project_form_#{sociodemographic_form}" %>
         </div>
       <% end -%>
     </div>

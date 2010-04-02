@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(:version => 20100312033150) do
     t.integer  "year"
     t.integer  "project_type"
     t.date     "valid_until"
+    t.text     "forms"
     t.integer  "lock_version", :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"

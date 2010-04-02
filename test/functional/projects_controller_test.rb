@@ -62,7 +62,11 @@ class ProjectsControllerTest < ActionController::TestCase
           :description => 'New description',
           :year => Date.today.year,
           :project_type => Project::TYPES[:manual],
-          :valid_until => 1.month.from_now.to_date
+          :valid_until => 1.month.from_now.to_date,
+          :forms => [
+            Project::SOCIODEMOGRAPHIC_FORMS.first,
+            Project::SOCIODEMOGRAPHIC_FORMS.last
+          ]
         }
       }
     end
@@ -70,6 +74,7 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_redirected_to projects_path
     assert_not_nil assigns(:project)
     assert_equal 'New name', assigns(:project).name
+    assert_equal 2, assigns(:project).forms.size
   end
 
   test 'edit project' do
@@ -91,7 +96,11 @@ class ProjectsControllerTest < ActionController::TestCase
           :description => 'Updated description',
           :year => Date.today.year,
           :project_type => Project::TYPES[:manual],
-          :valid_until => 1.month.from_now.to_date
+          :valid_until => 1.month.from_now.to_date,
+          :forms => [
+            Project::SOCIODEMOGRAPHIC_FORMS.first,
+            Project::SOCIODEMOGRAPHIC_FORMS.last
+          ]
         }
       }
     end
@@ -99,6 +108,7 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_redirected_to projects_path
     assert_not_nil assigns(:project)
     assert_equal 'Updated name', assigns(:project).name
+    assert_equal 2, assigns(:project).forms.size
   end
 
   test 'destroy project' do

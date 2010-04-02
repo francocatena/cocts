@@ -1,4 +1,6 @@
 class Project < ActiveRecord::Base
+  serialize :forms, Array
+
   # Constantes
   TYPES = {
     :manual => 0,
@@ -24,11 +26,17 @@ class Project < ActiveRecord::Base
     :allow_blank => true
   validates_date :valid_until, :on_or_after => lambda { Date.today },
     :allow_nil => false, :allow_blank => false
+  validates_each :forms do |record, attr, value|
+    unless (value || []).all? { |value| SOCIODEMOGRAPHIC_FORMS.include?(value) }
+      record.errors.add attr, :inclusion
+    end
+  end
 
   def initialize(attributes = nil)
     super(attributes)
 
     self.project_type ||= TYPES[:interactive]
+    self.forms ||= SOCIODEMOGRAPHIC_FORMS
   end
 
   TYPES.each do |type, value|

@@ -6,6 +6,7 @@ class CreateProjects < ActiveRecord::Migration
       t.integer :year
       t.integer :project_type
       t.date :valid_until
+      t.text :forms
       t.integer :lock_version, :default => 0
 
       t.timestamps
