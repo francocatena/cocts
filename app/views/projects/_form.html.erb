@@ -38,8 +38,9 @@
             @project.forms.include?(sociodemographic_form),
             :id => "project_form_#{sociodemographic_form}" %>
           <%= label_tag "project_form_#{sociodemographic_form}_label",
-            t("projects.sociodemographic_forms.#{sociodemographic_form}.question"),
-            :for => "project_form_#{sociodemographic_form}" %>
+            t("projects.sociodemographic_forms.#{sociodemographic_form}.option"),
+            :for => "project_form_#{sociodemographic_form}",
+            :title => t("projects.sociodemographic_forms.#{sociodemographic_form}.question")%>
         </div>
       <% end -%>
     </div>

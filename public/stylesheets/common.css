@@ -22,6 +22,16 @@ a:hover {
     color: #ffffff;
 }
 
+a.important_action {
+    font-weight: bold;
+    color: #0000ff;
+}
+
+a.important_action:hover {
+    color: #ff0000;
+    background: transparent;
+}
+
 body {
     font-family: verdana, arial, helvetica, sans-serif;
     font-size: 12px;
@@ -96,10 +106,6 @@ div#menu_container div#user_info {
     position: absolute;
     right: 3em;
     top: .5em;
-}
-
-div#menu_container div#user_info a {
-
 }
 
 div#notice, div#alert {

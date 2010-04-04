@@ -5,7 +5,11 @@
 
 <% if @auth_user -%>
   <div id="user_info">
-    <span>|<%= link_to @auth_user.user, edit_personal_data_user_path(@auth_user), :id => :edit_personal_data %>|</span>
+    <strong>[<%= @auth_user.user %>]</strong>
+    <%= link_to t(:'users.edit_personal_data_link'),
+      edit_personal_data_user_path(@auth_user) %> |
+    <%= link_to t(:'users.edit_password_title'),
+      edit_password_user_path(@auth_user) %> |
     <%= link_to t(:'users.logout'), logout_user_path(@auth_user) %>
   </div>
 <% end -%>

@@ -31,5 +31,6 @@
 
 <div id="links">
   <%= pagination_links @projects %>
-  <%= link_to t(:'labels.new'), new_project_path %>
+  <%= link_to t(:'projects.new_link'), new_project_path,
+    :class => :important_action %>
 </div>

@@ -235,29 +235,39 @@ es:
     index_title: 'Listado de proyectos'
     show_title: 'Detalle del proyecto'
     new_title: 'Nuevo proyecto'
+    new_link: 'Crear un nuevo proyecto'
     edit_title: 'Modificar proyecto'
     correctly_created: 'Proyecto agregado correctamente.'
     correctly_updated: 'Proyecto actualizado correctamente.'
     stale_object_error: 'El proyecto no pudo ser actualizado, intente nuevamente.'
+    add: 'Crear proyecto'
     manual_type: 'Manual'
     interactive_type: 'Interactivo'
-    sociodemographic_label: 'Datos sociodemográficos'
+    sociodemographic_label: 'Datos sociodemográficos a incluir'
     sociodemographic_forms:
       country:
+        option: 'País de residencia'
         question: '¿En qué país vive?'
       age:
+        option: 'Edad'
         question: '¿Cuál es su edad en años?'
       genre:
+        option: 'Género'
         question: '¿Es hombre o mujer?'
       student:
+        option: '¿Es estudiante?'
         question: '¿Es estudiante?'
       teacher:
+        option: '¿Es profesor?'
         question: '¿Es profesor/a...?'
       teacher_level:
+        option: 'Nivel educativo del profesor'
         question: 'Si es profesor, en formación o en ejercicio, ¿de qué nivel educativo...?'
       degree:
+        option: 'Titulación de grado'
         question: '¿Cuál es su titulación o grado académico más alto?'
       profession:
+        option: 'Definición de especialidad'
         question: '¿Cómo definiría la especialidad principal de...'
 
   support:
@@ -285,12 +295,15 @@ es:
     login_title: 'Autenticación de usuarios'
     show_title: 'Detalle del usuario'
     new_title: 'Nuevo usuario'
+    new_link: 'Crear un nuevo usuario'
     edit_title: 'Modificar usuario'
     edit_password_title: 'Modificar contraseña'
     edit_personal_data_title: 'Modificar información personal'
+    edit_personal_data_link: 'Datos personales'
     correctly_created: 'Usuario agregado correctamente.'
     correctly_updated: 'Usuario actualizado correctamente.'
     stale_object_error: 'El usuario no pudo ser actualizado, intente nuevamente.'
+    add: 'Crear usuario'
     personal_data_correctly_updated: 'Datos personales actualizados correctamente.'
     password_correctly_updated: 'Contraseña actualizada correctamente.'
     password_stale_object_error: 'La contraseña no pudo ser actualizada, intente nuevamente.'
