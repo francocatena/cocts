@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100312033150) do
+ActiveRecord::Schema.define(:version => 20100405002633) do
 
   create_table "projects", :force => true do |t|
     t.string   "name"
@@ -22,6 +22,18 @@ ActiveRecord::Schema.define(:version => 20100312033150) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "questions", :force => true do |t|
+    t.integer  "dimension"
+    t.string   "code"
+    t.text     "question"
+    t.integer  "lock_version", :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "questions", ["code"], :name => "index_questions_on_code", :unique => true
+  add_index "questions", ["dimension"], :name => "index_questions_on_dimension"
 
   create_table "users", :force => true do |t|
     t.string   "user"

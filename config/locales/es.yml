@@ -1,7 +1,8 @@
 es:
   actioncontroller:
-    users: 'Usuarios'
     projects: 'Proyectos'
+    questions: 'Cuestiones'
+    users: 'Usuarios'
 
   activerecord:
     attribute_commons: &commons
@@ -45,11 +46,29 @@ es:
         on_or_after: "debe ser posterior o igual a {{restriction}}"
         between: "debe estar entre {{earliest}} y {{latest}}"
 
+      attributes:
+        question:
+          code:
+            invalid: 'debe contener solamente números'
+
     models:
-      user: 'Usuario'
       project: 'Proyecto'
+      question: 'Cuestión'
+      user: 'Usuario'
 
     attributes:
+      project:
+        name: 'Nombre'
+        description: 'Descripción'
+        year: 'Año'
+        valid_until: 'Vencimiento'
+        project_type: 'Tipo de carga'
+        <<: *commons
+      question:
+        code: 'Código'
+        dimension: 'Dimensión'
+        question: 'Cuestión'
+        <<: *commons
       user:
         user: 'Usuario'
         password: 'Contraseña'
@@ -58,13 +77,6 @@ es:
         lastname: 'Apellido'
         email: 'E-Mail'
         enable: 'Habilitado'
-        <<: *commons
-      project:
-        name: 'Nombre'
-        description: 'Descripción'
-        year: 'Año'
-        valid_until: 'Vencimiento'
-        project_type: 'Tipo de carga'
         <<: *commons
   
   app_title: 'COCTS'
@@ -160,6 +172,7 @@ es:
   
   menu:
     projects: 'Proyectos'
+    questions: 'Cuestiones'
     users: 'Usuarios'
 
   messages:
@@ -237,7 +250,7 @@ es:
     new_title: 'Nuevo proyecto'
     new_link: 'Crear un nuevo proyecto'
     edit_title: 'Modificar proyecto'
-    correctly_created: 'Proyecto agregado correctamente.'
+    correctly_created: 'Proyecto creado correctamente.'
     correctly_updated: 'Proyecto actualizado correctamente.'
     stale_object_error: 'El proyecto no pudo ser actualizado, intente nuevamente.'
     add: 'Crear proyecto'
@@ -270,6 +283,27 @@ es:
         option: 'Definición de especialidad'
         question: '¿Cómo definiría la especialidad principal de...'
 
+  questions:
+    index_title: 'Listado de cuestiones'
+    show_title: 'Detalles de la cuestión'
+    new_title: 'Nueva cuestión'
+    new_link: 'Crear una nueva cuestión'
+    edit_title: 'Modificar cuestión'
+    correctly_created: 'Cuestión creada correctamente.'
+    correctly_updated: 'Cuestión actualizada correctamente.'
+    stale_object_error: 'La cuestión no pudo ser actualizada, intente nuevamente.'
+    add: 'Crear cuestión'
+    dimensions:
+      '1': 'Definición de ciencia y tecnología'
+      '2': 'Influencia de la sociedad en la ciencia y la tecnología'
+      '3': 'Relaciones de la ciencia y la tecnología'
+      '4': 'Influencia de la ciencia y la tecnología en la sociedad.'
+      '5': 'Influencia de la ciencia enseñada en la sociedad'
+      '6': 'Características de los científicos'
+      '7': 'Construcción social del conocimiento científico'
+      '8': 'Construcción social de la tecnología'
+      '9': 'Naturaleza de la ciencia'
+
   support:
     select:
       # default value for :prompt => true in FormOptionsHelper
@@ -300,7 +334,7 @@ es:
     edit_password_title: 'Modificar contraseña'
     edit_personal_data_title: 'Modificar información personal'
     edit_personal_data_link: 'Datos personales'
-    correctly_created: 'Usuario agregado correctamente.'
+    correctly_created: 'Usuario creado correctamente.'
     correctly_updated: 'Usuario actualizado correctamente.'
     stale_object_error: 'El usuario no pudo ser actualizado, intente nuevamente.'
     add: 'Crear usuario'

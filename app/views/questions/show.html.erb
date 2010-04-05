@@ -1,0 +1,22 @@
+<div id="showed_data">
+  <p>
+    <b><%= Question.human_attribute_name :dimension %>:</b>
+    <%=h @question.dimension_text %>
+  </p>
+
+  <p>
+    <b><%= Question.human_attribute_name :code %>:</b>
+    <%=h @question.code %>
+  </p>
+
+  <p>
+    <b><%= Question.human_attribute_name :question %>:</b>
+    <%=h @question.question %>
+  </p>
+</div>
+
+<div id="links">
+  <%= link_to t(:'labels.edit'), edit_question_path(@question) %> |
+  <%= link_to t(:'labels.list'), questions_path %> |
+  <%= link_to_back %>
+</div>

@@ -1,0 +1,9 @@
+_10111:
+  dimension: <%= Question::DIMENSIONS.first %>
+  code: 10111
+  question: 'Definir qué es la ciencia es difícil porque ésta es algo complejo y engloba muchas cosas. Pero la ciencia PRINCIPALMENTE es:'
+
+_10113:
+  dimension: <%= Question::DIMENSIONS.first %>
+  code: 10113
+  question: 'El proceso de hacer ciencia se describe mejor como ...'

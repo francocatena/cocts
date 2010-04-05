@@ -19,7 +19,7 @@ class ProjectTest < ActiveSupport::TestCase
     assert_equal projects(:manual).valid_until, @project.valid_until
   end
 
-  # Prueba la creación de un usuario
+  # Prueba la creación de un proyecto
   test 'create' do
     assert_difference 'Project.count' do
       @project = Project.create(
@@ -32,7 +32,7 @@ class ProjectTest < ActiveSupport::TestCase
     end
   end
 
-  # Prueba de actualización de un usuario
+  # Prueba de actualización de un proyecto
   test 'update' do
     assert_no_difference 'Project.count' do
       assert @project.update_attributes(:name => 'Updated name'),
@@ -43,7 +43,7 @@ class ProjectTest < ActiveSupport::TestCase
     assert_equal 'Updated name', @project.name
   end
 
-  # Prueba de eliminación de usuarios
+  # Prueba de eliminación de proyectos
   test 'delete' do
     assert_difference('Project.count', -1) { @project.destroy }
   end

@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :questions
+
   map.resources :projects
 
   map.resources :users, :collection => {

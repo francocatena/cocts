@@ -1,0 +1,27 @@
+<!--[form:question]-->
+<% form_for @question do |f| -%>
+  <%= f.error_messages %>
+  <div class="one_column_form">
+    <div class="field">
+      <%= f.label :dimension %><br />
+      <%= f.select :dimension,
+        Question::DIMENSIONS.map { |d| ["#{d}. #{t("questions.dimensions.#{d}")}", d] },
+        {:prompt => true}, {:class => :focused} %>
+    </div>
+    <div class="field">
+      <%= f.label :code %><br />
+      <%= f.text_field :code %>
+    </div>
+    <div class="field">
+      <%= f.label :question %><br />
+      <%= f.text_area :question %>
+    </div>
+  </div>
+
+  <%= hidden_lock_version(f) %>
+  <div class="actions">
+    <span><%= f.submit submit_text %></span>
+  </div>
+<% end -%>
+<!--[eoform:question] -->
+<%= set_focus_to_first_element %>

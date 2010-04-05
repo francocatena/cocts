@@ -1,26 +1,26 @@
 <div id="showed_data">
   <p>
-    <b><%= Project.human_attribute_name 'name' %>:</b>
+    <b><%= Project.human_attribute_name :name %>:</b>
     <%=h @project.name %>
   </p>
 
   <p>
-    <b><%= Project.human_attribute_name 'description' %>:</b>
+    <b><%= Project.human_attribute_name :description %>:</b>
     <%=h @project.description %>
   </p>
 
   <p>
-    <b><%= Project.human_attribute_name 'year' %>:</b>
+    <b><%= Project.human_attribute_name :year %>:</b>
     <%=h @project.year %>
   </p>
 
   <p>
-    <b><%= Project.human_attribute_name 'project_type' %>:</b>
+    <b><%= Project.human_attribute_name :project_type %>:</b>
     <%=h @project.project_type_text %>
   </p>
 
   <p>
-    <b><%= Project.human_attribute_name 'valid_until' %>:</b>
+    <b><%= Project.human_attribute_name :valid_until %>:</b>
     <%=h l(@project.valid_until, :format => :long) if @project.valid_until %>
   </p>
 </div>
