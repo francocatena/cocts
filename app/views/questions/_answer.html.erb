@@ -1,0 +1,17 @@
+<div class="answer item">
+  <div class="item_field" style="width: 20%;">
+    <%= f.text_area :clarification, :style => 'height: 3em;' %>
+  </div>
+  <div class="item_field" style="width: 20%;">
+    <%= answer_category_field(f) %>
+  </div>
+  <div class="item_field" style="width: 50%;">
+    <%= f.text_area :answer, :style => 'height: 3em;' %>
+  </div>
+  <div class="item_field" style="width: 10%;">
+    <%= f.hidden_field :order, :class => :sort_number %>
+    <%= hidden_lock_version(f) %>
+    <%= remove_item_link(f) -%>
+  </div>
+</div>
+<script type="text/javascript">FormUtil.completeSortNumbers();</script>

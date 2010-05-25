@@ -43,7 +43,7 @@ div#app_content {
     width: 95%;
     margin: 1% auto;
     padding: 1em;
-    background-color: #f6f6f6;
+    background-color: #fcfcfc;
     border: 2px solid #dedede;
 }
 
@@ -163,6 +163,57 @@ div.form_container div.one_column_form {
     width: 50%;
 }
 
+div.item {
+    width: 100%;
+    float: left;
+    clear: both;
+    margin-bottom: .5em;
+}
+
+div.item_column {
+    float: left;
+    width: auto;
+    display: inline;
+}
+
+div.item_column > h3 {
+    font-size: 1em;
+    padding: 2px 4px;
+    color: #6e6e6e;
+}
+
+div.item_field {
+    white-space: nowrap;
+    float: left;
+    display: inline;
+    text-align: left;
+}
+
+div.item_field input[type="text"], div.item_field textarea {
+    width: 90%;
+}
+
+div.item_field input[type="text"].date {
+    width: 70%;
+}
+
+div.items {
+    width: 98%;
+    display: block;
+}
+
+div.items div, div.items h3 {
+    display: inline;
+}
+
+div.items div.column_headers {
+    display: block;
+    clear: both;
+    color: #151215;
+    border-bottom: 2px solid #dedede;
+    margin-bottom: .7em;
+}
+
 form.button-to input[type="submit"] {
     margin: 0px;
 }
@@ -176,6 +227,13 @@ input[type="text"], input[type="password"], select, textarea {
     font-size: inherit;
     font-family: inherit;
     padding: 1px;
+}
+
+input[type="text"].error_field,
+input[type="password"].error_field,
+textarea.error_field,
+select.error_field {
+    border: 2px solid #aa0000;
 }
 
 table {
@@ -208,6 +266,11 @@ tr.even {
 
 tr.odd {
     background: #ffffff;
+}
+
+.add_item {
+    clear: both;
+    margin: .5em 0em;
 }
 
 .calendar_date_select a {

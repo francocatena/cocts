@@ -208,8 +208,9 @@ class UsersControllerTest < ActionController::TestCase
       }
     }
 
-    assert_redirected_to edit_personal_data_user_path(user)
+    assert_response :success
     assert_not_nil assigns(:user)
+    assert_template 'users/edit_personal_data'
     assert_equal 'updated@email.com', user.reload.email
   end
 

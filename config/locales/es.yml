@@ -52,11 +52,18 @@ es:
             invalid: 'debe contener solamente números'
 
     models:
+      answer: 'Respuesta'
       project: 'Proyecto'
       question: 'Cuestión'
       user: 'Usuario'
 
     attributes:
+      answer:
+        category: 'Categoría'
+        order: 'Orden'
+        clarification: 'Aclaraciones previas'
+        answer: 'Respuesta'
+        <<: *commons
       project:
         name: 'Nombre'
         description: 'Descripción'
@@ -293,6 +300,16 @@ es:
     correctly_updated: 'Cuestión actualizada correctamente.'
     stale_object_error: 'La cuestión no pudo ser actualizada, intente nuevamente.'
     add: 'Crear cuestión'
+    add_answer: 'Agregar otra posible respuesta'
+    answers:
+      short_type:
+        adecuate: 'A'
+        plausible: 'P'
+        naive: 'I'
+      long_type:
+        adecuate: 'Adecuada'
+        plausible: 'Plausible'
+        naive: 'Ingenua'
     dimensions:
       '1': 'Definición de ciencia y tecnología'
       '2': 'Influencia de la sociedad en la ciencia y la tecnología'

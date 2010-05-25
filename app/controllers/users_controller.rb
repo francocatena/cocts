@@ -155,8 +155,10 @@ class UsersController < ApplicationController
         flash[:notice] = t :'users.password_correctly_updated'
         redirect_to login_users_url
       else
-        redirect_to edit_password_user_path(@auth_user)
+        render :action => :edit_password
       end
+    else
+      render :action => :edit_password
     end
 
     @auth_user.password, @auth_user.password_confirmation = nil, nil
@@ -187,7 +189,7 @@ class UsersController < ApplicationController
       flash[:notice] = t :'users.personal_data_correctly_updated'
     end
 
-    redirect_to edit_personal_data_user_path(@user)
+    render :action => :edit_personal_data
 
   rescue ActiveRecord::StaleObjectError
     flash[:notice] = t :'users.stale_object_error'

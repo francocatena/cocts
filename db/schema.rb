@@ -9,7 +9,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100405002633) do
+ActiveRecord::Schema.define(:version => 20100418223000) do
+
+  create_table "answers", :force => true do |t|
+    t.integer  "category"
+    t.integer  "order"
+    t.text     "clarification"
+    t.text     "answer"
+    t.integer  "question_id"
+    t.integer  "lock_version",  :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
 
   create_table "projects", :force => true do |t|
     t.string   "name"

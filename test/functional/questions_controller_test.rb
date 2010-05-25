@@ -2,7 +2,7 @@ require 'test_helper'
 
 # Pruebas para el controlador de cuestiones
 class QuestionsControllerTest < ActionController::TestCase
-  fixtures :questions
+  fixtures :questions, :answers
 
   # Inicializa de forma correcta todas las variables que se utilizan en las
   # pruebas
@@ -55,14 +55,22 @@ class QuestionsControllerTest < ActionController::TestCase
 
   test 'create question' do
     perform_auth
-    assert_difference 'Question.count' do
+    assert_difference ['Question.count', 'Answer.count'] do
       post :create, {
         :question => {
           :dimension => Question::DIMENSIONS.first,
           :code => '10211',
           :question => 'Definir qué es la tecnología puede resultar difícil ' +
             'porque ésta sirve para muchas cosas. Pero la tecnología ' +
-            'PRINCIPALMENTE es:'
+            'PRINCIPALMENTE es:',
+          :answers_attributes => {
+            :new_1 => {
+              :category => Answer::CATEGORIES[:plausible],
+              :order => 1,
+              :clarification => 'New clarification',
+              :answer => 'New answer'
+            }
+          }
         }
       }
     end
@@ -70,6 +78,7 @@ class QuestionsControllerTest < ActionController::TestCase
     assert_redirected_to questions_path
     assert_not_nil assigns(:question)
     assert_equal '10211', assigns(:question).code
+    assert_equal 'New answer', assigns(:question).answers.first.answer
   end
 
   test 'edit question' do
@@ -83,22 +92,48 @@ class QuestionsControllerTest < ActionController::TestCase
 
   test 'update question' do
     perform_auth
-    assert_no_difference 'Question.count' do
-      put :update, {
-        :id => questions(:_10111),
-        :question => {
-          :dimension => Question::DIMENSIONS.first,
-          :code => '10211',
-          :question => 'Definir qué es la tecnología puede resultar difícil ' +
-            'porque ésta sirve para muchas cosas. Pero la tecnología ' +
-            'PRINCIPALMENTE es:'
+    assert_no_difference'Question.count' do
+      assert_difference 'Answer.count' do
+        put :update, {
+          :id => questions(:_10111),
+          :question => {
+            :dimension => Question::DIMENSIONS.first,
+            :code => '10211',
+            :question => 'Definir qué es la tecnología puede resultar difícil ' +
+              'porque ésta sirve para muchas cosas. Pero la tecnología ' +
+              'PRINCIPALMENTE es:',
+            :answers_attributes => {
+              :new_1 => {
+                :category => Answer::CATEGORIES[:plausible],
+                :order => 1,
+                :clarification => 'New clarification',
+                :answer => 'New answer'
+              },
+              answers(:'10111_1').id => {
+                :id => answers(:'10111_1').id,
+                :category => Answer::CATEGORIES[:plausible],
+                :order => 2,
+                :clarification => 'Updated clarification 1',
+                :answer => 'Updated answer 1'
+              },
+              answers(:'10111_2').id => {
+                :id => answers(:'10111_2').id,
+                :category => Answer::CATEGORIES[:adecuate],
+                :order => 3,
+                :clarification => 'Updated clarification 2',
+                :answer => 'Updated answer 2'
+              }
+            }
+          }
         }
-      }
+      end
     end
 
     assert_redirected_to questions_path
     assert_not_nil assigns(:question)
     assert_equal '10211', assigns(:question).code
+    assert_equal 'Updated clarification 2',
+      Answer.find(answers(:'10111_2').id).clarification
   end
 
   test 'destroy question' do

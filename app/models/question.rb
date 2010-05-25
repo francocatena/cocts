@@ -13,6 +13,12 @@ class Question < ActiveRecord::Base
   validates_inclusion_of :dimension, :in => DIMENSIONS, :allow_blank => true,
     :allow_nil => true
 
+  # Relaciones
+  has_many :answers, :dependent => :destroy,
+    :order => "#{Answer.table_name}.order ASC"
+
+  accepts_nested_attributes_for :answers, :allow_destroy => true
+
   def dimension_text
     I18n.t("questions.dimensions.#{self.dimension}")
   end
