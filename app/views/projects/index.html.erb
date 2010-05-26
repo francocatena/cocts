@@ -14,16 +14,18 @@
 
   <tbody>
     <% @projects.each do |project| %>
-      <tr>
+      <tr class="<%= cycle(:even, :odd) %>">
         <td><%=h project.name %></td>
         <td><%=h truncate(project.description, :length => 25, :omission => '...') %></td>
         <td><%=h project.year %></td>
         <td><%=h project.project_type_text %></td>
         <td><%=h l(project.valid_until) if project.valid_until %></td>
-        <td><%= link_to t(:'labels.show'), project %></td>
-        <td><%= link_to t(:'labels.edit'), edit_project_path(project) %></td>
+        <td><%= link_to t(:'labels.show'), project, :class => :real %></td>
+        <td><%= link_to t(:'labels.edit'), edit_project_path(project),
+            :class => :real %></td>
         <td><%= button_to t(:'labels.delete'), project,
-            :confirm => t(:'messages.confirmation_question'), :method => :delete %></td>
+            :confirm => t(:'messages.confirmation_question'),
+            :method => :delete %></td>
       </tr>
     <% end %>
   </tbody>

@@ -16,8 +16,8 @@
       <td><%= h user.user %></td>
       <td><%= h user.to_s %></td>
       <td><%= t user.enable? ? :'labels.yes' : :'labels.no' %></td>
-      <td><%= link_to t(:'labels.show'), user %></td>
-      <td><%= link_to t(:'labels.edit'), edit_user_path(user) %></td>
+      <td><%= link_to t(:'labels.show'), user, :class => :real %></td>
+      <td><%= link_to t(:'labels.edit'), edit_user_path(user), :class => :real %></td>
       <td><%= button_to t(:'labels.delete'), user,
           :confirm => t(:'messages.confirmation_question'), :method => :delete %></td>
     </tr>

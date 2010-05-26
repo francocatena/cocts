@@ -102,6 +102,18 @@ var Helper = {
     },
 
     /**
+     * Convierte en "ordenable" (utilizando drag & drop) a un componente
+     */
+    makeSortable: function(elementId, elements, handles) {
+        Sortable.create(elementId, {
+            scroll: window,
+            elements: $$(elements),
+            handles: $$(handles),
+            onChange: function() { FormUtil.completeSortNumbers(); }
+        });
+    },
+
+    /**
      * Elimina el elemento indicado
      */
     removeItem: function(element, options) {

@@ -27,7 +27,7 @@
 
 
 <div id="links">
-  <%= link_to t(:'labels.edit'), edit_project_path(@project) %> |
-  <%= link_to t(:'labels.list'), projects_path %> |
+  <%= link_to t(:'labels.edit'), edit_project_path(@project), :class => :real %> |
+  <%= link_to t(:'labels.list'), projects_path, :class => :real %> |
   <%= link_to_back %>
 </div>

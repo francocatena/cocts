@@ -31,7 +31,7 @@ module ApplicationHelper
 
   # Devuelve el HTML de un vínculo para volver (history.back())
   def link_to_back
-    link_to_function t(:'labels.back'), 'history.back()'
+    link_to_function t(:'labels.back'), 'history.back()', :class => :real
   end
 
   # Devuelve HTML con un link para eliminar un componente de un formulario
@@ -43,9 +43,25 @@ module ApplicationHelper
 
     out << fields.hidden_field(:_destroy,
       :value => fields.object.marked_for_destruction? ? 1 : 0) unless new_record
-    out << link_to(t(:'labels.delete'),
+    out << link_to('X',
       "##{class_for_remove || fields.object.class.name.underscore}",
+      :title => t(:'labels.delete'),
       :class => (new_record ? :remove_item : :hide_item))
+  end
+
+  # Devuelve el HTML de un vínculo para mover un ítem.
+  #
+  # * <em>*args</em>:: Las mismas opciones que link_to sin la etiqueta
+  def link_to_move(*args)
+    options = {
+      :class => 'image_link move',
+      :onclick => 'return false;',
+      :title => t(:'labels.move')
+    }
+    options.merge!(args.pop) if args.last.kind_of?(Hash)
+
+    link_to(image_tag('move.gif', :size => '11x11', :alt => '[M]'), '#',
+      *(args << options))
   end
 
   # Devuelve el HTML (con el tag <script>) para establecer el foco en un

@@ -12,6 +12,10 @@
     <%= f.hidden_field :order, :class => :sort_number %>
     <%= hidden_lock_version(f) %>
     <%= remove_item_link(f) -%>
+    <%= link_to_move %>
   </div>
 </div>
-<script type="text/javascript">FormUtil.completeSortNumbers();</script>
+<script type="text/javascript">
+  Helper.makeSortable('answers', '#answers div.answer', '#answers a.move');
+  FormUtil.completeSortNumbers();
+</script>

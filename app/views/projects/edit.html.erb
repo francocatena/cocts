@@ -1,7 +1,7 @@
 <%= render_form t(:'labels.modify') %>
 
 <div id="links">
-  <%= link_to t(:'labels.show'), @project %> |
-  <%= link_to t(:'labels.list'), projects_path %> |
+  <%= link_to t(:'labels.show'), @project, :class => :real %> |
+  <%= link_to t(:'labels.list'), projects_path, :class => :real %> |
   <%= link_to_back %>
 </div>

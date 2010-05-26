@@ -12,13 +12,14 @@
 
   <tbody>
     <% @questions.each do |question| %>
-      <tr>
+      <tr class="<%= cycle(:even, :odd) %>">
         <td><%= content_tag :acronym, question.dimension,
             :title => question.dimension_text %></td>
         <td><%=h question.code %></td>
         <td><%=h truncate(question.question, :length => 30, :omission => '...') %></td>
-        <td><%= link_to t(:'labels.show'), question %></td>
-        <td><%= link_to t(:'labels.edit'), edit_question_path(question) %></td>
+        <td><%= link_to t(:'labels.show'), question, :class => :real %></td>
+        <td><%= link_to t(:'labels.edit'), edit_question_path(question),
+            :class => :real %></td>
         <td><%= button_to t(:'labels.delete'), question,
             :confirm => t(:'messages.confirmation_question'), :method => :delete %></td>
       </tr>

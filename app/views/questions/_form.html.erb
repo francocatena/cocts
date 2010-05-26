@@ -1,7 +1,7 @@
 <!--[form:question]-->
 <% form_for @question do |q_f| -%>
   <% content_for :js_extra do -%>
-    <%= "var answer='#{generate_template(q_f, :answers)}';".html_safe %>
+    <%= "var answer='#{generate_template(q_f, :answers)}';" %>
   <% end -%>
   <%= q_f.error_messages %>
   <div class="one_column_form">
@@ -37,6 +37,7 @@
     </div>
 
     <div id="answers">
+      <% @question.answers.build if @question.answers.empty? -%>
       <% q_f.fields_for :answers do |a_f| -%>
         <%= render :partial => 'answer', :locals => {:f => a_f} %>
       <% end -%>
@@ -45,7 +46,7 @@
 
   <p class="add_item">
     <%= link_to t(:'questions.add_answer'), '#answer',
-      :class => :add_nested_item, :rel => :answers %>
+      :class => 'add_nested_item important_action', :rel => :answers %>
   </p>
 
   <%= hidden_lock_version(q_f) %>

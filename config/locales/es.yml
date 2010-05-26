@@ -171,6 +171,7 @@ es:
     show: 'Ver'
     list: 'Listado'
     modify: 'Modificar'
+    move: 'Mover'
     new: 'Nuevo'
     next: 'Siguiente'
     previous: 'Anterior'

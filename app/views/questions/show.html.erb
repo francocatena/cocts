@@ -16,7 +16,8 @@
 </div>
 
 <div id="links">
-  <%= link_to t(:'labels.edit'), edit_question_path(@question) %> |
-  <%= link_to t(:'labels.list'), questions_path %> |
+  <%= link_to t(:'labels.edit'), edit_question_path(@question),
+    :class => :real %> |
+  <%= link_to t(:'labels.list'), questions_path, :class => :real %> |
   <%= link_to_back %>
 </div>
