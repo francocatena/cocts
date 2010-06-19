@@ -5,6 +5,11 @@
   </p>
 
   <p>
+    <b><%= Project.human_attribute_name :identifier %>:</b>
+    <%=h @project.identifier %>
+  </p>
+
+  <p>
     <b><%= Project.human_attribute_name :description %>:</b>
     <%=h @project.description %>
   </p>

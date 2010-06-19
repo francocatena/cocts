@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20100418223000) do
 
   create_table "projects", :force => true do |t|
     t.string   "name"
+    t.string   "identifier"
     t.text     "description"
     t.integer  "year"
     t.integer  "project_type"
@@ -35,6 +36,8 @@ ActiveRecord::Schema.define(:version => 20100418223000) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "projects", ["identifier"], :name => "index_projects_on_identifier", :unique => true
 
   create_table "questions", :force => true do |t|
     t.integer  "dimension"

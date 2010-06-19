@@ -4,7 +4,11 @@
   <div class="one_column_form">
     <div class="field">
       <%= f.label :name %>
-      <%= f.text_field :name %>
+      <%= f.text_field :name, :maxlength => 255 %>
+    </div>
+    <div class="field">
+      <%= f.label :identifier %>
+      <%= f.text_field :identifier, :maxlength => 255 %>
     </div>
     <div class="field">
       <%= f.label :description %>
@@ -25,7 +29,7 @@
     </div>
   </div>
 
-  <p>
+  <p style="margin: 1em 0em;">
     <%= link_to_function t(:'projects.sociodemographic_label'),
       "Effect.toggle('sociodemographic', 'slide')" %>
   </p>

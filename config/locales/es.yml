@@ -46,10 +46,15 @@ es:
         on_or_after: "debe ser posterior o igual a {{restriction}}"
         between: "debe estar entre {{earliest}} y {{latest}}"
 
-      attributes:
+      models:
+        project:
+          attributes:
+            identifier:
+              invalid: 'debe contener solamente letras, números y/o guiones medios (-)'
         question:
-          code:
-            invalid: 'debe contener solamente números'
+          attributes:
+            code:
+              invalid: 'debe contener solamente números'
 
     models:
       answer: 'Respuesta'
@@ -66,6 +71,7 @@ es:
         <<: *commons
       project:
         name: 'Nombre'
+        identifier: 'Identificador'
         description: 'Descripción'
         year: 'Año'
         valid_until: 'Vencimiento'

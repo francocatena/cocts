@@ -19,10 +19,13 @@ class Project < ActiveRecord::Base
   ]
 
   # Restricciones
-  validates_presence_of :name, :description
+  validates_format_of :identifier, :with => /\A[A-Za-z][A-Za-z0-9\-]*\z/,
+    :allow_nil => true, :allow_blank => true
+  validates_presence_of :name, :identifier, :description
+  validates_uniqueness_of :identifier, :allow_nil => true, :allow_blank => true
   validates_numericality_of :year, :only_integer => true, :allow_nil => true,
     :allow_blank => true, :greater_than => 1000, :less_than => 3000
-  validates_length_of :name, :maximum => 255, :allow_nil => true,
+  validates_length_of :name, :identifier, :maximum => 255, :allow_nil => true,
     :allow_blank => true
   validates_date :valid_until, :on_or_after => lambda { Date.today },
     :allow_nil => false, :allow_blank => false
@@ -37,6 +40,10 @@ class Project < ActiveRecord::Base
 
     self.project_type ||= TYPES[:interactive]
     self.forms ||= SOCIODEMOGRAPHIC_FORMS
+  end
+
+  def to_param
+    self.identifier
   end
 
   TYPES.each do |type, value|

@@ -2,7 +2,7 @@
   <thead>
     <tr>
       <th><%= Project.human_attribute_name :name %></th>
-      <th><%= Project.human_attribute_name :description %></th>
+      <th><%= Project.human_attribute_name :identifier %></th>
       <th><%= Project.human_attribute_name :year %></th>
       <th><%= Project.human_attribute_name :project_type %></th>
       <th><%= Project.human_attribute_name :valid_until %></th>
@@ -16,7 +16,7 @@
     <% @projects.each do |project| %>
       <tr class="<%= cycle(:even, :odd) %>">
         <td><%=h project.name %></td>
-        <td><%=h truncate(project.description, :length => 25, :omission => '...') %></td>
+        <td><%=h project.identifier %></td>
         <td><%=h project.year %></td>
         <td><%=h project.project_type_text %></td>
         <td><%=h l(project.valid_until) if project.valid_until %></td>

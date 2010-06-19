@@ -1,5 +1,6 @@
 manual:
   name: Manual Project
+  identifier: test-manual-project
   description: Description of the manual project
   year: 2010
   project_type: <%= Project::TYPES[:manual] %>
@@ -8,6 +9,7 @@ manual:
 
 interactive:
   name: Interactive project
+  identifier: test-interactive-project
   description: Description of the interactive project
   year: 2009
   project_type: <%= Project::TYPES[:interactive] %>

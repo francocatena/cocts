@@ -2,6 +2,7 @@ class CreateProjects < ActiveRecord::Migration
   def self.up
     create_table :projects do |t|
       t.string :name
+      t.string :identifier
       t.text :description
       t.integer :year
       t.integer :project_type
@@ -11,9 +12,13 @@ class CreateProjects < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :projects, :identifier, :unique => true
   end
 
   def self.down
+    remove_index :projects, :column => :identifier
+
     drop_table :projects
   end
 end
