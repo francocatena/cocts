@@ -51,6 +51,8 @@ es:
           attributes:
             identifier:
               invalid: 'debe contener solamente letras, números y/o guiones medios (-)'
+            questions:
+              blank: 'debe incluir al menos una'
         question:
           attributes:
             code:
@@ -76,6 +78,7 @@ es:
         year: 'Año'
         valid_until: 'Vencimiento'
         project_type: 'Tipo de carga'
+        questions: 'Cuestiones'
         <<: *commons
       question:
         code: 'Código'
@@ -191,6 +194,7 @@ es:
 
   messages:
     confirmation_question: '¿Está seguro?'
+    empty_result: 'Sin resultados. Modifique su búsqueda.'
     insufficient_privileges: 'No tiene permisos para realizar la operación'
     invalid_user_or_password: 'Usuario/contraseña inválido'
     loading: 'Cargando'
@@ -268,6 +272,7 @@ es:
     correctly_updated: 'Proyecto actualizado correctamente.'
     stale_object_error: 'El proyecto no pudo ser actualizado, intente nuevamente.'
     add: 'Crear proyecto'
+    add_question: 'Agregar otra cuestión'
     manual_type: 'Manual'
     interactive_type: 'Interactivo'
     sociodemographic_label: 'Datos sociodemográficos a incluir'

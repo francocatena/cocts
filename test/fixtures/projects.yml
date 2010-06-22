@@ -6,6 +6,7 @@ manual:
   project_type: <%= Project::TYPES[:manual] %>
   valid_until: <%= 1.month.from_now.to_date %>
   forms: <%= Project::SOCIODEMOGRAPHIC_FORMS.inspect %>
+  questions: _10111
 
 interactive:
   name: Interactive project
@@ -15,3 +16,4 @@ interactive:
   project_type: <%= Project::TYPES[:interactive] %>
   valid_until: <%= 3.days.from_now.to_date %>
   forms: <%= Project::SOCIODEMOGRAPHIC_FORMS.inspect %>
+  questions: _10111, _10113

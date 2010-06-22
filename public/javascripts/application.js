@@ -4,6 +4,21 @@ var State = {
     newIdCounter: 0
 }
 
+// Utilidades para asistir al autocompletado
+var AutoComplete = {
+    /**
+     * Escribe en el primer campo oculto del contenedor de la búsqueda (div.search)
+     * el ID del objeto seleccionado
+     */
+    itemSelected: function(text, li) {
+        var objectId = $(li).id.strip().match(/id_(\d+)$/)[1];
+
+        $(text).setValue($F(text).strip());
+        $(text).up('div.search').select('.autocomplete_id_item').invoke(
+            'setValue', objectId);
+    }
+}
+
 // Manejadores de eventos
 var EventHandler = {
     /**

@@ -29,7 +29,8 @@ class ProjectTest < ActiveSupport::TestCase
         :description => 'New description',
         :year => 2010,
         :project_type => Project::TYPES[:manual],
-        :valid_until => 20.days.from_now.to_date
+        :valid_until => 20.days.from_now.to_date,
+        :questions => [questions(:_10111)]
       )
     end
   end
@@ -56,8 +57,9 @@ class ProjectTest < ActiveSupport::TestCase
     @project.identifier = '   '
     @project.description = '   '
     @project.valid_until = nil
+    @project.questions = []
     assert @project.invalid?
-    assert_equal 4, @project.errors.count
+    assert_equal 5, @project.errors.count
     assert_equal error_message_from_model(@project, :name, :blank),
       @project.errors.on(:name)
     assert_equal error_message_from_model(@project, :identifier, :blank),
@@ -66,6 +68,8 @@ class ProjectTest < ActiveSupport::TestCase
       @project.errors.on(:description)
     assert_equal error_message_from_model(@project, :valid_until, :blank),
       @project.errors.on(:valid_until)
+    assert_equal error_message_from_model(@project, :questions, :blank),
+      @project.errors.on(:questions)
   end
 
   test 'validates unique attributes' do

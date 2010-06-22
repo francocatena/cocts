@@ -1,0 +1,34 @@
+<% id = "#{dynamic_object_id('question', f)}_#{question.new_record? ? 'NEW_RECORD' : question.id}" -%>
+<div class="question item" id="<%= id %>">
+  <div>
+    <div class="item_field" style="width: 50%;">
+      <% if question.new_record? -%>
+        <div class="search">
+          <%= hidden_field_tag 'project[question_ids][]', question.id,
+            :id => "hidden_question_#{id}", :class => :autocomplete_id_item %>
+          <%= text_field_with_auto_complete :project, :nested_question,
+            {:id => "project_question_#{id}", :class => :search,
+            :title => t(:'label.search'), :value => question.code},
+            {:indicator => :loading, :skip_style => true,
+            :url => {:action => :auto_complete_for_question},
+            :after_update_element => 'AutoComplete.itemSelected',
+            :param_name => 'question_data',
+            :parameters => ("project_id=#{@project.id}" unless @project.new_record?)} %>
+        </div>
+      <% else -%>
+        <%= hidden_field_tag 'project[question_ids][]', question.id,
+          :id => "hidden_question_#{id}" %>
+        <%= text_field_tag "project_question_#{id}", question.code,
+          :readonly => true %>
+      <% end -%>
+    </div>
+    <div class="item_field item_controls" style="width: 5%;">
+      <%= remove_list_item_link(nil, 'question') -%>
+    </div>
+  </div>
+</div>
+<% if question.new_record? -%>
+  <script type="text/javascript">
+    Form.Element.focus('<%= "project_question_#{id}" %>');
+  </script>
+<% end -%>

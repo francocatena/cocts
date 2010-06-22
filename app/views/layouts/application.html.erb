@@ -15,6 +15,9 @@
     <% end -%>
   </head>
   <body>
+    <div id="loading" style="display: none;">
+      <%= image_tag 'loading.gif', :size => '43x11', :alt => t(:'messages.loading') %>
+    </div>
     <div id="menu_container">
       <%= render :partial => 'shared/menu' %>
     </div>

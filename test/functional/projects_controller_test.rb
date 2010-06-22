@@ -2,7 +2,7 @@ require 'test_helper'
 
 # Pruebas para el controlador de proyectos
 class ProjectsControllerTest < ActionController::TestCase
-  fixtures :projects
+  fixtures :projects, :questions
 
   # Prueba que sin realizar autenticación esten accesibles las partes publicas
   # y no accesibles las privadas
@@ -63,7 +63,8 @@ class ProjectsControllerTest < ActionController::TestCase
           :forms => [
             Project::SOCIODEMOGRAPHIC_FORMS.first,
             Project::SOCIODEMOGRAPHIC_FORMS.last
-          ]
+          ],
+          :question_ids => [questions(:_10111).id]
         }
       }
     end
@@ -85,22 +86,28 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test 'update project' do
     perform_auth
+
+    project = Project.find projects(:manual).id
+
     assert_no_difference 'Project.count' do
-      put :update, {
-        :id => projects(:manual).to_param,
-        :project => {
-          :name => 'Updated name',
-          :identifier => 'updated-identifier',
-          :description => 'Updated description',
-          :year => Date.today.year,
-          :project_type => Project::TYPES[:manual],
-          :valid_until => 1.month.from_now.to_date,
-          :forms => [
-            Project::SOCIODEMOGRAPHIC_FORMS.first,
-            Project::SOCIODEMOGRAPHIC_FORMS.last
-          ]
+      assert_difference 'project.reload.questions.size' do
+        put :update, {
+          :id => project.to_param,
+          :project => {
+            :name => 'Updated name',
+            :identifier => 'updated-identifier',
+            :description => 'Updated description',
+            :year => Date.today.year,
+            :project_type => Project::TYPES[:manual],
+            :valid_until => 1.month.from_now.to_date,
+            :forms => [
+              Project::SOCIODEMOGRAPHIC_FORMS.first,
+              Project::SOCIODEMOGRAPHIC_FORMS.last
+            ],
+            :question_ids => [questions(:_10111).id, questions(:_10113).id]
+          }
         }
-      }
+      end
     end
 
     assert_redirected_to projects_path
@@ -116,5 +123,29 @@ class ProjectsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to projects_path
+  end
+
+  test 'auto complete for question' do
+    perform_auth
+    post :auto_complete_for_question, { :question_data => '10111' }
+    assert_response :success
+    assert_not_nil assigns(:questions)
+    assert_equal 1, assigns(:questions).size # 10111
+    assert_select '#error_body', false
+    assert_template 'projects/auto_complete_for_question'
+
+    post :auto_complete_for_question, { :question_data => 'ciencia' }
+    assert_response :success
+    assert_not_nil assigns(:questions)
+    assert_equal 2, assigns(:questions).size # Blank and Expired blank
+    assert_select '#error_body', false
+    assert_template 'projects/auto_complete_for_question'
+
+    post :auto_complete_for_question, { :question_data => 'xyz' }
+    assert_response :success
+    assert_not_nil assigns(:questions)
+    assert_equal 0, assigns(:questions).size # None
+    assert_select '#error_body', false
+    assert_template 'projects/auto_complete_for_question'
   end
 end

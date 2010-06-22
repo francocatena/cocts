@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100418223000) do
+ActiveRecord::Schema.define(:version => 20100619232652) do
 
   create_table "answers", :force => true do |t|
     t.integer  "category"
@@ -38,6 +38,13 @@ ActiveRecord::Schema.define(:version => 20100418223000) do
   end
 
   add_index "projects", ["identifier"], :name => "index_projects_on_identifier", :unique => true
+
+  create_table "projects_questions", :id => false, :force => true do |t|
+    t.integer "project_id"
+    t.integer "question_id"
+  end
+
+  add_index "projects_questions", ["project_id", "question_id"], :name => "index_projects_questions_on_project_id_and_question_id"
 
   create_table "questions", :force => true do |t|
     t.integer  "dimension"

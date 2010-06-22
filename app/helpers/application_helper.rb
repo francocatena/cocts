@@ -49,6 +49,15 @@ module ApplicationHelper
       :class => (new_record ? :remove_item : :hide_item))
   end
 
+   # Devuelve HTML con un link para eliminar un componente de una lista de un
+  #  formulario
+  #
+  # * _fields_:: El objeto form para el que se va a generar el link
+  def remove_list_item_link(fields, remove_class = nil)
+    link_to('X', "##{remove_class || fields.object.class.name.underscore}",
+      :class => :remove_item, :title => t(:'label.delete'))
+  end
+
   # Devuelve el HTML de un vínculo para mover un ítem.
   #
   # * <em>*args</em>:: Las mismas opciones que link_to sin la etiqueta
@@ -85,6 +94,12 @@ module ApplicationHelper
   def hidden_lock_version(form)
     content_tag :div, form.hidden_field(:lock_version),
       :style => 'display: none;'
+  end
+
+  # Devuelve una etiqueta con el mismo nombre que el del objeto para que sea
+  # reemplazado con un ID único por la rutina que reemplaza todo en el navegador
+  def dynamic_object_id(prefix, form_builder)
+    "#{prefix}_#{form_builder.object_name.to_s.gsub(/[_\]\[]+/, '_')}"
   end
   
   # Devuelve el HTML necesario para insertar un nuevo ítem en un nested form

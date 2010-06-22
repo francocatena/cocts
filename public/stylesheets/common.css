@@ -108,6 +108,12 @@ div#links {
     margin: 1%;
 }
 
+div#loading {
+    position: fixed;
+    top: 2.5em;
+    right: 1em;
+}
+
 div#login {
     margin: 10em auto 0em auto;
     width: 20em;
@@ -178,8 +184,57 @@ div#showed_data {
     margin: 1%;
 }
 
+div.auto_complete {
+    width: 100%;
+    background: #ffffff;
+    z-index: 1;
+}
+
+div.auto_complete ul {
+    border: 2px dotted #2c3234;
+    margin: 0em;
+    padding: 0em;
+    width: 99%;
+    list-style-type: none;
+}
+
+div.auto_complete ul li {
+    margin: 0em;
+    padding: .3em;
+    white-space: normal;
+}
+
+div.auto_complete ul li.selected {
+    color: #666666;
+    background-color: #f2f2f2;
+}
+
+div.auto_complete ul strong.highlight {
+    font-weight: bold;
+    vertical-align: text-top;
+}
+
+div.auto_complete span.aditional_info {
+    display: block;
+    color: #999999;
+    font-size: .8em;
+}
+
+div.auto_complete span.informal {
+    vertical-align: text-top;
+}
+
+div.auto_complete p.empty_result {
+    background-color: #f2f2f2;
+    color: #aa0000;
+    border: 2px dotted #2c3234;
+    font-weight: bold;
+    text-align: center;
+    padding: .3em;
+}
+
 div.field label {
-    display: inline-block;
+    display: block;
     margin-bottom: .2em;
     font-weight: bold;
     color: #6e6e6e;
@@ -246,6 +301,15 @@ div.items div.column_headers {
     color: #151215;
     border-bottom: 2px solid #dedede;
     margin-bottom: .7em;
+}
+
+div.search {
+    padding-right: 16px;
+}
+
+div.search input.search {
+    background: transparent url(../images/search.gif) no-repeat scroll 3px;
+    padding-left: 16px;
 }
 
 form.button-to input[type="submit"] {

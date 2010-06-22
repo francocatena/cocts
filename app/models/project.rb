@@ -1,6 +1,8 @@
 class Project < ActiveRecord::Base
   serialize :forms, Array
 
+  attr_accessor :nested_question
+
   # Constantes
   TYPES = {
     :manual => 0,
@@ -34,6 +36,14 @@ class Project < ActiveRecord::Base
       record.errors.add attr, :inclusion
     end
   end
+  validates_each :questions do |record, attr, value|
+    if value.reject(&:marked_for_destruction?).empty?
+      record.errors.add attr, :blank
+    end
+  end
+
+  has_and_belongs_to_many :questions, :validate => false, :order => 'code ASC',
+    :uniq => true
 
   def initialize(attributes = nil)
     super(attributes)

@@ -1,5 +1,9 @@
 <!--[form:project]-->
 <% form_for @project do |f| -%>
+  <% content_for :js_extra do -%>
+    <%= "var question='#{escape_javascript(render(:partial => 'question',
+        :object => Question.new, :locals => {:f => f}))}';" %>
+  <% end -%>
   <%= f.error_messages %>
   <div class="one_column_form">
     <div class="field">
@@ -49,6 +53,27 @@
       <% end -%>
     </div>
   </div>
+
+  <div class="items">
+    <div class="column_headers">
+      <div class="item_column" style="width: 20%;">
+        <h3><%= Question.human_attribute_name :question %></h3>
+      </div>
+      <div class="item_column" style="width: 10%;"></div>
+      <div style="clear: both;">&nbsp;</div>
+    </div>
+
+    <div id="questions">
+      <% @project.questions.build if @project.questions.empty? -%>
+      <%= render :partial => 'question', :collection => @project.questions,
+        :locals => {:f => f} %>
+    </div>
+  </div>
+
+  <p class="add_item">
+    <%= link_to t(:'projects.add_question'), '#question',
+      :class => 'add_nested_item important_action', :rel => :questions %>
+  </p>
 
   <%= hidden_lock_version(f) %>
   <div class="actions">

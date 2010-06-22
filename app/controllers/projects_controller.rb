@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_filter :auth
+  layout proc { |controller| controller.request.xhr? ? false : 'application' }
 
   # * GET /projects
   # * GET /projects.xml
@@ -70,6 +71,7 @@ class ProjectsController < ApplicationController
   def update
     @title = t :'projects.edit_title'
     @project = Project.find_by_identifier(params[:id])
+    params[:project][:question_ids] ||= []
 
     respond_to do |format|
       if @project.update_attributes(params[:project])
@@ -97,5 +99,28 @@ class ProjectsController < ApplicationController
       format.html { redirect_to(projects_url) }
       format.xml  { head :ok }
     end
+  end
+
+  # POST /projects/auto_complete_for_question
+  def auto_complete_for_question
+    @tokens = params[:question_data][0..100].split(/[\s,]/).uniq
+    @tokens.reject! {|t| t.blank?}
+    conditions = []
+    parameters = {}
+    @tokens.each_with_index do |t, i|
+      conditions << [
+        "LOWER(#{Question.table_name}.code) LIKE :question_data_#{i}",
+        "LOWER(#{Question.table_name}.question) LIKE :question_data_#{i}"
+      ].join(' OR ')
+
+      parameters["question_data_#{i}".to_sym] = "%#{t.downcase}%"
+    end
+    find_options = {
+      :conditions => [conditions.map {|c| "(#{c})"}.join(' AND '), parameters],
+      :order => "#{Question.table_name}.code ASC",
+      :limit => 10
+    }
+
+    @questions = Question.all(find_options)
   end
 end

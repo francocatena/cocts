@@ -1,7 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :questions
 
-  map.resources :projects
+  map.resources :projects, :collection => {
+    :auto_complete_for_question => :post
+  }
 
   map.resources :users, :collection => {
     :login => :get,
