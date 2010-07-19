@@ -12,9 +12,9 @@ set :scm, :git
 set :branch, 'master'
 set :scm_passphrase, "!QAZxsw2"
 
-role :web, 'fcatena.com.ar' # Your HTTP server, Apache/etc
-role :app, 'fcatena.com.ar' # This may be the same as your `Web` server
-role :db,  'fcatena.com.ar', :primary => true # This is where Rails migrations will run
+role :web, 'mawida.com.ar' # Your HTTP server, Apache/etc
+role :app, 'mawida.com.ar' # This may be the same as your `Web` server
+role :db,  'mawida.com.ar', :primary => true # This is where Rails migrations will run
 
 # If you are using Passenger mod_rails uncomment this:
 # if you're still using the script/reapear helper you will need
