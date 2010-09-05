@@ -10,14 +10,14 @@ class Project < ActiveRecord::Base
   }
 
   SOCIODEMOGRAPHIC_FORMS = [
-    'country',
     'age',
+    'country',
+    'degree',
     'genre',
+    'profession',
     'student',
     'teacher',
-    'teacher_level',
-    'degree',
-    'profession'
+    'teacher_level'
   ]
 
   # Restricciones

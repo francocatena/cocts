@@ -1,3 +1,4 @@
+<% i18n_scope = [:projects, :questionnaire] -%>
 <div id="showed_data">
   <p>
     <b><%= Project.human_attribute_name :name %>:</b>
@@ -28,6 +29,54 @@
     <b><%= Project.human_attribute_name :valid_until %>:</b>
     <%=h l(@project.valid_until, :format => :long) if @project.valid_until %>
   </p>
+  
+  <h1 style="margin-top: 1em;"><%= t(:presentation, :scope => i18n_scope) %></h1>
+  <p><%= t(:presentation_text, :scope => i18n_scope) %></p>
+  <% i18n_scope << :scale_table -%>
+  <table class="grid">
+    <thead>
+      <tr>
+        <th colspan="4"><%= t(:disagreement_title, :scope => i18n_scope) %></th>
+        <th><%= t(:undecided_title, :scope => i18n_scope) %></th>
+        <th colspan="4"><%= t(:in_agreement_title, :scope => i18n_scope) %></th>
+        <th colspan="2"><%= t(:others_title, :scope => i18n_scope) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% i18n_scope << :disagreement -%>
+        <% [:'1', :'2', :'3', :'4'].each do |opt| -%>
+          <td><%= t(opt, :scope => i18n_scope) %></td>
+        <% end -%>
+        <% i18n_scope[-1] = :undecided -%>
+        <% [:'5'].each do |opt| -%>
+          <td><%= t(opt, :scope => i18n_scope) %></td>
+        <% end -%>
+        <% i18n_scope[-1] = :in_agreement -%>
+        <% [:'6', :'7', :'8', :'9'].each do |opt| -%>
+          <td><%= t(opt, :scope => i18n_scope) %></td>
+        <% end -%>
+        <% i18n_scope[-1] = :others -%>
+        <% [:'E', :'S'].each do |opt| -%>
+          <td><%= t(opt, :scope => i18n_scope) %></td>
+        <% end -%>
+      </tr>
+      <tr>
+        <% ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'E', 'S'].each do |opt| -%>
+          <td><%= opt %></td>
+        <% end -%>
+      </tr>
+    </tbody>
+  </table>
+  <% i18n_scope.slice!(-2, 2) -%>
+  <%= textilize t(:scale_clarification, :scope => i18n_scope) %>
+  <%= render 'answer_example' %>
+
+  <% unless @project.forms.empty? -%>
+    <% @project.forms.each do |form| -%>
+      <div class="project_form_part"><%= render form %></div>
+    <% end -%>
+  <% end -%>
 </div>
 
 
