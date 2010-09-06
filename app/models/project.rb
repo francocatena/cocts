@@ -10,14 +10,14 @@ class Project < ActiveRecord::Base
   }
 
   SOCIODEMOGRAPHIC_FORMS = [
-    'age',
     'country',
-    'degree',
+    'age',
     'genre',
-    'profession',
     'student',
     'teacher',
-    'teacher_level'
+    'teacher_level',
+    'degree',
+    'profession'
   ]
 
   # Restricciones
@@ -64,5 +64,9 @@ class Project < ActiveRecord::Base
 
   def project_type_text
     I18n.t "projects.#{TYPES.invert[self.project_type]}_type"
+  end
+
+  def to_pdf
+    
   end
 end

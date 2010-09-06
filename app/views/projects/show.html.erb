@@ -72,6 +72,11 @@
   <%= textilize t(:scale_clarification, :scope => i18n_scope) %>
   <%= render 'answer_example' %>
 
+  <h2 style="margin: 1em 0em; font-weight: normal;">
+    <%= textilize_without_paragraph t(:sociodemographic_forms_title,
+      :scope => i18n_scope) %>
+  </h2>
+
   <% unless @project.forms.empty? -%>
     <% @project.forms.each do |form| -%>
       <div class="project_form_part"><%= render form %></div>

@@ -275,6 +275,10 @@ div.box {
     margin: 1em 0em;
 }
 
+div.field {
+    margin-bottom: .5em;
+}
+
 div.field label {
     display: block;
     margin-bottom: .2em;
@@ -282,8 +286,8 @@ div.field label {
     color: #6e6e6e;
 }
 
-div.field {
-    margin-bottom: .5em;
+div.field label.inline {
+    display: inline;
 }
 
 div.form_container {
