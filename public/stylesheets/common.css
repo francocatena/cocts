@@ -108,6 +108,42 @@ div#links {
     margin: 1%;
 }
 
+div#links div.pagination {
+    float: right;
+    margin: .5em .5em .5em 0em;
+}
+
+div#links div.pagination a {
+    color: #2c2c2c;
+    padding: 1px 2px;
+    text-decoration: none;
+    border: 2px solid #dedede;
+}
+
+div#links div.pagination a, div#links div.pagination span {
+    margin: 0em .1em;
+}
+
+div#links div.pagination a:hover {
+    color: #ffffff;
+    background: #0000ff;
+    border: 2px solid #0000ff;
+}
+
+div#links div.pagination span.current {
+    border: 2px solid #dedede;
+    background: #dedede;
+    color: #0000ff;
+    font-weight: bold;
+    padding: 1px 2px;
+}
+
+div#links div.pagination span.disabled {
+    border: 2px solid #dedede;
+    color: #cecece;
+    padding: 1px 2px;
+}
+
 div#loading {
     position: fixed;
     top: 2.5em;
@@ -233,6 +269,12 @@ div.auto_complete p.empty_result {
     padding: .3em;
 }
 
+div.box {
+    border: 2px solid #2c3234;
+    padding: .5em;
+    margin: 1em 0em;
+}
+
 div.field label {
     display: block;
     margin-bottom: .2em;
@@ -303,6 +345,15 @@ div.items div.column_headers {
     margin-bottom: .7em;
 }
 
+div.project_form_part {
+    display: block;
+    margin-bottom: 1em;
+}
+
+div.project_form_part input {
+    width: 15em;
+}
+
 div.search {
     padding-right: 16px;
 }
@@ -314,6 +365,12 @@ div.search input.search {
 
 form.button-to input[type="submit"] {
     margin: 0px;
+}
+
+h4.question {
+    font-style: italic;
+    font-weight: bold;
+    margin-top: 1em;
 }
 
 input[type="submit"] {
@@ -343,6 +400,15 @@ table {
     background-color: #ffffff;
 }
 
+table.full_width {
+    width: 100%;
+    margin: 0%;
+}
+
+table.grid td, table.grid th {
+    border: 2px solid #dedede;
+}
+
 td {
     padding: .3em .5em;
 }
@@ -366,6 +432,27 @@ tr.odd {
     background: #ffffff;
 }
 
+ul.raw_list {
+    list-style: square;
+    margin: 1em 0em 1em 3em;
+}
+
+ul.answers {
+    list-style: none;
+    margin-left: 1em;
+}
+
+ul.answers em {
+    text-decoration: underline;
+    font-style: normal;
+    background: #dedede;
+}
+
+ul.horizontal_list > li {
+    display: inline;
+    margin-right: 1em;
+}
+
 .add_item {
     clear: both;
     margin: .5em 0em;
@@ -379,4 +466,14 @@ tr.odd {
     width: 100%;
     border: none;
     empty-cells: hide;
+}
+
+.subscript {
+    font-size: xx-small;
+    vertical-align: bottom;
+}
+
+.superscript {
+    font-size: xx-small;
+    vertical-align:top;
 }

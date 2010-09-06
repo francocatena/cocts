@@ -1,0 +1,16 @@
+<% i18n_scope = [:projects, :questionnaire, :country, :options] -%>
+<strong>
+  <%= t(:question, :scope => [:projects, :sociodemographic_forms, :country]) %>
+</strong>
+<ul class="horizontal_list">
+  <% COUNTRIES.each_with_index do |country, i| -%>
+    <% country_id = "country_#{country}" -%>
+    <li>
+      <label for="<%= country_id %>">
+        <%= t(country, :scope => i18n_scope) %>
+        <span class="subscript"><%= i %></span>
+      </label>
+      <%= radio_button_tag 'country', country, false, :id => country_id %>
+    </li>
+  <% end -%>
+</ul>
