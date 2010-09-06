@@ -33,7 +33,7 @@
   <h1 style="margin-top: 1em;"><%= t(:presentation, :scope => i18n_scope) %></h1>
   <p><%= t(:presentation_text, :scope => i18n_scope) %></p>
   <% i18n_scope << :scale_table -%>
-  <table class="grid">
+  <table class="grid full_width" style="margin: 1em 0em;">
     <thead>
       <tr>
         <th colspan="4"><%= t(:disagreement_title, :scope => i18n_scope) %></th>
@@ -77,8 +77,18 @@
       <div class="project_form_part"><%= render form %></div>
     <% end -%>
   <% end -%>
-</div>
 
+  <% unless @project.questions.empty? -%>
+    <div class="questions">
+      <h2><%= Project.human_attribute_name :questions %></h2>
+      <ul class="raw_list">
+        <% @project.questions.each do |question| -%>
+          <li><strong><%= question.code %></strong> - <%= question.question %></li>
+        <% end -%>
+      </ul>
+    </div>
+  <% end -%>
+</div>
 
 <div id="links">
   <%= link_to t(:'labels.edit'), edit_project_path(@project), :class => :real %> |

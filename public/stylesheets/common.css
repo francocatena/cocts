@@ -367,6 +367,12 @@ form.button-to input[type="submit"] {
     margin: 0px;
 }
 
+h4.question {
+    font-style: italic;
+    font-weight: bold;
+    margin-top: 1em;
+}
+
 input[type="submit"] {
     margin: .5em 0em;
 }
@@ -424,6 +430,11 @@ tr.even {
 
 tr.odd {
     background: #ffffff;
+}
+
+ul.raw_list {
+    list-style: square;
+    margin: 1em 0em 1em 3em;
 }
 
 ul.answers {
