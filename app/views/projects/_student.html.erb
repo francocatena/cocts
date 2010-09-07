@@ -3,7 +3,7 @@
   <%= t(:question, :scope => [:projects, :sociodemographic_forms, :student]) %>
 </strong>
 <ul class="horizontal_list">
-  <% STUDENT_STATUS.each_with_index do |student_status, i| -%>
+  <% STUDENT_STATUSES.each_with_index do |student_status, i| -%>
     <% student_status_id = "#{student_status}_student_status" -%>
     <li>
       <label for="<%= student_status_id %>">

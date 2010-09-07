@@ -12,8 +12,8 @@ es:
     errors:
       template:
         header:
-          one:   'No se pudo guardar porque se encontró 1 error'
-          other:  'No se pudo guardar porque se encontraron %{count} errores'
+          one: 'No se pudo guardar porque se encontró 1 error'
+          other: 'No se pudo guardar porque se encontraron %{count} errores'
         # The variable :count is also available
         body: 'Se encontraron problemas con los siguientes campos:'
 
@@ -176,6 +176,7 @@ es:
     change: 'Cambiar'
     close: 'Cerrar'
     delete: 'Eliminar'
+    download: 'Descargar'
     edit: 'Editar'
     show: 'Ver'
     list: 'Listado'
@@ -276,11 +277,13 @@ es:
     interactive_type: 'Interactivo'
     manual_type: 'Manual'
     sociodemographic_label: 'Datos sociodemográficos a incluir'
+    pdf_name: 'cuestionario_%{identifier}.pdf'
     questionnaire:
       presentation: 'PRESENTACIÓN'
       presentation_text: "Este cuestionario anónimo pretende conocer sus opiniones acerca de algunas cuestiones importantes sobre la ciencia y la tecnología en el mundo actual. Todas las cuestiones tienen la misma estructura: un texto inicial que plantea un problema y va seguido de una lista de frases que representan diferentes alternativas de posibles respuestas al problema planteado, y que están ordenadas y etiquetadas sucesivamente con una letra (A, B, C, D, etc.).\nSe pide que valore su grado de acuerdo personal con cada una de estas frases escribiendo sobre el cuadrito a la izquierda de la frase el número que representa su opinión, expresado en una escala de 1 a 9 con los siguientes significados:"
       scale_clarification: "En caso que no pueda manifestar su opinión en alguna frase escriba la razón:\n\tE. No la entiendo.\n\tS. No sé lo suficiente para valorarla"
       sociodemographic_forms_title: '*DATOS SOCIODEMOGRÁFICOS* (escriba o marque una cruz en las casillas siguientes).'
+      questions_warning: "Lea con atención cada cuestión y las diferentes frases alternativas.\nValore con sinceridad cada frase en su casilla correspondiente."
       scale_table:
         disagreement_title: 'DESACUERDO'
         undecided_title: 'INDECISO'
@@ -292,7 +295,7 @@ es:
           '3': 'Medio'
           '4': 'Bajo'
         undecided:
-          '5': ''
+          '5': ' '
         in_agreement:
           '6': 'Bajo'
           '7': 'Medio'

@@ -27,6 +27,10 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @project }
+      format.pdf  {
+        @project.to_pdf
+        redirect_to "/#{@project.pdf_relative_path}"
+      }
     end
   end
 

@@ -40,6 +40,14 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_template 'projects/show'
   end
 
+  test 'show project in pdf' do
+    perform_auth
+    get :show, :id => projects(:manual).to_param, :format => 'pdf'
+    assert_redirected_to "/#{Project.find(projects(:manual).id).pdf_relative_path}"
+    assert_not_nil assigns(:project)
+    assert_select '#error_body', false
+  end
+
   test 'new project' do
     perform_auth
     get :new

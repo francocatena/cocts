@@ -110,4 +110,18 @@ class ProjectTest < ActiveSupport::TestCase
     assert_equal error_message_from_model(@project, :forms, :inclusion),
       @project.errors.on(:forms)
   end
+
+  test 'conversion tu pdf' do
+    FileUtils.rm @project.pdf_full_path if File.exists?(@project.pdf_full_path)
+
+    assert !File.exists?(@project.pdf_full_path)
+
+    assert_nothing_raised(Exception) do
+      @project.to_pdf
+    end
+
+    assert File.exists?(@project.pdf_full_path)
+
+    FileUtils.rm @project.pdf_full_path
+  end
 end

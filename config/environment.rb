@@ -24,6 +24,8 @@ Rails::Initializer.run do |config|
   config.gem 'validates_timeliness'
   config.gem 'will_paginate'
   config.gem 'RedCloth'
+  config.gem 'prawn'
+  config.gem 'prawn-flexible-table', :lib => 'prawn/flexible-table'
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
