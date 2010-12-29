@@ -45,8 +45,9 @@
   </div>
 
   <p class="add_item">
-    <%= link_to t(:'questions.add_answer'), '#answer',
-      :class => 'add_nested_item important_action', :rel => :answers %>
+    <%= link_to t(:'questions.add_answer'), '#', :'data-template' => :answer,
+      :'data-event' => :add_nested_item, :'data-container' => :answers,
+      :class => :important_action %>
   </p>
 
   <%= hidden_lock_version(q_f) %>

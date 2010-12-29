@@ -39,13 +39,11 @@ module ApplicationHelper
   def remove_item_link(fields = nil, class_for_remove = nil)
     new_record = fields.nil? || fields.object.new_record?
     out = String.new.html_safe
-
-    out << fields.hidden_field(:_destroy,
+    out << fields.hidden_field(:_destroy, :class => :destroy,
       :value => fields.object.marked_for_destruction? ? 1 : 0) unless new_record
-    out << link_to('X',
-      "##{class_for_remove || fields.object.class.name.underscore}",
-      :title => t(:'labels.delete'),
-      :class => (new_record ? :remove_item : :hide_item))
+    out << link_to('X', '#', :title => t(:'labels.delete'),
+      :'data-target' => ".#{class_for_remove || fields.object.class.name.underscore}",
+      :'data-event' => (new_record ? :remove_item : :hide_item))
   end
 
    # Devuelve HTML con un link para eliminar un componente de una lista de un
@@ -53,8 +51,9 @@ module ApplicationHelper
   #
   # * _fields_:: El objeto form para el que se va a generar el link
   def remove_list_item_link(fields, remove_class = nil)
-    link_to('X', "##{remove_class || fields.object.class.name.underscore}",
-      :class => :remove_item, :title => t(:'labels.delete'))
+    link_to('X', "#", :title => t(:'labels.delete'),
+      :'data-target' => ".#{remove_class || fields.object.class.name.underscore}",
+      :'data-event' => :remove_item)
   end
 
   # Devuelve el HTML de un vínculo para mover un ítem.

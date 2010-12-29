@@ -25,9 +25,9 @@ var EventHandler = {
      * Agrega un ítem anidado
      */
     addNestedItem: function(e) {
-        var template = eval(e.readAttribute('href').replace(/.*#/, ''));
+        var template = eval(e.readAttribute('data-template'));
 
-        $(e.readAttribute('rel')).insert({
+        $(e.readAttribute('data-container')).insert({
             bottom: Util.replaceIds(template, /NEW_RECORD/)
         });
     },
@@ -37,14 +37,11 @@ var EventHandler = {
      * dinámico)
      */
     hideItem: function(e) {
-        // Si es una imágen el link está como contenedor
-        var href = e.readAttribute('href') || e.up('a').readAttribute('href');
-        var target = href.replace(/.*#/, '.');
+        var target = e.readAttribute('data-target');
 
         Helper.hideItem(e.up(target));
 
-        var hiddenInput = e.previous('input[type=hidden]') ||
-            e.up('a').previous('input[type=hidden]');
+        var hiddenInput = e.previous('input[type=hidden].destroy');
 
         if(hiddenInput) {hiddenInput.setValue('1');}
 
@@ -55,9 +52,7 @@ var EventHandler = {
      * Elimina el elemento del DOM
      */
     removeItem: function(e) {
-        // Si es una imágen el link está como contenedor
-        var href = e.readAttribute('href') || e.up('a').readAttribute('href');
-        var target = href.replace(/.*#/, '.');
+        var target = e.readAttribute('data-target');
 
         Helper.removeItem(e.up(target));
         FormUtil.completeSortNumbers();
@@ -103,7 +98,7 @@ var FormUtil = {
     completeSortNumbers: function() {
         var number = 1;
 
-        $$('input.sort_number').each(function(e) {e.setValue(number++);});
+        $$('input.sort_number').each(function(e) { e.setValue(number++); });
     }
 }
 
@@ -137,28 +132,6 @@ var Helper = {
     }
 }
 
-// Observadores de eventos
-var Observer = {
-    /**
-     * Adjunta eventos a la sección app_content
-     */
-    attachToAppContent: function() {
-        var events = $A(['addNestedItem', 'hideItem', 'removeItem']);
-
-        Event.observe('app_content', 'click', function(event) {
-            var e = Event.findElement(event);
-
-            events.each(function(eventName) {
-                if(e.hasClassName(eventName.underscore())) {
-                    EventHandler[eventName](e);
-
-                    Event.stop(event);
-                }
-            });
-        });
-    }
-}
-
 // Utilidades varias
 var Util = {
     /**
@@ -170,9 +143,21 @@ var Util = {
     }
 }
 
+var eventList = $H(EventHandler).keys();
+
 // Funciones ejecutadas cuando se carga cada página
 Event.observe(window, 'load', function() {
     if($('app_content')) {
-        Observer.attachToAppContent();
+        document.on('click', 'a[data-event]', function(event, element) {
+            if (event.stopped) return;
+
+            var eventName =
+                element.readAttribute('data-event').dasherize().camelize();
+
+            if(eventList.include(eventName)) {
+                EventHandler[eventName](element);
+                Event.stop(event);
+            }
+        });
     }
 });
