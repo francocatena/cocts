@@ -55,12 +55,12 @@ class AnswerTest < ActiveSupport::TestCase
     @answer.order = nil
     assert @answer.invalid?
     assert_equal 3, @answer.errors.count
-    assert_equal error_message_from_model(@answer, :answer, :blank),
-      @answer.errors.on(:answer)
-    assert_equal error_message_from_model(@answer, :category, :blank),
-      @answer.errors.on(:category)
-    assert_equal error_message_from_model(@answer, :order, :blank),
-      @answer.errors.on(:order)
+    assert_equal [error_message_from_model(@answer, :answer, :blank)],
+      @answer.errors[:answer]
+    assert_equal [error_message_from_model(@answer, :category, :blank)],
+      @answer.errors[:category]
+    assert_equal [error_message_from_model(@answer, :order, :blank)],
+      @answer.errors[:order]
   end
 
   # Prueba que las validaciones del modelo se cumplan como es esperado
@@ -69,10 +69,10 @@ class AnswerTest < ActiveSupport::TestCase
     @answer.order = '?1'
     assert @answer.invalid?
     assert_equal 2, @answer.errors.count
-    assert_equal error_message_from_model(@answer, :category, :not_a_number),
-      @answer.errors.on(:category)
-    assert_equal error_message_from_model(@answer, :order, :not_a_number),
-      @answer.errors.on(:order)
+    assert_equal [error_message_from_model(@answer, :category,
+        :not_an_integer)], @answer.errors[:category]
+    assert_equal [error_message_from_model(@answer, :order, :not_a_number)],
+      @answer.errors[:order]
   end
 
   # Prueba que las validaciones del modelo se cumplan como es esperado
@@ -80,7 +80,7 @@ class AnswerTest < ActiveSupport::TestCase
     @answer.category = Answer::CATEGORIES.values.sort.last.next
     assert @answer.invalid?
     assert_equal 1, @answer.errors.count
-    assert_equal error_message_from_model(@answer, :category, :inclusion),
-      @answer.errors.on(:category)
+    assert_equal [error_message_from_model(@answer, :category, :inclusion)],
+      @answer.errors[:category]
   end
 end

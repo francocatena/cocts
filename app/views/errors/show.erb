@@ -12,24 +12,21 @@
   </div>
 </div>
 
-<% unless Rails.env == 'production' -%>
+<% unless Rails.env.production? %>
   <%= link_to_function t(:'errors.show_details'),
     "Effect.SlideDown('error_details'); this.hide();", :id => 'show_link' %>
   <div style="display: none;" id="error_details">
     <%= link_to_function t(:'errors.hide_details'),
       "Effect.SlideUp('error_details'); $('show_link').appear();" %>
     <!-- Final -->
-    <h2 style="margin: 1em 0em;"><%=h error.clean_message %></h2>
+    <h2 style="margin: 1em 0em;"><%=h error.message %></h2>
     <h3>Backtrace:</h3>
     <pre style="margin-top: .5em;"><%=h error.backtrace.join("\n") %></pre>
 
-    <h3 style="margin-top: 1em;">Application backtrace:</h3>
-    <pre style="margin-top: .5em;"><%=h error.application_backtrace.join("\n") %></pre>
-
-    <% unless params.empty? -%>
+    <% unless params.empty? %>
     <h3 style="margin-top: 1em;">Parameters:</h3>
     <pre style="margin-top: .5em;"><%=h params.inspect %></pre>
-    <% end -%>
+    <% end %>
     <div style="clear: both;"></div>
   </div>
-<% end -%>
+<% end %>

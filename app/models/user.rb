@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   after_create :password_to_nil
 
   # Restricciones
-  validates_presence_of :user, :name, :lastname, :email
+  validates :user, :name, :lastname, :email, :presence => true
   validates_uniqueness_of :user, :case_sensitive => false
   validates_length_of :user, :in => 5..30, :allow_nil => true,
     :allow_blank => true

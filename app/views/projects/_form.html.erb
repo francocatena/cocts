@@ -1,9 +1,9 @@
 <!--[form:project]-->
-<% form_for @project do |f| -%>
-  <% content_for :js_extra do -%>
-    <%= "var question='#{escape_javascript(render(:partial => 'question',
+<%= form_for @project do |f| %>
+  <%= content_for :js_extra do %>
+    <%= raw "var question='#{escape_javascript(render(:partial => 'question',
         :object => Question.new, :locals => {:f => f}))}';" %>
-  <% end -%>
+  <% end %>
   <%= f.error_messages %>
   <div class="one_column_form">
     <div class="field">
@@ -40,7 +40,7 @@
 
   <div id="sociodemographic" style="display: none;">
     <div style="margin: 1em 0em;">
-      <% Project::SOCIODEMOGRAPHIC_FORMS.each do |sociodemographic_form| -%>
+      <% Project::SOCIODEMOGRAPHIC_FORMS.each do |sociodemographic_form| %>
         <% i18n_scope = [:projects, :sociodemographic_forms, sociodemographic_form] %>
         <div class="field">
           <%= check_box_tag "project[forms][]", sociodemographic_form,
@@ -51,7 +51,7 @@
             :for => "project_form_#{sociodemographic_form}",
             :title => t(:question, :scope => i18n_scope), :class => :inline %>
         </div>
-      <% end -%>
+      <% end %>
     </div>
   </div>
 
@@ -65,7 +65,7 @@
     </div>
 
     <div id="questions">
-      <% @project.questions.build if @project.questions.empty? -%>
+      <% @project.questions.build if @project.questions.empty? %>
       <%= render :partial => 'question', :collection => @project.questions,
         :locals => {:f => f} %>
     </div>
@@ -78,8 +78,8 @@
 
   <%= hidden_lock_version(f) %>
   <div class="actions">
-    <span><%= f.submit submit_text %></span>
+    <span><%= f.submit %></span>
   </div>
-<% end -%>
+<% end %>
 <!--[eoform:project] -->
 <%= set_focus_to_first_element %>

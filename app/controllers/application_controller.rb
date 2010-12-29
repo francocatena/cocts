@@ -2,22 +2,21 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
-  # Scrub sensitive parameters from your log
-  filter_parameter_logging :password, :password_confirmation
-
   # Cualquier excepción no contemplada es capturada por esta función. Se utiliza
   # para mostrar un mensaje de error personalizado
-  def rescue_action(exception)
-    @title = t :'errors.title'
+  rescue_from Exception do |exception|
+    begin
+      @title = t :'errors.title'
 
-    if response.redirected_to.nil?
-      render :template => 'errors/show', :locals => { :error => exception }
+      unless response.redirect_url
+        render :template => 'errors/show', :locals => { :error => exception }
+      end
+
+    # En caso que la presentación misma de la excepción no salga como se espera
+    rescue => ex
+      STDERR << "#{ex.class}: #{ex.message}\n\n"
+      ex.backtrace.each { |l| STDERR << "#{l}\n" }
     end
-
-  # En caso que la presentación misma de la excepción no salga como se espera
-  rescue => ex
-    STDERR << "#{ex.class}: #{ex.message}\n\n"
-    ex.backtrace.each { |l| STDERR << "#{l}\n" }
   end
 
   private

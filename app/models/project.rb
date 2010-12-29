@@ -23,7 +23,7 @@ class Project < ActiveRecord::Base
   # Restricciones
   validates_format_of :identifier, :with => /\A[A-Za-z][A-Za-z0-9\-]*\z/,
     :allow_nil => true, :allow_blank => true
-  validates_presence_of :name, :identifier, :description
+  validates :name, :identifier, :description, :presence => true
   validates_uniqueness_of :identifier, :allow_nil => true, :allow_blank => true
   validates_numericality_of :year, :only_integer => true, :allow_nil => true,
     :allow_blank => true, :greater_than => 1000, :less_than => 3000
@@ -57,13 +57,13 @@ class Project < ActiveRecord::Base
   end
 
   TYPES.each do |type, value|
-    define_method("#{type}?") do
+    define_method(:"#{type}?") do
       self.project_type == value
     end
   end
 
   def project_type_text
-    I18n.t "projects.#{TYPES.invert[self.project_type]}_type"
+    I18n.t :"projects.#{TYPES.invert[self.project_type]}_type"
   end
 
   def to_pdf
@@ -126,7 +126,7 @@ class Project < ActiveRecord::Base
       :width => pdf.margin_box.width,
       :vertical_padding => 3,
       :border_style => :grid,
-      :font_size => (PDF_FONT_SIZE * 0.75).round
+      :size => (PDF_FONT_SIZE * 0.75).round
 
     i18n_scope.slice!(-1)
 
@@ -289,7 +289,7 @@ class Project < ActiveRecord::Base
       ],
       :position => :center,
       :border_style => :grid,
-      :font_size => (PDF_FONT_SIZE * 0.6).round,
+      :size => (PDF_FONT_SIZE * 0.6).round,
       :vertical_padding => 3,
       :column_widths => {
         0 => pdf.margin_box.width * 0.7,

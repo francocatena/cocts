@@ -1,5 +1,5 @@
 <div class="form_container">
-  <% form_for @user, :url => update_personal_data_user_path(@user) do |f| -%>
+  <%= form_for @user, :url => update_personal_data_user_path(@user) do |f| %>
     <div class="one_column_form">
       <%= f.error_messages %>
       <div class="field">
@@ -24,7 +24,7 @@
     <div class="actions">
       <span><%= f.submit t(:'labels.modify') %></span>
     </div>
-  <% end -%>
+  <% end %>
 </div>
 
 <div id="links">

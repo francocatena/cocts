@@ -5,13 +5,14 @@ class QuestionsController < ApplicationController
   # * GET /questions.xml
   def index
     @title = t :'questions.index_title'
-    @questions = Question.paginate(
-      :page => params[:page],
-      :per_page => APP_LINES_PER_PAGE,
-      :order => [
+    @questions = Question.order(
+      [
         "#{Question.table_name}.dimension ASC",
         "#{Question.table_name}.code ASC"
       ].join(', ')
+    ).paginate(
+      :page => params[:page],
+      :per_page => APP_LINES_PER_PAGE
     )
 
     respond_to do |format|

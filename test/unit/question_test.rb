@@ -53,12 +53,12 @@ class QuestionTest < ActiveSupport::TestCase
     @question.dimension = nil
     assert @question.invalid?
     assert_equal 3, @question.errors.count
-    assert_equal error_message_from_model(@question, :code, :blank),
-      @question.errors.on(:code)
-    assert_equal error_message_from_model(@question, :question, :blank),
-      @question.errors.on(:question)
-    assert_equal error_message_from_model(@question, :dimension, :blank),
-      @question.errors.on(:dimension)
+    assert_equal [error_message_from_model(@question, :code, :blank)],
+      @question.errors[:code]
+    assert_equal [error_message_from_model(@question, :question, :blank)],
+      @question.errors[:question]
+    assert_equal [error_message_from_model(@question, :dimension, :blank)],
+      @question.errors[:dimension]
   end
 
   # Prueba que las validaciones del modelo se cumplan como es esperado
@@ -66,8 +66,8 @@ class QuestionTest < ActiveSupport::TestCase
     @question.code = questions(:_10113).code
     assert @question.invalid?
     assert_equal 1, @question.errors.count
-    assert_equal error_message_from_model(@question, :code, :taken),
-      @question.errors.on(:code)
+    assert_equal [error_message_from_model(@question, :code, :taken)],
+      @question.errors[:code]
   end
 
   # Prueba que las validaciones del modelo se cumplan como es esperado
@@ -76,24 +76,24 @@ class QuestionTest < ActiveSupport::TestCase
     @question.dimension = '1_'
     assert @question.invalid?
     assert_equal 2, @question.errors.count
-    assert_equal error_message_from_model(@question, :code, :invalid),
-      @question.errors.on(:code)
-    assert_equal error_message_from_model(@question, :dimension, :not_a_number),
-      @question.errors.on(:dimension)
+    assert_equal [error_message_from_model(@question, :code, :invalid)],
+      @question.errors[:code]
+    assert_equal [error_message_from_model(@question, :dimension, :not_a_number)],
+      @question.errors[:dimension]
   end
 
   test 'validates lenght attributes' do
     @question.code = '10001' * 52
     assert @question.invalid?
-    assert_equal error_message_from_model(@question, :code, :too_long,
-      :count => 255), @question.errors.on(:code)
+    assert_equal [error_message_from_model(@question, :code, :too_long,
+      :count => 255)], @question.errors[:code]
   end
 
   test 'validates included attributes' do
     @question.dimension = Question::DIMENSIONS.last.next
     assert @question.invalid?
     assert_equal 1, @question.errors.count
-    assert_equal error_message_from_model(@question, :dimension, :inclusion),
-      @question.errors.on(:dimension)
+    assert_equal [error_message_from_model(@question, :dimension, :inclusion)],
+      @question.errors[:dimension]
   end
 end

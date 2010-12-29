@@ -7,21 +7,32 @@ class QuestionsControllerTest < ActionController::TestCase
   # Inicializa de forma correcta todas las variables que se utilizan en las
   # pruebas
   def setup
-    @public_actions = []
-    @private_actions = [:index, :show, :new, :edit, :create, :update, :destroy]
+    @question = Question.find(questions(:_10111).id)
   end
 
   # Prueba que sin realizar autenticación esten accesibles las partes publicas
   # y no accesibles las privadas
   test 'public and private actions' do
-    @private_actions.each do |action|
-      get action
+    id_param = {:id => @question.to_param}
+    public_actions = []
+    private_actions = [
+      [:get, :index],
+      [:get, :show, id_param],
+      [:get, :new],
+      [:get, :edit, id_param],
+      [:post, :create],
+      [:put, :update, id_param],
+      [:delete, :destroy, id_param]
+    ]
+
+    private_actions.each do |action|
+      send *action
       assert_redirected_to login_users_path
       assert_equal I18n.t(:'messages.must_be_authenticated'), flash[:notice]
     end
 
-    @public_actions.each do |action|
-      get action
+    public_actions.each do |action|
+      send *action
       assert_response :success
     end
   end
@@ -37,7 +48,7 @@ class QuestionsControllerTest < ActionController::TestCase
 
   test 'show question' do
     perform_auth
-    get :show, :id => questions(:_10111)
+    get :show, :id => @question.to_param
     assert_response :success
     assert_not_nil assigns(:question)
     assert_select '#error_body', false
@@ -83,7 +94,7 @@ class QuestionsControllerTest < ActionController::TestCase
 
   test 'edit question' do
     perform_auth
-    get :edit, :id => questions(:_10111)
+    get :edit, :id => @question.to_param
     assert_response :success
     assert_not_nil assigns(:question)
     assert_select '#error_body', false
@@ -95,7 +106,7 @@ class QuestionsControllerTest < ActionController::TestCase
     assert_no_difference'Question.count' do
       assert_difference 'Answer.count' do
         put :update, {
-          :id => questions(:_10111),
+          :id => @question.to_param,
           :question => {
             :dimension => Question::DIMENSIONS.first,
             :code => '10211',
@@ -139,7 +150,7 @@ class QuestionsControllerTest < ActionController::TestCase
   test 'destroy question' do
     perform_auth
     assert_difference('Question.count', -1) do
-      delete :destroy, :id => questions(:_10111)
+      delete :destroy, :id => @question.to_param
     end
 
     assert_redirected_to questions_path

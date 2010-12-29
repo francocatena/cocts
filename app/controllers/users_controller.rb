@@ -9,10 +9,9 @@ class UsersController < ApplicationController
   # * GET /users.xml
   def index
     @title = t :'users.index_title'
-    @users = User.paginate(
+    @users = User.order("#{User.table_name}.user ASC").paginate(
       :page => params[:page],
-      :per_page => APP_LINES_PER_PAGE,
-      :order => "#{User.table_name}.user ASC"
+      :per_page => APP_LINES_PER_PAGE
     )
 
     respond_to do |format|

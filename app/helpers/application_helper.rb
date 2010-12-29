@@ -13,9 +13,8 @@ module ApplicationHelper
   #
   # * _submit_label_::  Etiqueta que se quiere mostrar en el botón submit del
   #                     formulario
-  def render_form(submit_label = t(:'labels.save'))
-    content_tag :div, render(:partial => 'form',
-      :locals => {:submit_text => submit_label}), :class => :form_container
+  def render_form
+    content_tag :div, render(:partial => 'form'), :class => :form_container
   end
 
   # Devuelve el HTML con los links para navegar una lista paginada
@@ -39,7 +38,7 @@ module ApplicationHelper
   # * _fields_:: El objeto form para el que se va a generar el link
   def remove_item_link(fields = nil, class_for_remove = nil)
     new_record = fields.nil? || fields.object.new_record?
-    out = String.new
+    out = String.new.html_safe
 
     out << fields.hidden_field(:_destroy,
       :value => fields.object.marked_for_destruction? ? 1 : 0) unless new_record
@@ -55,7 +54,7 @@ module ApplicationHelper
   # * _fields_:: El objeto form para el que se va a generar el link
   def remove_list_item_link(fields, remove_class = nil)
     link_to('X', "##{remove_class || fields.object.class.name.underscore}",
-      :class => :remove_item, :title => t(:'label.delete'))
+      :class => :remove_item, :title => t(:'labels.delete'))
   end
 
   # Devuelve el HTML de un vínculo para mover un ítem.
@@ -141,5 +140,14 @@ module ApplicationHelper
   # que pueda ser utilizado en javascript.
   def generate_template(form_builder, method, options = {})
     escape_javascript generate_html(form_builder, method, options)
+  end
+
+  # Aplica la función textilize pero le quita el párrafo que la misma introduce
+  def textilize_without_paragraph(text)
+    textiled = textilize(text)
+    textiled = textiled[3..-1] if textiled[0..2] == '<p>'
+    textiled = textiled[0..-5] if textiled[-4..-1] == '</p>'
+
+    textiled.html_safe
   end
 end

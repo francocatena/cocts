@@ -1,22 +1,23 @@
-es:
+'es':
   actioncontroller:
     projects: 'Proyectos'
     questions: 'Cuestiones'
     users: 'Usuarios'
 
+  # Attributes names common to most models
+  attributes:
+    created_at: 'Creación'
+    updated_at: 'Actualización'
+
+  # Active Record models configuration
   activerecord:
-    attribute_commons: &commons
-      created_at: 'Creación'
-      updated_at: 'Última actualización'
-
     errors:
-      template:
-        header:
-          one: 'No se pudo guardar porque se encontró 1 error'
-          other: 'No se pudo guardar porque se encontraron %{count} errores'
-        # The variable :count is also available
-        body: 'Se encontraron problemas con los siguientes campos:'
+      messages:
+        taken: 'ya está en uso'
+        record_invalid: 'La validación falló: %{errors}'
 
+  activerecord:
+    errors:
       # The values :model, :attribute and :value are always available for interpolation
       # The value :count is available when applicable. Can be used for pluralization.
       messages:
@@ -30,8 +31,8 @@ es:
         too_long: 'es demasiado largo (%{count} caracteres máximo)'
         too_short: 'es demasiado corto (%{count} caracteres mínimo)'
         wrong_length: 'no tiene la longitud correcta (%{count} caracteres exactos)'
-        taken: 'ya está en uso'
         not_a_number: 'no es un número'
+        not_an_integer: 'no es un entero'
         greater_than: 'debe ser mayor que %{count}'
         greater_than_or_equal_to: 'debe ser mayor que o igual a %{count}'
         equal_to: 'debe ser igual a %{count}'
@@ -70,7 +71,6 @@ es:
         order: 'Orden'
         clarification: 'Aclaraciones previas'
         answer: 'Respuesta'
-        <<: *commons
       project:
         name: 'Nombre'
         identifier: 'Identificador'
@@ -79,12 +79,10 @@ es:
         valid_until: 'Vencimiento'
         project_type: 'Tipo de carga'
         questions: 'Cuestiones'
-        <<: *commons
       question:
         code: 'Código'
         dimension: 'Dimensión'
         question: 'Cuestión'
-        <<: *commons
       user:
         user: 'Usuario'
         password: 'Contraseña'
@@ -93,7 +91,6 @@ es:
         lastname: 'Apellido'
         email: 'E-Mail'
         enable: 'Habilitado'
-        <<: *commons
   
   app_title: 'COCTS'
 
@@ -167,6 +164,23 @@ es:
     hide_details: 'Ocultar detalles'
     show_details: 'Ver detalles'
     apologies_for_the_inconvenience: 'Disculpe las molestias'
+    template:
+      header:
+        one: 'No se pudo guardar porque se encontró 1 error'
+        other: 'No se pudo guardar porque se encontraron %{count} errores'
+      # The variable :count is also available
+      body: 'Se encontraron problemas con los siguientes campos:'
+
+  helpers:
+    select:
+      # Default value for :prompt => true in FormOptionsHelper
+      prompt: 'Seleccionar...'
+
+    # Default translation keys for submit FormHelper
+    submit:
+      create: 'Guardar %{model}'
+      update: 'Actualizar %{model}'
+      submit: 'Guardar %{model}'
   
   labels:
     'yes': 'Si'
@@ -200,7 +214,6 @@ es:
     invalid_user_or_password: 'Usuario/contraseña inválido'
     loading: 'Cargando'
     must_be_authenticated: 'Debe autenticarse'
-    select_one: 'Seleccionar...'
     session_closed_correctly: 'Sesión cerrada correctamente'
     session_time_expired: 'Su sesión ha expirado, debe autenticarse nuevamente'
 
@@ -426,9 +439,6 @@ es:
       '9': 'Naturaleza de la ciencia'
 
   support:
-    select:
-      # default value for :prompt => true in FormOptionsHelper
-      prompt: 'Seleccionar ...'
     # Used in array.to_sentence.
     array:
       words_connector: ', '

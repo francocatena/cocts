@@ -6,10 +6,9 @@ class ProjectsController < ApplicationController
   # * GET /projects.xml
   def index
     @title = t :'projects.index_title'
-    @projects = Project.paginate(
+    @projects = Project.order('valid_until DESC').paginate(
       :page => params[:page],
-      :per_page => APP_LINES_PER_PAGE,
-      :order => 'valid_until DESC'
+      :per_page => APP_LINES_PER_PAGE
     )
 
     respond_to do |format|
@@ -117,14 +116,11 @@ class ProjectsController < ApplicationController
         "LOWER(#{Question.table_name}.question) LIKE :question_data_#{i}"
       ].join(' OR ')
 
-      parameters["question_data_#{i}".to_sym] = "%#{t.downcase}%"
+      parameters[:"question_data_#{i}"] = "%#{t.downcase}%"
     end
-    find_options = {
-      :conditions => [conditions.map {|c| "(#{c})"}.join(' AND '), parameters],
-      :order => "#{Question.table_name}.code ASC",
-      :limit => 10
-    }
 
-    @questions = Question.all(find_options)
+    @questions = Question.where(
+      [conditions.map {|c| "(#{c})"}.join(' AND '), parameters]
+    ).order("#{Question.table_name}.code ASC").limit(10)
   end
 end

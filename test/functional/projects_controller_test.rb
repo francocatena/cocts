@@ -4,20 +4,33 @@ require 'test_helper'
 class ProjectsControllerTest < ActionController::TestCase
   fixtures :projects, :questions
 
+  def setup
+    @project = Project.find(projects(:manual).id)
+  end
+
   # Prueba que sin realizar autenticación esten accesibles las partes publicas
   # y no accesibles las privadas
   test 'public and private actions' do
+    id_param = {:id => @project.to_param}
     public_actions = []
-    private_actions = [:index, :show, :new, :edit, :create, :update, :destroy]
+    private_actions = [
+      [:get, :index],
+      [:get, :show, id_param],
+      [:get, :new],
+      [:get, :edit, id_param],
+      [:post, :create],
+      [:put, :update, id_param],
+      [:delete, :destroy, id_param]
+    ]
 
     private_actions.each do |action|
-      get action
+      send *action
       assert_redirected_to login_users_path
       assert_equal I18n.t(:'messages.must_be_authenticated'), flash[:notice]
     end
 
     public_actions.each do |action|
-      get action
+      send *action
       assert_response :success
     end
   end
@@ -33,7 +46,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test 'show project' do
     perform_auth
-    get :show, :id => projects(:manual).to_param
+    get :show, :id => @project.to_param
     assert_response :success
     assert_not_nil assigns(:project)
     assert_select '#error_body', false
@@ -42,8 +55,8 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test 'show project in pdf' do
     perform_auth
-    get :show, :id => projects(:manual).to_param, :format => 'pdf'
-    assert_redirected_to "/#{Project.find(projects(:manual).id).pdf_relative_path}"
+    get :show, :id => @project.to_param, :format => 'pdf'
+    assert_redirected_to "/#{@project.pdf_relative_path}"
     assert_not_nil assigns(:project)
     assert_select '#error_body', false
   end
@@ -85,7 +98,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test 'edit project' do
     perform_auth
-    get :edit, :id => projects(:manual).to_param
+    get :edit, :id => @project.to_param
     assert_response :success
     assert_not_nil assigns(:project)
     assert_select '#error_body', false
@@ -95,12 +108,10 @@ class ProjectsControllerTest < ActionController::TestCase
   test 'update project' do
     perform_auth
 
-    project = Project.find projects(:manual).id
-
     assert_no_difference 'Project.count' do
-      assert_difference 'project.reload.questions.size' do
+      assert_difference '@project.reload.questions.size' do
         put :update, {
-          :id => project.to_param,
+          :id => @project.to_param,
           :project => {
             :name => 'Updated name',
             :identifier => 'updated-identifier',
@@ -127,7 +138,7 @@ class ProjectsControllerTest < ActionController::TestCase
   test 'destroy project' do
     perform_auth
     assert_difference('Project.count', -1) do
-      delete :destroy, :id => projects(:manual).to_param
+      delete :destroy, :id => @project.to_param
     end
 
     assert_redirected_to projects_path

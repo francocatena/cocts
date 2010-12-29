@@ -7,7 +7,7 @@ class Answer < ActiveRecord::Base
   }
 
   # Restricciones
-  validates_presence_of :answer, :category, :order
+  validates :answer, :category, :order, :presence => true
   validates_numericality_of :order, :category, :only_integer => true,
     :allow_nil => true, :allow_blank => true
   validates_inclusion_of :category, :in => CATEGORIES.values,
@@ -19,6 +19,6 @@ class Answer < ActiveRecord::Base
   def category_text(short = false)
     type = short ? :shor_type : :long_type
 
-    I18n.t "projects.answers.#{type}.#{CATEGORIES.invert[self.category]}"
+    I18n.t :"projects.answers.#{type}.#{CATEGORIES.invert[self.category]}"
   end
 end

@@ -1,10 +1,10 @@
-<% i18n_scope = [:projects, :questionnaire, :answer_example] -%>
+<% i18n_scope = [:projects, :questionnaire, :answer_example] %>
 <div class="box">
   <h3><%= t(:title, :scope => i18n_scope) %></h3>
   <p><%= t(:clarification, :scope => i18n_scope) %></p>
   <h4 class="question"><%= t(:question, :scope => i18n_scope) %></h4>
   <ul class="answers">
-    <% i18n_scope << :answers -%>
+    <% i18n_scope << :answers %>
     <li><em>1</em> <b>A.</b> <%= t(:A, :scope => i18n_scope) %></li>
     <li><em>6</em> <b>B.</b> <%= t(:B, :scope => i18n_scope) %></li>
     <li><em>8</em> <b>C.</b> <%= t(:C, :scope => i18n_scope) %></li>

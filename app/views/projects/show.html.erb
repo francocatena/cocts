@@ -1,4 +1,4 @@
-<% i18n_scope = [:projects, :questionnaire] -%>
+<% i18n_scope = [:projects, :questionnaire] %>
 <div id="showed_data">
   <p>
     <b><%= Project.human_attribute_name :name %>:</b>
@@ -32,7 +32,7 @@
   
   <h1 style="margin-top: 1em;"><%= t(:presentation, :scope => i18n_scope) %></h1>
   <p><%= t(:presentation_text, :scope => i18n_scope) %></p>
-  <% i18n_scope << :scale_table -%>
+  <% i18n_scope << :scale_table %>
   <table class="grid full_width" style="margin: 1em 0em;">
     <thead>
       <tr>
@@ -44,32 +44,32 @@
     </thead>
     <tbody>
       <tr>
-        <% i18n_scope << :disagreement -%>
-        <% [:'1', :'2', :'3', :'4'].each do |opt| -%>
+        <% i18n_scope << :disagreement %>
+        <% [:'1', :'2', :'3', :'4'].each do |opt| %>
           <td><%= t(opt, :scope => i18n_scope) %></td>
-        <% end -%>
-        <% i18n_scope[-1] = :undecided -%>
-        <% [:'5'].each do |opt| -%>
+        <% end %>
+        <% i18n_scope[-1] = :undecided %>
+        <% [:'5'].each do |opt| %>
           <td><%= t(opt, :scope => i18n_scope) %></td>
-        <% end -%>
-        <% i18n_scope[-1] = :in_agreement -%>
-        <% [:'6', :'7', :'8', :'9'].each do |opt| -%>
+        <% end %>
+        <% i18n_scope[-1] = :in_agreement %>
+        <% [:'6', :'7', :'8', :'9'].each do |opt| %>
           <td><%= t(opt, :scope => i18n_scope) %></td>
-        <% end -%>
-        <% i18n_scope[-1] = :others -%>
-        <% [:'E', :'S'].each do |opt| -%>
+        <% end %>
+        <% i18n_scope[-1] = :others %>
+        <% [:'E', :'S'].each do |opt| %>
           <td><%= t(opt, :scope => i18n_scope) %></td>
-        <% end -%>
+        <% end %>
       </tr>
       <tr>
-        <% ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'E', 'S'].each do |opt| -%>
+        <% ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'E', 'S'].each do |opt| %>
           <td><%= opt %></td>
-        <% end -%>
+        <% end %>
       </tr>
     </tbody>
   </table>
-  <% i18n_scope.slice!(-2, 2) -%>
-  <%= textilize t(:scale_clarification, :scope => i18n_scope) %>
+  <% i18n_scope.slice!(-2, 2) %>
+  <%= raw textilize(t(:scale_clarification, :scope => i18n_scope)) %>
   <%= render 'answer_example' %>
 
   <h2 style="margin: 1em 0em; font-weight: normal;">
@@ -77,22 +77,22 @@
       :scope => i18n_scope) %>
   </h2>
 
-  <% unless @project.forms.empty? -%>
-    <% @project.forms.each do |form| -%>
+  <% unless @project.forms.empty? %>
+    <% @project.forms.each do |form| %>
       <div class="project_form_part"><%= render form %></div>
-    <% end -%>
-  <% end -%>
+    <% end %>
+  <% end %>
 
-  <% unless @project.questions.empty? -%>
+  <% unless @project.questions.empty? %>
     <div class="questions">
       <h2><%= Project.human_attribute_name :questions %></h2>
       <ul class="raw_list">
-        <% @project.questions.each do |question| -%>
+        <% @project.questions.each do |question| %>
           <li><strong><%= question.code %></strong> - <%= question.question %></li>
-        <% end -%>
+        <% end %>
       </ul>
     </div>
-  <% end -%>
+  <% end %>
 </div>
 
 <div id="links">

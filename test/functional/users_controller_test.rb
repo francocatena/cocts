@@ -4,26 +4,40 @@ require 'test_helper'
 class UsersControllerTest < ActionController::TestCase
   fixtures :users
 
-  # Inicializa de forma correcta todas las variables que se utilizan en las
-  # pruebas
   def setup
-    @public_actions = [:login]
-    @private_actions = [:index, :show, :new, :edit, :create, :update, :destroy,
-      :edit_password, :update_password, :edit_personal_data,
-      :update_personal_data, :logout]
+    @user = User.find(users(:admin))
   end
 
   # Prueba que sin realizar autenticación esten accesibles las partes publicas
   # y no accesibles las privadas
   test 'public and private actions' do
-    @private_actions.each do |action|
-      get action
+    id_param = {:id => @user.to_param}
+    public_actions = [
+      [:get, :login]
+    ]
+    private_actions = [
+      [:get, :index],
+      [:get, :show, id_param],
+      [:get, :new],
+      [:get, :edit, id_param],
+      [:post, :create],
+      [:put, :update, id_param],
+      [:delete, :destroy, id_param],
+      [:get, :edit_password, id_param],
+      [:put, :update_password, id_param],
+      [:get, :edit_personal_data, id_param],
+      [:put, :update_personal_data, id_param],
+      [:get, :logout, id_param]
+    ]
+
+    private_actions.each do |action|
+      send *action
       assert_redirected_to login_users_path
       assert_equal I18n.t(:'messages.must_be_authenticated'), flash[:notice]
     end
 
-    @public_actions.each do |action|
-      get action
+    public_actions.each do |action|
+      send *action
       assert_response :success
     end
   end
@@ -87,7 +101,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test 'show user' do
     perform_auth
-    get :show, :id => users(:admin)
+    get :show, :id => @user.to_param
     assert_response :success
     assert_not_nil assigns(:user)
     assert_select '#error_body', false
@@ -113,7 +127,7 @@ class UsersControllerTest < ActionController::TestCase
           :lastname => 'New lastname',
           :password => 'new_password_123',
           :password_confirmation => 'new_password_123',
-          :email => 'new_user@users.com',
+          :email => 'new_user@user.com',
           :enable => true
         }
       }
@@ -126,7 +140,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test 'edit user' do
     perform_auth
-    get :edit, :id => users(:admin)
+    get :edit, :id => @user.to_param
     assert_response :success
     assert_not_nil assigns(:user)
     assert_select '#error_body', false
@@ -137,14 +151,14 @@ class UsersControllerTest < ActionController::TestCase
     perform_auth
     assert_no_difference 'User.count' do
       put :update, {
-        :id => users(:admin),
+        :id => @user.to_param,
         :user => {
           :user => 'updated_user',
           :name => 'Updated name',
           :lastname => 'Updated lastname',
           :password => 'updated_password_123',
           :password_confirmation => 'updated_password_123',
-          :email => 'updated_user@users.com',
+          :email => 'updated_user@user.com',
           :enable => true
         }
       }
@@ -158,7 +172,7 @@ class UsersControllerTest < ActionController::TestCase
   test 'destroy user' do
     perform_auth
     assert_difference('User.count', -1) do
-      delete :destroy, :id => users(:admin)
+      delete :destroy, :id => @user.to_param
     end
 
     assert_redirected_to users_path
@@ -166,7 +180,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test 'edit password' do
     perform_auth
-    get :edit_password
+    get :edit_password, :id => @user.to_param
     assert_response :success
     assert_select '#error_body', false
     assert_template 'users/edit_password'
@@ -177,6 +191,7 @@ class UsersControllerTest < ActionController::TestCase
 
     perform_auth user
     put :update_password, {
+      :id => @user.to_param,
       :user => {
         :password => 'new_password_123',
         :password_confirmation => 'new_password_123'
@@ -190,7 +205,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test 'edit personal data' do
     perform_auth
-    get :edit_personal_data
+    get :edit_personal_data, :id => @user.to_param
     assert_response :success
     assert_select '#error_body', false
     assert_template 'users/edit_personal_data'
@@ -201,6 +216,7 @@ class UsersControllerTest < ActionController::TestCase
 
     perform_auth user
     put :update_personal_data, {
+      :id => @user.to_param,
       :user => {
         :name => 'Updated name',
         :lastname => 'Updated lastname',
@@ -216,7 +232,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test 'logout' do
     perform_auth
-    get :logout
+    get :logout, :id => @user.to_param
     assert_nil session[:user_id]
     assert_redirected_to login_users_path
   end

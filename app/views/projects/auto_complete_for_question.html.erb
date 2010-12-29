@@ -1,15 +1,15 @@
-<% unless @questions.empty? -%>
+<% unless @questions.empty? %>
   <ul>
-    <% @questions.each do |q| -%>
+    <% @questions.each do |q| %>
       <li id="dynamic_result_<%= "#{rand(100000)}_id_#{q.id}" %>">
         <%= highlight(h(q.code), @tokens) %>
         <span class="informal aditional_info">
           <%= highlight(h(truncate(q.question, :length => 50, :omission => '...')), @tokens) %>
         </span>
       </li>
-    <% end -%>
+    <% end %>
   </ul>
-<% else -%>
+<% else %>
   <ul style="display: none;"><li></li></ul>
   <p class="empty_result"><%= t(:'messages.empty_result') %></p>
-<% end -%>
+<% end %>

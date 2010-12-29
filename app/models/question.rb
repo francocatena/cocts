@@ -2,7 +2,7 @@ class Question < ActiveRecord::Base
   DIMENSIONS = 1..9
 
   # Restricciones
-  validates_presence_of :code, :question, :dimension
+  validates :code, :question, :dimension, :presence => true
   validates_uniqueness_of :code, :allow_blank => true, :allow_nil => true
   validates_length_of :code, :maximum => 255, :allow_nil => true,
     :allow_blank => true
@@ -20,6 +20,6 @@ class Question < ActiveRecord::Base
   accepts_nested_attributes_for :answers, :allow_destroy => true
 
   def dimension_text
-    I18n.t("questions.dimensions.#{self.dimension}")
+    I18n.t :"questions.dimensions.#{self.dimension}"
   end
 end

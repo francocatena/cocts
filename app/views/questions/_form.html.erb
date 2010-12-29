@@ -1,14 +1,14 @@
 <!--[form:question]-->
-<% form_for @question do |q_f| -%>
-  <% content_for :js_extra do -%>
-    <%= "var answer='#{generate_template(q_f, :answers)}';" %>
-  <% end -%>
+<%= form_for @question do |q_f| %>
+  <%= content_for :js_extra do %>
+    <%= raw "var answer='#{generate_template(q_f, :answers)}';" %>
+  <% end %>
   <%= q_f.error_messages %>
   <div class="one_column_form">
     <div class="field">
       <%= q_f.label :dimension %><br />
       <%= q_f.select :dimension,
-        Question::DIMENSIONS.map { |d| ["#{d}. #{t("questions.dimensions.#{d}")}", d] },
+        Question::DIMENSIONS.map { |d| ["#{d}. #{t(:"questions.dimensions.#{d}")}", d] },
         {:prompt => true}, {:class => :focused} %>
     </div>
     <div class="field">
@@ -37,10 +37,10 @@
     </div>
 
     <div id="answers">
-      <% @question.answers.build if @question.answers.empty? -%>
-      <% q_f.fields_for :answers do |a_f| -%>
+      <% @question.answers.build if @question.answers.empty? %>
+      <%= q_f.fields_for :answers do |a_f| %>
         <%= render :partial => 'answer', :locals => {:f => a_f} %>
-      <% end -%>
+      <% end %>
     </div>
   </div>
 
@@ -51,8 +51,8 @@
 
   <%= hidden_lock_version(q_f) %>
   <div class="actions">
-    <span><%= q_f.submit submit_text %></span>
+    <span><%= q_f.submit %></span>
   </div>
-<% end -%>
+<% end %>
 <!--[eoform:question] -->
 <%= set_focus_to_first_element %>
