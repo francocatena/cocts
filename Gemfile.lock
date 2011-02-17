@@ -112,4 +112,4 @@ DEPENDENCIES
   ruby-prof
   turn
   validates_timeliness (~> 3.0)
-  will_paginate (~> 3.0.pre2)
+  will_paginate (~> 3.0.beta)
