@@ -1,16 +1,15 @@
+require 'bundler/capistrano'
+
 set :application, 'cocts'
-set :repository,  'deployer@fcatena.com.ar:/home/franco/NetBeansProjects/cocts_app'
+set :repository,  'https://github.com/francocatena/cocts.git'
 set :deploy_to, '/var/rails/cocts'
 set :user, 'deployer'
-set :password, '!QAZxsw2'
 set :group_writable, false
 set :shared_children, %w(system log pids private public config)
 set :use_sudo, false
 
-default_run_options[:pty] = true
 set :scm, :git
 set :branch, 'master'
-set :scm_passphrase, "!QAZxsw2"
 
 role :web, 'mawida.com.ar' # Your HTTP server, Apache/etc
 role :app, 'mawida.com.ar' # This may be the same as your `Web` server
