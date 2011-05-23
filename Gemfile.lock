@@ -60,14 +60,14 @@ GEM
     pg (0.11.0)
     polyglot (0.3.1)
     prawn (0.8.4)
-      prawn-core (>= 0.8.4, < 0.9)
-      prawn-layout (>= 0.8.4, < 0.9)
-      prawn-security (>= 0.8.4, < 0.9)
+      prawn-core (< 0.9, >= 0.8.4)
+      prawn-layout (< 0.9, >= 0.8.4)
+      prawn-security (< 0.9, >= 0.8.4)
     prawn-core (0.8.4)
     prawn-flexible-table (0.1.2)
     prawn-layout (0.8.4)
     prawn-security (0.8.4)
-    rack (1.2.2)
+    rack (1.2.3)
     rack-mount (0.6.14)
       rack (>= 1.0.0)
     rack-test (0.5.7)
@@ -109,6 +109,7 @@ DEPENDENCIES
   prawn (= 0.8.4)
   prawn-flexible-table
   rails (= 3.0.7)
+  rake (= 0.8.7)
   ruby-prof
   turn
   validates_timeliness (~> 3.0)
