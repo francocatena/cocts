@@ -4,9 +4,8 @@
 </strong>
 
 <% options = [] %>
-<% COUNTRIES.each_with_index do |country, i| %>
+<% COUNTRIES.each do |country| %>
   
-  <% country_id = :"country_#{country}" %>
   <% options << t(country, :scope => i18n_scope) %>
 
 <% end %>
