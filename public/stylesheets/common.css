@@ -349,6 +349,11 @@ div.items div.column_headers {
     margin-bottom: .7em;
 }
 
+div#option {
+    width: 15%;
+    height: 50%;
+}
+
 div.project_form_part {
     display: block;
     margin-bottom: 1em;
