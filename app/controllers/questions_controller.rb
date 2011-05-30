@@ -94,9 +94,12 @@ class QuestionsController < ApplicationController
   # DELETE /questions/1
   # DELETE /questions/1.xml
   def destroy
-    @question = Question.find(params[:id])
-    @question.destroy
-
+    if Project.where(:question_id => params[:id])
+      flash[:alert] = t :'questions.project_error'
+    else
+      @question = Question.find(params[:id])
+      @question.destroy
+    end
     respond_to do |format|
       format.html { redirect_to(questions_url) }
       format.xml  { head :ok }

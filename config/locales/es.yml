@@ -416,6 +416,7 @@
     correctly_created: 'Cuestión creada correctamente.'
     correctly_updated: 'Cuestión actualizada correctamente.'
     stale_object_error: 'La cuestión no pudo ser actualizada, intente nuevamente.'
+    project_error: 'La cuestión no pudo ser eliminada ya que se encuentra asignada a un proyecto.'
     add: 'Crear cuestión'
     add_answer: 'Agregar otra posible respuesta'
     answers:
