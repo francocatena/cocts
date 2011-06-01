@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'test_helper'
 
 # Clase para probar el modelo "Question"
@@ -43,6 +44,9 @@ class QuestionTest < ActiveSupport::TestCase
 
   # Prueba de eliminación de cuestiones
   test 'delete' do
+    @question = questions(:_10113)
+    assert_difference('Question.count', 0) { @question.destroy }
+    @question.projects.clear
     assert_difference('Question.count', -1) { @question.destroy }
   end
 
@@ -96,4 +100,5 @@ class QuestionTest < ActiveSupport::TestCase
     assert_equal [error_message_from_model(@question, :dimension, :inclusion)],
       @question.errors[:dimension]
   end
+
 end

@@ -16,10 +16,18 @@ class Question < ActiveRecord::Base
   # Relaciones
   has_many :answers, :dependent => :destroy,
     :order => "#{Answer.table_name}.order ASC"
+  has_and_belongs_to_many :projects
 
   accepts_nested_attributes_for :answers, :allow_destroy => true
+
+  before_destroy :can_be_destroyed?
 
   def dimension_text
     I18n.t :"questions.dimensions.#{self.dimension}"
   end
+
+  def can_be_destroyed?
+    self.projects.count == 0
+  end
+
 end

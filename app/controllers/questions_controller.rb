@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   before_filter :auth
+  require 'csv'
 
   # * GET /questions
   # * GET /questions.xml
@@ -94,15 +95,14 @@ class QuestionsController < ApplicationController
   # DELETE /questions/1
   # DELETE /questions/1.xml
   def destroy
-    if Project.where(:question_id => params[:id])
+    @question = Question.find(params[:id])
+    unless @question.destroy
       flash[:alert] = t :'questions.project_error'
-    else
-      @question = Question.find(params[:id])
-      @question.destroy
     end
     respond_to do |format|
       format.html { redirect_to(questions_url) }
       format.xml  { head :ok }
     end
   end
+
 end
