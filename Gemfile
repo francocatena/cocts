@@ -1,10 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.7'
-
 gem 'pg'
-# TODO: remover cuando funcione bien rake
-gem 'rake', '0.8.7'
 gem 'calendar_date_select', :git => 'https://github.com/paneq/calendar_date_select.git', :branch => 'rails3test'
 gem 'will_paginate', '~> 3.0.beta'
 gem 'RedCloth'

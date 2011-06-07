@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'test_helper'
 
 # Pruebas para el controlador de cuestiones
@@ -149,10 +150,37 @@ class QuestionsControllerTest < ActionController::TestCase
 
   test 'destroy question' do
     perform_auth
+    assert_no_difference('Question.count') do
+      delete :destroy, :id => @question.to_param
+    end
+    @question.projects.clear
     assert_difference('Question.count', -1) do
       delete :destroy, :id => @question.to_param
     end
 
     assert_redirected_to questions_path
   end
+  
+  test 'import csv questions' do
+    perform_auth
+    assert_difference('Question.count', 2) do
+      post :csv_import_questions, :dump_questions => {
+        :file => fixture_file_upload('../files/test_questions.csv', 'text/csv')
+      }
+    end
+
+    assert_redirected_to questions_path
+  end
+
+  test 'import csv answers' do
+    perform_auth
+    assert_difference('Answer.count', 3) do
+      post :csv_import_answers, :dump_answers => {
+        :file => fixture_file_upload('../files/test_answers.csv', 'text/csv')
+      }
+    end
+
+    assert_redirected_to questions_path
+  end
+
 end

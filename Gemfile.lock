@@ -109,7 +109,6 @@ DEPENDENCIES
   prawn (= 0.8.4)
   prawn-flexible-table
   rails (= 3.0.7)
-  rake (= 0.8.7)
   ruby-prof
   turn
   validates_timeliness (~> 3.0)

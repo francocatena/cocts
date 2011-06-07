@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 class QuestionsController < ApplicationController
   before_filter :auth
   require 'csv'
-
+  
   # * GET /questions
   # * GET /questions.xml
   def index
@@ -104,5 +105,61 @@ class QuestionsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def import_csv
+  end
+
+  def csv_import_questions
+    if File.extname(params[:dump_questions][:file].original_filename).downcase == '.csv'
+      @parsed_file=CSV::Reader.parse(params[:dump_questions][:file], delimiter = ';')
+      n=0
+      @parsed_file.each  do |row|
+        q = Question.new
+        q.dimension = row[0]
+        q.code = row[1]
+        q.question = row[2]
+        if q.save
+        n+=1
+        end
+      end
+      flash.alert = t(:'questions.csv_import', :count => n)
+    else
+      flash.alert = t :'questions.error_file_extension'
+    end
+    respond_to do |format|
+      format.html { redirect_to(questions_path) }
+    end
+  end
+
+  def csv_import_answers
+    if File.extname(params[:dump_answers][:file].original_filename).downcase == '.csv'    
+      @parsed_file=CSV::Reader.parse(params[:dump_answers][:file], delimiter = ';')
+      n=0
+      @parsed_file.each  do |row|
+        a = Answer.new
+        a.category = row[1].to_i
+        a.order = row[2].to_i
+        a.clarification = row[3].to_s
+        a.answer = row[4]
+        question = Question.find_by_code(row[0].to_s)      
+        unless question.blank? 
+          a.question_id = question.id
+        end
+        if a.save
+          n+=1
+        end
+        unless question.blank?
+          question.answers << a
+        end
+      end
+      flash.alert = t(:'questions.answers.csv_import', :count => n)
+    else
+      flash.alert = t :'questions.error_file_extension'
+    end
+    respond_to do |format|
+      format.html { redirect_to(questions_path) }
+    end
+  end
+
 
 end

@@ -417,6 +417,13 @@
     correctly_updated: 'Cuestión actualizada correctamente.'
     stale_object_error: 'La cuestión no pudo ser actualizada, intente nuevamente.'
     project_error: 'La cuestión no pudo ser eliminada ya que se encuentra asignada a un proyecto.'
+    import_file: 'Seleccione archivo de cuestiones (CSV):'
+    error_file_extension: 'Error: Debe seleccionar un archivo CSV'
+    attach_csv: 'Importar preguntas'
+    import_csv_file: 'Importar archivo CSV'
+    csv_import: 
+      one: 'Una cuestión ha sido importada satisfactoriamente.'
+      other: '%{count} cuestiones han sido importadas satisfactoriamente.'
     add: 'Crear cuestión'
     add_answer: 'Agregar otra posible respuesta'
     answers:
@@ -428,6 +435,11 @@
         adecuate: 'Adecuada'
         plausible: 'Plausible'
         naive: 'Ingenua'
+      attach_csv: 'Importar respuestas'
+      import_file: 'Seleccione archivo de respuestas (CSV):'
+      csv_import: 
+        one: 'Una respuesta ha sido importada satisfactoriamente.'
+        other: '%{count} respuestas han sido importadas satisfactoriamente.'
     dimensions:
       '1': 'Definición de ciencia y tecnología'
       '2': 'Influencia de la sociedad en la ciencia y la tecnología'

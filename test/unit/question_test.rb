@@ -44,8 +44,7 @@ class QuestionTest < ActiveSupport::TestCase
 
   # Prueba de eliminación de cuestiones
   test 'delete' do
-    @question = questions(:_10113)
-    assert_difference('Question.count', 0) { @question.destroy }
+    assert_no_difference('Question.count') { @question.destroy }
     @question.projects.clear
     assert_difference('Question.count', -1) { @question.destroy }
   end

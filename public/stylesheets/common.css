@@ -96,7 +96,7 @@ div#errorExplanation h2 {
 
 div#errorExplanation p {
     font-weight: bold;
-    padding: .5em .5em .5em 1em;
+    padding: .5em .15em .5em 1em;
 }
 
 div#errorExplanation ul {
