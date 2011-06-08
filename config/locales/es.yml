@@ -158,6 +158,11 @@
       minute: 'Minutos'
       second: 'Segundos'
 
+  show:
+    answer:
+      one: 'Respuesta'
+      other: 'Respuestas'
+
   errors:
     title: 'Error'
     header_message: 'Se ha encontrado un problema'
