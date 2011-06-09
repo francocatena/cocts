@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'test_helper'
 
 # Pruebas para el controlador de proyectos
@@ -142,6 +143,12 @@ class ProjectsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to projects_path
+  end
+
+  test 'preview sociodemographic form' do
+    perform_auth
+    get :preview_form
+    assert_response :success
   end
 
   test 'auto complete for question' do

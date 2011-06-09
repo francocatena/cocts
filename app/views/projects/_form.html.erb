@@ -50,6 +50,13 @@
             t(:option, :scope => i18n_scope),
             :for => "project_form_#{sociodemographic_form}",
             :title => t(:question, :scope => i18n_scope), :class => :inline %>
+          <%= link_to t(:'projects.preview_label'),
+            preview_form_projects_path(:form => sociodemographic_form),
+            :class => :sociodemographic_form, :remote => true, :method => :get %>
+          <div class="form_details"></div>
+          <%= link_to_function t(:'projects.close_label'),
+            "$(this).previous('div.form_details').hide(); $(this).hide()",
+            :class => :hide_form_details, :style => 'display: none;' %>
         </div>
       <% end %>
     </div>
@@ -84,3 +91,10 @@
 <% end %>
 <!--[eoform:project] -->
 <%= set_focus_to_first_element %>
+<script type="text/javascript">
+  document.on('ajax:success', 'a.sociodemographic_form', function(event, element) {
+    $(element).next('div.form_details').update(event.memo.responseText);
+    $(element).next('div.form_details').show();
+    $(element).next('a.hide_form_details').show();
+  });
+</script>

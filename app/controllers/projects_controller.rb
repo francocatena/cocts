@@ -123,4 +123,8 @@ class ProjectsController < ApplicationController
       [conditions.map {|c| "(#{c})"}.join(' AND '), parameters]
     ).order("#{Question.table_name}.code ASC").limit(10)
   end
+  
+  def preview_form
+    render :partial => "#{params[:form]}"
+  end
 end

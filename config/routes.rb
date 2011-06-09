@@ -10,6 +10,7 @@ CoctsApp::Application.routes.draw do
   resources :projects do
     collection do
       post :auto_complete_for_question
+      get :preview_form
     end
   end
 
