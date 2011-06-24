@@ -7,6 +7,7 @@ class ProjectInstance < ActiveRecord::Base
   # Restricciones
   validates :email, :presence => true,
     :length => { :maximum => 255 }
+  validates_uniqueness_of :email, :allow_nil => true, :allow_blank => true
   validates :email, :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }, 
     :allow_blank => true, :allow_nil => true    
   validates_length_of :first_name, :last_name, :email, :maximum => 255, :allow_nil => true,

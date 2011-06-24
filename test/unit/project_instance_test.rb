@@ -56,6 +56,15 @@ class ProjectInstanceTest < ActiveSupport::TestCase
       @project_instance.errors[:email]
   end
   
+  test 'validates unique attributes' do
+    @project_instance.email = project_instances(:two).email
+    assert @project_instance.invalid?
+    assert_equal 1, @project_instance.errors.count
+    assert_equal [error_message_from_model(@project_instance, :email, :taken)],
+      @project_instance.errors[:email]
+  end
+
+  
   test 'validates lenght attributes' do
     @project_instance.first_name = 'abcde' * 52
     @project_instance.last_name = 'abcde' * 52

@@ -86,10 +86,11 @@ class ProjectInstancesController < ApplicationController
   # DELETE /project_instances/1.xml
   def destroy
     @project_instance = ProjectInstance.find(params[:id])
+    id = @project_instance.project_id
     @project_instance.destroy
 
     respond_to do |format|
-      format.html { redirect_to(project_instances_url) }
+      format.html { redirect_to(project_instances_url(:id => id)) }
       format.xml  { head :ok }
     end
   end

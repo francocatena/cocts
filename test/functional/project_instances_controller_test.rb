@@ -119,10 +119,11 @@ class ProjectInstancesControllerTest < ActionController::TestCase
   
   test 'destroy project instance' do
     perform_auth
+    id_project = @project_instance.project_id
     assert_difference('ProjectInstance.count', -1) do
       delete :destroy, :id => @project_instance.to_param
     end
 
-    assert_redirected_to project_instances_path
+    assert_redirected_to project_instances_url(:id => id_project)
   end
 end

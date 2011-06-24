@@ -46,6 +46,7 @@
         after: "debe ser posterior a %{restriction}"
         on_or_after: "debe ser posterior o igual a %{restriction}"
         between: "debe estar entre %{earliest} y %{latest}"
+        taken: 'debe ser único'
 
       models:
         project:
