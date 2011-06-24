@@ -1,0 +1,38 @@
+<h4><%= "#{t :'activerecord.models.project'}: #{@project.name}"%></h4>
+
+<table>
+  <tr>
+    <th><%= ProjectInstance.human_attribute_name :first_name %></th>
+    <th><%= ProjectInstance.human_attribute_name :last_name %></th>
+    <th><%= ProjectInstance.human_attribute_name :email %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+<%  @project_instances.each do |project_instance| %>
+  <tr>
+    <td><% if project_instance.first_name.blank? %>
+        ----
+        <% else %>
+        <%= project_instance.first_name %>
+        <% end %>
+    </td>
+    <td><% if project_instance.last_name.blank? %>
+        ----
+        <% else %>
+        <%= project_instance.last_name %>
+        <% end %>
+    </td>
+    <td><%= project_instance.email %></td>
+    <td><%= link_to t(:'labels.show'), project_instance %></td>
+    <td><%= link_to t(:'labels.edit'), edit_project_instance_path(project_instance) %></td>
+    <td><%= button_to t(:'labels.delete'), project_instance,
+            :confirm => t(:'messages.confirmation_question'),
+            :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to_back %>

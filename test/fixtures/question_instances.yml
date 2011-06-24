@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+# This model initially had no columns defined.  If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one:
+  question: _10111
+  question_text: 'Definir qué es la ciencia es difícil porque ésta es algo complejo y engloba muchas cosas. Pero la ciencia PRINCIPALMENTE es:'
+# column: value
+#
+two: 
+  question: _10113
+  question_text: 'El proceso de hacer ciencia se describe mejor como ...'
+#  column: value

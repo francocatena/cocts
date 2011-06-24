@@ -1,0 +1,44 @@
+<div class="field">
+  <b><%= t :'activerecord.models.project' %>:</b>
+  <%= @project_instance.project.name %>
+</div>
+
+<% unless @project_instance.first_name.blank? %>
+<div class="field">
+  <b><%= ProjectInstance.human_attribute_name :first_name %>:</b>
+  <%= @project_instance.first_name %>
+</div>
+<% end %>
+
+<% unless @project_instance.last_name.blank?  %>
+<div class="field">
+  <b><%= ProjectInstance.human_attribute_name :last_name %>:</b>
+  <%= @project_instance.last_name %>
+</div>
+<% end %>
+
+<div class="field" >
+  <b><%= ProjectInstance.human_attribute_name :email %>:</b>
+  <%= @project_instance.email %>
+</div>
+
+<% # unless @project_instace.question_instances.empty? %>
+  
+    <% #t(:'activerecord.models.question_instance')  %>
+    <% @project_instance.question_instances.each do |qi| %>
+  
+    <p>
+    <h4 class ="question"><%= qi.question_text %></h4>
+    </p>
+      <% unless qi.answer_instances.empty?  %>
+        <% qi.answer_instances.each do |ai| %>
+          <div class ="answer_instance"> 
+            <%= "#{ai.valuation} - #{ai.answer_text}" %>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  
+<% # end %>
+<%= link_to t(:'labels.edit'), edit_project_instance_path(@project_instance) %> |
+<%= link_to_back %>

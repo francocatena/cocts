@@ -220,6 +220,16 @@ div#showed_data {
     margin: 1%;
 }
 
+div.answer_instance {
+    list-style: none;
+    margin-left: 1em;
+    padding: 5px;
+}
+
+div.answer_instance select {
+    width: 35px;
+}
+
 div.auto_complete {
     width: 100%;
     background: #ffffff;
@@ -379,6 +389,7 @@ h4.question {
     font-style: italic;
     font-weight: bold;
     margin-top: 1em;
+    padding: 3px;
 }
 
 input[type="submit"] {

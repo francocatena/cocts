@@ -1,0 +1,47 @@
+<%= form_for @project_instance do |f| %>
+  <%= f.error_messages %>
+<div class ="one_column_form">
+    <div class="field">
+      <% @project_instance.project ||= @project %>
+      <%= f.hidden_field :project_id %>
+      <%= f.label "#{t :'activerecord.models.project'}: #{@project_instance.project.name}" %><br />
+    </div>
+    <div class="field">
+      <%= f.label :first_name %><br />
+      <%= f.text_field :first_name %>
+    </div>
+    <div class="field">
+      <%= f.label :last_name %><br />
+      <%= f.text_field :last_name %>
+    </div>
+    <div class="field">
+      <%= f.label :email %><br />
+      <%= f.text_field :email %>
+    </div>
+    
+    <% @project_instance.question_instances.build if @project_instance.question_instances.empty? %>
+    
+    <%= f.fields_for :question_instances do |qi_f| %>
+      
+      <h4 class="question">
+        <%= qi_f.object.question_text %>
+        <%= qi_f.hidden_field :question_text %>
+        <%= qi_f.hidden_field :question_id %>
+      </h4>
+      
+      <%= qi_f.fields_for :answer_instances do |qa_f| %>
+        <div class="answer_instance">
+          <%= qa_f.select("valuation", AnswerInstance::VALUATIONS.map{|v| [v,v]}) %>
+          <%= qa_f.object.answer_text %>
+          <%= qa_f.hidden_field :answer_text %>
+          <%= qa_f.hidden_field :answer_category %>
+          <%= qa_f.hidden_field :answer_id %>
+        </div>
+      <% end %>
+    
+    <% end %>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+</div>
+<% end %>

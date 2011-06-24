@@ -9,6 +9,8 @@
       <th></th>
       <th></th>
       <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -20,7 +22,14 @@
         <td><%=h project.year %></td>
         <td><%=h project.project_type_text %></td>
         <td><%=h l(project.valid_until) if project.valid_until %></td>
+        <td><%= link_to t(:'projects.new_instance_label'), 
+            new_project_instance_path(:identifier => project.identifier), 
+            :class => :real if project.manual? %></td>
+        <td><%= link_to t(:'projects.show_instances_label'), 
+            :controller => 'project_instances', :action => 'index', :id => project.id,
+            :class => :real unless project.project_instances.empty? %></td>
         <td><%= link_to t(:'labels.show'), project, :class => :real %></td>
+        
         <td><%= link_to t(:'labels.edit'), edit_project_path(project),
             :class => :real %></td>
         <td><%= button_to t(:'labels.delete'), project,

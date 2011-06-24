@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  project: manual
+  first_name: 'Gastón'
+  last_name: 'Gaudio'
+  email: 'gaudiog@aat.com.ar'
+
+two:
+  project: interactive
+  first_name: 'Pablo'
+  last_name: 'Aimar'
+  email: 'paimar@mail.com'

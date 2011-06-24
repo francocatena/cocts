@@ -64,8 +64,21 @@
       project: 'Proyecto'
       question: 'Cuestión'
       user: 'Usuario'
+      answer_instance: 'Instancia de respuesta'
+      question_instance: 'Instancia de pregunta'
+      project_instance: 'Instancia de proyecto'
 
     attributes:
+      answer_instance:
+        answer_category: 'Categoría'
+        valuation: 'Valor'
+        answer_text: 'Respuesta'
+      question_instance:
+        question_text: 'Cuestión'
+      project_instance:
+        first_name: 'Nombre'
+        last_name: 'Apellido'
+        email: 'Email'
       answer:
         category: 'Categoría'
         order: 'Orden'
@@ -290,6 +303,8 @@
     correctly_created: 'Proyecto creado correctamente.'
     correctly_updated: 'Proyecto actualizado correctamente.'
     stale_object_error: 'El proyecto no pudo ser actualizado, intente nuevamente.'
+    new_instance_label: 'Crear instancia'
+    show_instances_label: 'Consultar instancias'
     add: 'Crear proyecto'
     preview_label: 'Previsualizar'
     close_label: 'Cerrar'
@@ -413,6 +428,13 @@
       teacher_level:
         option: 'Nivel educativo del profesor'
         question: 'Si es profesor, en formación o en ejercicio, ¿de qué nivel educativo...?'
+
+  project_instances:
+    index_title: 'Listado de instancias de proyectos'
+    show_title: 'Detalle de instancia de proyecto'
+    new_title: 'Crear una nueva instancia de proyecto'
+    edit_title: 'Modificar instancia de proyecto'
+    correctly_created: 'Instancia de proyecto creada correctamente.'
 
   questions:
     index_title: 'Listado de cuestiones'

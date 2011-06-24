@@ -15,6 +15,16 @@ class Answer < ActiveRecord::Base
 
   # Relaciones
   belongs_to :question
+  
+  def ==(other)
+    if other.kind_of?(Answer)
+      if other.new_record?
+        other.object_id == self.object_id
+      else
+        other.id == self.id
+      end
+    end
+  end
 
   def category_text(short = false)
     type = short ? :shor_type : :long_type

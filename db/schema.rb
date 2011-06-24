@@ -10,7 +10,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100619232652) do
+ActiveRecord::Schema.define(:version => 20110615124822) do
+
+  create_table "answer_instances", :force => true do |t|
+    t.integer  "question_instance_id"
+    t.integer  "answer_id"
+    t.text     "answer_text"
+    t.integer  "answer_category"
+    t.string   "valuation",            :limit => 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "answer_instances", ["answer_id"], :name => "index_answer_instances_on_answer_id"
+  add_index "answer_instances", ["question_instance_id"], :name => "index_answer_instances_on_question_instance_id"
 
   create_table "answers", :force => true do |t|
     t.integer  "category"
@@ -24,6 +37,17 @@ ActiveRecord::Schema.define(:version => 20100619232652) do
   end
 
   add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
+
+  create_table "project_instances", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "project_instances", ["project_id"], :name => "index_project_instances_on_project_id"
 
   create_table "projects", :force => true do |t|
     t.string   "name"
@@ -47,6 +71,17 @@ ActiveRecord::Schema.define(:version => 20100619232652) do
 
   add_index "projects_questions", ["project_id", "question_id"], :name => "index_projects_questions_on_project_id_and_question_id"
 
+  create_table "question_instances", :force => true do |t|
+    t.integer  "project_instance_id"
+    t.integer  "question_id"
+    t.text     "question_text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "question_instances", ["project_instance_id"], :name => "index_question_instances_on_project_instance_id"
+  add_index "question_instances", ["question_id"], :name => "index_question_instances_on_question_id"
+
   create_table "questions", :force => true do |t|
     t.integer  "dimension"
     t.string   "code"
@@ -58,6 +93,16 @@ ActiveRecord::Schema.define(:version => 20100619232652) do
 
   add_index "questions", ["code"], :name => "index_questions_on_code", :unique => true
   add_index "questions", ["dimension"], :name => "index_questions_on_dimension"
+
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "users", :force => true do |t|
     t.string   "user"

@@ -21,13 +21,23 @@ class Question < ActiveRecord::Base
   accepts_nested_attributes_for :answers, :allow_destroy => true
 
   before_destroy :can_be_destroyed?
+  
+  def ==(other)
+    if other.kind_of?(Question)
+      if other.new_record?
+        other.object_id == self.object_id
+      else
+        other.id == self.id
+      end
+    end
+  end
 
   def dimension_text
     I18n.t :"questions.dimensions.#{self.dimension}"
   end
 
   def can_be_destroyed?
-    self.projects.count == 0
+    self.projects.blank?
   end
 
 end

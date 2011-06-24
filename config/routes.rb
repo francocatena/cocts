@@ -1,4 +1,10 @@
 CoctsApp::Application.routes.draw do
+  resources :question_instances
+
+  resources :answer_instances
+
+  resources :project_instances
+
   resources :questions do
     collection do
       post :csv_import_questions
