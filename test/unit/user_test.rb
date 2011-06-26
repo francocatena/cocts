@@ -80,10 +80,13 @@ class UserTest < ActiveSupport::TestCase
 
   test 'validates unique attributes' do
     @user.user = users(:disable).user
+    @user.email = users(:disable).email
     assert @user.invalid?
-    assert_equal 1, @user.errors.count
+    assert_equal 2, @user.errors.count
     assert_equal [error_message_from_model(@user, :user, :taken)],
       @user.errors[:user]
+    assert_equal [error_message_from_model(@user, :email, :taken)],
+      @user.errors[:email]
   end
 
   test 'validates lenght attributes' do

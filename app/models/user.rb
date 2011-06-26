@@ -7,7 +7,9 @@ class User < ActiveRecord::Base
 
   # Restricciones
   validates :user, :name, :lastname, :email, :presence => true
-  validates_uniqueness_of :user, :case_sensitive => false
+  validates_uniqueness_of :user, :case_sensitive => false, :allow_nil => true, 
+    :allow_blank => true
+  validates_uniqueness_of :email, :allow_nil => true, :allow_blank => true
   validates_length_of :user, :in => 5..30, :allow_nil => true,
     :allow_blank => true
   validates_length_of :password, :in => 5..128
