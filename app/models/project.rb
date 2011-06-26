@@ -235,7 +235,7 @@ class Project < ActiveRecord::Base
       :scope => [:projects, :sociodemographic_forms, :country])
 
     COUNTRIES.each_with_index do |country, i|
-      countries << "#{I18n.t(country, :scope => i18n_scope)} #{i} [__]"
+      countries << "#{I18n.t(country, :scope => i18n_scope)} #{i+1} [__]"
     end
 
     pdf.text "#{question} #{countries.join('  ')}"
@@ -249,9 +249,9 @@ class Project < ActiveRecord::Base
 
     DEGREES.each_with_index do |degree, i|
       unless degree == DEGREES.last
-        degrees << "#{I18n.t(degree, :scope => i18n_scope)} #{i} [__]"
+        degrees << "#{I18n.t(degree, :scope => i18n_scope)} #{i+1} [__]"
       else
-        degrees << "#{I18n.t(degree, :scope => i18n_scope)} #{i} ______________"
+        degrees << "#{I18n.t(degree, :scope => i18n_scope)} #{i+1} ______________"
       end
     end
 
@@ -265,7 +265,7 @@ class Project < ActiveRecord::Base
       :scope => [:projects, :sociodemographic_forms, :genre])
 
     GENRES.each_with_index do |genre, i|
-      genres << "#{I18n.t(genre, :scope => i18n_scope)} #{i} [__]"
+      genres << "#{I18n.t(genre, :scope => i18n_scope)} #{i+1} [__]"
     end
 
     pdf.text "#{question} #{genres.join('  ')}"
@@ -276,7 +276,7 @@ class Project < ActiveRecord::Base
     i18n_scope = [:projects, :questionnaire, :profession, :options]
 
     PROFESSIONS.each_with_index do |profession, i|
-      data << [I18n.t(profession, :scope => i18n_scope), "#{i} [__]",
+      data << [I18n.t(profession, :scope => i18n_scope), "#{i+1} [__]",
         "#{i} [__]"]
     end
 
@@ -307,7 +307,7 @@ class Project < ActiveRecord::Base
 
     STUDENT_STATUSES.each_with_index do |student_status, i|
       student_statuses <<
-        "#{I18n.t(student_status, :scope => i18n_scope)} #{i} [__]"
+        "#{I18n.t(student_status, :scope => i18n_scope)} #{i+1} [__]"
     end
 
     pdf.text "#{question} #{student_statuses.join('  ')}"
@@ -321,7 +321,7 @@ class Project < ActiveRecord::Base
 
     TEACHER_STATUSES.each_with_index do |teacher_status, i|
       teacher_statuses <<
-        "#{I18n.t(teacher_status, :scope => i18n_scope)} #{i} [__]"
+        "#{I18n.t(teacher_status, :scope => i18n_scope)} #{i+1} [__]"
     end
 
     pdf.text "#{question} #{teacher_statuses.join('  ')}"
@@ -335,7 +335,7 @@ class Project < ActiveRecord::Base
 
     TEACHER_LEVELS.each_with_index do |teacher_level, i|
       teacher_levels <<
-        "#{I18n.t(teacher_level, :scope => i18n_scope)} #{i} [__]"
+        "#{I18n.t(teacher_level, :scope => i18n_scope)} #{i+1} [__]"
     end
 
     pdf.text "#{question} #{teacher_levels.join('  ')}"
