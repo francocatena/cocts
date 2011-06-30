@@ -1,7 +1,8 @@
 class ProjectInstancesController < ApplicationController
-  before_filter :auth
+  before_filter :auth, :except => [:new, :create]
   # GET /project_instances
   # GET /project_instances.xml
+  
   def index
     @title = t :'project_instances.index_title'
     if params[:id]
@@ -32,9 +33,25 @@ class ProjectInstancesController < ApplicationController
   # GET /project_instances/new.xml
   def new
     @title = t :'project_instances.new_title'
-    @project = Project.find_by_identifier(params[:identifier])
-    @project_instance = ProjectInstance.new(:project =>  @project)
-        
+    
+    if params[:identifier]
+      @project = Project.find_by_identifier(params[:identifier])
+      @project_instance = ProjectInstance.new(:project =>  @project)
+    else
+      @project = Project.find_by_identifier(request.subdomain)
+      if @project 
+        if @project.interactive?
+          @project_instance = ProjectInstance.new(:project => @project)
+        else
+          flash[:notice]= t :'project_instances.error_manual_type'
+          redirect_to login_users_path
+        end
+      else
+        flash[:notice]= t :'project_instances.error_subdomain'
+        redirect_to login_users_path
+      end
+    end
+    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @project_instance }
@@ -54,10 +71,15 @@ class ProjectInstancesController < ApplicationController
     @project_instance = ProjectInstance.new(params[:project_instance])
 
     respond_to do |format|
+      
       if @project_instance.save
         flash[:notice] = t :'project_instances.correctly_created'
-        format.html { redirect_to projects_path }
-        format.xml  { render :xml => @project_instance, :status => :created, :location => @project_instance }
+        if request.subdomain == 'admin'
+          format.html { redirect_to projects_path }
+          format.xml  { render :xml => @project_instance, :status => :created, :location => @project_instance }
+        else
+          format.html { redirect_to new_project_instance_path }
+        end
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @project_instance.errors, :status => :unprocessable_entity }

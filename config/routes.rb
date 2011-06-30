@@ -1,4 +1,5 @@
 CoctsApp::Application.routes.draw do
+    
   resources :question_instances
 
   resources :answer_instances
@@ -84,8 +85,13 @@ CoctsApp::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'users#login'
-
+  constraints :subdomain => 'admin' do
+    root :to => 'users#login'
+  end
+  #root :to => "users#login", :contrainsts => {:subdomain => 'admin'}
+    
+  root :to => "project_instances#new"
+  
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.

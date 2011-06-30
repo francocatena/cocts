@@ -105,10 +105,13 @@ class ProjectTest < ActiveSupport::TestCase
 
   test 'validates included attributes' do
     @project.forms = ['invalid_form']
+    @project.identifier = 'admin'
     assert @project.invalid?
-    assert_equal 1, @project.errors.count
+    assert_equal 2, @project.errors.count
     assert_equal [error_message_from_model(@project, :forms, :inclusion)],
       @project.errors[:forms]
+    assert_equal [error_message_from_model(@project, :identifier, :exclusion)],
+      @project.errors[:identifier]
   end
 
   test 'conversion to pdf' do

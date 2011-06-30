@@ -13,13 +13,14 @@ class ProjectInstancesControllerTest < ActionController::TestCase
     id_param = {:id => @project_instance.to_param}
     identifier_project = {:identifier => projects(:manual).to_param}
     id_project = {:id => projects(:manual).to_param}
-    public_actions = []
+    public_actions = [
+      [:post, :create],
+      [:get, :new, identifier_project]      
+    ]
     private_actions = [
       [:get, :index, id_project],
-      [:get, :show, id_param],
-      [:get, :new, identifier_project],
+      [:get, :show, id_param],     
       [:get, :edit, id_param],
-      [:post, :create],
       [:put, :update, id_param],
       [:delete, :destroy, id_param]
     ]
@@ -55,16 +56,15 @@ class ProjectInstancesControllerTest < ActionController::TestCase
   end
  
   test 'new project instance' do
-    perform_auth
-    get :new
+    get :new, :identifier => @project_instance.to_param
     assert_response :success
     assert_not_nil assigns(:project_instance)
-    #assert_select '#error_body', false
     assert_template 'project_instances/new'
   end
 
   test 'create project instance' do
     perform_auth
+    @request.host = 'admin.cocts.com'
     assert_difference 'ProjectInstance.count' do
       post :create, {
         :project_instance => {

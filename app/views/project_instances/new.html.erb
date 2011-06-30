@@ -1,6 +1,6 @@
 <%= render 'form' %>
 
 <div id="links">
-  <%= link_to_back %>
+  <%= link_to_back if request.subdomain == 'admin' %>
 </div>
 
