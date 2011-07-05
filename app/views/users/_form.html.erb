@@ -4,7 +4,7 @@
   <div class="one_column_form">
     <div class="field">
       <%= f.label :name %>
-      <%= f.text_field :name, :maxlength => 255 %>
+      <%= f.text_field :name, :maxlength => 255, :autofocus => true %>
     </div>
     <div class="field">
       <%= f.label :lastname %>
@@ -40,4 +40,3 @@
   </div>
 <% end %>
 <!--[eoform:user] -->
-<%= set_focus_to_first_element %>

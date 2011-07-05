@@ -3,7 +3,7 @@
     <%= f.error_messages %>
     <div class="field">
       <%= f.label :user %>
-      <%= f.text_field :user, :maxlength => 30 %>
+      <%= f.text_field :user, :maxlength => 30, :autofocus => true %>
     </div>
     <div class="field">
       <%= f.label :password %>
@@ -14,4 +14,3 @@
     </div>
   <% end %>
 </div>
-<%= set_focus_to_first_element %>

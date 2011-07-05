@@ -1,5 +1,9 @@
 class Question < ActiveRecord::Base
   DIMENSIONS = 1..9
+  
+  # Alias de atributos
+  alias_attribute :informal, :question
+  alias_attribute :label, :code
 
   # Restricciones
   validates :code, :question, :dimension, :presence => true
@@ -30,6 +34,12 @@ class Question < ActiveRecord::Base
         other.id == self.id
       end
     end
+  end
+  
+  def as_json(options = nil)
+    default_options = { :only => [:id], :methods => [:label, :informal] }
+    
+    super(default_options.merge(options || {}))
   end
 
   def dimension_text

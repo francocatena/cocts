@@ -9,7 +9,7 @@
       <%= q_f.label :dimension %><br />
       <%= q_f.select :dimension,
         Question::DIMENSIONS.map { |d| ["#{d}. #{t(:"questions.dimensions.#{d}")}", d] },
-        {:prompt => true}, {:class => :focused} %>
+        {:prompt => true}, {:autofocus => true} %>
     </div>
     <div class="field">
       <%= q_f.label :code %><br />
@@ -46,7 +46,7 @@
 
   <p class="add_item">
     <%= link_to t(:'questions.add_answer'), '#', :'data-template' => :answer,
-      :'data-event' => :add_nested_item, :'data-container' => :answers,
+      :'data-event' => 'addNestedItem', :'data-container' => '#answers',
       :class => :important_action %>
   </p>
 
@@ -56,4 +56,6 @@
   </div>
 <% end %>
 <!--[eoform:question] -->
-<%= set_focus_to_first_element %>
+<script type="text/javascript">
+  Helper.makeSortable('#answers', 'div.answer', 'a.move');
+</script>

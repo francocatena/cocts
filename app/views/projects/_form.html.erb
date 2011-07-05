@@ -8,7 +8,7 @@
   <div class="one_column_form">
     <div class="field">
       <%= f.label :name %>
-      <%= f.text_field :name, :maxlength => 255 %>
+      <%= f.text_field :name, :maxlength => 255, :autofocus => true %>
     </div>
     <div class="field">
       <%= f.label :identifier %>
@@ -28,14 +28,13 @@
     </div>
     <div class="field">
       <%= f.label :valid_until %>
-      <%= f.calendar_date_select :valid_until,
-        :valid_date_check => 'date.stripTime() >= (new Date()).stripTime()' %>
+      <%= calendar_text_field f, :valid_until %>
     </div>
   </div>
 
   <p style="margin: 1em 0em;">
     <%= link_to_function t(:'projects.sociodemographic_label'),
-      "Effect.toggle('sociodemographic', 'slide')" %>
+      "$('#sociodemographic').slideToggle()" %>
   </p>
 
   <div id="sociodemographic" style="display: none;">
@@ -51,11 +50,11 @@
             :for => "project_form_#{sociodemographic_form}",
             :title => t(:question, :scope => i18n_scope), :class => :inline %>
           <%= link_to t(:'projects.preview_label'),
-            preview_form_projects_path(:form => sociodemographic_form),
+            preview_form_projects_path(:form => sociodemographic_form, :format => :html),
             :class => :sociodemographic_form, :remote => true, :method => :get %>
           <div class="form_details"></div>
           <%= link_to_function t(:'projects.close_label'),
-            "$(this).previous('div.form_details').hide(); $(this).hide()",
+            "$(this).prev('div.form_details').hide(); $(this).hide()",
             :class => :hide_form_details, :style => 'display: none;' %>
         </div>
       <% end %>
@@ -80,8 +79,8 @@
 
   <p class="add_item">
     <%= link_to t(:'projects.add_question'), '#',
-      :'data-template' => :question, :'data-event' => :add_nested_item,
-      :'data-container' => :questions, :class => :important_action %>
+      :'data-template' => :question, :'data-event' => 'addNestedItem',
+      :'data-container' => '#questions', :class => :important_action %>
   </p>
 
   <%= hidden_lock_version(f) %>
@@ -90,11 +89,9 @@
   </div>
 <% end %>
 <!--[eoform:project] -->
-<%= set_focus_to_first_element %>
 <script type="text/javascript">
-  document.on('ajax:success', 'a.sociodemographic_form', function(event, element) {
-    $(element).next('div.form_details').update(event.memo.responseText);
-    $(element).next('div.form_details').show();
-    $(element).next('a.hide_form_details').show();
+  $('a.sociodemographic_form').live('ajax:success', function(event, data) {
+    $(this).next('div.form_details').html(data).show();
+    $(this).siblings('a.hide_form_details').show();
   });
 </script>

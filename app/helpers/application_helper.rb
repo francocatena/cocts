@@ -1,4 +1,18 @@
 module ApplicationHelper
+  def default_stylesheets
+    sheets = ['common', 'jquery/ui-custom']
+    sheets << {:cache => 'main'}
+
+    stylesheet_link_tag *sheets
+  end
+
+  def default_javascripts
+    libs = [:defaults, 'datepicker/jquery.ui.datepicker-es']
+    libs << {:cache => 'main'}
+
+    javascript_include_tag *libs
+  end
+  
   # Ordena un array que será utilizado en un select por el valor de los campos
   # que serán mostrados
   #
@@ -43,7 +57,7 @@ module ApplicationHelper
       :value => fields.object.marked_for_destruction? ? 1 : 0) unless new_record
     out << link_to('X', '#', :title => t(:'labels.delete'),
       :'data-target' => ".#{class_for_remove || fields.object.class.name.underscore}",
-      :'data-event' => (new_record ? :remove_item : :hide_item))
+      :'data-event' => (new_record ? 'removeItem' : 'hideItem'))
   end
 
    # Devuelve HTML con un link para eliminar un componente de una lista de un
@@ -53,7 +67,7 @@ module ApplicationHelper
   def remove_list_item_link(fields, remove_class = nil)
     link_to('X', "#", :title => t(:'labels.delete'),
       :'data-target' => ".#{remove_class || fields.object.class.name.underscore}",
-      :'data-event' => :remove_item)
+      :'data-event' => 'removeItem')
   end
 
   # Devuelve el HTML de un vínculo para mover un ítem.
@@ -78,12 +92,6 @@ module ApplicationHelper
   # * _delay_::   Delay en segundos que se quiere aplicar
   def set_focus_to(dom_id, delay = 0)
     javascript_tag "Form.Element.focus.delay(#{delay}, '#{dom_id.to_s}');"
-  end
-
-  # Devuelve el HTML (con el tag <script>) para establecer el foco en el primer
-  # elemento del primer formulario declarado
-  def set_focus_to_first_element
-    javascript_tag 'FormHelper.focusFirst();'
   end
 
   # Devuelve el HTML de un campo lock_version oculto dentro de un div oculto
@@ -148,5 +156,15 @@ module ApplicationHelper
     textiled = textiled[0..-5] if textiled[-4..-1] == '</p>'
 
     textiled.html_safe
+  end
+  
+  def calendar_text_field(form, attribute, time = false, value = nil)
+    value ||= form.object.send(attribute)
+    options = {:class => :calendar}
+    
+    options[:value] = l(value, :format => time ? :minimal : :default) if value
+    options[:'data-time'] = true if time
+    
+    form.text_field attribute, options
   end
 end

@@ -4,21 +4,18 @@
     <div class="item_field" style="width: 90%; white-space: normal;">
       <% if question.new_record? %>
         <div class="search">
+          <%= f.text_field :nested_question,
+            :id => "project_question_#{id}", :class => :autocomplete_field,
+            :value => question.question,
+            :'data-autocomplete-url' => auto_complete_for_question_projects_path(:format => :json),
+            :'data-params' => ({:project_id => @project.id}.to_json unless @project.new_record?) %>
           <%= hidden_field_tag 'project[question_ids][]', question.id,
-            :id => "hidden_question_#{id}", :class => :autocomplete_id_item %>
-          <%= raw text_field_with_auto_complete(:project, :nested_question,
-            {:id => "project_question_#{id}", :class => :search,
-            :title => t(:'labels.search'), :value => question.code},
-            {:indicator => :loading, :skip_style => true,
-            :url => {:action => :auto_complete_for_question},
-            :after_update_element => 'AutoComplete.itemSelected',
-            :param_name => 'question_data',
-            :parameters => ("project_id=#{@project.id}" unless @project.new_record?)}) %>
+            :id => "hidden_question_#{id}", :class => :autocomplete_id %>
         </div>
       <% else %>
+        <p><strong><%= question.code %></strong> - <%= question.question %></p>
         <%= hidden_field_tag 'project[question_ids][]', question.id,
           :id => :"hidden_question_#{id}" %>
-        <p><strong><%= question.code %></strong> - <%= question.question %></p>
       <% end %>
     </div>
     <div class="item_field item_controls" style="width: 5%;">
@@ -28,6 +25,7 @@
 </div>
 <% if question.new_record? %>
   <script type="text/javascript">
-    Form.Element.focus('<%= "project_question_#{id}" %>');
+    $('#<%= "project_question_#{id}" %>').focus();
+    AutoComplete.observeAll();
   </script>
 <% end %>

@@ -153,25 +153,27 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test 'auto complete for question' do
     perform_auth
-    post :auto_complete_for_question, { :question_data => '10111' }
+    get :auto_complete_for_question, { :q => '10111', :format => :json }
     assert_response :success
-    assert_not_nil assigns(:questions)
-    assert_equal 1, assigns(:questions).size # 10111
-    assert_select '#error_body', false
-    assert_template 'projects/auto_complete_for_question'
+    
+    questions = ActiveSupport::JSON.decode(@response.body)
+    
+    assert_equal 1, questions.size
+    assert questions.all? { |q| ("#{q['label']} #{q['informal']}").match /10111/i }
 
-    post :auto_complete_for_question, { :question_data => 'ciencia' }
+    get :auto_complete_for_question, { :q => 'ciencia', :format => :json }
     assert_response :success
-    assert_not_nil assigns(:questions)
-    assert_equal 2, assigns(:questions).size # Blank and Expired blank
-    assert_select '#error_body', false
-    assert_template 'projects/auto_complete_for_question'
+    
+    questions = ActiveSupport::JSON.decode(@response.body)
+    
+    assert_equal 2, questions.size
+    assert questions.all? { |q| ("#{q['label']} #{q['informal']}").match /ciencia/i }
 
-    post :auto_complete_for_question, { :question_data => 'xyz' }
+    get :auto_complete_for_question, { :q => 'xyz', :format => :json }
     assert_response :success
-    assert_not_nil assigns(:questions)
-    assert_equal 0, assigns(:questions).size # None
-    assert_select '#error_body', false
-    assert_template 'projects/auto_complete_for_question'
+    
+    questions = ActiveSupport::JSON.decode(@response.body)
+    
+    assert questions.empty?
   end
 end

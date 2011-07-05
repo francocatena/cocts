@@ -8,7 +8,7 @@ a img {
     border: none;
 }
 
-a[data-event="hide_item"], a[data-event="remove_item"] {
+a[data-event="hideItem"], a[data-event="removeItem"] {
     padding: 1px 3px;
     border: 2px solid #dedede;
     text-decoration: none;
@@ -18,7 +18,7 @@ a[data-event="hide_item"], a[data-event="remove_item"] {
     font-weight: bold;
 }
 
-a[data-event="hide_item"]:hover, a[data-event="remove_item"]:hover {
+a[data-event="hideItem"]:hover, a[data-event="removeItem"]:hover {
     color: #ffffff;
     border-color: #ff0000;
     background: #aa0000;
@@ -477,16 +477,6 @@ ul.horizontal_list > li {
     margin: .5em 0em;
 }
 
-.calendar_date_select a {
-    padding: 0px;
-}
-
-.calendar_date_select table {
-    width: 100%;
-    border: none;
-    empty-cells: hide;
-}
-
 .subscript {
     font-size: xx-small;
     vertical-align: bottom;
@@ -495,4 +485,19 @@ ul.horizontal_list > li {
 .superscript {
     font-size: xx-small;
     vertical-align:top;
+}
+
+.ui-autocomplete span.informal {
+  display: block;
+  white-space: normal;
+  font-size: .75em;
+  color: #676767;
+}
+
+.ui-autocomplete span.label {
+  white-space: normal;
+}
+
+.ui-datepicker-trigger {
+  display: none;
 }

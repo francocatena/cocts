@@ -106,11 +106,11 @@ class ProjectsController < ApplicationController
 
   # POST /projects/auto_complete_for_question
   def auto_complete_for_question
-    @tokens = params[:question_data][0..100].split(/[\s,]/).uniq
-    @tokens.reject! {|t| t.blank?}
+    tokens = params[:q][0..100].split(/[\s,]/).uniq
+    tokens.reject! {|t| t.blank?}
     conditions = []
     parameters = {}
-    @tokens.each_with_index do |t, i|
+    tokens.each_with_index do |t, i|
       conditions << [
         "LOWER(#{Question.table_name}.code) LIKE :question_data_#{i}",
         "LOWER(#{Question.table_name}.question) LIKE :question_data_#{i}"
@@ -122,6 +122,10 @@ class ProjectsController < ApplicationController
     @questions = Question.where(
       [conditions.map {|c| "(#{c})"}.join(' AND '), parameters]
     ).order("#{Question.table_name}.code ASC").limit(10)
+    
+    respond_to do |format|
+      format.json { render :json => @questions }
+    end
   end
   
   def preview_form

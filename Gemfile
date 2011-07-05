@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.9'
 gem 'pg'
-gem 'calendar_date_select', :git => 'https://github.com/paneq/calendar_date_select.git', :branch => 'rails3test'
+gem 'jquery-rails'
 gem 'will_paginate', '~> 3.0.beta'
 gem 'RedCloth'
 gem 'validates_timeliness', '~> 3.0'
