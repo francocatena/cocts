@@ -8,27 +8,63 @@
   <div class="one_column_form">
     <div class="field">
       <%= f.label :name %>
+      <%= link_to '?', '#', :class => 'open_dialog', :'data-dialog' => '#help_project_name' %>
+      <div id="help_project_name" class="hidden_dialog" style="display: none;" 
+        title= <%= "#{t(:'help_title')}-#{t(:'activerecord.attributes.project.name')}" %>
+           <p><%= t(:'projects.name_help') %></p>
+      </div>  
       <%= f.text_field :name, :maxlength => 255, :autofocus => true %>
+      
     </div>
     <div class="field">
       <%= f.label :identifier %>
-      <%= f.text_field :identifier, :maxlength => 255 %>
+      <%= link_to '?', '#', :class => 'open_dialog', :'data-dialog' => '#help_project_identifier' %>
+      <div id="help_project_identifier" class="hidden_dialog" style="display: none;" 
+        title= <%= "#{t(:'help_title')}-#{t(:'activerecord.attributes.project.identifier')}" %>
+           <p><%= t(:'projects.identifier_help') %></p>
+      </div>
+      <%= f.text_field :identifier %>
+      
     </div>
     <div class="field">
       <%= f.label :description %>
+      <%= link_to '?', '#', :class => 'open_dialog', :'data-dialog' => '#help_project_description' %>
+      <div id="help_project_description" class="hidden_dialog" style="display: none;" 
+        title= <%= "#{t(:'help_title')}-#{t(:'activerecord.attributes.project.description')}" %>
+           <p><%= t(:'projects.description_help') %></p>
+      </div>
       <%= f.text_area :description %>
+      
     </div>
     <div class="field">
       <%= f.label :year %>
+      <%= link_to '?', '#', :class => 'open_dialog', :'data-dialog' => '#help_project_year' %>
+      <div id="help_project_year" class="hidden_dialog" style="display: none;" 
+        title= <%= "#{t(:'help_title')}-#{t(:'activerecord.attributes.project.year')}" %>
+           <p><%= t(:'projects.year_help') %></p>
+      </div>
       <%= f.text_field :year %>
+      
     </div>
     <div class="field">
       <%= f.label :project_type %>
-      <%= project_type_field f %>
+      <%= link_to '?', '#', :class => 'open_dialog', :'data-dialog' => '#help_project_type' %>
+      <div id="help_project_type" class="hidden_dialog" style="display: none;" 
+        title= <%= "#{t(:'help_title')}-#{t(:'activerecord.attributes.project.project_type')}" %>
+           <p><%= t(:'projects.project_type_help') %></p>
+      </div>
     </div>
+      <%= project_type_field f %>
+      
     <div class="field">
       <%= f.label :valid_until %>
+      <%= link_to '?', '#', :class => 'open_dialog', :'data-dialog' => '#help_project_valid_until' %>
+      <div id="help_project_valid_until" class="hidden_dialog" style="display: none;" 
+        title= <%= "#{t(:'help_title')}-#{t(:'activerecord.attributes.project.valid_until')}" %>
+           <p><%= t(:'projects.valid_until_help') %></p>
+      </div>
       <%= calendar_text_field f, :valid_until %>
+      
     </div>
   </div>
 
@@ -65,6 +101,11 @@
     <div class="column_headers">
       <div class="item_column" style="width: 90%;">
         <h3><%= Question.human_attribute_name :question %></h3>
+        <%= link_to '?', '#', :class => 'open_dialog', :'data-dialog' => '#help_project_questions' %>
+      <div id="help_project_questions" class="hidden_dialog" style="display: none;" 
+        title= <%= "#{t(:'help_title')}-#{t(:'activerecord.models.question')}" %>
+           <p><%= t(:'projects.questions_help') %></p>
+      </div>
       </div>
       <div class="item_column" style="width: 10%;"></div>
       <div style="clear: both;">&nbsp;</div>

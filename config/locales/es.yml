@@ -107,6 +107,7 @@
         enable: 'Habilitado'
   
   app_title: 'COCTS'
+  help_title: 'Ayuda'
 
   # Overrides model and default messages
   date:
@@ -296,6 +297,19 @@
           tb: 'TB'
 
   projects:
+    identifier_help: 'Campo que identifica unívocamente al proyecto. Si se trata
+    de un proyecto de tipo interactivo se utilizará como subdominio para realizar
+    la carga dinámica del mismo.'
+    name_help: 'Título que recibirá el proyecto.'
+    description_help: 'Breve reseña del proyecto y sus características.'
+    year_help: 'Año en el cuál se realizará el proyecto.'
+    project_type_help: 'Existen dos tipos de proyectos: manual e interactivo. En caso de
+    un proyecto manual la carga del mismo se realizará por un administrador. 
+    En cambio si se trata de un proyecto Interactivo la carga se realizará en línea
+    y estará a cargo de cada uno de los encuestados.'
+    valid_until_help: 'Fecha hasta la cual el proyecto estará vigente.'
+    questions_help: 'Detalle de las cuestiones asociadas al proyecto. Para asociar una
+    cuestión al proyecto ingrese el código de la misma.'
     index_title: 'Listado de proyectos'
     show_title: 'Detalle del proyecto'
     new_title: 'Nuevo proyecto'

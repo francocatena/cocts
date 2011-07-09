@@ -197,5 +197,14 @@ jQuery(function($) {
     }
   });
   
+$('.hidden_dialog').dialog({ autoOpen: false });  
+  
+$('a.open_dialog').click(function() {
+  $($(this).data('dialog')).dialog('open');
+    
+  return false;
+});
+
+  
   AutoComplete.observeAll();
 });

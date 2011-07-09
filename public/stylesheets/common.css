@@ -286,12 +286,11 @@ div.box {
 }
 
 div.field {
-    margin-bottom: .5em;
+   margin-top: 0.8em;
 }
 
-div.field label {
-    display: block;
-    margin-bottom: .2em;
+div.field label{
+    display: inline;
     font-weight: bold;
     color: #6e6e6e;
 }
