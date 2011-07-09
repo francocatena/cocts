@@ -454,6 +454,13 @@
     error_manual_type: 'El proyecto ingresado debe ser de tipo interactivo'
 
   questions:
+    dimension_help: 'Categoría en la cual se encuentra la cuestión.'
+    code_help: 'Campo que identifica unívocamente a la cuestión.'
+    question_help: 'Texto de la cuestión.'
+    answer_clarification_help: 'Explicación a tener en cuenta antes de realizar
+    la valoración de la respuesta.'
+    answer_category_help: 'Clase utilizada para realizar una evaluación de la respuesta.'
+    answer_text_help: 'Texto de la respuesta a ser evaluada.'
     index_title: 'Listado de cuestiones'
     show_title: 'Detalles de la cuestión'
     new_title: 'Nueva cuestión'
