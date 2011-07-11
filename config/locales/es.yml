@@ -521,6 +521,15 @@
     pm: 'pm'
 
   users:
+    name_help: 'Nombre real del usuario.'
+    lastname_help: 'Apellido real del usuario.'
+    user_help: 'Nombre que utilizará el usuario en el sistema. Utilizado para
+    la autenticación del mismo.'
+    password_help: 'Contraseña personal. Utilizada para la autenticación del usuario.'
+    password_confirmation_help: "Repetición del valor ingresado en el campo 'Contraseña'."
+    enable_help: 'Casilla que determina si el usuario está habilitado o no para ingresar
+    al sistema.'
+    email_help: 'Casilla de email del usuario.'
     enter: 'Ingresar'
     logout: 'Salir'
     index_title: 'Listado de usuarios'
