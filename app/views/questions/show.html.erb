@@ -25,16 +25,14 @@
       <th><%= Answer.human_attribute_name :clarification %></th>
       <th><%= Answer.human_attribute_name :category %></th>
       <th><%= Answer.human_attribute_name :answer %></th>
-      <th></th>
-      <th></th>
-      <th></th>
+      
     </tr>
   </thead>
 
   <tbody>
 
     <% @question.answers.each do |answer| %>
-      <tr>
+      <tr class="<%= cycle(:even, :odd) %>">
 	<td><%= answer.clarification %></td>
 	<td><%= t :"questions.answers.long_type.#{Answer::CATEGORIES.invert[answer.category]}" %></td>
 	<td><%= answer.answer %></td>
