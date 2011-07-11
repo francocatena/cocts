@@ -90,12 +90,12 @@ class ProjectInstancesController < ApplicationController
   # PUT /project_instances/1
   # PUT /project_instances/1.xml
   def update
-    @project_instance = t :'project_instances.edit_title'
+    @title = t :'project_instances.edit_title'
     @project_instance = ProjectInstance.find(params[:id])
 
     respond_to do |format|
       if @project_instance.update_attributes(params[:project_instance])
-        format.html { redirect_to(@project_instance, :notice => 'Project instance was successfully updated.') }
+        format.html { redirect_to(@project_instance, :notice => t(:'project_instances.correctly_updated')) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
