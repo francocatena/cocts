@@ -473,7 +473,7 @@
     project_error: 'La cuestión no pudo ser eliminada ya que se encuentra asignada a un proyecto.'
     import_file: 'Seleccione archivo de cuestiones (CSV):'
     error_file_extension: 'Error: Debe seleccionar un archivo CSV'
-    attach_csv: 'Importar preguntas'
+    attach_csv: 'Importar cuestiones'
     import_csv_file: 'Importar archivo CSV'
     csv_import: 
       one: 'Una cuestión ha sido importada satisfactoriamente.'
