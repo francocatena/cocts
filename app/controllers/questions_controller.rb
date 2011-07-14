@@ -137,7 +137,7 @@ class QuestionsController < ApplicationController
       n=0
       @parsed_file.each  do |row|
         a = Answer.new
-        a.category = row[1].to_i
+        a.category = row[1]
         a.order = row[2].to_i
         a.clarification = row[3].to_s
         a.answer = row[4]
