@@ -54,6 +54,10 @@ class Project < ActiveRecord::Base
     self.forms ||= SOCIODEMOGRAPHIC_FORMS
   end
 
+  def is_valid?
+    Time.now < self.valid_until 
+  end
+  
   def to_param
     self.identifier
   end

@@ -297,6 +297,7 @@
           tb: 'TB'
 
   projects:
+    valid_until_error: 'El proyecto ha vencido: no se pueden cargar instancias.'
     identifier_help: 'Campo que identifica unívocamente al proyecto. Si se trata
     de un proyecto de tipo interactivo se utilizará como subdominio para realizar
     la carga dinámica del mismo.'

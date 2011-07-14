@@ -1,5 +1,6 @@
 class ProjectInstancesController < ApplicationController
   before_filter :auth, :except => [:new, :create]
+  
   # GET /project_instances
   # GET /project_instances.xml
   
@@ -36,12 +37,20 @@ class ProjectInstancesController < ApplicationController
     
     if params[:identifier]
       @project = Project.find_by_identifier(params[:identifier])
-      @project_instance = ProjectInstance.new(:project =>  @project)
+      unless @project.is_valid?
+        flash[:notice]= t :'projects.valid_until_error'
+        redirect_to projects_path
+      else  
+        @project_instance = ProjectInstance.new(:project =>  @project)
+      end  
     else
       @project = Project.find_by_identifier(request.subdomain)
       if @project 
         if @project.interactive?
           @project_instance = ProjectInstance.new(:project => @project)
+        elsif !@project.is_valid?
+          flash[:notice]= t :'projects.valid_until_error'
+          redirect_to projects_path
         else
           flash[:notice]= t :'project_instances.error_manual_type'
           redirect_to login_users_path
