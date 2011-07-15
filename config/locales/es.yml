@@ -522,6 +522,8 @@
     pm: 'pm'
 
   users:
+    current_password: 'Ingrese su contraseña actual:'
+    new_password: 'Ingrese su nueva contraseña:'
     name_help: 'Nombre real del usuario.'
     lastname_help: 'Apellido real del usuario.'
     user_help: 'Nombre que utilizará el usuario en el sistema. Utilizado para
@@ -547,5 +549,7 @@
     stale_object_error: 'El usuario no pudo ser actualizado, intente nuevamente.'
     add: 'Crear usuario'
     personal_data_correctly_updated: 'Datos personales actualizados correctamente.'
+    current_password_error: 'La contraseña actual no es correcta o no coincide con la 
+    confirmación.'
     password_correctly_updated: 'Contraseña actualizada correctamente.'
     password_stale_object_error: 'La contraseña no pudo ser actualizada, intente nuevamente.'

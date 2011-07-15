@@ -140,32 +140,48 @@ class UsersController < ApplicationController
   # * PUT /users/update_password/1
   # * PUT /users/update_password/1.xml
   def update_password
-    @auth_user.password = params[:user][:password]
-    @auth_user.password_confirmation = params[:user][:password_confirmation]
+    @user = User.new
+    @user.user = @auth_user.user
+    @user.password = params[:current_password]
+       
+    auth_user = User.find_by_user(@auth_user.user)
+    @user.salt = auth_user.salt if auth_user
 
-    if @auth_user.valid?
-      @auth_user.encrypt_password
+    @user.encrypt_password
+   
+    unless auth_user && auth_user.password && auth_user.password == 
+        @user.password && params[:current_password] == params[:current_password_confirmation]
+      flash[:notice] = t :'users.current_password_error'
+      redirect_to edit_password_user_path(auth_user)
+    else
+      @auth_user.password = params[:user][:password]
+      @auth_user.password_confirmation = params[:user][:password_confirmation]
 
-      if @auth_user.update_attributes(
-          :password => @auth_user.password,
-          :password_confirmation => @auth_user.password
-        )
+      if @auth_user.valid?
+        @auth_user.encrypt_password
 
-        flash[:notice] = t :'users.password_correctly_updated'
-        redirect_to login_users_url
+        if @auth_user.update_attributes(
+            :password => @auth_user.password,
+            :password_confirmation => @auth_user.password
+          )
+
+          flash[:notice] = t :'users.password_correctly_updated'
+          redirect_to login_users_url
+        else
+          render :action => :edit_password
+        end
       else
         render :action => :edit_password
       end
-    else
-      render :action => :edit_password
+
+      @auth_user.password, @auth_user.password_confirmation = nil, nil
     end
-
-    @auth_user.password, @auth_user.password_confirmation = nil, nil
-
   rescue ActiveRecord::StaleObjectError
     flash[:notice] = t :'users.password_stale_object_error'
     redirect_to edit_password_user_path(@auth_user)
   end
+  
+  
 
   # * GET /users/edit_personal_data/1
   # * GET /users/edit_personal_data/1.xml
