@@ -522,6 +522,7 @@
     pm: 'pm'
 
   users:
+    project_error: 'El usuario no pudo ser eliminado ya que se encuentra asociado a un proyecto.'
     current_password: 'Ingrese su contraseña actual:'
     new_password: 'Ingrese su nueva contraseña:'
     name_help: 'Nombre real del usuario.'

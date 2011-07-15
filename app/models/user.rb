@@ -20,6 +20,11 @@ class User < ActiveRecord::Base
     :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i,
     :allow_nil => true, :allow_blank => true
 
+  # Relaciones
+  has_many :projects
+  
+  before_destroy :can_be_destroyed?
+  
   def to_s
     [self.name, self.lastname].join(' ')
   end
@@ -27,6 +32,10 @@ class User < ActiveRecord::Base
   # Método invocado después de haber creado una instancia de la clase
   def password_to_nil
     self.password = nil
+  end
+  
+  def can_be_destroyed?
+    self.projects.blank?
   end
 
   # Método para determinar si el usuario está o no habilitado

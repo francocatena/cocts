@@ -43,9 +43,11 @@ class Project < ActiveRecord::Base
     end
   end
 
+  # Relaciones
   has_and_belongs_to_many :questions, :validate => false, :order => 'code ASC',
     :uniq => true
   has_many :project_instances
+  belongs_to :user
 
   def initialize(attributes = nil)
     super(attributes)

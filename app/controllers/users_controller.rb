@@ -94,8 +94,10 @@ class UsersController < ApplicationController
   # * DELETE /users/1.xml
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
-
+    unless @user.destroy
+      flash[:alert] = t :'users.project_error'
+    end
+    
     respond_to do |format|
       format.html { redirect_to(users_url) }
       format.xml  { head :ok }

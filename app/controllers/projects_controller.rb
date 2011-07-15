@@ -56,7 +56,8 @@ class ProjectsController < ApplicationController
   def create
     @title = t :'projects.new_title'
     @project = Project.new(params[:project])
-
+    @project.user = @auth_user
+    
     respond_to do |format|
       if @project.save
         flash[:notice] = t :'projects.correctly_created'
