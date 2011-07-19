@@ -14,6 +14,7 @@ user = User.create(
   :lastname => 'Administrador',
   :email => 'admin@cocts.edu',
   :enable => true,
+  :admin => true,
   :user => 'admin',
   :password => 'admin123'
 )
