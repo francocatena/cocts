@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_filter :auth, :except => [:login, :create_session]
-  before_filter :admin, :except => [:login, :create_session, :logout]
+  before_filter :admin, :except => [:login, :create_session, :edit_password, 
+    :update_password, :edit_personal_data, :update_personal_data,:logout]
   layout proc { |controller|
     ['login', 'session'].include?(controller.action_name) ?
       'clean' : 'application'
