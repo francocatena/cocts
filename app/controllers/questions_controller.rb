@@ -7,15 +7,29 @@ class QuestionsController < ApplicationController
   # * GET /questions.xml
   def index
     @title = t :'questions.index_title'
-    @questions = Question.order(
+    
+    if @auth_user.admin?
+      @questions = Question.order(
       [
         "#{Question.table_name}.dimension ASC",
         "#{Question.table_name}.code ASC"
       ].join(', ')
-    ).paginate(
-      :page => params[:page],
-      :per_page => APP_LINES_PER_PAGE
-    )
+      ).paginate(
+        :page => params[:page],
+        :per_page => APP_LINES_PER_PAGE
+      )
+    else    
+      @questions = Question.includes(:projects).where("#{Project.table_name}.user_id" => 
+        @auth_user.id).order(
+        [
+          "#{Question.table_name}.dimension ASC",
+          "#{Question.table_name}.code ASC"
+        ].join(', ')
+      ).paginate(
+        :page => params[:page],
+        :per_page => APP_LINES_PER_PAGE
+      )
+    end
 
     respond_to do |format|
       format.html # index.html.erb

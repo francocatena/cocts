@@ -105,6 +105,7 @@
         lastname: 'Apellido'
         email: 'E-Mail'
         enable: 'Habilitado'
+        admin: 'Administrador'
   
   app_title: 'COCTS'
   help_title: 'Ayuda'
@@ -522,6 +523,7 @@
     pm: 'pm'
 
   users:
+    admin_error: 'Usted no cuenta con privilegios de administrador.'
     project_error: 'El usuario no pudo ser eliminado ya que se encuentra asociado a un proyecto.'
     current_password: 'Ingrese su contraseña actual:'
     new_password: 'Ingrese su nueva contraseña:'
@@ -533,6 +535,8 @@
     password_confirmation_help: "Repetición del valor ingresado en el campo 'Contraseña'."
     enable_help: 'Casilla que determina si el usuario está habilitado o no para ingresar
     al sistema.'
+    admin_help: 'Casilla que determina si el usuario cuenta o no con privilegios de 
+    administrador.'
     email_help: 'Casilla de email del usuario.'
     enter: 'Ingresar'
     logout: 'Salir'

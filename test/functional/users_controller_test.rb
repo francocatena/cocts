@@ -192,6 +192,8 @@ class UsersControllerTest < ActionController::TestCase
     perform_auth user
     put :update_password, {
       :id => @user.to_param,
+      :current_password => 'admin123',
+      :current_password_confirmation => 'admin123',
       :user => {
         :password => 'new_password_123',
         :password_confirmation => 'new_password_123'

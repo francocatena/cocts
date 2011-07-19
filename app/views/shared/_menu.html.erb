@@ -3,7 +3,7 @@
 <% if @auth_user %>
 <ul id="main_menu">
   <li><%= link_to t(:'menu.users'), users_path,
-    :class => "real #{:selected if controller == :users}" %></li>
+    :class => "real #{:selected if controller == :users}" if @auth_user.admin? %></li>
   <li><%= link_to t(:'menu.projects'), projects_path,
     :class => "real #{:selected if controller == :projects}" %></li>
   <li><%= link_to t(:'menu.questions'), questions_path,

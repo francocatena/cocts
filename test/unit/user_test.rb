@@ -30,7 +30,8 @@ class UserTest < ActiveSupport::TestCase
         :password => 'new_password_123',
         :password_confirmation => 'new_password_123',
         :email => 'new_user@users.com',
-        :enable => true
+        :enable => true,
+        :admin => true
       )
     end
   end

@@ -85,7 +85,7 @@ class ProjectInstancesController < ApplicationController
           format.html { redirect_to projects_path }
           format.xml  { render :xml => @project_instance, :status => :created, :location => @project_instance }
         else
-          format.html { redirect_to new_project_instance_path }
+          format.html { redirect_to login_users_path }
         end
       else
         format.html { render :action => "new" }

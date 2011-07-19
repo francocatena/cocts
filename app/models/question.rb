@@ -1,6 +1,6 @@
 class Question < ActiveRecord::Base
   DIMENSIONS = 1..9
-  
+    
   # Alias de atributos
   alias_attribute :informal, :question
   alias_attribute :label, :code

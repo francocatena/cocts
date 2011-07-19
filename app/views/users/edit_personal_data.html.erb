@@ -4,7 +4,11 @@
       <%= f.error_messages %>
       <div class="field">
         <%= f.label :user %>
-        <%= f.text_field :user, :readonly => true, :size => nil %>
+        <% if @user.admin? %>
+          <%= f.text_field :user, :readonly => true, :size => nil %>
+        <% else %>
+        <strong><%=":  #{@user.user}" %></strong>
+        <% end %>
       </div>
       <div class="field">
         <%= f.label :name %>

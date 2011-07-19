@@ -6,10 +6,17 @@ class ProjectsController < ApplicationController
   # * GET /projects.xml
   def index
     @title = t :'projects.index_title'
-    @projects = Project.order('valid_until DESC').paginate(
-      :page => params[:page],
-      :per_page => APP_LINES_PER_PAGE
-    )
+    if @auth_user.admin?
+      @projects = Project.order('valid_until DESC').paginate(
+        :page => params[:page],
+        :per_page => APP_LINES_PER_PAGE
+      )
+    else
+      @projects = Project.where("user_id = #{@auth_user.id}").order('valid_until DESC').paginate(
+        :page => params[:page],
+        :per_page => APP_LINES_PER_PAGE
+      )
+    end
 
     respond_to do |format|
       format.html # index.html.erb

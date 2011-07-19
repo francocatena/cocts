@@ -67,6 +67,16 @@
       </div>
       <%= f.check_box :enable %>
     </div>
+    
+    <div class="field">
+      <%= f.label :admin %>
+      <%= link_to '?', '#', :class => 'open_dialog', :'data-dialog' => '#help_user_admin' %>
+      <div id="help_user_admin" class="hidden_dialog" style="display: none;" 
+        title= <%= "#{t(:'help_title')}-#{t(:'activerecord.attributes.user.admin')}" %>
+           <p><%= t(:'users.admin_help') %></p>
+      </div>
+      <%= f.check_box :admin %>
+    </div>
   </div>
 
   <%= hidden_lock_version(f) %>

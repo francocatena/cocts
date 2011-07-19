@@ -5,6 +5,7 @@ admin:
   name: Administrator
   lastname: Administrator
   enable: true
+  admin: true
   email: administrator@users.com
   salt: <%= salt %>
 
@@ -15,5 +16,6 @@ disable:
   name: Disabled
   lastname: User
   enable: false
+  admin: false
   email: disable@users.com
   salt: <%= salt %>

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_filter :auth, :except => [:login, :create_session]
+  before_filter :admin, :except => [:login, :create_session, :logout]
   layout proc { |controller|
     ['login', 'session'].include?(controller.action_name) ?
       'clean' : 'application'
@@ -104,6 +105,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def admin
+    unless @auth_user.admin?
+      flash[:alert] = t :'users.admin_error'
+      redirect_to projects_path
+    end
+  end
+  
   # * GET /users/login
   def login
     @title = t :'users.login_title'
@@ -124,7 +132,11 @@ class UsersController < ApplicationController
         auth_user.password == @user.password then
       session[:last_access] = Time.now
       session[:user_id] = auth_user.id
-      go_to = session[:go_to] || { :action => :index }
+      if auth_user.admin?
+        go_to = session[:go_to] || { :action => :index }
+      else
+        go_to = {:controller => :projects, :action => :index}
+      end
       session[:go_to] = nil
       redirect_to go_to
     else
