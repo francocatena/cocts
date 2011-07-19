@@ -40,7 +40,7 @@ class ProjectInstancesController < ApplicationController
       @project_instance = ProjectInstance.new(:project =>  @project)
         
     else
-      @project = Project.find_by_identifier(request.subdomain)
+      @project = Project.find_by_identifier(request.subdomains.first)
       if @project 
         unless @project.is_valid?
           flash[:notice]= t :'projects.valid_until_error'
@@ -81,7 +81,7 @@ class ProjectInstancesController < ApplicationController
       
       if @project_instance.save
         flash[:notice] = t :'project_instances.correctly_created'
-        if request.subdomain == 'admin'
+        if request.subdomains.first == 'admin'
           format.html { redirect_to projects_path }
           format.xml  { render :xml => @project_instance, :status => :created, :location => @project_instance }
         else
