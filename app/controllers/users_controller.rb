@@ -164,8 +164,7 @@ class UsersController < ApplicationController
 
     @user.encrypt_password
    
-    unless auth_user && auth_user.password && auth_user.password == 
-        @user.password && params[:current_password] == params[:current_password_confirmation]
+    unless auth_user && auth_user.password && auth_user.password == @user.password 
       flash[:notice] = t :'users.current_password_error'
       redirect_to edit_password_user_path(auth_user)
     else
