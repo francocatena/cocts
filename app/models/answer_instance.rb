@@ -15,7 +15,6 @@ class AnswerInstance < ActiveRecord::Base
   validates :answer_text, :valuation, :answer_category, :presence => true
   validates_numericality_of :answer_category, :only_integer => true, 
       :allow_blank => true, :allow_nil => true
-  validates_length_of :answer_text, :maximum => 255
   validates_inclusion_of :answer_category, :in => CATEGORIES.values, 
     :allow_blank => true, :allow_nil => true
   validates_inclusion_of :valuation, :in => VALUATIONS, 

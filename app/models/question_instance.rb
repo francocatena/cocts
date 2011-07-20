@@ -6,8 +6,7 @@ class QuestionInstance < ActiveRecord::Base
   accepts_nested_attributes_for :answer_instances
   
   # Restricciones
-  validates :question_text, :presence => true,
-    :length => {:maximum => 255}
+  validates :question_text, :presence => true
   
   def initialize(attributes = nil)
     super(attributes)
