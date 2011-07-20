@@ -3,7 +3,7 @@
     projects: 'Proyectos'
     questions: 'Cuestiones'
     users: 'Usuarios'
-
+    
   # Attributes names common to most models
   attributes:
     created_at: 'Creación'
@@ -59,7 +59,7 @@
           attributes:
             code:
               invalid: 'debe contener solamente números'
-
+        
     models:
       answer: 'Respuesta'
       project: 'Proyecto'
@@ -85,6 +85,10 @@
         order: 'Orden'
         clarification: 'Aclaraciones previas'
         answer: 'Respuesta'
+      answer_instance:
+        answer_text: 'Respuesta'
+        valuation: 'Valoración'
+        anwer_category: 'Categoría'
       project:
         name: 'Nombre'
         identifier: 'Identificador'
@@ -97,6 +101,8 @@
         code: 'Código'
         dimension: 'Dimensión'
         question: 'Cuestión'
+      question_instance:
+        question_text: 'Cuestión'
       user:
         user: 'Usuario'
         password: 'Contraseña'
@@ -298,6 +304,8 @@
           tb: 'TB'
 
   projects:
+    project_instance_error: 'El proyecto no pudo ser eliminado ya que existen
+    instancias de resolución asociadas al mismo.'
     valid_until_error: 'El proyecto ha vencido: no se pueden cargar instancias.'
     identifier_help: 'Campo que identifica unívocamente al proyecto. Si se trata
     de un proyecto de tipo interactivo se utilizará como subdominio para realizar

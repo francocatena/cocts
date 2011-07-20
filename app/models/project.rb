@@ -42,13 +42,15 @@ class Project < ActiveRecord::Base
       record.errors.add attr, :blank
     end
   end
-
-  # Relaciones
+  
+    # Relaciones
   has_and_belongs_to_many :questions, :validate => false, :order => 'code ASC',
     :uniq => true
   has_many :project_instances
   belongs_to :user
 
+  before_destroy :can_be_destroyed?
+  
   def initialize(attributes = nil)
     super(attributes)
 
@@ -64,6 +66,10 @@ class Project < ActiveRecord::Base
     self.identifier
   end
 
+  def can_be_destroyed?
+    self.project_instances.blank?
+  end
+  
   TYPES.each do |type, value|
     define_method(:"#{type}?") do
       self.project_type == value

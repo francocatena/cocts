@@ -104,8 +104,9 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1.xml
   def destroy
     @project = Project.find_by_identifier(params[:id])
-    @project.destroy
-
+    unless @project.destroy
+      flash[:alert] = t :'projects.project_instance_error'
+    end
     respond_to do |format|
       format.html { redirect_to(projects_url) }
       format.xml  { head :ok }
