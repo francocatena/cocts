@@ -81,7 +81,7 @@ class ProjectInstancesController < ApplicationController
       
       if @project_instance.save
         flash[:notice] = t :'project_instances.correctly_created'
-        if request.subdomains.first == 'admin'
+        if @project_instance.project.manual?
           format.html { redirect_to projects_path }
           format.xml  { render :xml => @project_instance, :status => :created, :location => @project_instance }
         else
