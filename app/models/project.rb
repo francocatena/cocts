@@ -31,7 +31,7 @@ class Project < ActiveRecord::Base
     :allow_blank => true
   validates :identifier, :exclusion => { :in => ['admin'] }
   validates_date :valid_until, :on_or_after => lambda { Date.today },
-    :allow_nil => false, :allow_blank => false
+    :allow_nil => false, :allow_blank => false, :if => :is_interactive?
   validates_each :forms do |record, attr, value|
     unless (value || []).all? { |value| SOCIODEMOGRAPHIC_FORMS.include?(value) }
       record.errors.add attr, :inclusion
@@ -64,6 +64,10 @@ class Project < ActiveRecord::Base
   
   def to_param
     self.identifier
+  end
+  
+  def is_interactive?
+    self.project_type == 1
   end
 
   def can_be_destroyed?
