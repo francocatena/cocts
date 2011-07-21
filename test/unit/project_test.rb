@@ -48,6 +48,8 @@ class ProjectTest < ActiveSupport::TestCase
 
   # Prueba de eliminación de proyectos
   test 'delete' do
+    assert_no_difference('Project.count') { @project.destroy }
+    @project.project_instances.clear
     assert_difference('Project.count', -1) { @project.destroy }
   end
 
@@ -67,7 +69,7 @@ class ProjectTest < ActiveSupport::TestCase
     assert_equal [error_message_from_model(@project, :description, :blank)],
       @project.errors[:description]
     assert_equal [error_message_from_model(@project, :valid_until,
-        :invalid_date)], @project.errors[:valid_until]
+        :blank)], @project.errors[:valid_until]
     assert_equal [error_message_from_model(@project, :questions, :blank)],
       @project.errors[:questions]
   end
@@ -82,14 +84,13 @@ class ProjectTest < ActiveSupport::TestCase
 
   # Prueba que las validaciones del modelo se cumplan como es esperado
   test 'validates formated attributes' do
+    @project = Project.find projects(:interactive).id
     @project.identifier = 'xx_'
-    @project.valid_until = '13/13/13'
+    @project.valid_until = '10/10/10'
     assert @project.invalid?
     assert_equal 2, @project.errors.count
     assert_equal [error_message_from_model(@project, :identifier, :invalid)],
       @project.errors[:identifier]
-    assert_equal [error_message_from_model(@project, :valid_until,
-      :invalid_date)], @project.errors[:valid_until]
   end
 
   test 'validates lenght attributes' do

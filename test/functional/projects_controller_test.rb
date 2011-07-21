@@ -138,6 +138,10 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test 'destroy project' do
     perform_auth
+    assert_no_difference('Project.count') do
+      delete :destroy, :id => @project.to_param
+    end
+    @project.project_instances.clear
     assert_difference('Project.count', -1) do
       delete :destroy, :id => @project.to_param
     end
