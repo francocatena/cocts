@@ -208,16 +208,30 @@ class UsersController < ApplicationController
   # * PUT /users/update_personal_data/1.xml
   def update_personal_data
     @user = User.find(session[:user_id])
-    attributes = {
-      :name  => params[:user][:name],
-      :lastname  => params[:user][:lastname],
-      :email => params[:user][:email]
-    }
-
-    if @user.update_attributes(attributes)
-      flash[:notice] = t :'users.personal_data_correctly_updated'
+    pass = params[:new_password]
+    
+    if @user.admin? && !pass.blank?
+      @user.password = pass
+      @user.encrypt_password
+   
+      attributes = {
+        :name  => params[:user][:name],
+        :lastname  => params[:user][:lastname],
+        :email => params[:user][:email],
+        :password => @user.password
+      }
+    else
+      attributes = {
+        :name  => params[:user][:name],
+        :lastname  => params[:user][:lastname],
+        :email => params[:user][:email]
+      }
     end
-
+    if @user.valid?
+      if @user.update_attributes(attributes)
+        flash[:notice] = t :'users.personal_data_correctly_updated'
+      end
+    end
     render :action => :edit_personal_data
 
   rescue ActiveRecord::StaleObjectError

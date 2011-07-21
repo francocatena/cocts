@@ -5,7 +5,7 @@
       <div class="field">
         <%= f.label :user %>
         <% if @user.admin? %>
-          <%= f.text_field :user, :readonly => true, :size => nil %>
+          <%= f.text_field :user, :size => nil %>
         <% else %>
         <strong><%=":  #{@user.user}" %></strong>
         <% end %>
@@ -18,6 +18,12 @@
         <%= f.label :lastname %>
         <%= f.text_field :lastname, :maxlength => 255 %>
       </div>
+      <% if @auth_user.admin? %>
+      <div class="field">
+        <%= f.label t:'users.new_password_label' %>
+        <%= password_field_tag :new_password, nil, :maxlength => 100 %>
+      </div>
+      <% end %>
       <div class="field">
         <%= f.label :email %>
         <%= f.text_field :email, :maxlength => 100 %>
