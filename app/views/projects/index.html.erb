@@ -3,11 +3,11 @@
     <tr>
       <th><%= Project.human_attribute_name :name %></th>
       <th><%= Project.human_attribute_name :identifier %></th>
+      <th><%= User.human_attribute_name :user if @auth_user.admin? %></th>
       <th><%= Project.human_attribute_name :year %></th>
       <th><%= Project.human_attribute_name :project_type %></th>
       <th><%= Project.human_attribute_name :valid_until %></th>
-      <th></th>
-      <th></th>
+      <th><%= t:'projects.instance' %></th>
       <th></th>
       <th></th>
       <th></th>
@@ -19,13 +19,15 @@
       <tr class="<%= cycle(:even, :odd) %>">
         <td><%=h project.name %></td>
         <td><%=h project.identifier %></td>
+        <td><%=h project.user.user if project.user && @auth_user.admin? %></td>
         <td><%=h project.year %></td>
         <td><%=h project.project_type_text %></td>
         <td><%=h l(project.valid_until) if project.valid_until %></td>
-        <td><%= link_to t(:'projects.new_instance_label'), 
+        <td><%= link_to t(:'labels.new'), 
             new_project_instance_path(:identifier => project.identifier), 
-            :class => :real if project.manual? %></td>
-        <td><%= link_to t(:'projects.show_instances_label'), 
+            :class => :real if project.manual? %> 
+          <%= "|" unless project.interactive? || project.project_instances.empty? %>
+            <%= link_to t(:'labels.list'), 
             #:controller => 'project_instances', :action => 'index', 
             project_instances_url(:id => project.id),
             :class => :real unless project.project_instances.empty? %></td>
