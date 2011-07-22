@@ -91,6 +91,10 @@ class ProjectTest < ActiveSupport::TestCase
     assert_equal 2, @project.errors.count
     assert_equal [error_message_from_model(@project, :identifier, :invalid)],
       @project.errors[:identifier]
+    assert_equal [error_message_from_model(@project, :valid_until,
+      :on_or_after, :restriction => Time.now.strftime('%d/%m/%Y'))], 
+      @project.errors[:valid_until]
+    
   end
 
   test 'validates lenght attributes' do
