@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110615124822) do
+ActiveRecord::Schema.define(:version => 20110715175220) do
 
   create_table "answer_instances", :force => true do |t|
     t.integer  "question_instance_id"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(:version => 20110615124822) do
     t.integer  "lock_version", :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   add_index "projects", ["identifier"], :name => "index_projects_on_identifier", :unique => true
@@ -115,6 +116,7 @@ ActiveRecord::Schema.define(:version => 20110615124822) do
     t.integer  "lock_version", :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "admin"
   end
 
   add_index "users", ["user"], :name => "index_users_on_user", :unique => true

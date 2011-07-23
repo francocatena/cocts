@@ -17,12 +17,12 @@
   <tbody>
     <% @projects.each do |project| %>
       <tr class="<%= cycle(:even, :odd) %>">
-        <td><%=h project.name %></td>
-        <td><%=h project.identifier %></td>
-        <td><%=h project.user.user if project.user && @auth_user.admin? %></td>
-        <td><%=h project.year %></td>
-        <td><%=h project.project_type_text %></td>
-        <td><%=h l(project.valid_until) if project.valid_until %></td>
+        <td><%= truncate project.name, :length => 40, :omission => '...' %></td>
+        <td><%= project.identifier %></td>
+        <td><%= project.user.user if project.user && @auth_user.admin? %></td>
+        <td><%= project.year %></td>
+        <td><%= project.project_type_text %></td>
+        <td><%= l(project.valid_until) if project.valid_until %></td>
         <td><%= link_to t(:'labels.new'), 
             new_project_instance_path(:identifier => project.identifier), 
             :class => :real if project.manual? %> 

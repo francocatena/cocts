@@ -462,6 +462,7 @@
     correctly_updated: 'Instancia de proyecto actualizada correctamente.'
     error_subdomain: 'El subdominio ingresado no corresponde con ningún proyecto'
     error_manual_type: 'El proyecto ingresado debe ser de tipo interactivo'
+    question_number: 'Pregunta %{count} de %{total}'
 
   questions:
     dimension_help: 'Categoría en la cual se encuentra la cuestión.'

@@ -1,14 +1,14 @@
 <%= form_for @project_instance do |f| %>
   <%= f.error_messages %>
-<div class ="one_column_form">
+<div class ="one_column_form project_instance">
     <div class="field">
       <% @project_instance.project ||= @project %>
       <%= f.hidden_field :project_id %>
-      <%= f.label "#{t :'activerecord.models.project'}: #{@project_instance.project.name}" %><br />
+      <label><%= "#{t :'activerecord.models.project'}: #{@project_instance.project.name}"%></label><br />
     </div>
     <div class="field">
       <%= f.label :first_name %><br />
-      <%= f.text_field :first_name %>
+      <%= f.text_field :first_name, :autofocus => true %>
     </div>
     <div class="field">
       <%= f.label :last_name %><br />
@@ -21,27 +21,37 @@
     
     <% @project_instance.question_instances.build if @project_instance.question_instances.empty? %>
     
+    <% count = 0 %>
+    <% questions_count = @project_instance.question_instances.size %>
     <%= f.fields_for :question_instances do |qi_f| %>
-      
-      <h4 class="question">
-        <%= qi_f.object.question_text %>
-        <%= qi_f.hidden_field :question_text %>
-        <%= qi_f.hidden_field :question_id %>
-      </h4>
-      
-      <%= qi_f.fields_for :answer_instances do |qa_f| %>
-        <div class="answer_instance">
-          <%= qa_f.select("valuation", AnswerInstance::VALUATIONS.map{|v| [v,v]}) %>
-          <%= qa_f.object.answer_text %>
-          <%= qa_f.hidden_field :answer_text %>
-          <%= qa_f.hidden_field :answer_category %>
-          <%= qa_f.hidden_field :answer_id %>
+      <div class="question_instance" data-number="<%= count += 1 %>" style="display: none;">
+        <h4 class="question">
+          <%= qi_f.object.question_text %>
+          <%= qi_f.hidden_field :question_text %>
+          <%= qi_f.hidden_field :question_id %>
+        </h4>
+
+        <%= qi_f.fields_for :answer_instances do |qa_f| %>
+          <div class="answer_instance">
+            <%= qa_f.select("valuation", AnswerInstance::VALUATIONS.map{|v| [v,v]}) %>
+            <%= qa_f.object.answer_text %>
+            <%= qa_f.hidden_field :answer_text %>
+            <%= qa_f.hidden_field :answer_category %>
+            <%= qa_f.hidden_field :answer_id %>
+          </div>
+        <% end %>
+        
+        <div class="page_number">
+          <%= t(:'project_instances.question_number', :count => count, :total => questions_count) %>
         </div>
-      <% end %>
-    
+      </div>
     <% end %>
+    <p class="add_item">
+      <%= link_to raw("&laquo; #{t :'labels.previous'}"), '#', :id => :prev_question %> |
+      <%= link_to raw("#{t :'labels.next'} &raquo;"), '#', :id => :next_question %>
+    </p>
     <div class="actions">
-      <%= f.submit %>
+      <%= f.submit nil, :disabled => questions_count > 1 %>
     </div>
 </div>
 <% end %>

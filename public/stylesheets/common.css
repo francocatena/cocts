@@ -476,6 +476,16 @@ ul.horizontal_list > li {
     margin: .5em 0em;
 }
 
+.question_instance {
+  position: relative;
+}
+
+.question_instance .page_number {
+  position: absolute;
+  bottom: -2em;
+  right: 0px;
+}
+
 .subscript {
     font-size: xx-small;
     vertical-align: bottom;
