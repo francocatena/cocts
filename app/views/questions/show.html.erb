@@ -45,8 +45,10 @@
 </div>
 
 <div id="links">
-  <%= link_to t(:'labels.edit'), edit_question_path(@question),
-    :class => :real %> |
+  <% if @auth_user.admin? %>
+    <%= link_to t(:'labels.edit'), edit_question_path(@question),
+      :class => :real %> |
+  <% end %>
   <%= link_to t(:'labels.list'), questions_path, :class => :real %> |
   <%= link_to_back %>
 </div>

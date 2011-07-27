@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 class QuestionsController < ApplicationController
   before_filter :auth
+  before_filter :admin, :except => [:index, :show]
   require 'csv'
   
   # * GET /questions
@@ -108,6 +109,13 @@ class QuestionsController < ApplicationController
   end
 
   def import_csv
+  end
+  
+  def admin
+    unless @auth_user.admin?
+      flash[:alert] = t :'users.admin_error'
+      redirect_to questions_path
+    end
   end
 
   def csv_import_questions

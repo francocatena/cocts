@@ -15,13 +15,13 @@
       <tr class="<%= cycle(:even, :odd) %>">
         <td><%= content_tag :acronym, question.dimension,
             :title => question.dimension_text %></td>
-        <td><%=h question.code %></td>
-        <td><%=h truncate(question.question, :length => 30, :omission => '...') %></td>
+        <td><%= question.code %></td>
+        <td><%= truncate(question.question, :length => 30, :omission => '...') %></td>
         <td><%= link_to t(:'labels.show'), question, :class => :real %></td>
         <td><%= link_to t(:'labels.edit'), edit_question_path(question),
-            :class => :real %></td>
+            :class => :real if @auth_user.admin?%></td>
         <td><%= button_to t(:'labels.delete'), question,
-            :confirm => t(:'messages.confirmation_question'), :method => :delete %></td>
+            :confirm => t(:'messages.confirmation_question'), :method => :delete if @auth_user.admin? %></td>
     </tr>
     <% end %>
   </tbody>
@@ -30,11 +30,11 @@
 <div id="links">
   <%= pagination_links @questions %>
   <%= link_to t(:'questions.new_link'), new_question_path,
-  :class => :important_action %>
+  :class => :important_action if @auth_user.admin? %>
 </div>
 <div id="links">
   <%= link_to t(:'questions.import_csv_file'), import_csv_questions_path, 
-  :class => :important_action %>
+  :class => :important_action if @auth_user.admin?%>
 </div>
 
 
