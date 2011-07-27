@@ -1,5 +1,6 @@
 class ProjectInstancesController < ApplicationController
   before_filter :auth, :except => [:new, :create]
+  before_filter :load_auth_user, :only => [:new, :create]
   
   # GET /project_instances
   # GET /project_instances.xml
