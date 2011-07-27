@@ -72,6 +72,7 @@ class ProjectInstancesController < ApplicationController
     @project_instance = ProjectInstance.find(params[:id])
   end
 
+  
   # POST /project_instances
   # POST /project_instances.xml
   def create
@@ -81,12 +82,13 @@ class ProjectInstancesController < ApplicationController
     respond_to do |format|
       
       if @project_instance.save
-        flash[:notice] = t :'project_instances.correctly_created'
         if @project_instance.project.manual?
+          flash[:notice] = t :'project_instances.correctly_created'
           format.html { redirect_to projects_path }
           format.xml  { render :xml => @project_instance, :status => :created, :location => @project_instance }
         else
-          format.html { redirect_to login_users_path }
+          flash[:notice] = t :'project_instances.correctly_created_interactive'
+          format.html { render :action => 'show', :id => @project_instance.to_param} 
         end
       else
         format.html { render :action => "new" }

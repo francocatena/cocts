@@ -40,5 +40,7 @@
     <% end %>
   
 <% # end %>
-<%= link_to t(:'labels.edit'), edit_project_instance_path(@project_instance) %> |
-<%= link_to_back %>
+<% if @project_instance.project.manual? %>
+  <%= link_to t(:'labels.edit'), edit_project_instance_path(@project_instance) %> |
+  <%= link_to_back %>
+<% end %>

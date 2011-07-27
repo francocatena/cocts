@@ -459,6 +459,8 @@
     new_title: 'Crear una nueva instancia de proyecto'
     edit_title: 'Modificar instancia de proyecto'
     correctly_created: 'Instancia de proyecto creada correctamente.'
+    correctly_created_interactive: 'Sus datos han sido almacenados satisfactoriamente.
+    ¡Muchas gracias por su colaboración!'
     correctly_updated: 'Instancia de proyecto actualizada correctamente.'
     error_subdomain: 'El subdominio ingresado no corresponde con ningún proyecto'
     error_manual_type: 'El proyecto ingresado debe ser de tipo interactivo'
