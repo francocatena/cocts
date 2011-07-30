@@ -1,0 +1,20 @@
+<% i18n_scope = [:projects, :questionnaire, :degree, :options] %>
+<strong>
+  <%= t(:question, :scope => [:projects, :sociodemographic_forms, :degree]) %>
+</strong>
+<ul class="horizontal_list">
+  <% DEGREES.each_with_index do |degree, i| %>
+    <% degree_id = :"#{degree}_degree" %>
+    <li>
+      <label for="<%= degree_id %>">
+        <%= t(degree, :scope => i18n_scope) %>
+        <span class="subscript"><%= i + 1 %></span>
+      </label>
+      <% unless degree == DEGREES.last %>
+        <%= radio_button_tag :degree, degree, false, :id => degree_id %>
+      <% else %>
+        <%= text_field_tag :degree, nil, :id => degree_id %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

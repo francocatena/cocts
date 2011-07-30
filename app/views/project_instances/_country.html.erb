@@ -1,0 +1,14 @@
+<% i18n_scope = [:projects, :questionnaire, :country, :options] %>
+<strong>
+  <%= t(:question, :scope => [:projects, :sociodemographic_forms, :country]) %>
+</strong>
+
+<% options = [] %>
+<% COUNTRIES.each do |country| %>
+  
+  <% options << t(country, :scope => i18n_scope) %>
+
+<% end %>
+<div id= "option">
+<%= select_tag :country, options_for_select(options) %>
+</div>

@@ -39,7 +39,7 @@ class ProjectInstancesController < ApplicationController
     if params[:identifier]
       @project = Project.find_by_identifier(params[:identifier])
       @project_instance = ProjectInstance.new(:project =>  @project)
-        
+      
     else
       @project = Project.find_by_identifier(request.subdomains.first)
       if @project 
@@ -60,6 +60,17 @@ class ProjectInstancesController < ApplicationController
       end
     end
     
+    #Asigno los atributos del proyecto a su instancia    
+      @project_instance.name = @project.name
+      @project_instance.identifier = @project.identifier
+      @project_instance.description = @project.description
+      @project_instance.year = @project.year
+      @project_instance.project_type = @project.project_type
+      @project_instance.valid_until = @project.valid_until
+      @project_instance.forms = @project.forms  
+      
+      
+    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @project_instance }
@@ -78,11 +89,11 @@ class ProjectInstancesController < ApplicationController
   def create
     @title = t :'project_instances.new_title'
     @project_instance = ProjectInstance.new(params[:project_instance])
-
+    
     respond_to do |format|
       
       if @project_instance.save
-        if @project_instance.project.manual?
+        if @project_instance.manual?
           flash[:notice] = t :'project_instances.correctly_created'
           format.html { redirect_to projects_path }
           format.xml  { render :xml => @project_instance, :status => :created, :location => @project_instance }

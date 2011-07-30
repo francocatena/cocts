@@ -220,6 +220,34 @@ div#showed_data {
     margin: 1%;
 }
 
+div.cuestionnaire{
+    margin: 1%;
+}
+
+div.cuestionnaire .field{
+    width: 20%;
+}
+
+div.cuestionnaire h4{
+    padding: 1.2em 0.5em;
+}
+
+div.cuestionnaire .add_item{
+    padding: 1.2em 0.5em;
+}
+
+div.cuestionnaire .actions{
+    padding: 1em 0.5em;    
+}
+
+div.cuestionnaire .show_complete_cuestionnaire{
+    padding: 1em 0.5em; 
+}
+
+div.cuestionnaire .hide_complete_cuestionnaire{
+    padding: 1em 0.5em; 
+}
+
 div.answer_instance {
     list-style: none;
     margin-left: 1em;

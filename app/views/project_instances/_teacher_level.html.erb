@@ -1,0 +1,21 @@
+<% i18n_scope = [:projects, :questionnaire, :teacher_level, :options] %>
+<strong>
+  <%= t(:question, :scope => [:projects, :sociodemographic_forms, :teacher_level]) %>
+</strong>
+<ul class="horizontal_list">
+  <% TEACHER_LEVELS.each_with_index do |teacher_level, i| %>
+    <% teacher_level_id = :"#{teacher_level}_teacher_level" %>
+    <li>
+      <label for="<%= teacher_level_id %>">
+        <%= t(teacher_level, :scope => i18n_scope) %>
+        <span class="subscript"><%= i + 1 %></span>
+      </label>
+      <% unless teacher_level == TEACHER_LEVELS.last %>
+        <%= radio_button_tag :teacher_level, teacher_level, false,
+          :id => teacher_level_id %>
+      <% else %>
+        <%= text_field_tag :teacher_level, nil, :id => teacher_level_id %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

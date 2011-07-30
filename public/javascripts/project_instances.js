@@ -35,7 +35,31 @@ jQuery(function($) {
       event.stopPropagation();
       event.preventDefault();
     });
+    
+    $('#show_questions').click(function(event) {
+      $('#showed_data').fadeOut(300);
+      $('.project_instance_data').fadeIn(300);
+      $('#show_complete_data').fadeIn(300);
+      $('.show_questions').fadeOut(300);
+      $('.hide_complete_cuestionnaire').fadeOut(300);
+       $('.show_complete_cuestionnaire').fadeIn(300);
+      
+    });
 
+    $('#show_complete_data').click(function(event) {
+       $('#show_complete_data').fadeOut(300);
+       $('#showed_data').fadeIn(300);
+       $('.hide_complete_cuestionnaire').fadeIn(300);
+       $('.show_complete_cuestionnaire').fadeOut(300);
+    });
+    
+    $('#hide_complete_data').click(function(event) {
+       $('#show_complete_data').fadeIn(300);
+       $('#showed_data').fadeOut(300);
+       $('.hide_complete_cuestionnaire').fadeOut(300);
+       $('.show_complete_cuestionnaire').fadeIn(300);
+    });
+    
     $(document).keydown(function(e) {
       var key = e.which;
       // 39 = right arrow
