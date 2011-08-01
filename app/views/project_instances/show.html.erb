@@ -22,11 +22,7 @@
   <%= @project_instance.email %>
 </div>
 
-<% # unless @project_instace.question_instances.empty? %>
-  
-    <% #t(:'activerecord.models.question_instance')  %>
-    <% @project_instance.question_instances.each do |qi| %>
-  
+  <% @project_instance.question_instances.each do |qi| %>
     <p>
     <h4 class ="question"><%= qi.question_text %></h4>
     </p>
@@ -37,9 +33,7 @@
           </div>
         <% end %>
       <% end %>
-    <% end %>
-  
-<% # end %>
+   <% end %>
 <% if @project_instance.project.manual? %>
   <%= link_to t(:'labels.edit'), edit_project_instance_path(@project_instance) %> |
   <%= link_to_back %>

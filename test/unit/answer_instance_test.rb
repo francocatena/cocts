@@ -26,7 +26,8 @@ class AnswerInstanceTest < ActiveSupport::TestCase
         :answer_category => answers(:'10111_1').category,
         :answer_text => answers(:'10111_1').answer,
         :valuation => '5',
-        :question_instance => question_instances(:one)
+        :question_instance => question_instances(:one),
+        :order => '4'
     )
     end
   end

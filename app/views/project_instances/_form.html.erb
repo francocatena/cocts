@@ -30,7 +30,7 @@
           <%= qi_f.hidden_field :question_text %>
           <%= qi_f.hidden_field :question_id %>
         </h4>
-
+        
         <%= qi_f.fields_for :answer_instances do |qa_f| %>
           <div class="answer_instance">
             <%= qa_f.select("valuation", AnswerInstance::VALUATIONS.map{|v| [v,v]}) %>
@@ -38,6 +38,7 @@
             <%= qa_f.hidden_field :answer_text %>
             <%= qa_f.hidden_field :answer_category %>
             <%= qa_f.hidden_field :answer_id %>
+            <%= qa_f.hidden_field :order %>
           </div>
         <% end %>
         

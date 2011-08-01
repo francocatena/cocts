@@ -4,6 +4,7 @@ class CreateAnswerInstances < ActiveRecord::Migration
       t.references :question_instance
       t.references :answer
       t.text :answer_text
+      t.integer :order
       t.integer :answer_category
       t.string :valuation, :limit => 1
 

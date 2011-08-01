@@ -1,4 +1,5 @@
 class AnswerInstance < ActiveRecord::Base
+  scope :ordered, order("position")
   # Constantes
   CATEGORIES = {
     :adecuate => 2,
@@ -12,8 +13,8 @@ class AnswerInstance < ActiveRecord::Base
   belongs_to :answer
   
   # Restricciones
-  validates :answer_text, :valuation, :answer_category, :presence => true
-  validates_numericality_of :answer_category, :only_integer => true, 
+  validates :answer_text, :order, :valuation, :answer_category, :presence => true
+  validates_numericality_of :answer_category, :order, :only_integer => true, 
       :allow_blank => true, :allow_nil => true
   validates_inclusion_of :answer_category, :in => CATEGORIES.values, 
     :allow_blank => true, :allow_nil => true

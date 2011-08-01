@@ -17,7 +17,8 @@ class QuestionInstance < ActiveRecord::Base
           self.answer_instances.build(
             :answer => answer,
             :answer_text => answer.answer,
-            :answer_category => answer.category
+            :answer_category => answer.category,
+            :order => answer.order
           )
         end
       end
