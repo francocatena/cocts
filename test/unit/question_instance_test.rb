@@ -42,11 +42,5 @@ class QuestionInstanceTest < ActiveSupport::TestCase
   test 'delete' do
     assert_difference('QuestionInstance.count', -1) { @question_instance.destroy }
   end
-
-  test 'validates lenght attributes' do
-    @question_instance.question_text = 'Hola' * 100
-    assert @question_instance.invalid?
-    assert_equal [error_message_from_model(@question_instance, :question_text, :too_long,
-      :count => 255)], @question_instance.errors[:question_text]
-  end
+  
 end
