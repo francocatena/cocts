@@ -536,7 +536,6 @@
     new_password_label: 'Nueva contraseña'
     admin_error: 'Usted no cuenta con privilegios de administrador.'
     project_error: 'El usuario no pudo ser eliminado ya que se encuentra asociado a un proyecto.'
-    current_password: 'Ingrese su contraseña actual:'
     new_password: 'Ingrese su nueva contraseña:'
     name_help: 'Nombre real del usuario.'
     lastname_help: 'Apellido real del usuario.'

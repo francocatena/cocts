@@ -161,14 +161,13 @@ class UsersController < ApplicationController
   def update_password
     @user = User.new
     @user.user = @auth_user.user
-    @user.password = params[:current_password]
-       
+           
     auth_user = User.find_by_user(@auth_user.user)
     @user.salt = auth_user.salt if auth_user
 
     @user.encrypt_password
    
-    unless auth_user && auth_user.password && auth_user.password == @user.password 
+    unless auth_user && auth_user.password 
       flash[:notice] = t :'users.current_password_error'
       redirect_to edit_password_user_path(auth_user)
     else
