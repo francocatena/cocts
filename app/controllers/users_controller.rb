@@ -75,6 +75,10 @@ class UsersController < ApplicationController
   def update
     @title = t :'users.edit_title'
     @user = User.find(params[:id])
+    if @auth_user.admin? && !params[:new_password].blank?
+      @user.password = params[:new_password]
+      @user.encrypt_password
+    end
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
@@ -208,27 +212,9 @@ class UsersController < ApplicationController
   # * PUT /users/update_personal_data/1.xml
   def update_personal_data
     @user = User.find(session[:user_id])
-    pass = params[:new_password]
     
-    if @user.admin? && !pass.blank?
-      @user.password = pass
-      @user.encrypt_password
-   
-      attributes = {
-        :name  => params[:user][:name],
-        :lastname  => params[:user][:lastname],
-        :email => params[:user][:email],
-        :password => @user.password
-      }
-    else
-      attributes = {
-        :name  => params[:user][:name],
-        :lastname  => params[:user][:lastname],
-        :email => params[:user][:email]
-      }
-    end
     if @user.valid?
-      if @user.update_attributes(attributes)
+      if @user.update_attributes(params[:user])
         flash[:notice] = t :'users.personal_data_correctly_updated'
       end
     end

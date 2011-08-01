@@ -48,6 +48,11 @@
       </div>
         <%= f.password_field :password_confirmation, :maxlength => 128 %>
       </div>
+    <% elsif @auth_user.admin? %>
+      <div class="field">
+        <%= f.label t:'users.new_password_label' %>
+        <%= password_field_tag :new_password, nil, :maxlength => 128 %>
+      </div>
     <% end %>
     <div class="field">
       <%= f.label :email %>
