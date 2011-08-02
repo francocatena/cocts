@@ -197,11 +197,27 @@ jQuery(function($) {
     }
   });
   
-$('.hidden_dialog').dialog({ autoOpen: false });  
+//$('.hidden_dialog').dialog({ autoOpen: false }); 
+$('.hidden_dialog').dialog({
+  autoOpen: false,
+  draggable: false,
+  resizable: false,
+  close: function() {
+    $(this).parents('.ui-dialog').show().fadeOut(500);
+  },
+  open: function(){
+    $(this).parents('.ui-dialog').hide().fadeIn(500);
+  }
+});
   
-$('a.open_dialog').click(function() {
-  $($(this).data('dialog')).dialog('open');
-    
+$('a.open_dialog').live('click', function(event) {
+  $($(this).data('dialog')).dialog('open').dialog(
+    'option', 'position', [
+      event.pageX - $(window).scrollLeft(),
+      event.pageY - $(window).scrollTop()
+    ]
+  );
+  
   return false;
 });
 
