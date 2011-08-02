@@ -471,6 +471,10 @@ ul.horizontal_list > li {
     margin-right: 1em;
 }
 
+.center{
+    text-align: center;
+}
+
 .add_item {
     clear: both;
     margin: .5em 0em;

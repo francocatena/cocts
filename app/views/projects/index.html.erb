@@ -7,9 +7,9 @@
       <th><%= Project.human_attribute_name :year %></th>
       <th><%= Project.human_attribute_name :project_type %></th>
       <th><%= Project.human_attribute_name :valid_until %></th>
-      <th><%= t:'projects.instance' %></th>
+      <th><%= t:'projects.instances' %></th>
       <th></th>
-      <th></th>
+      <th class="center"><%= t:'projects.config' %></th>
       <th></th>
     </tr>
   </thead>
@@ -23,18 +23,18 @@
         <td><%= project.year %></td>
         <td><%= project.project_type_text %></td>
         <td><%= l(project.valid_until) if project.valid_until %></td>
-        <td><%= link_to t(:'labels.new'), 
+        <td><%= link_to t(:'labels.new_fem'), 
             new_project_instance_path(:identifier => project.identifier), 
             :class => :real if project.manual? %> 
           <%= "|" unless project.interactive? || project.project_instances.empty? %>
             <%= link_to t(:'labels.list'), 
             #:controller => 'project_instances', :action => 'index', 
             project_instances_url(:id => project.id),
-            :class => :real unless project.project_instances.empty? %></td>
+              :class => :real unless project.project_instances.empty? %></td>
         <td><%= link_to t(:'labels.show'), project, :class => :real %></td>
         
-        <td><%= link_to t(:'labels.edit'), edit_project_path(project),
-            :class => :real %></td>
+        <td class="center"><%= link_to t(:'labels.edit'), edit_project_path(project),
+  :class => :real %></td>
         <td><%= button_to t(:'labels.delete'), project,
             :confirm => t(:'messages.confirmation_question'),
             :method => :delete %></td>

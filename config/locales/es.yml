@@ -224,10 +224,12 @@
     modify: 'Modificar'
     move: 'Mover'
     new: 'Nuevo'
+    new_fem: 'Nueva'
     next: 'Siguiente'
     previous: 'Anterior'
     save: 'Guardar'
     search: 'Buscar'
+    
   
   menu:
     projects: 'Proyectos'
@@ -328,7 +330,8 @@
     correctly_created: 'Proyecto creado correctamente.'
     correctly_updated: 'Proyecto actualizado correctamente.'
     stale_object_error: 'El proyecto no pudo ser actualizado, intente nuevamente.'
-    instance: 'Instancia'
+    instances: 'Instancias'
+    config: 'Configuración'
     add: 'Crear proyecto'
     preview_label: 'Previsualizar'
     close_label: 'Cerrar'
