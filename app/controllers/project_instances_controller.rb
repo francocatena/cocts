@@ -39,7 +39,7 @@ class ProjectInstancesController < ApplicationController
     if params[:identifier]
       @project = Project.find_by_identifier(params[:identifier])
       @project_instance = ProjectInstance.new(:project =>  @project)
-        
+      
     else
       @project = Project.find_by_identifier(request.subdomains.first)
       if @project 
@@ -60,7 +60,7 @@ class ProjectInstancesController < ApplicationController
       end
     end
     
-    respond_to do |format|
+   respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @project_instance }
     end
@@ -78,11 +78,11 @@ class ProjectInstancesController < ApplicationController
   def create
     @title = t :'project_instances.new_title'
     @project_instance = ProjectInstance.new(params[:project_instance])
-
+    
     respond_to do |format|
       
       if @project_instance.save
-        if @project_instance.project.manual?
+        if @project_instance.manual?
           flash[:notice] = t :'project_instances.correctly_created'
           format.html { redirect_to projects_path }
           format.xml  { render :xml => @project_instance, :status => :created, :location => @project_instance }

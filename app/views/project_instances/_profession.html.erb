@@ -1,0 +1,32 @@
+<% i18n_scope = [:projects, :questionnaire, :profession] %>
+<table class="grid full_width">
+  <thead>
+    <tr>
+      <th><%= t(:question, :scope => [:projects, :sociodemographic_forms, :profession]) %></th>
+      <th><%= t(:certification, :scope => i18n_scope) %></th>
+      <th><%= t(:ocuppation, :scope => i18n_scope) %></th>
+    </tr>
+  </thead>
+  <% i18n_scope << :options %>
+  <tbody>
+    <% PROFESSIONS.each_with_index do |profession, i| %>
+      <tr>
+        <td><%= t(profession, :scope => i18n_scope) %></td>
+        <td>
+          <span class="subscript"><%= i + 1 %></span>
+          <%= check_box_tag "project_instance[profession_certification][]", profession, 
+            (!@project_instance.profession_certification.nil? &&
+              @project_instance.profession_certification.include?("#{profession}")),
+            :id => :"#{profession}_profession_certification" %>
+        </td>
+        <td>
+          <span class="subscript"><%= i + 1 %></span>
+          <%= check_box_tag "project_instance[profession_ocuppation][]", profession, 
+            (!@project_instance.profession_ocuppation.nil? && 
+              @project_instance.profession_ocuppation.include?("#{profession}")),
+            :id => :"#{profession}_profession_ocuppation" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

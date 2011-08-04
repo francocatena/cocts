@@ -80,6 +80,12 @@
         first_name: 'Nombre'
         last_name: 'Apellido'
         email: 'Email'
+        name: 'Nombre'
+        identifier: 'Identificador'
+        description: 'Descripción'
+        year: 'Año'
+        valid_until: 'Vencimiento'
+        project_type: 'Tipo de carga'
       answer:
         category: 'Categoría'
         order: 'Orden'
@@ -457,6 +463,9 @@
         question: 'Si es profesor, en formación o en ejercicio, ¿de qué nivel educativo...?'
 
   project_instances:
+    answer_cuestionnaire: 'Ver preguntas'
+    show_project_data: 'Ver datos proyecto'
+    hide_project_data: 'Ocultar datos proyecto'
     index_title: 'Listado de instancias de proyectos'
     show_title: 'Detalle de instancia de proyecto'
     new_title: 'Crear una nueva instancia de proyecto'

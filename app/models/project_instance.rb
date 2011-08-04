@@ -1,8 +1,29 @@
 class ProjectInstance < ActiveRecord::Base
+  serialize :forms, Array
+  serialize :profession_certification, Array
+  serialize :profession_ocuppation, Array
   # Relaciones
   belongs_to :project
   has_many :question_instances, :dependent => :destroy
   accepts_nested_attributes_for :question_instances
+  
+  
+  # Constantes
+  TYPES = {
+    :manual => 0,
+    :interactive => 1
+  }
+  
+  SOCIODEMOGRAPHIC_FORMS = [
+    'country',
+    'age',
+    'genre',
+    'student',
+    'teacher',
+    'teacher_level',
+    'degree',
+    'profession'
+  ]
   
   # Restricciones
   validates :email, :presence => true,
@@ -12,11 +33,23 @@ class ProjectInstance < ActiveRecord::Base
     :allow_blank => true, :allow_nil => true    
   validates_length_of :first_name, :last_name, :email, :maximum => 255, :allow_nil => true,
     :allow_blank => true
-
+  validates_each :forms do |record, attr, value|
+    unless (value || []).all? { |value| SOCIODEMOGRAPHIC_FORMS.include?(value) }
+      record.errors.add attr, :inclusion
+    end
+  end
+  
   def initialize(attributes = nil)
     super(attributes)
     
     if self.project
+      self.forms = self.project.forms
+      self.name = self.project.name
+      self.identifier = self.project.identifier
+      self.description = self.project.description
+      self.year = self.project.year
+      self.project_type = self.project.project_type
+      self.valid_until = self.project.valid_until
       self.project.questions.each do |question|
         unless self.question_instances.detect {|qi| qi.question_id == question.id}
           self.question_instances.build(
@@ -27,4 +60,15 @@ class ProjectInstance < ActiveRecord::Base
       end
     end
   end
+  
+  def project_type_text
+    I18n.t :"projects.#{TYPES.invert[self.project_type]}_type"
+  end
+  
+  TYPES.each do |type, value|
+    define_method(:"#{type}?") do
+      self.project_type == value
+    end
+  end
+  
 end

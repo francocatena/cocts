@@ -1,0 +1,17 @@
+<% i18n_scope = [:projects, :questionnaire, :genre, :options] %>
+<strong>
+  <%= t(:question, :scope => [:projects, :sociodemographic_forms, :genre]) %>
+</strong>
+<ul class="horizontal_list">
+  <% GENRES.each_with_index do |genre, i| %>
+    <% genre_id = :"#{genre}_genre" %>
+    <li>
+      <label for="<%= genre_id %>">
+        <%= t(genre, :scope => i18n_scope) %>
+        <span class="subscript"><%= i + 1 %></span>
+      </label>
+      <%= radio_button_tag 'project_instance[genre]', genre, 
+        @project_instance.genre.eql?("#{genre}"), :id => genre_id %>
+    </li>
+  <% end %>
+</ul>
