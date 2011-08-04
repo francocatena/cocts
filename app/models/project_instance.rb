@@ -1,5 +1,7 @@
 class ProjectInstance < ActiveRecord::Base
   serialize :forms, Array
+  serialize :profession_certification, Array
+  serialize :profession_ocuppation, Array
   # Relaciones
   belongs_to :project
   has_many :question_instances, :dependent => :destroy
@@ -42,6 +44,12 @@ class ProjectInstance < ActiveRecord::Base
     
     if self.project
       self.forms = self.project.forms
+      self.name = self.project.name
+      self.identifier = self.project.identifier
+      self.description = self.project.description
+      self.year = self.project.year
+      self.project_type = self.project.project_type
+      self.valid_until = self.project.valid_until
       self.project.questions.each do |question|
         unless self.question_instances.detect {|qi| qi.question_id == question.id}
           self.question_instances.build(

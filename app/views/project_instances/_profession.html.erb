@@ -14,12 +14,16 @@
         <td><%= t(profession, :scope => i18n_scope) %></td>
         <td>
           <span class="subscript"><%= i + 1 %></span>
-          <%= check_box_tag "project_instance[profession_certification]", profession, false,
+          <%= check_box_tag "project_instance[profession_certification][]", profession, 
+            (!@project_instance.profession_certification.nil? &&
+              @project_instance.profession_certification.include?("#{profession}")),
             :id => :"#{profession}_profession_certification" %>
         </td>
         <td>
           <span class="subscript"><%= i + 1 %></span>
-          <%= check_box_tag "project_instance[profession_ocuppation]", profession, false,
+          <%= check_box_tag "project_instance[profession_ocuppation][]", profession, 
+            (!@project_instance.profession_ocuppation.nil? && 
+              @project_instance.profession_ocuppation.include?("#{profession}")),
             :id => :"#{profession}_profession_ocuppation" %>
         </td>
       </tr>

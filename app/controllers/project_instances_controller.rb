@@ -60,18 +60,7 @@ class ProjectInstancesController < ApplicationController
       end
     end
     
-    #Asigno los atributos del proyecto a su instancia    
-      @project_instance.name = @project.name
-      @project_instance.identifier = @project.identifier
-      @project_instance.description = @project.description
-      @project_instance.year = @project.year
-      @project_instance.project_type = @project.project_type
-      @project_instance.valid_until = @project.valid_until
-      @project_instance.forms = @project.forms  
-      
-      
-    
-    respond_to do |format|
+   respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @project_instance }
     end

@@ -10,7 +10,8 @@
         <%= t(teacher_status, :scope => i18n_scope) %>
         <span class="subscript"><%= i + 1 %></span>
       </label>
-      <%= radio_button_tag 'project_instance[teacher_status]', teacher_status, false,
+      <%= radio_button_tag 'project_instance[teacher_status]', teacher_status, 
+        @project_instance.teacher_status.eql?("#{teacher_status}"),
         :id => teacher_status_id %>
     </li>
   <% end %>

@@ -13,10 +13,10 @@ class CreateProjectInstances < ActiveRecord::Migration
       t.text :forms
       t.integer :age
       t.string :country
-      t.boolean :genre
+      t.string :genre
       t.string :degree
-      t.string :profession_ocuppation
-      t.string :profession_certification
+      t.text :profession_ocuppation
+      t.text :profession_certification
       t.string :student_status
       t.string :teacher_status
       t.string :teacher_level

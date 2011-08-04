@@ -1,4 +1,4 @@
-d<% i18n_scope = [:projects, :questionnaire, :degree, :options] %>
+  <% i18n_scope = [:projects, :questionnaire, :degree, :options] %>
 <strong>
   <%= t(:question, :scope => [:projects, :sociodemographic_forms, :degree]) %>
 </strong>
@@ -11,7 +11,8 @@ d<% i18n_scope = [:projects, :questionnaire, :degree, :options] %>
         <span class="subscript"><%= i + 1 %></span>
       </label>
       <% unless degree == DEGREES.last %>
-        <%= radio_button_tag 'project_instance[degree]', degree, false, :id => degree_id %>
+        <%= radio_button_tag 'project_instance[degree]', degree, 
+          @project_instance.degree.eql?("#{degree}"), :id => degree_id %>
       <% end %>
     </li>
   <% end %>
