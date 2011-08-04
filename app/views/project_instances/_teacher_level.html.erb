@@ -11,10 +11,9 @@
         <span class="subscript"><%= i + 1 %></span>
       </label>
       <% unless teacher_level == TEACHER_LEVELS.last %>
-        <%= radio_button_tag :teacher_level, teacher_level, false,
+        <%= radio_button_tag 'project_instance[teacher_level]', teacher_level, false,
           :id => teacher_level_id %>
-      <% else %>
-        <%= text_field_tag :teacher_level, nil, :id => teacher_level_id %>
+      
       <% end %>
     </li>
   <% end %>

@@ -41,6 +41,7 @@ class ProjectInstance < ActiveRecord::Base
     super(attributes)
     
     if self.project
+      self.forms = self.project.forms
       self.project.questions.each do |question|
         unless self.question_instances.detect {|qi| qi.question_id == question.id}
           self.question_instances.build(

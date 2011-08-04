@@ -92,10 +92,9 @@
     <% unless @project_instance.forms.empty? %>
         <% @project_instance.forms.each do |form| %>
           <div class="project_form_part"><%= render form %></div>
-          <% hidden_field_tag "project_instance_form_#{form}" %>
-        <% end %>
     <% end %>
-      
+    <% end %>
+    <%= f.hidden_field :project_id, {:value => @project_instance.project.id} %>
 </div>
 
 <div class="cuestionnaire">

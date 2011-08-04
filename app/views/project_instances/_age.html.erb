@@ -1,4 +1,4 @@
 <strong>
   <%= t(:question, :scope => [:projects, :sociodemographic_forms, :age]) %>
 </strong>
-<%= text_field_tag :age %>
+<%= text_field_tag 'project_instance[age]', @project_instance.age %>

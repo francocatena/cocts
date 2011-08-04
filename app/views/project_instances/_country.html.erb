@@ -10,5 +10,5 @@
 
 <% end %>
 <div id= "option">
-<%= select_tag :country, options_for_select(options) %>
+<%= select_tag 'project_instance[country]', options_for_select(options, @project_instance.country) %>
 </div>
