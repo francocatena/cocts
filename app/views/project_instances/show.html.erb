@@ -1,39 +1,173 @@
-<div class="field">
-  <b><%= t :'activerecord.models.project' %>:</b>
-  <%= @project_instance.project.name %>
-</div>
+<% i18n_scope = [:projects, :questionnaire] %>
+<div id="showed_data">
+  <p>
+    <b><%= ProjectInstance.human_attribute_name :name %>:</b>
+    <%= @project_instance.name %>
+  </p>
 
-<% unless @project_instance.first_name.blank? %>
-<div class="field">
-  <b><%= ProjectInstance.human_attribute_name :first_name %>:</b>
-  <%= @project_instance.first_name %>
-</div>
-<% end %>
+  <p>
+    <b><%= ProjectInstance.human_attribute_name :identifier %>:</b>
+    <%= @project_instance.identifier %>
+  </p>
 
-<% unless @project_instance.last_name.blank?  %>
-<div class="field">
-  <b><%= ProjectInstance.human_attribute_name :last_name %>:</b>
-  <%= @project_instance.last_name %>
-</div>
-<% end %>
+  <p>
+    <b><%= ProjectInstance.human_attribute_name :description %>:</b>
+    <%= @project_instance.description %>
+  </p>
 
-<div class="field" >
-  <b><%= ProjectInstance.human_attribute_name :email %>:</b>
-  <%= @project_instance.email %>
-</div>
+  <p>
+    <b><%= ProjectInstance.human_attribute_name :year %>:</b>
+    <%= @project_instance.year %>
+  </p>
 
-  <% @project_instance.question_instances.each do |qi| %>
-    <p>
-    <h4 class ="question"><%= qi.question_text %></h4>
-    </p>
-      <% unless qi.answer_instances.empty?  %>
-        <% qi.answer_instances.each do |ai| %>
-          <div class ="answer_instance"> 
-            <%= "#{ai.valuation} - #{ai.answer_text}" %>
-          </div>
+  <p>
+    <b><%= ProjectInstance.human_attribute_name :project_type %>:</b>
+    <%= @project_instance.project_type_text %>
+  </p>
+
+  <p>
+    <b><%= ProjectInstance.human_attribute_name :valid_until %>:</b>
+    <%= l(@project_instance.valid_until, :format => :long) if @project_instance.valid_until %>
+  </p>
+  
+  <% unless @project_instance.first_name.blank? %>
+  <p>
+    <b><%= ProjectInstance.human_attribute_name :first_name %>:</b>
+    <%= @project_instance.first_name %>
+  </p>
+  <% end %>
+
+  <% unless @project_instance.last_name.blank?  %>
+  <p>
+    <b><%= ProjectInstance.human_attribute_name :last_name %>:</b>
+    <%= @project_instance.last_name %>
+  </p>
+  <% end %>
+
+  <p>
+    <b><%= ProjectInstance.human_attribute_name :email %>:</b>
+    <%= @project_instance.email %>
+  </p>
+  
+  <h1 style="margin-top: 1em;"><%= t(:presentation, :scope => i18n_scope) %></h1>
+  <p><%= t(:presentation_text, :scope => i18n_scope) %></p>
+  <% i18n_scope << :scale_table %>
+  <table class="grid full_width" style="margin: 1em 0em;">
+    <thead>
+      <tr>
+        <th colspan="4"><%= t(:disagreement_title, :scope => i18n_scope) %></th>
+        <th><%= t(:undecided_title, :scope => i18n_scope) %></th>
+        <th colspan="4"><%= t(:in_agreement_title, :scope => i18n_scope) %></th>
+        <th colspan="2"><%= t(:others_title, :scope => i18n_scope) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% i18n_scope << :disagreement %>
+        <% [:'1', :'2', :'3', :'4'].each do |opt| %>
+          <td><%= t(opt, :scope => i18n_scope) %></td>
         <% end %>
-      <% end %>
-   <% end %>
+        <% i18n_scope[-1] = :undecided %>
+        <% [:'5'].each do |opt| %>
+          <td><%= t(opt, :scope => i18n_scope) %></td>
+        <% end %>
+        <% i18n_scope[-1] = :in_agreement %>
+        <% [:'6', :'7', :'8', :'9'].each do |opt| %>
+          <td><%= t(opt, :scope => i18n_scope) %></td>
+        <% end %>
+        <% i18n_scope[-1] = :others %>
+        <% [:'E', :'S'].each do |opt| %>
+          <td><%= t(opt, :scope => i18n_scope) %></td>
+        <% end %>
+      </tr>
+      <tr>
+        <% ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'E', 'S'].each do |opt| %>
+          <td><%= opt %></td>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>
+  <% i18n_scope.slice!(-2, 2) %>
+  <%= raw textilize(t(:scale_clarification, :scope => i18n_scope)) %>
+  <%= render 'projects/answer_example' %>
+
+  <h2 style="margin: 1em 0em; font-weight: normal;">
+    <%= textilize_without_paragraph t(:sociodemographic_forms_title_instance,
+      :scope => i18n_scope) %>
+  </h2>
+
+  <p>
+    <b><%= t:'projects.sociodemographic_forms.country.option' %>:</b>
+    <%= @project_instance.country %>
+  </p>
+  
+  <p>
+    <b><%= t:'projects.sociodemographic_forms.age.option' %>:</b>
+    <%= @project_instance.age %>
+  </p>
+  
+  <p>
+    <b><%= t:'projects.sociodemographic_forms.genre.option' %>:</b>
+    <%= t:"projects.questionnaire.genre.options.#{@project_instance.genre}" %>
+  </p>
+  
+  <p>
+    <b><%= t:'projects.sociodemographic_forms.student.option' %>:</b>
+    <%= t:"projects.questionnaire.student.options.#{@project_instance.student_status}" %>
+  </p>
+  
+  <p>
+    <b><%= t:'projects.sociodemographic_forms.teacher.option' %>:</b>
+    <%= t:"projects.questionnaire.teacher.options.#{@project_instance.teacher_status}" %>
+  </p>
+  
+  <p>
+    <b><%= t:'projects.sociodemographic_forms.teacher_level.option' %>:</b>
+    <%= t:"projects.questionnaire.teacher_level.options.#{@project_instance.teacher_level}" %>
+  </p>
+  
+  <p>
+    <b><%= t:'projects.sociodemographic_forms.degree.option' %>:</b>
+    <%= t:"projects.questionnaire.degree.options.#{@project_instance.degree}" %>
+  </p>
+  
+  <p>
+    <b><%= t:'projects.sociodemographic_forms.profession.ocuppation' %>:</b>
+    <ul class="raw_list">
+    <% @project_instance.profession_ocuppation.each do |po| %>
+      <li><%= t:"projects.questionnaire.profession.options.#{po}" %></li>
+    <% end %>
+    </ul>
+  </p>
+  
+  <p>
+    <b><%= t:'projects.sociodemographic_forms.profession.certification' %>:</b>
+    <ul class="raw_list">
+    <% @project_instance.profession_certification.each do |pc| %>
+      <li><%= t:"projects.questionnaire.profession.options.#{pc}" %></li>
+    <% end %>
+    </ul>
+  </p>
+  
+  <div class="questions">
+    <h2><%= Project.human_attribute_name :questions %></h2>
+      <ul class="raw_list">
+        <% @project_instance.question_instances.each do |qi| %>
+          <li><strong><%= qi.question_text %></strong></li>
+      
+         <% unless qi.answer_instances.empty?  %>
+          <% qi.answer_instances.each do |ai| %>
+            <div class ="answer_instance"> 
+              <%= "#{ai.valuation} - #{ai.answer_text}" %>
+            </div>
+          <% end %>
+        <% end %>
+      
+       <% end %>
+      </ul>
+  </div>   
+</div>
+      
 <% if @project_instance.project.manual? %>
   <%= link_to t(:'labels.edit'), edit_project_instance_path(@project_instance) %> |
   <%= link_to_back %>

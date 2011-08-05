@@ -2,32 +2,32 @@
 <div id="showed_data">
   <p>
     <b><%= Project.human_attribute_name :name %>:</b>
-    <%=h @project.name %>
+    <%= @project.name %>
   </p>
 
   <p>
     <b><%= Project.human_attribute_name :identifier %>:</b>
-    <%=h @project.identifier %>
+    <%= @project.identifier %>
   </p>
 
   <p>
     <b><%= Project.human_attribute_name :description %>:</b>
-    <%=h @project.description %>
+    <%= @project.description %>
   </p>
 
   <p>
     <b><%= Project.human_attribute_name :year %>:</b>
-    <%=h @project.year %>
+    <%= @project.year %>
   </p>
 
   <p>
     <b><%= Project.human_attribute_name :project_type %>:</b>
-    <%=h @project.project_type_text %>
+    <%= @project.project_type_text %>
   </p>
 
   <p>
     <b><%= Project.human_attribute_name :valid_until %>:</b>
-    <%=h l(@project.valid_until, :format => :long) if @project.valid_until %>
+    <%= l(@project.valid_until, :format => :long) if @project.valid_until %>
   </p>
   
   <h1 style="margin-top: 1em;"><%= t(:presentation, :scope => i18n_scope) %></h1>

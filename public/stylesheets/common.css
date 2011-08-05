@@ -479,9 +479,13 @@ tr.odd {
 }
 
 ul.raw_list {
-    list-style: square;
-    margin: 1em 0em 1em 3em;
+    margin: 0.1em 0em 0em 2em;
 }
+.questions ul.raw_list {
+    list-style: square;
+    margin: 1em 0em 2em 3em;
+}
+
 
 ul.answers {
     list-style: none;
