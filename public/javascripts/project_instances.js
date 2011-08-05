@@ -42,7 +42,11 @@ jQuery(function($) {
       $('#show_complete_data').fadeIn(300);
       $('.show_questions').fadeOut(300);
       $('.hide_complete_cuestionnaire').fadeOut(300);
-       $('.show_complete_cuestionnaire').fadeIn(300);
+      $('.show_complete_cuestionnaire').fadeIn(300);
+      
+      if ($(this).attr('data-href') == 'edit'){
+        $('.actions input[type="submit"]').attr('disabled', false);
+      } 
       
     });
 
