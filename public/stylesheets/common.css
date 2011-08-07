@@ -26,6 +26,10 @@ a[data-event="hideItem"]:hover, a[data-event="removeItem"]:hover {
 
 a.real {
     padding: 1px 3px;
+    -moz-transition-property: color;
+    -moz-transition-duration: 0.7s;
+    -webkit-transition-property: color;
+    -webkit-transition-duration: 1s;
 }
 
 a.real:link {
@@ -39,8 +43,8 @@ a.real:visited {
 }
 
 a.real:hover {
-    background: #2c2c2c;
-    color: #ffffff;
+    background: #5259A9;
+    color: #F4FA58;
 }
 
 a.image_link {
@@ -53,7 +57,7 @@ a.important_action {
 }
 
 a.important_action:hover {
-    color: #ff0000;
+    color: #828474;
     background: transparent;
 }
 
@@ -189,13 +193,17 @@ div#notice, div#alert {
     bottom: .5em;
     left: 5%;
     right: 5%;
-    background: #ffff99;
-    color: #000000;
+    background: #F7F714;
+    color: #2C2C26;
     font-size: 1.2em;
     font-weight: bold;
     text-align: center;
     padding: .5em .8em;
-    border: 4px solid #dedede;
+    border: solid #9C9C95;
+    -moz-border-radius:15px 55px;
+    -webkit-border-radius:15px 55px;
+    
+    
 }
 
 div#notice div#close_notice, div#alert div#close_alert {
