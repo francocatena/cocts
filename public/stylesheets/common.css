@@ -43,8 +43,8 @@ a.real:visited {
 }
 
 a.real:hover {
-    background: #848280;
-    color: #F4FA58;
+    background: #BBB7B3;
+    color: #FF8000;
 }
 
 a.image_link {
@@ -164,7 +164,7 @@ div#login {
 
 div#menu_container {
     padding: .5em 3em;
-    height: 1.2em;
+    height: 2.4em;
     background-color: #f6f6f6;
     border-bottom: 4px solid #dedede;
 }
@@ -183,9 +183,16 @@ div#menu_container ul li {
 }
 
 div#menu_container div#user_info {
+    font-size: 1.4em;
+    font-variant: small-caps;
     position: absolute;
     right: 3em;
     top: .5em;
+}
+
+ul#main_menu {
+  font-variant: small-caps;
+  font-size: 1.4em;
 }
 
 div#notice, div#alert {
