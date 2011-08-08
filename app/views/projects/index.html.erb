@@ -27,9 +27,7 @@
             new_project_instance_path(:identifier => project.identifier), 
             :class => :real if project.manual? %> 
           <%= "|" unless project.interactive? || project.project_instances.empty? %>
-            <%= link_to t(:'labels.list'), 
-            #:controller => 'project_instances', :action => 'index', 
-            project_instances_url(:id => project.id),
+            <%= link_to t(:'labels.list'), project_instances_url(:id => project.id),
               :class => :real unless project.project_instances.empty? %></td>
         <td><%= link_to t(:'labels.show'), project, :class => :real %></td>
         

@@ -1,16 +1,17 @@
+<div id="showed_data">
 <h4><%= "#{t :'activerecord.models.project'}: #{@project.name}"%></h4>
-
+</div>
 <table>
   <tr>
     <th><%= ProjectInstance.human_attribute_name :first_name %></th>
     <th><%= ProjectInstance.human_attribute_name :last_name %></th>
     <th><%= ProjectInstance.human_attribute_name :email %></th>
     <th></th>
-    <th></th>
+    <th class="center"><%= t:'projects.config' %></th>
     <th></th>
   </tr>
 <%  @project_instances.each do |project_instance| %>
-  <tr>
+  <tr class="<%= cycle(:even, :odd) %>">
     <td><% if project_instance.first_name.blank? %>
         ----
         <% else %>
@@ -24,15 +25,15 @@
         <% end %>
     </td>
     <td><%= project_instance.email %></td>
-    <td><%= link_to t(:'labels.show'), project_instance %></td>
-    <td><%= link_to t(:'labels.edit'), edit_project_instance_path(project_instance) %></td>
+    <td><%= link_to t(:'labels.show'), project_instance, :class => :real %></td>
+    <td class="center"><%= link_to t(:'labels.edit'), edit_project_instance_path(project_instance),
+          :class => :real %></td>
     <td><%= button_to t(:'labels.delete'), project_instance,
             :confirm => t(:'messages.confirmation_question'),
             :method => :delete %></td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to_back %>
+<div id="links">
+←<%= link_to_back %>
+</div>
