@@ -25,11 +25,12 @@ a[data-event="hideItem"]:hover, a[data-event="removeItem"]:hover {
 }
 
 a.real {
+    color: #2E2E2E;
     padding: 1px 3px;
     -moz-transition-property: color;
     -moz-transition-duration: 0.7s;
     -webkit-transition-property: color;
-    -webkit-transition-duration: 1s;
+    -webkit-transition-duration: 0.7s;
 }
 
 a.real:link {
@@ -177,7 +178,7 @@ div#menu_container a.selected {
 }
 
 div#menu_container a {
-    color: #000000;
+    color: #2c2c2c;
 }
 
 div#menu_container ul {
@@ -189,7 +190,7 @@ div#menu_container ul li {
 }
 
 div#menu_container div#user_info {
-    font-size: 1.4em;
+    font-size: 1.2em;
     font-variant: small-caps;
     position: absolute;
     right: 3em;
@@ -202,7 +203,7 @@ div#main_container {
 
 ul#main_menu {
   font-variant: small-caps;
-  font-size: 1.4em;
+  font-size: 1.3em;
 }
 
 div#notice, div#alert {
