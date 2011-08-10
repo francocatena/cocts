@@ -77,6 +77,14 @@
       question_instance:
         question_text: 'Cuestión'
       project_instance:
+        age: 'Edad'
+        degree: 'Grado académico'
+        genre: 'Sexo'
+        student_status: 'Nivel estudiante'
+        teacher_status: 'Nivel educativo profesor'
+        teacher_level: 'Nivel profesor'
+        profession_certification: 'Especialidad titulación'
+        profession_ocuppation: 'Especialidad ocupación'
         first_name: 'Nombre'
         last_name: 'Apellido'
         email: 'Email'

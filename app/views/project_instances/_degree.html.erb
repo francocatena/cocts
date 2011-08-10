@@ -13,6 +13,14 @@
       <% unless degree == DEGREES.last %>
         <%= radio_button_tag 'project_instance[degree]', degree, 
           @project_instance.degree.eql?("#{degree}"), :id => degree_id %>
+      <% else %>
+        <% if @project_instance.degree.present? && DEGREES.exclude?(@project_instance.degree.to_sym) %>
+          <%= text_field_tag 'project_instance[degree]', @project_instance.degree,
+            :id => degree_id %>
+        <% else %>
+          <%= text_field_tag 'project_instance[degree]', nil,
+            :id => degree_id %>
+        <% end %>
       <% end %>
     </li>
   <% end %>

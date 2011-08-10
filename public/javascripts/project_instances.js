@@ -46,7 +46,15 @@ jQuery(function($) {
       
       if ($(this).attr('data-href') == 'edit'){
         $('.actions input[type="submit"]').attr('disabled', false);
-      } 
+      }
+      
+      if ($('#other_teacher_level').attr('value') == ''){
+        $('#other_teacher_level').attr('disabled', true);
+      }
+      
+      if ($('#other_degree').attr('value') == ''){
+        $('#other_degree').attr('disabled', true);
+      }
       
     });
 

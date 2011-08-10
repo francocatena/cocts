@@ -14,7 +14,14 @@
         <%= radio_button_tag 'project_instance[teacher_level]', teacher_level, 
           @project_instance.teacher_level.eql?("#{teacher_level}"),
           :id => teacher_level_id %>
-      
+      <% else %>
+        <% if @project_instance.teacher_level.present? && TEACHER_LEVELS.exclude?(@project_instance.teacher_level.to_sym) %>
+          <%= text_field_tag 'project_instance[teacher_level]', @project_instance.teacher_level,
+            :id => teacher_level_id %>
+        <% else %>
+          <%= text_field_tag 'project_instance[teacher_level]', nil,
+            :id => teacher_level_id %>
+        <% end %>
       <% end %>
     </li>
   <% end %>
