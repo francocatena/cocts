@@ -294,7 +294,7 @@ class Project < ActiveRecord::Base
 
     PROFESSIONS.each_with_index do |profession, i|
       data << [I18n.t(profession, :scope => i18n_scope), "#{i+1} [__]",
-        "#{i} [__]"]
+        "#{i+1} [__]"]
     end
 
     i18n_scope.slice!(-1)
