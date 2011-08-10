@@ -8,7 +8,8 @@ module ApplicationHelper
 
   def default_javascripts
     libs = [:defaults, 'project_instances', 'datepicker/jquery.ui.datepicker-es']
-    libs << {:cache => 'main'}
+    # TODO: revisar porque no funciona bien en producción
+    #libs << {:cache => 'main'}
 
     javascript_include_tag *libs
   end
