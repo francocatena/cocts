@@ -25,7 +25,7 @@ a[data-event="hideItem"]:hover, a[data-event="removeItem"]:hover {
 }
 
 a.real {
-    color: #2E2E2E;
+    color: #2c2c2c;
     padding: 1px 3px;
     -moz-transition-property: color;
     -moz-transition-duration: 0.7s;
@@ -172,13 +172,13 @@ div#menu_container {
     border-bottom: 8px solid #FF8000;
 }
 
+div#menu_container a {
+  padding: 12px 3px;
+}
+
 div#menu_container a.selected {
     font-weight: bold;
     text-decoration: none;
-}
-
-div#menu_container a {
-    color: #2c2c2c;
 }
 
 div#menu_container ul {
@@ -203,7 +203,7 @@ div#main_container {
 
 ul#main_menu {
   font-variant: small-caps;
-  font-size: 1.3em;
+  font-size: 1.2em;
 }
 
 div#notice, div#alert {
@@ -429,7 +429,7 @@ div.project_form_part {
     margin-bottom: 1em;
 }
 
-div.project_form_part input {
+div.project_form_part input[type="text"] {
     width: 15em;
 }
 
