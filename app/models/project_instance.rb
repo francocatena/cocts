@@ -163,10 +163,11 @@ class ProjectInstance < ActiveRecord::Base
     pdf.move_down(pdf.font_size)
     pdf.text "["+self.identifier+"] " + self.name
     pdf.text description +": "+ self.description
-    pdf.text year +": "+ self.year.to_s
-    pdf.text valid_until +": "+ self.valid_until.to_s(:db)
+    if self.year.present?
+      pdf.text year +": "+ self.year.to_s
+    end
+    pdf.text valid_until +": "+ self.valid_until.to_formatted_s(:db)
         
-      
     # Datos personales
     pdf.move_down(pdf.font_size)
     pdf.text I18n.t(:'projects.questionnaire.personal_data_title').gsub(/\*/, ''),
@@ -207,7 +208,7 @@ class ProjectInstance < ActiveRecord::Base
     self.question_instances.each do |question|
       letter = 'A'
 
-      pdf.font_size((PDF_FONT_SIZE * 0.75).round) do
+      pdf.font_size((PDF_FONT_SIZE * 1).round) do
         pdf.move_down(pdf.font_size)
         pdf.text "#{question.question_text}", :style => :bold_italic
 
