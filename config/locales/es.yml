@@ -360,6 +360,9 @@
       scale_clarification: "En caso que no pueda manifestar su opinión en alguna frase escriba la razón:\n\tE. No la entiendo.\n\tS. No sé lo suficiente para valorarla"
       sociodemographic_forms_title: '*DATOS SOCIODEMOGRÁFICOS* (escriba o marque una cruz en las casillas siguientes).'
       sociodemographic_forms_title_instance: '*DATOS SOCIODEMOGRÁFICOS*'
+      question_instance_title: '*CUESTIONES*'
+      personal_data_title: '*DATOS PERSONALES*'
+      project_data_title: '*PROYECTO*'
       questions_warning: "Lea con atención cada cuestión y las diferentes frases alternativas.\nValore con sinceridad cada frase en su casilla correspondiente."
       scale_table:
         disagreement_title: 'DESACUERDO'

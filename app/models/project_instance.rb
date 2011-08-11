@@ -84,7 +84,7 @@ class ProjectInstance < ActiveRecord::Base
     end
   end
   
-   def to_pdf
+  def to_pdf
     i18n_scope = [:projects, :questionnaire]
     pdf = Prawn::Document.new(PDF_OPTIONS)
 
@@ -152,39 +152,56 @@ class ProjectInstance < ActiveRecord::Base
       pdf.move_down(pdf.font_size)
       pdf.text I18n.t(:scale_clarification, :scope => i18n_scope)
     end
-
-    # Pregunta de ejemplo
-    i18n_scope = [:projects, :questionnaire, :answer_example]
-
-    pdf.move_down(pdf.font_size)
-    pdf.text I18n.t(:title, :scope => i18n_scope), :style => :bold,
-      :align => :center
-    pdf.text I18n.t(:clarification, :scope => i18n_scope),
-      :size => (PDF_FONT_SIZE * 0.75).round
     
+    # Datos proyecto
     pdf.move_down(pdf.font_size)
+    pdf.text I18n.t(:'projects.questionnaire.project_data_title').gsub(/\*/, ''),
+        :style => :bold
+    description = I18n.t(:description, :scope => [:activerecord, :attributes, :project_instance])
+    year = I18n.t(:year, :scope => [:activerecord, :attributes, :project_instance])
+    valid_until = I18n.t(:valid_until, :scope => [:activerecord, :attributes, :project_instance])
+    pdf.move_down(pdf.font_size)
+    pdf.text "["+self.identifier+"] " + self.name
+    pdf.text description +": "+ self.description
+    pdf.text year +": "+ self.year.to_s
+    pdf.text valid_until +": "+ self.valid_until.to_s(:db)
+        
+      
+    # Datos personales
+    pdf.move_down(pdf.font_size)
+    pdf.text I18n.t(:'projects.questionnaire.personal_data_title').gsub(/\*/, ''),
+        :style => :bold
+    pdf.move_down(pdf.font_size)
+    if self.first_name.present?
+      name = I18n.t(:first_name, :scope => [:activerecord, :attributes, :project_instance])
+      pdf.text name+": "+ self.first_name
+    end 
+    if self.last_name.present?
+      name = I18n.t(:last_name, :scope => [:activerecord, :attributes, :project_instance])
+      pdf.text name +": "+ self.last_name
+    end
+    email = I18n.t(:email, :scope => [:activerecord, :attributes, :project_instance])
+    pdf.text email +": "+ self.email
+      
+    # Datos sociodemográficos
+    unless self.forms.empty?
+      i18n_scope.slice!(-2, 2)
+      pdf.move_down(pdf.font_size)
+      pdf.text I18n.t(:'projects.questionnaire.sociodemographic_forms_title_instance').gsub(/\*/, ''),
+        :style => :bold
 
-    pdf.font_size((PDF_FONT_SIZE * 0.75).round) do
-      pdf.text I18n.t(:question, :scope => i18n_scope), :style => :bold_italic
+      self.forms.each do |form|
+        pdf.font_size((PDF_FONT_SIZE * 0.8).round) do
+          pdf.move_down(pdf.font_size)
 
-      i18n_scope << :answers
-
-      answers = [['A', 1], ['B', 6], ['C', 8], ['D', 9], ['E', 7], ['F', 8],
-        ['G', 2]]
-
-      answers.each do |letter, number|
-        pdf.text(
-          "[#{number}] #{letter}. #{I18n.t(letter, :scope => i18n_scope)}",
-          :indent_paragraphs => pdf.font_size
-        )
+          self.send(:"add_#{form}", pdf)
+        end
       end
     end
 
-    
-
     pdf.start_new_page
-    pdf.text I18n.t(:questions_warning, :scope => i18n_scope), :style => :bold,
-      :align => :center
+    pdf.text I18n.t(:'projects.questionnaire.question_instance_title').gsub(/\*/, ''),
+      :style => :bold, :align => :center
     pdf.move_down(pdf.font_size)
 
     self.question_instances.each do |question|
@@ -192,14 +209,10 @@ class ProjectInstance < ActiveRecord::Base
 
       pdf.font_size((PDF_FONT_SIZE * 0.75).round) do
         pdf.move_down(pdf.font_size)
-        pdf.text "#{question.code} #{question.question}", :style => :bold_italic
+        pdf.text "#{question.question_text}", :style => :bold_italic
 
         question.answer_instances.each do |answer|
-          unless answer.clarification.blank?
-            pdf.text answer.clarification
-          end
-
-          pdf.text "[__] #{letter}. #{answer.answer}",
+          pdf.text "[#{answer.valuation}] #{letter}. #{answer.answer_text}",
             :indent_paragraphs => pdf.font_size
 
           letter.next!
@@ -224,63 +237,50 @@ class ProjectInstance < ActiveRecord::Base
     File.join(PUBLIC_PATH, self.pdf_relative_path)
   end
 
-  def add_age_form(pdf)
+  def add_age(pdf)
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :age])
-    
-    pdf.text "#{question} ______________"
+    pdf.text "#{question} #{self.age}"
   end
 
-  def add_country_form(pdf)
-    countries = []
-    i18n_scope = [:projects, :questionnaire, :country, :options]
+  def add_country(pdf)
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :country])
-
-    COUNTRIES.each_with_index do |country, i|
-      countries << "#{I18n.t(country, :scope => i18n_scope)} #{i+1} [__]"
-    end
-
-    pdf.text "#{question} #{countries.join('  ')}"
+    pdf.text "#{question} #{self.country}"
   end
 
-  def add_degree_form(pdf)
-    degrees = []
-    i18n_scope = [:projects, :questionnaire, :degree, :options]
+  def add_degree(pdf)
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :degree])
-
-    DEGREES.each_with_index do |degree, i|
-      unless degree == DEGREES.last
-        degrees << "#{I18n.t(degree, :scope => i18n_scope)} #{i+1} [__]"
-      else
-        degrees << "#{I18n.t(degree, :scope => i18n_scope)} #{i+1} ______________"
-      end
-    end
-
-    pdf.text "#{question} #{degrees.join('  ')}"
+    degree = I18n.t(self.degree, :scope => [:projects, :questionnaire, :degree,
+        :options])
+    pdf.text question +" "+ degree
   end
 
-  def add_genre_form(pdf)
-    genres = []
-    i18n_scope = [:projects, :questionnaire, :genre, :options]
+  def add_genre(pdf)
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :genre])
-
-    GENRES.each_with_index do |genre, i|
-      genres << "#{I18n.t(genre, :scope => i18n_scope)} #{i+1} [__]"
-    end
-
-    pdf.text "#{question} #{genres.join('  ')}"
+    genre = I18n.t(self.genre, :scope => [:projects, :questionnaire, :genre, :options])
+    pdf.text question +" "+ genre
   end
 
-  def add_profession_form(pdf)
+  def add_profession(pdf)
     data = []
     i18n_scope = [:projects, :questionnaire, :profession, :options]
 
     PROFESSIONS.each_with_index do |profession, i|
-      data << [I18n.t(profession, :scope => i18n_scope), "#{i+1} [__]",
-        "#{i} [__]"]
+      if self.profession_certification.include?(profession.to_s)
+        certification = "X"
+      else
+        certification = "  "
+      end
+      if self.profession_ocuppation.include?(profession.to_s)
+        ocuppation = "X"
+      else
+        ocuppation = "  "
+      end
+      data << [I18n.t(profession, :scope => i18n_scope), "#{i+1} [#{certification}]",
+        "#{i+1} [#{ocuppation}]"]
     end
 
     i18n_scope.slice!(-1)
@@ -299,49 +299,32 @@ class ProjectInstance < ActiveRecord::Base
         0 => pdf.margin_box.width * 0.7,
         1 => pdf.margin_box.width * 0.15,
         2 => pdf.margin_box.width * 0.15
-      }
+      },
+      :column_height => 2
   end
 
-  def add_student_form(pdf)
-    student_statuses = []
-    i18n_scope = [:projects, :questionnaire, :student, :options]
+  def add_student(pdf)
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :student])
-
-    STUDENT_STATUSES.each_with_index do |student_status, i|
-      student_statuses <<
-        "#{I18n.t(student_status, :scope => i18n_scope)} #{i+1} [__]"
-    end
-
-    pdf.text "#{question} #{student_statuses.join('  ')}"
+    student = I18n.t(self.student_status, :scope => [:projects, :questionnaire, 
+        :student, :options])
+    pdf.text question +" "+ student
   end
 
-  def add_teacher_form(pdf)
-    teacher_statuses = []
-    i18n_scope = [:projects, :questionnaire, :teacher, :options]
+  def add_teacher(pdf)
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :teacher])
-
-    TEACHER_STATUSES.each_with_index do |teacher_status, i|
-      teacher_statuses <<
-        "#{I18n.t(teacher_status, :scope => i18n_scope)} #{i+1} [__]"
-    end
-
-    pdf.text "#{question} #{teacher_statuses.join('  ')}"
+    teacher = I18n.t(self.teacher_status, :scope => [:projects, :questionnaire, 
+        :teacher, :options])
+    pdf.text question +" "+ teacher
   end
 
-  def add_teacher_level_form(pdf)
-    teacher_levels = []
-    i18n_scope = [:projects, :questionnaire, :teacher_level, :options]
+  def add_teacher_level(pdf)
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :teacher_level])
-
-    TEACHER_LEVELS.each_with_index do |teacher_level, i|
-      teacher_levels <<
-        "#{I18n.t(teacher_level, :scope => i18n_scope)} #{i+1} [__]"
-    end
-
-    pdf.text "#{question} #{teacher_levels.join('  ')}"
+    teacher_level = I18n.t(self.teacher_level, :scope => [:projects, :questionnaire, 
+        :teacher_level, :options])
+    pdf.text question +" "+ teacher_level
   end
   
 end

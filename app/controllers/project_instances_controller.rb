@@ -28,6 +28,10 @@ class ProjectInstancesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @project_instance }
+      format.pdf  {
+        @project_instance.to_pdf
+        redirect_to "/#{@project_instance.pdf_relative_path}"
+      }
     end
   end
 
