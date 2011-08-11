@@ -27,7 +27,7 @@ class ProjectInstance < ActiveRecord::Base
   
   # Restricciones
   validates :email, :age, :degree, :genre, :student_status, :teacher_status,
-    :teacher_level, :profession_certification, :profession_ocuppation,
+    :profession_certification, :profession_ocuppation,
     :presence => true, :length => { :maximum => 255 }
   validates_numericality_of :age, :only_integer => true, :allow_nil => true,
     :allow_blank => true

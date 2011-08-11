@@ -1,4 +1,5 @@
 <% i18n_scope = [:projects, :questionnaire, :teacher_level, :options] %>
+<div id="teacher" style="display: none;">
 <strong>
   <%= t(:question, :scope => [:projects, :sociodemographic_forms, :teacher_level]) %>
 </strong>
@@ -23,6 +24,8 @@
             :id => teacher_level_id %>
         <% end %>
       <% end %>
+      
     </li>
   <% end %>
 </ul>
+</div>

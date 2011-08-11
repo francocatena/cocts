@@ -19,6 +19,13 @@ var Question = {
 };
 
 jQuery(function($) {
+  $('#in_training_teacher_status').click(function(event) {
+       $('#teacher').fadeIn(300);
+  });
+  $('#in_exercise_teacher_status').click(function(event) {
+       $('#teacher').fadeIn(300);
+  });
+  
   if($('.project_instance').length > 0) {
     $('.question_instance:first').show();
 
