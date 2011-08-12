@@ -424,6 +424,14 @@ div#option {
     width: 16%;
 }
 
+div.personal_data{
+    width: 20%;
+}
+
+div.personal_data .field label{
+    color: #2c2c2c;
+}
+
 div.project_form_part {
     display: block;
     margin-bottom: 1em;

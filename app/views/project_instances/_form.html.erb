@@ -83,7 +83,24 @@
       <% i18n_scope.slice!(-2, 2) %>
       <%= raw textilize(t(:scale_clarification, :scope => i18n_scope)) %>
       <%= render 'projects/answer_example' %>
-
+  
+  <h2 style="margin: 1em 0em; font-weight: normal;">
+    <%= textilize_without_paragraph t(:personal_data_title, :scope => i18n_scope) %>
+  </h2>
+  <div class ="personal_data">      
+   <div class="field">
+      <%= f.label :first_name %><br />
+      <%= f.text_field :first_name, :autofocus => true %>
+    </div>
+    <div class="field">
+      <%= f.label :last_name %><br />
+      <%= f.text_field :last_name %>
+    </div>
+    <div class="field">
+      <%= f.label :email %><br />
+      <%= f.text_field :email %>
+    </div>  
+  </div>
       <h2 style="margin: 1em 0em; font-weight: normal;">
         <%= textilize_without_paragraph t(:sociodemographic_forms_title,
           :scope => i18n_scope) %>
@@ -105,23 +122,10 @@
 
 <div class="project_instance_data" style="display:none;">  
   <div class ="one_column_form project_instance">      
-    <div class="field">
-      <%= f.label :first_name %><br />
-      <%= f.text_field :first_name, :autofocus => true %>
-    </div>
-    <div class="field">
-      <%= f.label :last_name %><br />
-      <%= f.text_field :last_name %>
-    </div>
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.text_field :email %>
-    </div>     
-  
   </div>
   
   
-    <% @project_instance.question_instances.build if @project_instance.question_instances.empty? %>
+  <% @project_instance.question_instances.build if @project_instance.question_instances.empty? %>
     
     <% count = 0 %>
     <% questions_count = @project_instance.question_instances.size %>
