@@ -157,12 +157,36 @@ div#loading {
 
 div#login {
     margin: 10em auto 0em auto;
-    width: 30em;
+    width: 40em;
     background-color: #f6f6f6;
-    border: 3px solid #FF8000;
+    border-top: 10px solid #FF8000;
     padding: 1em;
-    -moz-border-radius:15px 15px;
-    -webkit-border-radius:15px 15px;
+    -moz-border-radius: 0px 0px 15px 15px;
+   -webkit-border-radius: 0px 0px 15px 15px;
+
+}
+div#login .field {
+    margin: auto;
+    padding: 0.5em;
+    width: 30%;
+}
+
+div#login .field input[type="submit"]{
+    font: inherit;
+    padding: 0.5em;
+    background: #D8D8D8;
+    -moz-border-radius: 5px 5px;
+    -webkit-border-radius: 5px 5px;
+    -moz-transition-property: background;
+    -moz-transition-duration: 0.7s;
+    -webkit-transition-property: background;
+    -webkit-transition-duration: 0.7s;
+}
+
+div#login .field input[type="submit"]:hover{
+  background: #FAAC58;
+  color: #ffffff;
+  
 }
 
 div#menu_container {
@@ -275,11 +299,8 @@ div.cuestionnaire .hide_complete_cuestionnaire{
 }
 
 div.cocts {
-    font-size: 1.4em;
-    font-variant: small-caps;
-    font-weight: bold;
-    text-shadow: 1px 1px 0px #FF8000;
-    
+  font-family: 'Meddon', cursive;
+  font-size: 1.8em;   
 }
 
 div.answer_instance {

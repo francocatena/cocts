@@ -1,3 +1,4 @@
+<link href='http://fonts.googleapis.com/css?family=Meddon' rel='stylesheet' type='text/css'>
 <div id="login">
   <%= form_for @user, :url => create_session_users_path do |f| %>
     <%= f.error_messages %>
@@ -12,7 +13,8 @@
       <%= f.label :password %>
       <%= f.password_field :password, :maxlength => 128 %>
     </div>
-    <div class="actions">
+    
+    <div class="field">
       <span><%= f.submit t(:'users.enter') %></span>
     </div>
   <% end %>
