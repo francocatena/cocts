@@ -321,11 +321,13 @@ class ProjectInstance < ActiveRecord::Base
   end
 
   def add_teacher_level(pdf)
-    question = I18n.t(:question,
-      :scope => [:projects, :sociodemographic_forms, :teacher_level])
-    teacher_level = I18n.t(self.teacher_level, :scope => [:projects, :questionnaire, 
-        :teacher_level, :options])
-    pdf.text question +" "+ teacher_level
+    if self.teacher_level.present?
+      question = I18n.t(:question,
+        :scope => [:projects, :sociodemographic_forms, :teacher_level])
+      teacher_level = I18n.t(self.teacher_level, :scope => [:projects, :questionnaire, 
+          :teacher_level, :options])
+      pdf.text question +" "+ teacher_level
+    end
   end
   
 end

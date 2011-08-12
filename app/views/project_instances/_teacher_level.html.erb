@@ -1,5 +1,10 @@
 <% i18n_scope = [:projects, :questionnaire, :teacher_level, :options] %>
-<div id="teacher" style="display: none;">
+<% if params[:action]=='new' || @project_instance.teacher_status=='not_a_teacher' %>
+  <% style = "display: none;" %>
+<% else %>
+  <% style = nil %>
+<% end %>
+<div id="teacher" style="<%= style %>">
 <strong>
   <%= t(:question, :scope => [:projects, :sociodemographic_forms, :teacher_level]) %>
 </strong>

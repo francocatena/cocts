@@ -25,6 +25,9 @@ jQuery(function($) {
   $('#in_exercise_teacher_status').click(function(event) {
        $('#teacher').fadeIn(300);
   });
+  $('#not_a_teacher_teacher_status').click(function(event) {
+       $('#teacher').fadeOut(300);
+  });
   
   if($('.project_instance').length > 0) {
     $('.question_instance:first').show();

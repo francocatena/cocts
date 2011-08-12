@@ -120,12 +120,12 @@
     <b><%= t:'projects.sociodemographic_forms.teacher.option' %>:</b>
     <%= t:"projects.questionnaire.teacher.options.#{@project_instance.teacher_status}" %>
   </p>
-  
+  <% if @project_instance.teacher_status.present? && @project_instance.teacher_status!="not_a_teacher" %>
   <p>
     <b><%= t:'projects.sociodemographic_forms.teacher_level.option' %>:</b>
     <%= t:"projects.questionnaire.teacher_level.options.#{@project_instance.teacher_level}" %>
   </p>
-  
+  <% end %>
   <p>
     <b><%= t:'projects.sociodemographic_forms.degree.option' %>:</b>
     <%= t:"projects.questionnaire.degree.options.#{@project_instance.degree}" %>
