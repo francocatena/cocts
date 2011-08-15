@@ -4,12 +4,14 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
     <title><%= t(:app_title) %> | <%= @title %></title>
     <%= default_stylesheets %>
     <%= default_javascripts %>
     <%= javascript_tag do %>
       <%= yield :js_extra %>
     <% end %>
+    <%= favicon_link_tag %>
   </head>
   <body>
     <div id="loading" style="display: none;">
