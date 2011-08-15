@@ -298,11 +298,6 @@ div.cuestionnaire .hide_complete_cuestionnaire{
     padding: 1em 0.5em; 
 }
 
-div.cocts {
-  font-family: 'Meddon', cursive;
-  font-size: 1.8em;   
-}
-
 div.answer_instance {
     list-style: none;
     margin-left: 1em;

@@ -1,9 +1,8 @@
-<link href='http://fonts.googleapis.com/css?family=Meddon' rel='stylesheet' type='text/css'>
 <div id="login">
   <%= form_for @user, :url => create_session_users_path do |f| %>
     <%= f.error_messages %>
     <div class="cocts">
-      <p>Bienvenido a Cocts </p>
+      <p><%= image_tag 'login.gif', :alt => "Bienvenido a COCTS" %></p>
     </div>
     <div class="field">
       <%= f.label :user %>
