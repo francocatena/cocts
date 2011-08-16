@@ -3,6 +3,7 @@ class QuestionsController < ApplicationController
   before_filter :auth
   before_filter :admin, :except => [:index, :show]
   require 'csv'
+  require 'iconv'
   
   # * GET /questions
   # * GET /questions.xml
@@ -122,11 +123,12 @@ class QuestionsController < ApplicationController
     if File.extname(params[:dump_questions][:file].original_filename).downcase == '.csv'
       @parsed_file=CSV::Reader.parse(params[:dump_questions][:file], delimiter = ';')
       n=0
+      conv = Iconv.new('UTF-8//IGNORE//TRANSLIT', 'ISO-8859-15')
       @parsed_file.each  do |row|
         q = Question.new
         q.dimension = row[0]
         q.code = row[1]
-        q.question = row[2]
+        q.question = conv.iconv(row[2].to_s)
         if q.save
         n+=1
         end
@@ -144,12 +146,13 @@ class QuestionsController < ApplicationController
     if File.extname(params[:dump_answers][:file].original_filename).downcase == '.csv'    
       @parsed_file=CSV::Reader.parse(params[:dump_answers][:file], delimiter = ';')
       n=0
+      conv = Iconv.new('UTF-8//IGNORE//TRANSLIT', 'ISO-8859-15')
       @parsed_file.each  do |row|
         a = Answer.new
         a.category = row[1]
         a.order = row[2].to_i
-        a.clarification = row[3].to_s
-        a.answer = row[4]
+        a.clarification = conv.iconv(row[3].to_s)
+        a.answer = conv.iconv(row[4].to_s)
         question = Question.find_by_code(row[0].to_s)      
         unless question.blank? 
           a.question_id = question.id
