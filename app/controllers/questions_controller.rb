@@ -149,11 +149,21 @@ class QuestionsController < ApplicationController
       conv = Iconv.new('UTF-8//IGNORE//TRANSLIT', 'ISO-8859-15')
       @parsed_file.each  do |row|
         a = Answer.new
-        a.category = row[1]
+        category = row[1].to_s
+        if category == 'A'
+          category = 2
+        elsif category == 'P'
+          category = 1
+        elsif category == 'I'
+          category = 0
+        end
+        a.category = category
         a.order = row[2].to_i
-        a.clarification = conv.iconv(row[3].to_s)
-        a.answer = conv.iconv(row[4].to_s)
-        question = Question.find_by_code(row[0].to_s)      
+        a.clarification = conv.iconv(row[4].to_s)
+        a.answer = conv.iconv(row[5].to_s)
+        question = Question.find_by_code(row[0].to_s)
+        puts "CATEGORY #{category}, CLARIFICATION #{a.clarification}, QUESTION #{row[0].to_s},
+        ORDER #{a.order}, ANSWER #{a.answer} "
         unless question.blank? 
           a.question_id = question.id
         end
