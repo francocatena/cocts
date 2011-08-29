@@ -5,9 +5,27 @@ one:
   first_name: 'Gastón'
   last_name: 'Gaudio'
   email: 'gaudiog@aat.com.ar'
+  age: 25
+  degree: 'doctor'
+  genre: 'male'
+  student_status: 'no_study'
+  teacher_status: 'in_training'
+  teacher_level: 'primary'
+  profession_certification: ['social']
+  profession_ocuppation: ['engineering', 'mix']
+  country: 'Argentina'
 
 two:
   project: manual
   first_name: 'Pablo'
   last_name: 'Aimar'
   email: 'paimar@mail.com'
+  age: 29
+  degree: 'doctor'
+  genre: 'male'
+  student_status: 'pre_university'
+  teacher_status: 'in_training'
+  teacher_level: 'primary'
+  profession_certification: ['science']
+  profession_ocuppation: ['engineering', 'mix']
+  country: 'Argentina'

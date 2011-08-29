@@ -23,6 +23,15 @@ class ProjectInstanceTest < ActiveSupport::TestCase
         :first_name => 'Name',
         :last_name => 'Lastname',
         :email => 'email@cirope.com.ar',
+        :age => 25,
+        :degree => 'doctor',
+        :genre => 'male',
+        :student_status => 'no_study',
+        :teacher_status => 'in_training',
+        :teacher_level => 'primary',
+        :profession_certification => ['social', 'science'],
+        :profession_ocuppation => ['engineering', 'mix'],
+        :country => 'Brasil',
         :question_instances => [question_instances(:one)],
         :project => projects(:manual)
       )
