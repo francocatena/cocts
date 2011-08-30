@@ -10,7 +10,7 @@ class QuestionsController < ApplicationController
   def index
     @title = t :'questions.index_title'
     
-    @questions = Question.order(
+    @questions = Question.search(params[:search]).order(
     [
       "#{Question.table_name}.dimension ASC",
       "#{Question.table_name}.code ASC"

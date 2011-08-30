@@ -49,5 +49,15 @@ class Question < ActiveRecord::Base
   def can_be_destroyed?
     self.projects.blank?
   end
+  
+  def self.search(search)
+  if search
+    where('question LIKE ? OR code LIKE ?', "%#{search}%", "%#{search}%")
+  else
+    scoped
+  end
+end
+
+
 
 end

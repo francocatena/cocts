@@ -1,3 +1,12 @@
+<div class="search_form">
+  <%= form_tag questions_path, :method => 'get', :id => "questions_search" do %>
+  <div id="field">
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag t:'labels.search', :name => nil %>
+  </div>
+  <% end %>
+</div>
+
 <table>
   <thead>
     <tr>

@@ -461,6 +461,13 @@ div.search {
     padding-right: 16px;
 }
 
+div.search_form {
+    border: 4px solid #dedede;
+    padding: 1em;
+    margin: 1em;
+    width: 35%;
+}
+
 div.search input.search {
     background: transparent url(../images/search.gif) no-repeat scroll 3px;
     padding-left: 16px;
