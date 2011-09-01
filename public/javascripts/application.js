@@ -61,6 +61,14 @@ var AutoComplete = {
   }
 };
 
+// Búsqueda de cuestiones
+$(function() {
+  $("#questions_search input").keyup(function() {
+    $.get($("#questions_search").attr("action"), $("#questions_search").serialize(), null, "script");
+    return false;
+  });
+});
+
 // Manejadores de eventos
 var EventHandler = {
   /**
@@ -209,7 +217,8 @@ $('.hidden_dialog').dialog({
     $(this).parents('.ui-dialog').hide().fadeIn(500);
   }
 });
-  
+
+// Dialogs JQuery  
 $('a.open_dialog').live('click', function(event) {
   $($(this).data('dialog')).dialog('open').dialog(
     'option', 'position', [
@@ -221,6 +230,11 @@ $('a.open_dialog').live('click', function(event) {
   return false;
 });
 
+$('a.search').live('click', function(event) {
+  $('#search_form').fadeIn(300);
+  
+  return false;
+});
   
   AutoComplete.observeAll();
 });

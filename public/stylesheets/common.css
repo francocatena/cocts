@@ -24,13 +24,18 @@ a[data-event="hideItem"]:hover, a[data-event="removeItem"]:hover {
     background: #aa0000;
 }
 
-a.real {
+a.real{
     color: #2c2c2c;
     padding: 1px 3px;
     -moz-transition-property: color;
     -moz-transition-duration: 0.7s;
     -webkit-transition-property: color;
     -webkit-transition-duration: 0.7s;
+}
+
+a.search{
+    color: #2c2c2c;
+    padding: 1px 3px;
 }
 
 a.real:link {
@@ -476,11 +481,16 @@ div.search {
     padding-right: 16px;
 }
 
-div.search_form {
+div#search_form {
+    display: block;
     border: 4px solid #dedede;
     padding: 1em;
     margin: 1em;
     width: 35%;
+}
+
+div#search_link {
+    padding: 1em;
 }
 
 div.search input.search {

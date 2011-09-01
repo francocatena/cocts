@@ -493,6 +493,7 @@
     question_number: 'Pregunta %{count} de %{total}'
 
   questions:
+    search_questions: 'Buscar cuestiones'
     dimension_help: 'Categoría en la cual se encuentra la cuestión.'
     code_help: 'Campo que identifica unívocamente a la cuestión.'
     question_help: 'Texto de la cuestión.'
