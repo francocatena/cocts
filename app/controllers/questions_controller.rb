@@ -5,6 +5,8 @@ class QuestionsController < ApplicationController
   require 'csv'
   require 'iconv'
   
+  layout proc{ |controller| controller.request.xhr? ? false : 'application' }
+  
   # * GET /questions
   # * GET /questions.xml
   def index
@@ -133,9 +135,9 @@ class QuestionsController < ApplicationController
         n+=1
         end
       end
-      flash.alert = t(:'questions.csv_import', :count => n)
+      flash[:notice] = t(:'questions.csv_import', :count => n)
     else
-      flash.alert = t :'questions.error_file_extension'
+      flash[:alert] = t :'questions.error_file_extension'
     end
     respond_to do |format|
       format.html { redirect_to(questions_path) }
@@ -174,9 +176,9 @@ class QuestionsController < ApplicationController
           question.answers << a
         end
       end
-      flash.alert = t(:'questions.answers.csv_import', :count => n)
+      flash[:notice] = t(:'questions.answers.csv_import', :count => n)
     else
-      flash.alert = t :'questions.error_file_extension'
+      flash[:alert] = t :'questions.error_file_extension'
     end
     respond_to do |format|
       format.html { redirect_to(questions_path) }

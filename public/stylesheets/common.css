@@ -230,13 +230,13 @@ ul#main_menu {
   font-size: 1.2em;
 }
 
-div#notice, div#alert {
+div#notice {
     position: absolute;
     bottom: .5em;
     left: 5%;
     right: 5%;
-    background: #F7F714;
-    color: #2C2C26;
+    background: #242429;
+    color: #FAFAFA;
     font-size: 1.2em;
     font-weight: bold;
     text-align: center;
@@ -244,9 +244,24 @@ div#notice, div#alert {
     border: solid #9C9C95;
     -moz-border-radius:15px 55px;
     -webkit-border-radius:15px 55px;
-    
-    
 }
+
+div#alert {
+    position: absolute;
+    bottom: .5em;
+    left: 5%;
+    right: 5%;
+    background: #FF8000;
+    color: #FAFAFA;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    padding: .5em .8em;
+    border: solid #9C9C95;
+    -moz-border-radius:15px 55px;
+    -webkit-border-radius:15px 55px;
+}
+
 
 div#notice div#close_notice, div#alert div#close_alert {
     position: absolute;

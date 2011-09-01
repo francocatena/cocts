@@ -168,7 +168,7 @@ class UsersController < ApplicationController
     @user.encrypt_password
    
     unless auth_user && auth_user.password 
-      flash[:notice] = t :'users.current_password_error'
+      flash[:alert] = t :'users.current_password_error'
       redirect_to edit_password_user_path(auth_user)
     else
       @auth_user.password = params[:user][:password]
@@ -194,7 +194,7 @@ class UsersController < ApplicationController
       @auth_user.password, @auth_user.password_confirmation = nil, nil
     end
   rescue ActiveRecord::StaleObjectError
-    flash[:notice] = t :'users.password_stale_object_error'
+    flash[:alert] = t :'users.password_stale_object_error'
     redirect_to edit_password_user_path(@auth_user)
   end
   
@@ -220,7 +220,7 @@ class UsersController < ApplicationController
     render :action => :edit_personal_data
 
   rescue ActiveRecord::StaleObjectError
-    flash[:notice] = t :'users.stale_object_error'
+    flash[:alert] = t :'users.stale_object_error'
     redirect_to edit_personal_data_user_path(@user)
   end
 

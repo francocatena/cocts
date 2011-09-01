@@ -48,18 +48,18 @@ class ProjectInstancesController < ApplicationController
       @project = Project.find_by_identifier(request.subdomains.first)
       if @project 
         unless @project.is_valid?
-          flash[:notice]= t :'projects.valid_until_error'
+          flash[:alert]= t :'projects.valid_until_error'
           redirect_to login_users_path
         end        
         if @project.interactive?
           @project_instance = ProjectInstance.new(:project => @project)
         else
-          flash[:notice]= t :'project_instances.error_manual_type'
+          flash[:alert]= t :'project_instances.error_manual_type'
           redirect_to login_users_path
         end
                      
       else
-        flash[:notice]= t :'project_instances.error_subdomain'
+        flash[:alert]= t :'project_instances.error_subdomain'
         redirect_to login_users_path
       end
     end
