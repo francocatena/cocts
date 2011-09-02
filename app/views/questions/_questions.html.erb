@@ -1,0 +1,35 @@
+<div class="questions">
+<table>
+  <thead>
+    <tr>
+      <th><%= Question.human_attribute_name :dimension %></th>
+      <th><%= Question.human_attribute_name :code %></th>
+      <th><%= Question.human_attribute_name :question %></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @questions.each do |question| %>
+      <tr class="<%= cycle(:even, :odd) %>">
+        <td><%= content_tag :acronym, question.dimension,
+            :title => question.dimension_text %></td>
+        <td><%= question.code %></td>
+        <td><%= truncate(question.question, :length => 30, :omission => '...') %></td>
+        <td><%= link_to t(:'labels.show'), question, :class => :real %></td>
+        <td><%= link_to t(:'labels.edit'), edit_question_path(question),
+            :class => :real if @auth_user.admin?%></td>
+        <td><%= button_to t(:'labels.delete'), question,
+            :confirm => t(:'messages.confirmation_question'), :method => :delete if @auth_user.admin? %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div id="links">
+  <%= pagination_links @questions %>
+</div>
+  
+</div>
