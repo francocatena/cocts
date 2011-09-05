@@ -64,7 +64,10 @@ var AutoComplete = {
 // Búsqueda de cuestiones
 $(function() {
   $("#questions_search input").keyup(function() {
-    $.get($("#questions_search").attr("action"), $("#questions_search").serialize(), null, "script");
+    var t=setTimeout("$.get($(\"#questions_search\").attr(\"action\"), $(\"#questions_search\")\n\
+.serialize(), null, \"script\");", 400);
+   
+    
     return false;
   });
 });
