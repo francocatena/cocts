@@ -32,7 +32,7 @@ var AutoComplete = {
                   );
                 }
 
-                return { label: content.html(), value: item.label, item: item };
+                return {label: content.html(), value: item.label, item: item};
               })
               );
             }
@@ -50,7 +50,7 @@ var AutoComplete = {
           
           return false;
         },
-        open: function() { $('.ui-menu').css('width', input.width()); }
+        open: function() {$('.ui-menu').css('width', input.width());}
       });
       
       input.data('autocomplete')._renderItem = function(ul, item) {
@@ -64,13 +64,17 @@ var AutoComplete = {
 // Búsqueda de cuestiones
 $(function() {
   $("#questions_search input").keyup(function() {
-    var t=setTimeout("$.get($(\"#questions_search\").attr(\"action\"), $(\"#questions_search\")\n\
-.serialize(), null, \"script\");", 400);
-   
     
+    setTimeout(searchQuestions, 400);
+    $(this).event.stopPropagation();
     return false;
   });
 });
+
+function searchQuestions(){
+  $.get($("#questions_search").attr("action"), $("#questions_search").serialize(), null, "script");
+  
+}
 
 // Manejadores de eventos
 var EventHandler = {
@@ -120,7 +124,7 @@ var FormUtil = {
      * secuencia
      */
   completeSortNumbers: function() {
-    $('input.sort_number').val(function(i) { return i + 1; });
+    $('input.sort_number').val(function(i) {return i + 1;});
   }
 }
 
@@ -141,7 +145,7 @@ var Helper = {
       items: elements,
       handle: handles,
       opacity: 0.6,
-      stop: function() { FormUtil.completeSortNumbers()}
+      stop: function() {FormUtil.completeSortNumbers()}
     });
   },
 
@@ -152,7 +156,7 @@ var Helper = {
     $(element).stop().slideUp(500, function() {
       $(this).remove();
       
-      if(jQuery.isFunction(callback)) { callback(); }
+      if(jQuery.isFunction(callback)) {callback();}
     });
   }
 }
@@ -169,7 +173,7 @@ var Util = {
 }
 
 jQuery(function($) {
-  var eventList = $.map(EventHandler, function(v, k ) { return k; });
+  var eventList = $.map(EventHandler, function(v, k ) {return k;});
   
   // Para que los navegadores que no soportan HTML5 funcionen con autofocus
   $('*[autofocus]:not([readonly]):not([disabled]):visible:first').focus();
@@ -196,8 +200,8 @@ jQuery(function($) {
   });
   
   $('#loading').bind({
-    ajaxStart: function() { $(this).show(); },
-    ajaxStop: function() { $(this).hide(); }
+    ajaxStart: function() {$(this).show();},
+    ajaxStop: function() {$(this).hide();}
   });
   
   $('input.calendar:not(.hasDatepicker)').live('focus', function() {
