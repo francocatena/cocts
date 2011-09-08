@@ -167,7 +167,7 @@ div#login {
     border-top: 10px solid #FF8000;
     padding: 1em;
     -moz-border-radius: 0px 0px 15px 15px;
-   -webkit-border-radius: 0px 0px 15px 15px;
+    -webkit-border-radius: 0px 0px 15px 15px;
 
 }
 div#login .field {
@@ -224,6 +224,19 @@ div#menu_container div#user_info {
     position: absolute;
     right: 3em;
     top: .5em;
+}
+
+div#user_info #user{
+    display: inline;
+    color: #fff;
+    background: #FF8000;
+    padding: 2px 6px;
+    line-height: 1.5em;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .3);
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, .4), 0 .9em .5em -0.2em rgba(255, 255, 255, .2) inset;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
 }
 
 div#main_container {
