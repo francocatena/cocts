@@ -28,7 +28,7 @@
     <td><%= link_to t(:'labels.show'), project_instance, :class => :real %></td>
     <td class="center"><%= link_to t(:'labels.edit'), edit_project_instance_path(project_instance),
           :class => :real %></td>
-    <td><%= button_to t(:'labels.delete'), project_instance,
+    <td class="delete"><%= button_to t(:'labels.delete'), project_instance,
             :confirm => t(:'messages.confirmation_question'),
             :method => :delete %></td>
   </tr>

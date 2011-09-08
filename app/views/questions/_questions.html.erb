@@ -21,7 +21,7 @@
         <td><%= link_to t(:'labels.show'), question, :class => :real %></td>
         <td><%= link_to t(:'labels.edit'), edit_question_path(question),
             :class => :real if @auth_user.admin?%></td>
-        <td><%= button_to t(:'labels.delete'), question,
+        <td class="delete"><%= button_to t(:'labels.delete'), question,
             :confirm => t(:'messages.confirmation_question'), :method => :delete if @auth_user.admin? %></td>
     </tr>
     <% end %>
