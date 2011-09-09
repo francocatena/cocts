@@ -528,6 +528,10 @@ td.delete input[type="submit"] {
     -webkit-border-radius: 5px 5px 5px 5px;
 } 
 
+td.delete input[type="submit"]:hover {
+    background: #F56666;
+}
+
 h4.question {
     font-style: italic;
     font-weight: bold;
