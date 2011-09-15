@@ -168,7 +168,17 @@ class QuestionsControllerTest < ActionController::TestCase
         :file => fixture_file_upload('../files/test_questions.csv', 'text/csv')
       }
     end
-
+       
+    assert_no_difference('Question.count') do
+      post :csv_import_questions, :dump_questions => {}
+    end
+        
+    # Prueba adjuntar un archivo que no sea csv
+    assert_no_difference('Question.count') do
+      post :csv_import_questions, :dump_questions => {
+        :file => fixture_file_upload('../files/test_questions.txt', 'text/csv')
+      }
+    end
     assert_redirected_to questions_path
   end
 
@@ -179,8 +189,19 @@ class QuestionsControllerTest < ActionController::TestCase
         :file => fixture_file_upload('../files/test_answers.csv', 'text/csv')
       }
     end
-
+    # Prueba de enviar el formulario sin el archivo csv  
+    assert_no_difference('Answer.count') do
+      post :csv_import_answers, :dump_answers => {}
+    end
+        
+    # Prueba adjuntar un archivo que no sea csv
+    assert_no_difference('Answer.count') do
+      post :csv_import_answers, :dump_answers => {
+        :file => fixture_file_upload('../files/test_answers.txt', 'text/csv')
+      }
+    end
     assert_redirected_to questions_path
+           
   end
 
 end

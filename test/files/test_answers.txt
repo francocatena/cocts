@@ -1,0 +1,2 @@
+6;60211; El mejor científico es siempre de mentalidad abierta, imparcial y objetivo en su trabajo. Estas características personales son necesarias para hacer mejor ciencia.
+9;90721; Aunque las matemáticas se usen exactamente en ciencia e ingeniería, sólo se puede predecir lo que probablemente ocurrirá. Nunca se puede predecir con el 100% de seguridad. 

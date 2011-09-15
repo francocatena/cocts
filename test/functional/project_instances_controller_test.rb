@@ -71,6 +71,15 @@ class ProjectInstancesControllerTest < ActionController::TestCase
           :first_name => 'Firstname',
           :last_name => 'Lastname',
           :email => 'test@cirope.com.ar',
+          :age => 25,
+          :degree => 'doctor',
+          :genre => 'male',
+          :student_status => 'no_study',
+          :teacher_status => 'in_training',
+          :teacher_level => 'primary',
+          :profession_certification => ['social'],
+          :profession_ocuppation => ['engineering', 'mix'],
+          :country => 'Argentina', 
           :question_instance_ids => [question_instances(:one).id],
           :project_id => projects(:manual).id
         }
@@ -88,7 +97,6 @@ class ProjectInstancesControllerTest < ActionController::TestCase
     get :edit, :id => @project_instance.to_param
     assert_response :success
     assert_not_nil assigns(:project_instance)
-    assert_select '#error_body', false
     assert_template 'project_instances/edit'
   end
 
