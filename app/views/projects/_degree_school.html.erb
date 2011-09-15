@@ -1,0 +1,15 @@
+<strong>
+  <%= t(:question, :scope => [:projects, :sociodemographic_forms, :degree_school]) %>
+</strong>
+<ul class="horizontal_list">
+  <% (1..15).each do |i| %>
+    <% degree_school_id = i %>
+    <li>
+      <label for="<%= degree_school_id %>">
+        <%= i %>
+        
+      </label>
+      <%= radio_button_tag :degree_shool, i, false, :id => degree_school_id %>
+    </li>
+  <% end %>
+</ul>

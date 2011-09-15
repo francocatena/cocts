@@ -458,6 +458,22 @@
       degree:
         option: 'Titulación de grado'
         question: '¿Cuál es su titulación o grado académico más alto?'
+      degree_school:
+        option: 'Nivel escolar en el que estudia'
+        question: '¿Qué nivel escolar estudia actualmente?'
+      degree_university: 
+        options:
+          first_year: 'Primer año'
+          second_year: 'Segundo año'
+          third_year: 'Tercer año'
+          fourth_year: 'Cuarto año'
+          fifth_year: 'Quinto año'
+          sixth_year: 'Sexto año'
+          graduate: 'Post-grado'
+          master: 'Máster'
+          other: 'Otro'
+        option: 'Grado universitario en el que estudia'
+        question: '¿Qué grado universitario estudia actualmente?'
       genre:
         option: 'Género'
         question: '¿Es hombre o mujer?'
@@ -469,6 +485,17 @@
       student:
         option: '¿Es estudiante?'
         question: '¿Es estudiante?'
+      study_subjects:
+        option: 'Asignaturas de ciencias o tecnología que estudia este año'
+        question: '¿Cuántas asignaturas de ciencias o tecnología estudia este año?' 
+      study_subjects_choose:
+        options:
+          nothing_choose: 'Todas son obligatorias, no he podido elegir ninguna de estas asignaturas'
+          choose_study: 'Todas son obligatorias, no he podido elegir ninguna estas asignaturas, pero sí he elegido los estudios de ciencias, tecnología, matemáticas, ingenierías, etc. donde están estas asignaturas '
+          choose_part: 'Algunas de estas asignaturas  son obligatorias y otras han sido elegidas por mí'
+          choose_all: 'Todas estas asignaturas  han sido elegidas por mí' 
+        option: 'Asignaturas de ciencias o tecnología que han sido elegidas'
+        question: '¿Las asignaturas de ciencias o tecnología que estudia este año son obligatorias o han sido elegidas?'
       teacher:
         option: '¿Es profesor?'
         question: '¿Es profesor/a...?'
