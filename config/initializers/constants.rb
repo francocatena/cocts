@@ -33,6 +33,18 @@ DEGREES = [
   :baccalaureate,
   :other
 ]
+# Grado en la univesidad
+DEGREES_UNIVERSITY = [
+  :first_year,
+  :second_year,
+  :third_year,
+  :fourth_year,
+  :fifth_year,
+  :sixth_year,
+  :graduate,
+  :master,
+  :other  
+]
 # Géneros disponibles en el formulario
 GENRES = [:male, :female]
 # Profesiones disponibles en el formulario
@@ -43,6 +55,13 @@ STUDENT_STATUSES = [
   :start_university,
   :end_university,
   :no_study
+]
+# Elección de materias de ciencias o tecnología
+STUDY_SUBJECTS_CHOOSE = [
+  :nothing_choose,
+  :choose_study,
+  :choose_part,
+  :choose_all
 ]
 # Estados del profesor disponibles en el formulario
 TEACHER_STATUSES = [:in_training, :in_exercise, :not_a_teacher]

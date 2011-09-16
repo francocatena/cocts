@@ -3,17 +3,16 @@
   <%= t(:question, :scope => [:projects, :sociodemographic_forms, :degree_university]) %>
 </strong>
 <ul class="horizontal_list">
-  <% DEGREES_UNIVERSITY.each_with_index do |degree, i| %>
-    <% degree_id = :"#{degree}_degree_university" %>
+  <% DEGREES_UNIVERSITY.each_with_index do |degree_university, i| %>
+    <% degree_id = :"#{degree_university}_degree_university" %>
     <li>
       <label for="<%= degree_id %>">
-        <%= t(degree, :scope => i18n_scope) %>
+        <%= t(degree_university, :scope => i18n_scope) %>
         <span class="subscript"><%= i + 1 %></span>
       </label>
-      <% unless degree == DEGREES_UNIVERSITY.last %>
-        <%= radio_button_tag 'project_instance[degree_university]', degree, 
-          @project_instance.degree_university.eql?("#{degree}"),
-          :id => degree_id %>
+      <% unless degree_university == DEGREES_UNIVERSITY.last %>
+        <%= radio_button_tag 'project_instance[degree_university]', degree_university, 
+          @project_instance.degree_university.eql?("#{degree_university}"), :id => degree_id %>
       <% else %>
         <% if @project_instance.degree_university.present? && DEGREES_UNIVERSITY.exclude?(@project_instance.degree_university.to_sym) %>
           <%= text_field_tag 'project_instance[degree_university]', @project_instance.degree_university,

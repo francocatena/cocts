@@ -131,6 +131,34 @@
     <%= t:"projects.questionnaire.degree.options.#{@project_instance.degree}" %>
   </p>
   
+  <% if @project_instance.degree_school.present? %>
+  <p>
+    <b><%= t:'projects.sociodemographic_forms.degree_school.option' %>:</b>
+    <%= t:"projects.sociodemographic_forms.degree_school.options.#{@project_instance.degree_school}" %>
+  </p>
+  <% end %>
+  
+  <% if @project_instance.degree_university.present? %>
+  <p>
+    <b><%= t:'projects.sociodemographic_forms.degree_university.option' %>:</b>
+    <%= t:"projects.sociodemographic_forms.degree_university.options.#{@project_instance.degree_university}" %>
+  </p>
+  <% end %>
+  
+  <% if @project_instance.study_subjects.present? %>
+  <p>
+    <b><%= t:'projects.sociodemographic_forms.study_subjects.option' %>:</b>
+    <%= t:"projects.sociodemographic_forms.study_subjects.options.#{@project_instance.study_subjects}" %>
+  </p>
+  <% end %>
+  
+  <% if @project_instance.study_subjects_choose.present? %>
+  <p>
+    <b><%= t:'projects.sociodemographic_forms.study_subjects_choose.option' %>:</b>
+    <%= t:"projects.sociodemographic_forms.study_subjects_choose.options.#{@project_instance.study_subjects_choose}" %>
+  </p>
+  <% end %>
+  
   <p>
     <b><%= t:'projects.sociodemographic_forms.profession.ocuppation' %>:</b>
     <ul class="raw_list">

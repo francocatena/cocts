@@ -22,11 +22,11 @@ class ProjectInstance < ActiveRecord::Base
     'teacher',
     'teacher_level',
     'degree',
-    'profession',
     'degree_school',
     'degree_university',
     'study_subjects',
-    'study_subjects_choose'
+    'study_subjects_choose',
+    'profession'    
   ]
   
   # Restricciones

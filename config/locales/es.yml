@@ -463,12 +463,12 @@
         question: '¿Qué nivel escolar estudia actualmente?'
       degree_university: 
         options:
-          first_year: 'Primer año'
-          second_year: 'Segundo año'
-          third_year: 'Tercer año'
-          fourth_year: 'Cuarto año'
-          fifth_year: 'Quinto año'
-          sixth_year: 'Sexto año'
+          first_year: 'Primero'
+          second_year: 'Segundo'
+          third_year: 'Tercero'
+          fourth_year: 'Cuarto'
+          fifth_year: 'Quinto'
+          sixth_year: 'Sexto'
           graduate: 'Post-grado'
           master: 'Máster'
           other: 'Otro'
