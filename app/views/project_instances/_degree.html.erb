@@ -18,8 +18,8 @@
           <%= text_field_tag 'project_instance[degree]', @project_instance.degree,
             :id => degree_id %>
         <% else %>
-          <%= text_field_tag 'project_instance[degree]', nil,
-            :id => degree_id %>
+          <%= text_field_tag 'project_instance[manual_degree]',
+            @project_instance.manual_degree, :id => degree_id %>
         <% end %>
       <% end %>
     </li>

@@ -2,6 +2,10 @@ class ProjectInstance < ActiveRecord::Base
   serialize :forms, Array
   serialize :profession_certification, Array
   serialize :profession_ocuppation, Array
+  
+  # Atributos no persistentes
+  attr_accessor :manual_degree
+  
   # Relaciones
   belongs_to :project
   has_many :question_instances, :dependent => :destroy
@@ -72,6 +76,8 @@ class ProjectInstance < ActiveRecord::Base
         end
       end
     end
+    
+    self.degree = self.manual_degree if self.manual_degree.present?
   end
   
   def project_type_text
