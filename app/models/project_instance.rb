@@ -4,7 +4,7 @@ class ProjectInstance < ActiveRecord::Base
   serialize :profession_ocuppation, Array
   
   # Atributos no persistentes
-  attr_accessor :manual_degree
+  attr_accessor :manual_degree, :manual_degree_university
   
   # Relaciones
   belongs_to :project
@@ -82,6 +82,7 @@ class ProjectInstance < ActiveRecord::Base
     end
     
     self.degree = self.manual_degree if self.manual_degree.present?
+    self.degree_university = self.manual_degree_university if self.manual_degree_university.present?
   end
   
   def project_type_text
