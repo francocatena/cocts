@@ -219,9 +219,9 @@
 
     # Default translation keys for submit FormHelper
     submit:
-      create: 'Guardar %{model}'
-      update: 'Actualizar %{model}'
-      submit: 'Guardar %{model}'
+      create: 'Guardar'
+      update: 'Actualizar'
+      submit: 'Guardar'
   
   labels:
     'yes': 'Si'
