@@ -18,7 +18,7 @@
 <%= render :partial => 'questions' %>
 </div>
 <div id="links">
-  <%= link_to t(:'questions.new_link'), new_question_path,
+  <%= link_to t(:'labels.new'), new_question_path,
   :class => :important_action if @auth_user.admin? %>
 </div>
 <div id="links">
