@@ -14,17 +14,19 @@
    
   </div>
 
-<div id="questions">
+
 <%= render :partial => 'questions' %>
-</div>
+
+<% if !@auth_user.admin? %>
 <div id="links">
   <%= link_to t(:'labels.new'), new_question_path,
-  :class => :important_action if @auth_user.admin? %>
+  :class => :important_action %>
 </div>
 <div id="links">
   <%= link_to t(:'questions.import_csv_file'), import_csv_questions_path, 
-  :class => :important_action if @auth_user.admin?%>
+  :class => :important_action %>
 </div>
+<% end %>
 
   
 

@@ -81,7 +81,7 @@ body {
 div#app_content {
     width: 95%;
     margin: 1% auto;
-    padding: 1em;
+    padding: 1em 1em 2em 1em;
     background-color: #fcfcfc;
     border: 1px solid #FF8000;
 }
@@ -120,7 +120,7 @@ div#links {
 
 div#links div.pagination {
     float: right;
-    margin: .5em .5em .5em 0em;
+    margin: 0em .5em .5em 0em;    
 }
 
 div#links div.pagination a {
@@ -202,7 +202,7 @@ div#menu_container {
 }
 
 div#menu_container a {
-  padding: 12px 3px;
+    padding: 12px 3px;
 }
 
 div#menu_container a.selected {
