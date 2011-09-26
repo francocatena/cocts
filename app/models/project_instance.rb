@@ -23,14 +23,14 @@ class ProjectInstance < ActiveRecord::Base
     'age',
     'genre',
     'student',
+    'degree_school',
     'teacher',
     'teacher_level',
-    'degree',
-    'degree_school',
     'degree_university',
+    'degree',
     'study_subjects',
     'study_subjects_choose',
-    'profession'    
+    'profession'
   ]
   
   # Restricciones
@@ -253,6 +253,56 @@ class ProjectInstance < ActiveRecord::Base
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :age])
     pdf.text "#{question} #{self.age}"
+  end
+  
+  def add_degree_school(pdf)
+    degrees = []
+    #i18n_scope = [:projects, :sociodemographic_forms, :degree_school, :options]
+    question = I18n.t(:question,
+      :scope => [:projects, :sociodemographic_forms, :degree_school])
+
+    (1..15).each do |degree|
+      degrees << "#{degree} [__]"
+    end
+
+    pdf.text "#{question} #{degrees.join('  ')}"
+  end
+  
+  def add_degree_university(pdf)
+    degrees = []
+    i18n_scope = [:projects, :sociodemographic_forms, :degree_university, :options]
+    question = I18n.t(:question,
+      :scope => [:projects, :sociodemographic_forms, :degree_university])
+
+    DEGREES_UNIVERSITY.each_with_index do |degree, i|
+      unless degree == DEGREES.last
+        degrees << "#{I18n.t(degree, :scope => i18n_scope)} #{i+1} [__]"
+      else
+        degrees << "#{I18n.t(degree, :scope => i18n_scope)} #{i+1} ______________"
+      end
+    end
+
+    pdf.text "#{question} #{degrees.join('  ')}"
+  end
+  
+  def add_study_subjects(pdf)
+    question = I18n.t(:question,
+      :scope => [:projects, :sociodemographic_forms, :study_subjects])
+    
+    pdf.text "#{question} ______________"
+  end
+  
+  def add_study_subjects_choose(pdf)
+    study_subjects = []
+    i18n_scope = [:projects, :sociodemographic_forms, :study_subjects_choose, :options]
+    question = I18n.t(:question,
+      :scope => [:projects, :sociodemographic_forms, :study_subjects_choose])
+
+    STUDY_SUBJECTS_CHOOSE.each_with_index do |study, i|
+      study_subjects << "#{I18n.t(study, :scope => i18n_scope)} #{i+1} [__]"
+    end
+
+    pdf.text "#{question} #{study_subjects.join('  ')}"
   end
 
   def add_country(pdf)
