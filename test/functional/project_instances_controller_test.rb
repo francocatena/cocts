@@ -134,4 +134,12 @@ class ProjectInstancesControllerTest < ActionController::TestCase
 
     assert_redirected_to project_instances_url(:id => id_project)
   end
+  
+  test 'show project instance in pdf' do
+    perform_auth
+    get :show, :id => @project_instance.to_param, :format => 'pdf'
+    assert_redirected_to "/#{@project_instance.pdf_relative_path}"
+    assert_not_nil assigns(:project_instance)
+    assert_select '#error_body', false
+  end
 end

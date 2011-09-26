@@ -1,6 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
+  identifier: bcn2011
+  name: 'Test instance'
+  description: 'Test description'
+  valid_until: <%= 1.month.from_now.to_date %>
+  forms: <%= Project::SOCIODEMOGRAPHIC_FORMS.to_yaml.inspect %>
   project: manual
   first_name: 'Gastón'
   last_name: 'Gaudio'

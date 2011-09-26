@@ -93,4 +93,18 @@ class ProjectInstanceTest < ActiveSupport::TestCase
       @project_instance.errors[:email]
   end
   
+  test 'conversion to pdf' do
+    FileUtils.rm @project_instance.pdf_full_path if File.exists?(@project_instance.pdf_full_path)
+
+    assert !File.exists?(@project_instance.pdf_full_path)
+
+    assert_nothing_raised(Exception) do
+      @project_instance.to_pdf
+    end
+
+    assert File.exists?(@project_instance.pdf_full_path)
+
+    FileUtils.rm @project_instance.pdf_full_path
+  end
+  
 end
