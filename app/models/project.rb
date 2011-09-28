@@ -55,8 +55,8 @@ class Project < ActiveRecord::Base
 
   before_destroy :can_be_destroyed?
   
-  def initialize(attributes = nil)
-    super(attributes)
+  def initialize(attributes = nil, options = {})
+    super(attributes, options)
 
     self.project_type ||= TYPES[:interactive]
     self.forms ||= SOCIODEMOGRAPHIC_FORMS

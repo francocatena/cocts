@@ -6,12 +6,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title><%= t(:app_title) %> | <%= @title %></title>
-    <%= default_stylesheets %>
-    <%= default_javascripts %>
+    <%= stylesheet_link_tag 'application' %>
+    <%= javascript_include_tag 'application' %>
     <%= javascript_tag do %>
       <%= yield :js_extra %>
     <% end %>
     <%= favicon_link_tag %>
+    <%= csrf_meta_tags %>
   </head>
   <body>
     <div id="loading" style="display: none;">

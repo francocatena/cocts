@@ -1,19 +1,4 @@
 module ApplicationHelper
-  def default_stylesheets
-    sheets = ['common', 'jquery/ui-custom']
-    sheets << {:cache => 'main'}
-
-    stylesheet_link_tag *sheets
-  end
-
-  def default_javascripts
-    libs = [:defaults, 'project_instances', 'datepicker/jquery.ui.datepicker-es']
-    # TODO: revisar porque no funciona bien en producción
-    #libs << {:cache => 'main'}
-
-    javascript_include_tag *libs
-  end
-  
   # Ordena un array que será utilizado en un select por el valor de los campos
   # que serán mostrados
   #

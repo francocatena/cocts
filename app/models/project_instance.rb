@@ -60,8 +60,8 @@ class ProjectInstance < ActiveRecord::Base
     end
   end
   
-  def initialize(attributes = nil)
-    super(attributes)
+  def initialize(attributes = nil, options = {})
+    super(attributes, options)
     
     if self.project
       self.forms = self.project.forms

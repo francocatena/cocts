@@ -11,13 +11,9 @@ set :use_sudo, false
 set :scm, :git
 set :branch, 'master'
 
-role :web, 'mawida.com.ar' # Your HTTP server, Apache/etc
-role :app, 'mawida.com.ar' # This may be the same as your `Web` server
-role :db,  'mawida.com.ar', :primary => true # This is where Rails migrations will run
-
-# If you are using Passenger mod_rails uncomment this:
-# if you're still using the script/reapear helper you will need
-# these http://github.com/rails/irs_process_scripts
+role :web, 'cocts.com.ar'
+role :app, 'cocts.com.ar'
+role :db,  'cocts.com.ar', :primary => true
 
 after 'deploy:symlink', 'deploy:create_shared_symlinks'
 

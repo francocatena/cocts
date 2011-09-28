@@ -10,12 +10,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110715175220) do
+ActiveRecord::Schema.define(:version => 20110915224842) do
 
   create_table "answer_instances", :force => true do |t|
     t.integer  "question_instance_id"
     t.integer  "answer_id"
     t.text     "answer_text"
+    t.integer  "order"
     t.integer  "answer_category"
     t.string   "valuation",            :limit => 1
     t.datetime "created_at"
@@ -42,9 +43,29 @@ ActiveRecord::Schema.define(:version => 20110715175220) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
+    t.string   "name"
+    t.string   "identifier"
+    t.text     "description"
+    t.integer  "year"
+    t.integer  "project_type"
+    t.date     "valid_until"
+    t.text     "forms"
+    t.integer  "age"
+    t.string   "country"
+    t.string   "genre"
+    t.string   "degree"
+    t.text     "profession_ocuppation"
+    t.text     "profession_certification"
+    t.string   "student_status"
+    t.string   "teacher_status"
+    t.string   "teacher_level"
     t.integer  "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "study_subjects"
+    t.text     "degree_school"
+    t.text     "degree_university"
+    t.text     "study_subjects_choose"
   end
 
   add_index "project_instances", ["project_id"], :name => "index_project_instances_on_project_id"

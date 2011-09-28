@@ -9,8 +9,8 @@ class QuestionInstance < ActiveRecord::Base
   # Restricciones
   validates :question_text, :presence => true
   
-  def initialize(attributes = nil)
-    super(attributes)
+  def initialize(attributes = nil, options = {})
+    super(attributes, options)
     
     if self.question
       self.question.answers.each do |answer|
