@@ -10,6 +10,7 @@ set :use_sudo, false
 
 set :scm, :git
 set :branch, 'master'
+set :deploy_via, :remote_cache
 
 role :web, 'cocts.com.ar'
 role :app, 'cocts.com.ar'
