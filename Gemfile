@@ -7,6 +7,7 @@ gem 'will_paginate'
 gem 'RedCloth'
 gem 'validates_timeliness'
 gem 'capistrano'
+gem 'newrelic_rpm'
 gem 'prawn', '0.8.4'
 gem 'prawn-flexible-table', :require => 'prawn/flexible-table'
 
