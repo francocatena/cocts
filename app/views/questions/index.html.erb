@@ -5,8 +5,6 @@
 </div>
 <div id="search_form" style="display: none;">
   <%= form_tag questions_path, :method => 'get', :id => "questions_search" do %>
-    <%= hidden_field_tag :direction, params[:direction] %>
-    <%= hidden_field_tag :sort, params[:sort] %>
     <div id="field">
       <%= text_field_tag :search, params[:search] %>
     </div>
@@ -14,9 +12,10 @@
    
   </div>
 
-
-<%= render :partial => 'questions' %>
-
+<div id="questions">
+  <%= render :partial => 'questions' %>
+</div>
+  
 <% if @auth_user.admin? %>
 <div id="links">
   <%= link_to t(:'labels.new'), new_question_path,
