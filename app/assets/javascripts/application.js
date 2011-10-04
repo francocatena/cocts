@@ -9,5 +9,4 @@
 //= require jquery_ujs
 //= require datepicker/jquery.ui.datepicker-es
 //= require common
-//= require pagination
 //= require project_instances
