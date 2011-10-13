@@ -8,6 +8,8 @@ class Subtopic < ActiveRecord::Base
   
   
   validates :title, :presence => true
+  validates_numericality_of :code, :only_integer => true, :allow_nil => true,
+    :allow_blank => true
   
   def initialize(attributes = nil, options = {})
     super(attributes, options)
