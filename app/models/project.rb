@@ -51,6 +51,7 @@ class Project < ActiveRecord::Base
   has_and_belongs_to_many :questions, :validate => false, :order => 'code ASC',
     :uniq => true
   has_many :project_instances
+  has_many :teaching_units
   belongs_to :user
 
   before_destroy :can_be_destroyed?

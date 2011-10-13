@@ -1,0 +1,23 @@
+<table>
+  <tr>
+    <th><%= Subtopic.human_attribute_name :title %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @subtopics.each do |subtopic| %>
+  <tr class="<%= cycle(:even, :odd) %>">
+    <td><%= subtopic.title %></td>
+    <td><%= link_to t(:'labels.show'), subtopic, :class => :real %></td>
+    <td><%= link_to t(:'labels.edit'), edit_subtopic_path(subtopic), :class => :real %></td>
+    <td class ="delete"><%= button_to t(:'labels.delete'), subtopic,
+        :confirm => t(:'messages.confirmation_question'), :method => :delete %></td>
+    </tr>
+  </tr>
+<% end %>
+</table>
+
+<div id="links">
+<%= link_to t(:'labels.new'), new_subtopic_path, :class => :important_action %>
+</div>

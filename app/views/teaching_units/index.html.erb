@@ -1,0 +1,23 @@
+<table>
+  <tr>
+    <th><%= TeachingUnit.human_attribute_name :title %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @teaching_units.each do |teaching_unit| %>
+  <tr class="<%= cycle(:even, :odd) %>">
+    <td><%= teaching_unit.title %></td>
+    <td><%= link_to t(:'labels.show'), teaching_unit, :class => :real %></td>
+    <td><%= link_to t(:'labels.edit'), edit_teaching_unit_path(teaching_unit), :class => :real %></td>
+    <td class ="delete"><%= button_to t(:'labels.delete'), teaching_unit,
+        :confirm => t(:'messages.confirmation_question'), :method => :delete %></td>
+    </tr>
+  </tr>
+<% end %>
+</table>
+
+<div id="links">
+<%= link_to t(:'labels.new'), new_teaching_unit_path, :class => :important_action %>
+</div>

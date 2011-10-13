@@ -1,5 +1,13 @@
 CoctsApp::Application.routes.draw do
     
+  resources :teaching_units
+
+  resources :teaching_unities
+
+  resources :subtopics
+
+  resources :topics
+
   resources :question_instances
 
   resources :answer_instances

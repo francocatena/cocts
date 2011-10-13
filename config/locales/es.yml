@@ -68,6 +68,9 @@
       answer_instance: 'Instancia de respuesta'
       question_instance: 'Instancia de pregunta'
       project_instance: 'Instancia de proyecto'
+      topic: 'Tema'
+      subtopic: 'Subtema'
+      teaching_unit: 'Unidad didáctica'
 
     attributes:
       answer_instance:
@@ -117,6 +120,12 @@
         question: 'Cuestión'
       question_instance:
         question_text: 'Cuestión'
+      teaching_unit:
+        title: 'Título'
+      topic:
+        title: 'Título'
+      subtopic:
+        title: 'Título'
       user:
         user: 'Usuario'
         password: 'Contraseña'
@@ -249,6 +258,9 @@
     projects: 'Proyectos'
     questions: 'Cuestiones'
     users: 'Usuarios'
+    topics: 'Temas'
+    subtopics: 'Subtemas'
+    teaching_units: 'UDs'
 
   messages:
     confirmation_question: '¿Está seguro?'

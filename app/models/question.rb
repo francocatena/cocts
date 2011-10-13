@@ -21,6 +21,7 @@ class Question < ActiveRecord::Base
   has_many :answers, :dependent => :destroy,
     :order => "#{Answer.table_name}.order ASC"
   has_and_belongs_to_many :projects
+  has_and_belongs_to_many :teaching_units
 
   accepts_nested_attributes_for :answers, :allow_destroy => true
 

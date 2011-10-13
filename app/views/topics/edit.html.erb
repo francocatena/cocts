@@ -1,0 +1,7 @@
+<%= render 'form' %>
+
+<div id="links">
+  <%= link_to t(:'labels.show'), @topic, :class => :real %> |
+  <%= link_to t(:'labels.list'), topics_path, :class => :real %> |
+  ←<%= link_to_back %>
+</div>

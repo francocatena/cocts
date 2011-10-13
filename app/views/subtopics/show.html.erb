@@ -1,0 +1,13 @@
+<div id="showed_data">
+  <p>
+    <b><%= Subtopic.human_attribute_name :title %>:</b>
+    <%= @subtopic.title %>
+  </p>
+</div>
+
+
+<div id="links">
+  <%= link_to t(:'labels.edit'), edit_subtopic_path(@subtopìc), :class => :real %> |
+  <%= link_to t(:'labels.list'), subtopics_path, :class => :real %> |
+  ←<%= link_to_back %>
+</div>

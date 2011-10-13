@@ -1,0 +1,13 @@
+<div id="showed_data">
+  <p>
+    <b><%= TeachingUnit.human_attribute_name :title %>:</b>
+    <%= @teaching_unit.title %>
+  </p>
+</div>
+
+
+<div id="links">
+  <%= link_to t(:'labels.edit'), edit_teaching_unit_path(@teaching_unit), :class => :real %> |
+  <%= link_to t(:'labels.list'), teaching_units_path, :class => :real %> |
+  ←<%= link_to_back %>
+</div>
