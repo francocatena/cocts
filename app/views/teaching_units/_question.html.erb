@@ -1,0 +1,31 @@
+<% id = "#{dynamic_object_id('question', f)}_#{question.new_record? ? 'NEW_RECORD' : question.id}" %>
+<div class="question item" id="<%= id %>">
+  <div>
+    <div class="item_field" style="width: 90%; white-space: normal;">
+      <% if question.new_record? %>
+        <div class="search">
+          <%= f.text_field :nested_question,
+            :id => "teaching_unit_question_#{id}", :class => :autocomplete_field,
+            :value => question.question,
+            :'data-autocomplete-url' => auto_complete_for_question_projects_path(:format => :json),
+            :'data-params' => ({:teaching_unit_id => @teaching_unit.id}.to_json unless @teaching_unit.new_record?) %>
+          <%= hidden_field_tag 'teaching_unit[question_ids][]', question.id,
+            :id => "hidden_question_#{id}", :class => :autocomplete_id %>
+        </div>
+      <% else %>
+        <p><strong><%= question.code %></strong> - <%= question.question %></p>
+        <%= hidden_field_tag 'teaching_unit[question_ids][]', question.id,
+          :id => :"hidden_question_#{id}" %>
+      <% end %>
+    </div>
+    <div class="item_field item_controls" style="width: 5%;">
+      <%= remove_list_item_link(nil, 'question') %>
+    </div>
+  </div>
+</div>
+<% if question.new_record? %>
+  <script type="text/javascript">
+    $('#<%= "teaching_unit_question_#{id}" %>').focus();
+    AutoComplete.observeAll();
+  </script>
+<% end %>

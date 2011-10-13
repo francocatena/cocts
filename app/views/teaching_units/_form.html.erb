@@ -1,11 +1,42 @@
+<div id="form_topics">
 <%= form_for(@teaching_unit) do |f| %>
+  <%= content_for :js_extra do %>
+    <%= raw "var question='#{escape_javascript(render(:partial => 'question',
+        :object => Question.new, :locals => {:f => f}))}';" %>
+  <% end %>
   <%= f.error_messages %>
 
   <div class="field">
     <%= f.label :title %><br />
     <%= f.text_field :title %>
   </div>
+
+  <div class="items">
+    <div class="column_headers">
+      <div class="item_column" style="width: 90%;">
+        <h3><%= Question.human_attribute_name :question %></h3>
+      </div>
+    
+      <div class="item_column" style="width: 10%;"></div>
+      <div style="clear: both;">&nbsp;</div>
+    </div>
+    
+    <div id="questions">
+      <% @teaching_unit.questions.build if @teaching_unit.questions.empty? %>
+      <%= render :partial => 'question', :collection => @teaching_unit.questions,
+        :locals => {:f => f} %>
+    </div>
+  </div>
+
+  <p class="add_item">
+    <%= link_to t(:'projects.add_question'), '#',
+      :'data-template' => :question, :'data-event' => 'addNestedItem',
+      :'data-container' => '#questions', :class => :important_action %>
+  </p>
+    
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+  
+</div>
