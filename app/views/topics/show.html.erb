@@ -3,10 +3,10 @@
     <b><%= Topic.human_attribute_name :title %>:</b>
     <strong>[<%= @topic.code %>]<strong><%= @topic.title %>
   </p>
-  <% unless @topic.subtopic.empty? %>
+  <% unless @topic.subtopics.empty? %>
   <ul>
   <b><%= t(:'activerecord.model.subtopics') %>:</b>
-  <%= @topic.subtopics.each do |subtopic| %>
+  <% @topic.subtopics.each do |subtopic| %>
       <li><strong>[<%= subtopic.code %>]<strong><%= subtopic.title %></li>
   <% end %>
   </ul>
