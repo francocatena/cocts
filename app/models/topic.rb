@@ -3,5 +3,8 @@ class Topic < ActiveRecord::Base
   
   has_many :subtopics
   
-  validates :title, :presence => true
+  validates :title, :code, :presence => true
+  validates_numericality_of :code, :only_integer => true, :allow_nil => true,
+    :allow_blank => true
+  
 end

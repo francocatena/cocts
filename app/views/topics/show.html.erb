@@ -1,8 +1,16 @@
 <div id="showed_data">
   <p>
     <b><%= Topic.human_attribute_name :title %>:</b>
-    <%= @topic.title %>
+    <strong>[<%= @topic.code %>]<strong><%= @topic.title %>
   </p>
+  <% unless @topic.subtopic.empty? %>
+  <ul>
+  <b><%= t(:'activerecord.model.subtopics') %>:</b>
+  <%= @topic.subtopics.each do |subtopic| %>
+      <li><strong>[<%= subtopic.code %>]<strong><%= subtopic.title %></li>
+  <% end %>
+  </ul>
+  <% end %>
 </div>
 
 <div id="links">
