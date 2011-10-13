@@ -8,7 +8,11 @@ CoctsApp::Application.routes.draw do
     end
   end
 
-  resources :topics
+  resources :topics do
+    collection do
+      get :auto_complete_for_subtopic
+    end
+  end
 
   resources :question_instances
 

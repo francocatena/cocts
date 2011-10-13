@@ -1,0 +1,31 @@
+<% id = "#{dynamic_object_id('subtopic', f)}_#{subtopic.new_record? ? 'NEW_RECORD' : subtopic.id}" %>
+<div class="subtopic item" id="<%= id %>">
+  <div>
+    <div class="item_field" style="width: 90%; white-space: normal;">
+      <% if subtopic.new_record? %>
+        <div class="search">
+          <%= f.text_field :nested_subtopic,
+            :id => "topic_subtopic_#{id}", :class => :autocomplete_field,
+            :value => subtopic.title,
+            :'data-autocomplete-url' => auto_complete_for_subtopic_topics_path(:format => :json),
+            :'data-params' => ({:subject_id => @topic.id}.to_json unless @topic.new_record?) %>
+          <%= hidden_field_tag 'topic[subtopic_ids][]', subtopic.id,
+            :id => "hidden_subtopic_#{id}", :class => :autocomplete_id %>
+        </div>
+      <% else %>
+        <p><strong><%= subtopic.title %></strong></p>
+        <%= hidden_field_tag 'subject[subtopic_ids][]', subtopic.id,
+          :id => :"hidden_subtopic_#{id}" %>
+      <% end %>
+    </div>
+    <div class="item_field item_controls" style="width: 5%;">
+      <%= remove_list_item_link(nil, 'subtopic') %>
+    </div>
+  </div>
+</div>
+<% if subtopic.new_record? %>
+  <script type="text/javascript">
+    $('#<%= "subtopic_subtopic_#{id}" %>').focus();
+    AutoComplete.observeAll();
+  </script>
+<% end %>

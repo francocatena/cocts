@@ -637,3 +637,6 @@
     
   subtopics:
     add_new_teaching_unit: 'Agregar otra unidad didáctica'
+  
+  topics:
+    add_new_subtopic: 'Agregar otro subtema'
