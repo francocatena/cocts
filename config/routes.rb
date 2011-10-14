@@ -2,9 +2,11 @@ CoctsApp::Application.routes.draw do
     
   resources :teaching_units
 
-  resources :teaching_unities
-
-  resources :subtopics
+  resources :subtopics do
+    collection do
+      get :auto_complete_for_teaching_unit
+    end
+  end
 
   resources :topics
 

@@ -634,3 +634,6 @@
     confirmación.'
     password_correctly_updated: 'Contraseña actualizada correctamente.'
     password_stale_object_error: 'La contraseña no pudo ser actualizada, intente nuevamente.'
+    
+  subtopics:
+    add_new_teaching_unit: 'Agregar otra unidad didáctica'

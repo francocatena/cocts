@@ -1,4 +1,8 @@
 <%= form_for(@subtopic) do |f| %>
+  <%= content_for :js_extra do %>
+    <%= raw "var teaching_unit='#{escape_javascript(render(:partial => 'teaching_unit',
+        :object => TeachingUnit.new, :locals => {:f => f}))}';" %>
+  <% end %>
   <%= f.error_messages %>
   
   <div class="field">
@@ -6,6 +10,27 @@
     <%= f.text_field :title %>
   </div>
  
+  <div class="items">
+    <div class="column_headers">
+      <div class="item_column" style="width: 90%;">
+        <h3><%= t(:'activerecord.models.teaching_unit') %></h3>
+      </div>
+      <div class="item_column" style="width: 10%;"></div>
+      <div style="clear: both;">&nbsp;</div>
+    </div>
+    <div id="teaching_units">
+      <% @subtopic.teaching_units.build if @subtopic.teaching_units.empty? %>
+      <%= render :partial => 'teaching_unit', :collection => @subtopic.teaching_units,
+        :locals => {:f => f} %>
+    </div>
+  </div>
+
+  <p class="add_item">
+    <%= link_to t(:'subtopics.add_new_teaching_unit'), '#',
+      :'data-template' => :teaching_unit, :'data-event' => 'addNestedItem',
+      :'data-container' => '#teaching_units', :class => :important_action %>
+  </p>  
+
   <div class="actions">
     <%= f.submit %>
   </div>
