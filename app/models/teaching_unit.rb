@@ -4,6 +4,7 @@ class TeachingUnit < ActiveRecord::Base
   alias_attribute :label, :title
   
   has_and_belongs_to_many :questions
+  has_and_belongs_to_many :projects
   belongs_to :subtopic
   
   validates :title, :presence => true

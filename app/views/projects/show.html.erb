@@ -93,6 +93,17 @@
       </ul>
     </div>
   <% end %>
+      
+  <% unless @project.teaching_units.empty? %>
+    <div class="questions">
+      <h2><%= t:'activerecord.models.teaching_units' %></h2>
+      <ul class="raw_list">
+        <% @project.teaching_units.each do |teaching_unit| %>
+          <li><%= teaching_unit.title %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 </div>
 
 <div id="links">

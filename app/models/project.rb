@@ -2,6 +2,7 @@ class Project < ActiveRecord::Base
   serialize :forms, Array
 
   attr_accessor :nested_question
+  attr_accessor :nested_teaching_unit
 
   # Constantes
   TYPES = {
@@ -50,8 +51,8 @@ class Project < ActiveRecord::Base
     # Relaciones
   has_and_belongs_to_many :questions, :validate => false, :order => 'code ASC',
     :uniq => true
+  has_and_belongs_to_many :teaching_units
   has_many :project_instances
-  has_many :teaching_units
   belongs_to :user
 
   before_destroy :can_be_destroyed?
