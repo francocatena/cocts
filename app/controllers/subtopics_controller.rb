@@ -45,7 +45,7 @@ class SubtopicsController < ApplicationController
 
     respond_to do |format|
       if @subtopic.save
-        format.html { redirect_to @subtopic, :notice => 'Subtopic was successfully created.' }
+        format.html { redirect_to @subtopic, :notice => t(:'subtopic.correctly_created') }
         format.json { render :json => @subtopic, :status => :created, :location => @subtopic }
       else
         format.html { render :action => "new" }
@@ -61,7 +61,7 @@ class SubtopicsController < ApplicationController
 
     respond_to do |format|
       if @subtopic.update_attributes(params[:subtopic])
-        format.html { redirect_to @subtopic, :notice => 'Subtopic was successfully updated.' }
+        format.html { redirect_to @subtopic, :notice => t(:'subtopic.correctly_updated') }
         format.json { head :ok }
       else
         format.html { render :action => "edit" }

@@ -45,7 +45,7 @@ class TopicsController < ApplicationController
 
     respond_to do |format|
       if @topic.save
-        format.html { redirect_to @topic, :notice => 'Topic was successfully created.' }
+        format.html { redirect_to @topic, :notice => t(:'topic.correctly_created') }
         format.json { render :json => @topic, :status => :created, :location => @topic }
       else
         format.html { render :action => "new" }
@@ -61,7 +61,7 @@ class TopicsController < ApplicationController
 
     respond_to do |format|
       if @topic.update_attributes(params[:topic])
-        format.html { redirect_to @topic, :notice => 'Topic was successfully updated.' }
+        format.html { redirect_to @topic, :notice => t(:'topic.correctly_updated') }
         format.json { head :ok }
       else
         format.html { render :action => "edit" }
