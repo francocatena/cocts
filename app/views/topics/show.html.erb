@@ -4,7 +4,7 @@
     <strong>[<%= @topic.code %>]<strong><%= @topic.title %>
   </p>
   <% unless @topic.subtopics.empty? %>
-  <b><%= t(:'activerecord.models.subtopic') %>:</b>
+  <b><%= t(:'activerecord.models.subtopics') %>:</b>
   <ul>
   <% @topic.subtopics.each do |subtopic| %>
       <li><strong>[<%= subtopic.code %>]<strong><%= subtopic.title %></li>

@@ -64,14 +64,17 @@
       answer: 'Respuesta'
       project: 'Proyecto'
       question: 'Cuestión'
+      questions: 'Cuestiones'
       user: 'Usuario'
       answer_instance: 'Instancia de respuesta'
       question_instance: 'Instancia de pregunta'
       project_instance: 'Instancia de proyecto'
       topic: 'Tema'
       subtopic: 'Subtema'
+      subtopics: 'Subtemas'
       teaching_unit: 'Unidad didáctica'
-
+      teaching_units: 'Unidades didácticas'
+      
     attributes:
       answer_instance:
         answer_category: 'Categoría'
