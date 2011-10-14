@@ -1,3 +1,4 @@
+<div id="form_topics">
 <%= form_for(@subtopic) do |f| %>
   <%= content_for :js_extra do %>
     <%= raw "var teaching_unit='#{escape_javascript(render(:partial => 'teaching_unit',
@@ -35,3 +36,5 @@
     <%= f.submit %>
   </div>
 <% end %>
+  
+</div>
