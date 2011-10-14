@@ -3,6 +3,14 @@
     <b><%= TeachingUnit.human_attribute_name :title %>:</b>
     <%= @teaching_unit.title %>
   </p>
+  <% unless @teaching_unit.questions.empty? %>
+  <ul>
+  <b><%= t(:'activerecord.models.question') %>:</b>
+  <% @teaching_unit.questions.each do |question| %>
+      <li><%= question.question %></li>
+  <% end %>
+  </ul>
+  <% end %>
 </div>
 
 
