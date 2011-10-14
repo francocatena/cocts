@@ -4,8 +4,8 @@
     <strong>[<%= @topic.code %>]<strong><%= @topic.title %>
   </p>
   <% unless @topic.subtopics.empty? %>
-  <ul>
   <b><%= t(:'activerecord.models.subtopic') %>:</b>
+  <ul>
   <% @topic.subtopics.each do |subtopic| %>
       <li><strong>[<%= subtopic.code %>]<strong><%= subtopic.title %></li>
   <% end %>

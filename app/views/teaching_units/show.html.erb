@@ -4,8 +4,8 @@
     <%= @teaching_unit.title %>
   </p>
   <% unless @teaching_unit.questions.empty? %>
-  <ul>
   <b><%= t(:'activerecord.models.question') %>:</b>
+  <ul>
   <% @teaching_unit.questions.each do |question| %>
       <li><%= question.question %></li>
   <% end %>
