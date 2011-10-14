@@ -1,7 +1,7 @@
 <div id="showed_data">
   <p>
     <b><%= Subtopic.human_attribute_name :title %>:</b>
-    <strong>[<%= @subtopic.code %>]<strong><%= @subtopic.title %>
+    <strong><%= @subtopic.code %> - <strong><%= @subtopic.title %>
   </p>
   <% unless @subtopic.teaching_units.empty? %>
   <b><%= t(:'activerecord.models.teaching_units') %>:</b>  
