@@ -82,29 +82,42 @@
       <div class="project_form_part"><%= render form %></div>
     <% end %>
   <% end %>
-
-  <% unless @project.questions.empty? %>
-    <div class="questions">
-      <h2><%= Project.human_attribute_name :questions %></h2>
-      <ul class="raw_list">
-        <% @project.questions.each do |question| %>
-          <li><strong><%= question.code %></strong> - <%= question.question %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-      
+  
   <% unless @project.teaching_units.empty? %>
-    <div class="questions">
+    
       <h2><%= t:'activerecord.models.teaching_units' %></h2>
+      
+    <% @project.teaching_units.each do |teaching_unit| %>
+      
+        <h3><%= teaching_unit.title %>:</h3>
+      
+      
+      <h4><%= Project.human_attribute_name :questions %></h4>
+      
+      
+      <% teaching_unit.questions.each do |question| %>
+      <div class="questions">
       <ul class="raw_list">
-        <% @project.teaching_units.each do |teaching_unit| %>
-          <li><%= teaching_unit.title %></li>
-        <% end %>
+        <li><strong><%= question.code %></strong> - <%= question.question %></li>
       </ul>
-    </div>
-  <% end %>
-</div>
+      </div>
+      <% end %>
+      
+      
+    <% end %>
+    
+  
+<% else %>
+  <div class="questions">
+    <h2><li><%= Project.human_attribute_name :questions %></li></h2>
+    <ul class="raw_list">
+      <% @project.questions.each do |question| %>
+        <li><strong><%= question.code %></strong> - <%= question.question %></li>
+      <% end %>
+    </ul>
+   </div>
+      <% end %>  
+  </div>
 
 <div id="links">
   <%= link_to t(:'labels.edit'), edit_project_path(@project), :class => :real %> |
