@@ -9,6 +9,12 @@ class TeachingUnit < ActiveRecord::Base
   
   validates :title, :presence => true
   
+  validates_each :questions do |record, attr, value|
+    if value.empty?
+      record.errors.add attr, :blank
+    end
+  end
+  
   def initialize(attributes = nil, options = {})
     super(attributes, options)
   end

@@ -125,6 +125,7 @@
         question_text: 'Cuestión'
       teaching_unit:
         title: 'Título'
+        questions: 'Cuestiones'
       topic:
         title: 'Título'
         code: 'Código'
@@ -337,8 +338,11 @@
           tb: 'TB'
 
   projects:
-    questions_error: 'Debe asignar una Unidad Didáctica o en su defecto asignar
-    las cuestiones manualmente'
+    questions_error: 'Por defecto se toman las cuestiones asociadas a las Unidades
+    Didácticas (UDs), por favor elimine las cuestiones individuales o 
+    elimine las UDs.'
+    empty_questions_error: 'El proyecto debe contener al menos una cuestión: seleccione 
+    una Unidad Didáctica o en su defecto seleccione las cuestiones individualmente.'
     project_instance_error: 'El proyecto no pudo ser eliminado ya que existen
     instancias de resolución asociadas al mismo.'
     valid_until_error: 'El proyecto ha vencido: no se pueden cargar instancias.'
