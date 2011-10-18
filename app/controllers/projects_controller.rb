@@ -64,7 +64,21 @@ class ProjectsController < ApplicationController
     @title = t :'projects.new_title'
     @project = Project.new(params[:project])
     @project.user = @auth_user
-    
+    if @project.questions.empty? && @project.teaching_units.empty?
+      @project.errors[:base] << t(:'projects.empty_questions_error') 
+      respond_to do |format|
+        format.html { render :action => :new }
+        format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
+      end
+      
+    elsif !@project.teaching_units.empty? && !@project.questions.empty?
+      @project.errors[:base] << t(:'projects.questions_error') 
+      respond_to do |format|
+        format.html { render :action => :new }
+        format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
+      end
+    end
+       
     respond_to do |format|
       if @project.save
         flash[:notice] = t :'projects.correctly_created'
@@ -83,7 +97,22 @@ class ProjectsController < ApplicationController
     @title = t :'projects.edit_title'
     @project = Project.find_by_identifier(params[:id])
     params[:project][:question_ids] ||= []
-
+    
+    if @project.questions.empty? && @project.teaching_units.empty?
+      @project.errors[:base] << t(:'projects.empty_questions_error') 
+      respond_to do |format|
+        format.html { render :action => :new }
+        format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
+      end
+      
+    elsif !@project.teaching_units.empty? && !@project.questions.empty?
+      @project.errors[:base] << t(:'projects.questions_error') 
+      respond_to do |format|
+        format.html { render :action => :new }
+        format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
+      end
+    end
+    
     respond_to do |format|
       if @project.update_attributes(params[:project])
         flash[:notice] = t :'projects.correctly_updated'
