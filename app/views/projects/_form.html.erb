@@ -100,9 +100,35 @@
   </div>
 
   <div class="items">
+    
     <div class="column_headers">
       <div class="item_column" style="width: 90%;">
-        <h3><%= t:'activerecord.models.questions' %></h3>
+        <h3><%= t:'activerecord.models.teaching_units' %></h3>
+        <%= link_to '?', '#', :class => 'open_dialog', :'data-dialog' => '#help_teaching_units' %>
+      <div id="help_teaching_units" class="hidden_dialog" style="display: none;" 
+        title= <%= "#{t(:'help_title')}-#{t(:'activerecord.models.teaching_unit')}" %>
+           <p><%= t(:'projects.teaching_units_help') %></p>
+      </div>
+      </div>
+      <div class="item_column" style="width: 10%;"></div>
+      <div style="clear: both;">&nbsp;</div>
+    </div>
+
+    <div id="teaching_units">
+      <% @project.teaching_units.build if @project.teaching_units.empty? %>
+      <%= render :partial => 'teaching_unit', :collection => @project.teaching_units,
+        :locals => {:f => f} %>
+    </div>
+  
+    <p class="add_item">
+      <%= link_to t(:'subtopics.add_new_teaching_unit'), '#',
+        :'data-template' => :teaching_unit, :'data-event' => 'addNestedItem',
+        :'data-container' => '#teaching_units', :class => :important_action %>
+    </p>  
+    
+    <div class="column_headers">
+      <div class="item_column" style="width: 90%;">
+        <h3><%= t:'projects.label_questions' %></h3>
         <%= link_to '?', '#', :class => 'open_dialog', :'data-dialog' => '#help_project_questions' %>
       <div id="help_project_questions" class="hidden_dialog" style="display: none;" 
         title= <%= "#{t(:'help_title')}-#{t(:'activerecord.models.question')}" %>
@@ -124,27 +150,7 @@
       :'data-template' => :question, :'data-event' => 'addNestedItem',
       :'data-container' => '#questions', :class => :important_action %>
     </p>
-    
-    <div class="column_headers">
-      <div class="item_column" style="width: 90%;">
-        <h3><%= t:'activerecord.models.teaching_units' %></h3>
-      </div>
-      <div class="item_column" style="width: 10%;"></div>
-      <div style="clear: both;">&nbsp;</div>
-    </div>
-
-    <div id="teaching_units">
-      <% @project.teaching_units.build if @project.teaching_units.empty? %>
-      <%= render :partial => 'teaching_unit', :collection => @project.teaching_units,
-        :locals => {:f => f} %>
-    </div>
-  
-    <p class="add_item">
-      <%= link_to t(:'subtopics.add_new_teaching_unit'), '#',
-        :'data-template' => :teaching_unit, :'data-event' => 'addNestedItem',
-        :'data-container' => '#teaching_units', :class => :important_action %>
-    </p>  
-    
+        
   </div>
 
   <%= hidden_lock_version(f) %>

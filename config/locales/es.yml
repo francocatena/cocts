@@ -351,8 +351,11 @@
     En cambio si se trata de un proyecto Interactivo la carga se realizará en línea
     y estará a cargo de cada uno de los encuestados.'
     valid_until_help: 'Fecha hasta la cual el proyecto estará vigente.'
+    teaching_units_help: 'Seleccione la Unidad Didáctica(UD) que desee asociar al proyecto.
+    Cada UD tiene asignadas cuestiones que se asociarán automáticamente al proyecto.'
     questions_help: 'Detalle de las cuestiones asociadas al proyecto. Para asociar una
-    cuestión al proyecto ingrese el código de la misma.'
+    cuestión al proyecto ingrese el código de la misma, si y solo si no va a asociar
+    ninguna Unidad Didáctica al proyecto.'
     index_title: 'Listado de proyectos'
     show_title: 'Detalle del proyecto'
     new_title: 'Nuevo proyecto'
@@ -366,6 +369,7 @@
     add: 'Crear proyecto'
     preview_label: 'Previsualizar'
     close_label: 'Cerrar'
+    label_questions: 'Cuestiones (solo si no elige una UD)'
     add_question: 'Agregar otra cuestión'
     interactive_type: 'Interactivo'
     manual_type: 'Manual'
