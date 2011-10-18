@@ -71,12 +71,25 @@ class ProjectInstance < ActiveRecord::Base
       self.year = self.project.year
       self.project_type = self.project.project_type
       self.valid_until = self.project.valid_until
-      self.project.questions.each do |question|
-        unless self.question_instances.detect {|qi| qi.question_id == question.id}
-          self.question_instances.build(
-            :question => question,
-            :question_text => "[#{question.code}] #{question.question}"
-          )
+      if self.project.teaching_units.empty?
+        self.project.questions.each do |question|
+          unless self.question_instances.detect {|qi| qi.question_id == question.id}
+            self.question_instances.build(
+              :question => question,
+              :question_text => "[#{question.code}] #{question.question}"
+            )
+          end
+        end
+      else
+        self.project.teaching_units.each do |teaching_unit|
+          teaching_unit.questions.each do |question|
+            unless self.question_instances.detect {|qi| qi.question_id == question.id}
+              self.question_instances.build(
+                :question => question,
+                :question_text => "[#{question.code}] #{question.question}"
+              )
+            end
+          end
         end
       end
     end
@@ -226,12 +239,12 @@ class ProjectInstance < ActiveRecord::Base
         question.answer_instances.each do |answer|
           pdf.text "[#{answer.valuation}] #{letter}. #{answer.answer_text}",
             :indent_paragraphs => pdf.font_size
-
+          
           letter.next!
         end
       end
     end
-
+     
     FileUtils.mkdir_p File.dirname(self.pdf_full_path)
     
     pdf.render_file self.pdf_full_path
