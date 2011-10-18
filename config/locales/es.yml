@@ -337,6 +337,8 @@
           tb: 'TB'
 
   projects:
+    questions_error: 'Debe asignar una Unidad Didáctica o en su defecto asignar
+    las cuestiones manualmente'
     project_instance_error: 'El proyecto no pudo ser eliminado ya que existen
     instancias de resolución asociadas al mismo.'
     valid_until_error: 'El proyecto ha vencido: no se pueden cargar instancias.'
@@ -369,7 +371,7 @@
     add: 'Crear proyecto'
     preview_label: 'Previsualizar'
     close_label: 'Cerrar'
-    label_questions: 'Cuestiones (solo si no elige una UD)'
+    label_questions: 'Cuestiones (solo si no elige Unidades Didácticas)'
     add_question: 'Agregar otra cuestión'
     interactive_type: 'Interactivo'
     manual_type: 'Manual'
