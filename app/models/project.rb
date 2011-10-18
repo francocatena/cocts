@@ -42,16 +42,11 @@ class Project < ActiveRecord::Base
       record.errors.add attr, :inclusion
     end
   end
-  validates_each :questions do |record, attr, value|
-    if value.reject(&:marked_for_destruction?).empty?
-      record.errors.add attr, :blank
-    end
-  end
-  
+    
     # Relaciones
   has_and_belongs_to_many :questions, :validate => false, :order => 'code ASC',
     :uniq => true
-  has_and_belongs_to_many :teaching_units
+  has_and_belongs_to_many :teaching_units, :validate => false, :uniq => true
   has_many :project_instances
   belongs_to :user
 
@@ -207,26 +202,53 @@ class Project < ActiveRecord::Base
       :align => :center
     pdf.move_down(pdf.font_size)
 
-    self.questions.each do |question|
-      letter = 'A'
+   if self.teaching_units.empty?
+    
+      self.questions.each do |question|
+        letter = 'A'
 
-      pdf.font_size((PDF_FONT_SIZE * 0.75).round) do
-        pdf.move_down(pdf.font_size)
-        pdf.text "#{question.code} #{question.question}", :style => :bold_italic
+        pdf.font_size((PDF_FONT_SIZE * 0.75).round) do
+          pdf.move_down(pdf.font_size)
+          pdf.text "#{question.code} #{question.question}", :style => :bold_italic
 
-        question.answers.each do |answer|
-          unless answer.clarification.blank?
-            pdf.text answer.clarification
+          question.answers.each do |answer|
+            unless answer.clarification.blank?
+              pdf.text answer.clarification
+            end
+
+            pdf.text "[__] #{letter}. #{answer.answer}",
+              :indent_paragraphs => pdf.font_size
+
+            letter.next!
           end
-
-          pdf.text "[__] #{letter}. #{answer.answer}",
-            :indent_paragraphs => pdf.font_size
-
-          letter.next!
         end
       end
-    end
 
+   else
+     self.teaching_units.each do |teaching_unit|
+       pdf.move_down(pdf.font_size)
+       pdf.text "Unidad Didáctica: #{teaching_unit.title}", :style => :bold_italic
+       teaching_unit.questions.each do |question|
+          letter = 'A'
+
+          pdf.font_size((PDF_FONT_SIZE * 0.75).round) do
+            pdf.move_down(pdf.font_size)
+            pdf.text "#{question.code} #{question.question}", :style => :bold_italic
+
+            question.answers.each do |answer|
+              unless answer.clarification.blank?
+                pdf.text answer.clarification
+              end
+
+              pdf.text "[__] #{letter}. #{answer.answer}",
+                :indent_paragraphs => pdf.font_size
+
+              letter.next!
+            end
+          end
+        end
+     end
+   end
     FileUtils.mkdir_p File.dirname(self.pdf_full_path)
     
     pdf.render_file self.pdf_full_path
