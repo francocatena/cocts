@@ -45,7 +45,7 @@ class TopicsController < ApplicationController
 
     respond_to do |format|
       if @topic.save
-        format.html { redirect_to @topic, :notice => t(:'topic.correctly_created') }
+        format.html { redirect_to topics_path, :notice => t(:'topic.correctly_created') }
         format.json { render :json => @topic, :status => :created, :location => @topic }
       else
         format.html { render :action => "new" }
