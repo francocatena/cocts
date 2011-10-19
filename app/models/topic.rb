@@ -1,7 +1,7 @@
 class Topic < ActiveRecord::Base
   attr_accessor :nested_subtopic
   
-  has_many :subtopics
+  has_many :subtopics, :dependent => :destroy
   
   validates :title, :code, :presence => true
   validates_numericality_of :code, :only_integer => true, :allow_nil => true,
