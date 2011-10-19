@@ -1,7 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
-one:
-  title: MyString
-
-two:
-  title: MyString
+subtopicI:
+  code: 01
+  title: 'Subtopic I'
+  
+subtopicII:
+  code: 02
+  title: 'Subtopic II'
+ 
