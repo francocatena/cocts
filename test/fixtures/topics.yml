@@ -1,7 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
-one:
-  title: MyString
-
-two:
-  title: MyString
+topicI:
+  code: 001
+  title: 'Topic I'
+ 
+topicII:
+  code: 002
+  title: 'Topic II'
