@@ -58,6 +58,7 @@ class TopicsController < ApplicationController
   # PUT /topics/1.json
   def update
     @topic = Topic.find(params[:id])
+    params[:topic][:subtopic_ids] ||= []
 
     respond_to do |format|
       if @topic.update_attributes(params[:topic])

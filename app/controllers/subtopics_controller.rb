@@ -58,7 +58,8 @@ class SubtopicsController < ApplicationController
   # PUT /subtopics/1.json
   def update
     @subtopic = Subtopic.find(params[:id])
-
+    params[:subtopic][:teaching_unit_ids] ||= []
+    
     respond_to do |format|
       if @subtopic.update_attributes(params[:subtopic])
         format.html { redirect_to @subtopic, :notice => t(:'subtopic.correctly_updated') }

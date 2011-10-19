@@ -42,7 +42,7 @@ class TeachingUnitsController < ApplicationController
   # POST /teaching_units.json
   def create
     @teaching_unit = TeachingUnit.new(params[:teaching_unit])
-
+    
     respond_to do |format|
       if @teaching_unit.save
         format.html { redirect_to @teaching_unit, :notice => t(:'teaching_units.correctly_created') }
@@ -58,7 +58,7 @@ class TeachingUnitsController < ApplicationController
   # PUT /teaching_units/1.json
   def update
     @teaching_unit = TeachingUnit.find(params[:id])
-
+    params[:teaching_unit][:question_ids] ||= []
     respond_to do |format|
       if @teaching_unit.update_attributes(params[:teaching_unit])
         format.html { redirect_to @teaching_unit, :notice => t(:'teaching_units.correctly_updated') }
