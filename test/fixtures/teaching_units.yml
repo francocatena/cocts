@@ -1,7 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
-one:
-  title: MyString
+udI:
+  title: 'UD I'
+  questions: _10111, _10113
 
-two:
-  title: MyString
+udII:
+  title: 'UD II'
+  questions: _10111
