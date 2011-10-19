@@ -59,9 +59,8 @@ class ProjectTest < ActiveSupport::TestCase
     @project.identifier = '   '
     @project.description = '   '
     @project.valid_until = nil
-    @project.questions = []
     assert @project.invalid?
-    assert_equal 5, @project.errors.count
+    assert_equal 4, @project.errors.count
     assert_equal [error_message_from_model(@project, :name, :blank)],
       @project.errors[:name]
     assert_equal [error_message_from_model(@project, :identifier, :blank)],
@@ -70,8 +69,6 @@ class ProjectTest < ActiveSupport::TestCase
       @project.errors[:description]
     assert_equal [error_message_from_model(@project, :valid_until,
         :blank)], @project.errors[:valid_until]
-    assert_equal [error_message_from_model(@project, :questions, :blank)],
-      @project.errors[:questions]
   end
 
   test 'validates unique attributes' do
