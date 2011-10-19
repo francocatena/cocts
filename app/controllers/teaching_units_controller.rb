@@ -45,7 +45,7 @@ class TeachingUnitsController < ApplicationController
     
     respond_to do |format|
       if @teaching_unit.save
-        format.html { redirect_to @teaching_unit, :notice => t(:'teaching_units.correctly_created') }
+        format.html { redirect_to teaching_units_path, :notice => t(:'teaching_units.correctly_created') }
         format.json { render :json => @teaching_unit, :status => :created, :location => @teaching_unit }
       else
         format.html { render :action => "new" }
@@ -61,7 +61,7 @@ class TeachingUnitsController < ApplicationController
     params[:teaching_unit][:question_ids] ||= []
     respond_to do |format|
       if @teaching_unit.update_attributes(params[:teaching_unit])
-        format.html { redirect_to @teaching_unit, :notice => t(:'teaching_units.correctly_updated') }
+        format.html { redirect_to teaching_units_path, :notice => t(:'teaching_units.correctly_updated') }
         format.json { head :ok }
       else
         format.html { render :action => "edit" }
