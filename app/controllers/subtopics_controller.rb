@@ -45,7 +45,7 @@ class SubtopicsController < ApplicationController
 
     respond_to do |format|
       if @subtopic.save
-        format.html { redirect_to @subtopic, :notice => t(:'subtopic.correctly_created') }
+        format.html { redirect_to subtopics_path, :notice => t(:'subtopic.correctly_created') }
         format.json { render :json => @subtopic, :status => :created, :location => @subtopic }
       else
         format.html { render :action => "new" }
