@@ -7,7 +7,7 @@ class Subtopic < ActiveRecord::Base
   has_many :teaching_units, :dependent => :destroy
   
   
-  validates :title, :presence => true
+  validates :title, :code, :presence => true
   validates_numericality_of :code, :only_integer => true, :allow_nil => true,
     :allow_blank => true
   
