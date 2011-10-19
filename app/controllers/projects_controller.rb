@@ -62,24 +62,19 @@ class ProjectsController < ApplicationController
   # * POST /projects.xml
   def create
     @title = t :'projects.new_title'
+    params[:project][:question_ids] ||= []
+    params[:project][:teaching_unit_ids] ||= []
     @project = Project.new(params[:project])
     @project.user = @auth_user
+    
     if @project.questions.empty? && @project.teaching_units.empty?
       @project.errors[:base] << t(:'projects.empty_questions_error') 
-      respond_to do |format|
-        format.html { render :action => :new }
-        format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
-      end
-      
+      render :action => :new    
     elsif !@project.teaching_units.empty? && !@project.questions.empty?
       @project.errors[:base] << t(:'projects.questions_error') 
-      respond_to do |format|
-        format.html { render :action => :new }
-        format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
-      end
-    end
-       
-    respond_to do |format|
+      render :action => :new
+    
+    else respond_to do |format|
       if @project.save
         flash[:notice] = t :'projects.correctly_created'
         format.html { redirect_to projects_path }
@@ -88,40 +83,38 @@ class ProjectsController < ApplicationController
         format.html { render :action => :new }
         format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
       end
+     end
     end
+    
   end
 
   # * PUT /projects/1
   # * PUT /projects/1.xml
   def update
+    
     @title = t :'projects.edit_title'
+        
     @project = Project.find_by_identifier(params[:id])
     params[:project][:question_ids] ||= []
+    params[:project][:teaching_unit_ids] ||= []
     
-    if @project.questions.empty? && @project.teaching_units.empty?
+    if params[:project][:question_ids].empty? && params[:project][:teaching_unit_ids].empty?
       @project.errors[:base] << t(:'projects.empty_questions_error') 
-      respond_to do |format|
-        format.html { render :action => :new }
-        format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
-      end
-      
-    elsif !@project.teaching_units.empty? && !@project.questions.empty?
+      render :action => :edit    
+    elsif !params[:project][:question_ids].empty? && !params[:project][:teaching_unit_ids].empty?
       @project.errors[:base] << t(:'projects.questions_error') 
-      respond_to do |format|
-        format.html { render :action => :new }
-        format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
-      end
-    end
+      render :action => :edit
     
-    respond_to do |format|
+    else respond_to do |format|
       if @project.update_attributes(params[:project])
-        flash[:notice] = t :'projects.correctly_updated'
+        flash[:notice] = t :'projects.correctly_created'
         format.html { redirect_to projects_path }
-        format.xml  { head :ok }
+        format.xml  { render :xml => @project, :status => :created, :location => @project }
       else
         format.html { render :action => :edit }
         format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
       end
+     end
     end
 
   rescue ActiveRecord::StaleObjectError
