@@ -5,7 +5,7 @@ class SubtopicsController < ApplicationController
   def index
     @subtopics = Subtopic.order("#{Subtopic.table_name}.code ASC").paginate(
       :page => params[:page],
-      :per_page => 1
+      :per_page => APP_LINES_PER_PAGE
     )
 
     respond_to do |format|
