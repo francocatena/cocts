@@ -195,13 +195,13 @@ class Project < ActiveRecord::Base
           self.send(:"add_#{form}_form", pdf)
         end
       end
+    
+      pdf.start_new_page
+      pdf.text I18n.t(:questions_warning, :scope => i18n_scope), :style => :bold,
+        :align => :center
+      pdf.move_down(pdf.font_size)
     end
-
-    pdf.start_new_page
-    pdf.text I18n.t(:questions_warning, :scope => i18n_scope), :style => :bold,
-      :align => :center
-    pdf.move_down(pdf.font_size)
-
+    
    if self.teaching_units.empty?
     
       self.questions.each do |question|
