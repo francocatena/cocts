@@ -195,12 +195,11 @@ class Project < ActiveRecord::Base
           self.send(:"add_#{form}_form", pdf)
         end
       end
-    
+    end
       pdf.start_new_page
       pdf.text I18n.t(:questions_warning, :scope => i18n_scope), :style => :bold,
         :align => :center
       pdf.move_down(pdf.font_size)
-    end
     
    if self.teaching_units.empty?
     
@@ -249,6 +248,13 @@ class Project < ActiveRecord::Base
         end
      end
    end
+   
+    # Numeración en pie de página
+    pdf.page_count.times do |i|
+      pdf.go_to_page(i+1)
+      pdf.draw_text "#{i+1} / #{pdf.page_count}", :at=>[1,1], :size => (PDF_FONT_SIZE * 0.75).round
+    end
+    
     FileUtils.mkdir_p File.dirname(self.pdf_full_path)
     
     pdf.render_file self.pdf_full_path
