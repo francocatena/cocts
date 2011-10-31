@@ -197,6 +197,7 @@ class Project < ActiveRecord::Base
       end
     end
       pdf.start_new_page
+      i18n_scope = [:projects, :questionnaire]
       pdf.text I18n.t(:questions_warning, :scope => i18n_scope), :style => :bold,
         :align => :center
       pdf.move_down(pdf.font_size)
