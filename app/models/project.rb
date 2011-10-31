@@ -225,8 +225,19 @@ class Project < ActiveRecord::Base
 
    else
      self.teaching_units.each do |teaching_unit|
+       subtopic = teaching_unit.subtopic
+       topic = subtopic.topic
+       
        pdf.move_down(pdf.font_size)
        pdf.text "Unidad Didáctica: #{teaching_unit.title}", :style => :bold_italic
+       
+       unless subtopic.blank? || topic.blank?
+           pdf.font_size((PDF_FONT_SIZE * 0.75).round) do
+           pdf.move_down(pdf.font_size)
+           pdf.text "Tema: #{topic.code}- #{topic.title}"
+           pdf.text "Subtema: #{subtopic.code}- #{subtopic.title}"
+         end
+       end 
        teaching_unit.questions.each do |question|
           letter = 'A'
 
