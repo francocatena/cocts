@@ -3,7 +3,10 @@ class SubtopicsController < ApplicationController
   # GET /subtopics
   # GET /subtopics.json
   def index
-    @subtopics = Subtopic.all
+    @subtopics = Subtopic.order("#{Subtopic.table_name}.code ASC").paginate(
+      :page => params[:page],
+      :per_page => APP_LINES_PER_PAGE
+    )
 
     respond_to do |format|
       format.html # index.html.erb

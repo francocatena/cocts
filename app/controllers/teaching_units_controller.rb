@@ -3,7 +3,10 @@ class TeachingUnitsController < ApplicationController
   # GET /teaching_units
   # GET /teaching_units.json
   def index
-    @teaching_units = TeachingUnit.all
+    @teaching_units = TeachingUnit.order("#{TeachingUnit.table_name}.title ASC").paginate(
+      :page => params[:page],
+      :per_page => APP_LINES_PER_PAGE
+    )
 
     respond_to do |format|
       format.html # index.html.erb

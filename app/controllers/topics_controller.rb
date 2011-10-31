@@ -3,7 +3,10 @@ class TopicsController < ApplicationController
   # GET /topics
   # GET /topics.json
   def index
-    @topics = Topic.all
+    @topics = Topic.order("#{Topic.table_name}.code ASC").paginate(
+      :page => params[:page],
+      :per_page => APP_LINES_PER_PAGE
+    )
 
     respond_to do |format|
       format.html # index.html.erb

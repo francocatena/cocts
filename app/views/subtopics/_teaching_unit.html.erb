@@ -8,7 +8,8 @@
             :id => "subtopic_teaching_unit_#{id}", :class => :autocomplete_field,
             :value => teaching_unit.title,
             :'data-autocomplete-url' => auto_complete_for_teaching_unit_subtopics_path(:format => :json),
-            :'data-params' => ({:subject_id => @subtopic.id}.to_json unless @subtopic.new_record?) %>
+            :'data-params' => ({:subject_id => @subtopic.id}.to_json unless @subtopic.new_record?),
+            :autofocus => true %>
           <%= hidden_field_tag 'subtopic[teaching_unit_ids][]', teaching_unit.id,
             :id => "hidden_teaching_unit_#{id}", :class => :autocomplete_id %>
         </div>

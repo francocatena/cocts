@@ -8,6 +8,7 @@ class TeachingUnit < ActiveRecord::Base
   belongs_to :subtopic
   
   validates :title, :presence => true
+  validates_uniqueness_of :title
   
   validates_each :questions do |record, attr, value|
     if value.empty?
