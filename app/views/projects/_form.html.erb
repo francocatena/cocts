@@ -115,9 +115,12 @@
     </div>
 
     <div id="teaching_units">
-      <% @project.teaching_units.build if @project.teaching_units.empty? %>
-      <%= render :partial => 'teaching_unit', :collection => @project.teaching_units,
-        :locals => {:f => f} %>
+      <% if @project.teaching_units.empty? %>  
+        <% @project.teaching_units.build %>
+      <% else %>
+        <%= render :partial => 'teaching_unit', :collection => @project.teaching_units,
+          :locals => {:f => f} %>
+      <% end %>
     </div>
   
     <p class="add_item">
@@ -140,9 +143,12 @@
     </div>
 
     <div id="questions">
-      <% @project.questions.build if @project.questions.empty? %>
-      <%= render :partial => 'question', :collection => @project.questions,
-        :locals => {:f => f} %>
+      <% if @project.questions.empty? %>
+        <% @project.questions.build %>
+      <% else %>
+        <%= render :partial => 'question', :collection => @project.questions,
+          :locals => {:f => f} %>
+      <% end %>
     </div>
     
     <p class="add_item">
