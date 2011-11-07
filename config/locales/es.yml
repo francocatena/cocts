@@ -3,6 +3,9 @@
     projects: 'Proyectos'
     questions: 'Cuestiones'
     users: 'Usuarios'
+    topics: 'Temas'
+    subtopics: 'Subtemas'
+    teaching_units: 'Unidades didácticas'
     
   # Attributes names common to most models
   attributes:
@@ -602,16 +605,16 @@
     correctly_created: 'Subtema creado correctamente.'
     correctly_updated: 'Subtema actualizado correctamente.'
     stale_object_error: 'El subtema no pudo ser actualizado, intente nuevamente.'
-
+  
   teaching_units:
     correctly_created: 'Unidad didáctica creada correctamente.'
     correctly_updated: 'Unidad didáctica actualizada correctamente.'
     stale_object_error: 'La unidad didáctica no pudo ser actualizada, intente nuevamente.'
-
+  
   topic:
     correctly_created: 'Tema creado correctamente.'
     correctly_updated: 'Tema actualizado correctamente.'  
-  
+     
   support:
     # Used in array.to_sentence.
     array:

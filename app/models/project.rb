@@ -196,12 +196,12 @@ class Project < ActiveRecord::Base
         end
       end
     end
-
-    pdf.start_new_page
-    pdf.text I18n.t(:questions_warning, :scope => i18n_scope), :style => :bold,
-      :align => :center
-    pdf.move_down(pdf.font_size)
-
+      pdf.start_new_page
+      i18n_scope = [:projects, :questionnaire]
+      pdf.text I18n.t(:questions_warning, :scope => i18n_scope), :style => :bold,
+        :align => :center
+      pdf.move_down(pdf.font_size)
+    
    if self.teaching_units.empty?
     
       self.questions.each do |question|
@@ -226,8 +226,19 @@ class Project < ActiveRecord::Base
 
    else
      self.teaching_units.each do |teaching_unit|
+       subtopic = teaching_unit.subtopic
+       topic = subtopic.topic
+       
        pdf.move_down(pdf.font_size)
        pdf.text "Unidad Didáctica: #{teaching_unit.title}", :style => :bold_italic
+       
+       unless subtopic.blank? || topic.blank?
+           pdf.font_size((PDF_FONT_SIZE * 0.75).round) do
+           pdf.move_down(pdf.font_size)
+           pdf.text "Tema: #{topic.code}- #{topic.title}"
+           pdf.text "Subtema: #{subtopic.code}- #{subtopic.title}"
+         end
+       end 
        teaching_unit.questions.each do |question|
           letter = 'A'
 
@@ -249,6 +260,13 @@ class Project < ActiveRecord::Base
         end
      end
    end
+   
+    # Numeración en pie de página
+    pdf.page_count.times do |i|
+      pdf.go_to_page(i+1)
+      pdf.draw_text "#{i+1} / #{pdf.page_count}", :at=>[1,1], :size => (PDF_FONT_SIZE * 0.75).round
+    end
+    
     FileUtils.mkdir_p File.dirname(self.pdf_full_path)
     
     pdf.render_file self.pdf_full_path
