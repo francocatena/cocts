@@ -5,7 +5,7 @@ one:
   name: 'Test instance'
   description: 'Test description'
   valid_until: <%= 1.month.from_now.to_date %>
-  forms: <%= Project::SOCIODEMOGRAPHIC_FORMS.to_yaml.inspect %>
+  forms: <%= Project::SOCIODEMOGRAPHIC_FORMS.inspect %>
   project: manual
   first_name: 'Gastón'
   last_name: 'Gaudio'

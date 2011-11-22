@@ -124,7 +124,7 @@ class QuestionsController < ApplicationController
 
   def csv_import_questions
     if params[:dump_questions] && File.extname(params[:dump_questions][:file].original_filename).downcase == '.csv'
-      @parsed_file=CSV::Reader.parse(params[:dump_questions][:file], delimiter = ';')
+      @parsed_file=CSV.read(params[:dump_questions][:file], :col_sep => ';')
       n=0
       conv = Iconv.new('UTF-8//IGNORE//TRANSLIT', 'ISO-8859-15')
       @parsed_file.each  do |row|
@@ -147,7 +147,7 @@ class QuestionsController < ApplicationController
 
   def csv_import_answers
     if params[:dump_answers] && File.extname(params[:dump_answers][:file].original_filename).downcase == '.csv'    
-      @parsed_file=CSV::Reader.parse(params[:dump_answers][:file], delimiter = ';')
+      @parsed_file=CSV.read(params[:dump_answers][:file], :col_sep => ';')
       n=0
       conv = Iconv.new('UTF-8//IGNORE//TRANSLIT', 'ISO-8859-15')
       @parsed_file.each  do |row|

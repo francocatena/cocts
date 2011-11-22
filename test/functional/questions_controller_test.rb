@@ -8,7 +8,7 @@ class QuestionsControllerTest < ActionController::TestCase
   # Inicializa de forma correcta todas las variables que se utilizan en las
   # pruebas
   def setup
-    @question = Question.find(questions(:_10111).id)
+    @question = Question.find(questions(:q10111).id)
   end
 
   # Prueba que sin realizar autenticación esten accesibles las partes publicas

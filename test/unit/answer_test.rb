@@ -23,7 +23,7 @@ class AnswerTest < ActiveSupport::TestCase
   test 'create' do
     assert_difference 'Answer.count' do
       @answer = Answer.create(
-        :question => questions(:_10111),
+        :question => questions(:q10111),
         :category => Answer::CATEGORIES[:plausible],
         :order => 1,
         :clarification => 'New clarification',
