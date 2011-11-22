@@ -97,11 +97,13 @@ class ProjectsController < ApplicationController
     @project = Project.find_by_identifier(params[:id])
     params[:project][:question_ids] ||= []
     params[:project][:teaching_unit_ids] ||= []
-    
-    if params[:project][:question_ids].empty? && params[:project][:teaching_unit_ids].empty?
+        
+    # Validación de que solo tenga cuestiones ya sean de UDs O cuestiones individuales
+    if params[:project][:question_ids].empty? && params[:project][:teaching_unit_ids].empty? 
       @project.errors[:base] << t(:'projects.empty_questions_error') 
       render :action => :edit    
-    elsif !params[:project][:question_ids].empty? && !params[:project][:teaching_unit_ids].empty?
+    # Validación de que no tenga cuestiones de UDs Y cuestiones individuales
+    elsif !(params[:project][:question_ids].blank? || @project.questions.empty?) && !(params[:project][:teaching_unit_ids].blank? || @project.teaching_units.empty?)
       @project.errors[:base] << t(:'projects.questions_error') 
       render :action => :edit
     
