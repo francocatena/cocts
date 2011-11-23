@@ -56,10 +56,12 @@ class UsersController < ApplicationController
   # * POST /users.xml
   def create
     @title = t :'users.new_title'
+    pass = params[:user][:password]
     @user = User.new(params[:user])
-
+    
     respond_to do |format|
       if @user.save
+        UserMailer.new_user_notification(@user, pass).deliver
         flash[:notice] = t :'users.correctly_created'
         format.html { redirect_to(users_path) }
         format.xml  { render :xml => @user, :status => :created, :location => @user }

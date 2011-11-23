@@ -74,3 +74,7 @@ TEACHER_LEVELS = [
   :university,
   :other
 ]
+
+URL_HOST = (
+  Rails.env.development? ? 'localhost:3000' : 'mawida.com.ar'
+).freeze

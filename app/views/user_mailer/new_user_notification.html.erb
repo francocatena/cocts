@@ -1,0 +1,9 @@
+<h1><%= "#{@user.name}," %></h1>
+
+<p><%= "Has sido dado de alta como usuario en COCTS:" %></p>
+<ul>
+  <li><%= "Usuario: #{@user.user}" %></li>
+  <li><%= "Contraseña: #{@pass}" %></li>
+</ul>
+
+<p><%= "Para ingresar al sistema haz clic en:" %><%= login_users_url(:host => 'cocts.com.ar') %></p>
