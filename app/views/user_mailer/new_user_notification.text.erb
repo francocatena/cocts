@@ -1,0 +1,9 @@
+<%= @user.name %>,
+
+Has sido dado de alta como usuario en COCTS:
+--------------------------------------------
+
+- Usuario: <%= @user.user %>
+- Contraseña: <%= @pass %>
+
+Para ingresar al sistema haz clic en: <%= login_users_url(:host => 'cocts.com.ar') %>
