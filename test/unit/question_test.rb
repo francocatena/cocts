@@ -7,15 +7,15 @@ class QuestionTest < ActiveSupport::TestCase
 
   # Función para inicializar las variables utilizadas en las pruebas
   def setup
-    @question = Question.find questions(:q10111).id
+    @question = Question.find questions(:_10111).id
   end
 
   # Prueba que se realicen las búsquedas como se espera
   test 'search' do
     assert_kind_of Question, @question
-    assert_equal questions(:q10111).dimension, @question.dimension
-    assert_equal questions(:q10111).code, @question.code
-    assert_equal questions(:q10111).question, @question.question
+    assert_equal questions(:_10111).dimension, @question.dimension
+    assert_equal questions(:_10111).code, @question.code
+    assert_equal questions(:_10111).question, @question.question
   end
 
   # Prueba la creación de una cuestión
@@ -66,7 +66,7 @@ class QuestionTest < ActiveSupport::TestCase
 
   # Prueba que las validaciones del modelo se cumplan como es esperado
   test 'validates unique attributes' do
-    @question.code = questions(:q10113).code
+    @question.code = questions(:_10113).code
     assert @question.invalid?
     assert_equal 1, @question.errors.count
     assert_equal [error_message_from_model(@question, :code, :taken)],

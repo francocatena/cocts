@@ -5,11 +5,11 @@
 # below each fixture, per the syntax in the comments below
 #
 one:
-  question: q10111
+  question: _10111
   question_text: 'Definir qué es la ciencia es difícil porque ésta es algo complejo y engloba muchas cosas. Pero la ciencia PRINCIPALMENTE es:'
 # column: value
 #
 two: 
-  question: q10113
+  question: _10113
   question_text: 'El proceso de hacer ciencia se describe mejor como ...'
 #  column: value

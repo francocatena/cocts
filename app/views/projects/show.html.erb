@@ -85,7 +85,7 @@
   
   <% unless @project.teaching_units.empty? %>
     
-      <h2><%= t :'activerecord.models.teaching_units' %></h2>
+      <h2><%= t:'activerecord.models.teaching_units' %></h2>
       
     <% @project.teaching_units.each do |teaching_unit| %>
       
@@ -95,9 +95,9 @@
       <h3><%= teaching_unit.title %>:</h3>
       
       <% unless subtopic.blank? || topic.blank? %>
-        <h4><%= "#{t :'activerecord.models.topic'}: #{topic.code}- 
+        <h4><%= "#{t:'activerecord.models.topic'}: #{topic.code}- 
           #{topic.title}" %></h4>
-        <h4><%= "#{t :'activerecord.models.subtopic'}: #{subtopic.code}- 
+        <h4><%= "#{t:'activerecord.models.subtopic'}: #{subtopic.code}- 
           #{subtopic.title}" %></h4>
       <% end %>
       

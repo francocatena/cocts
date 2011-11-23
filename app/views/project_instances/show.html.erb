@@ -91,88 +91,88 @@
   <%= raw textilize(t(:scale_clarification, :scope => i18n_scope)) %>
   <%= render 'projects/answer_example' %>
 
-  <h2 style="margin: 1em 0em; font-weight : normal;">
+  <h2 style="margin: 1em 0em; font-weight: normal;">
     <%= textilize_without_paragraph t(:sociodemographic_forms_title_instance,
       :scope => i18n_scope) %>
   </h2>
 
   <p>
-    <b><%= t :'projects.sociodemographic_forms.country.option' %>:</b>
+    <b><%= t:'projects.sociodemographic_forms.country.option' %>:</b>
     <%= @project_instance.country %>
   </p>
   
   <p>
-    <b><%= t :'projects.sociodemographic_forms.age.option' %>:</b>
+    <b><%= t:'projects.sociodemographic_forms.age.option' %>:</b>
     <%= @project_instance.age %>
   </p>
   
   <p>
-    <b><%= t :'projects.sociodemographic_forms.genre.option' %>:</b>
-    <%= t :"projects.questionnaire.genre.options.#{@project_instance.genre}" %>
+    <b><%= t:'projects.sociodemographic_forms.genre.option' %>:</b>
+    <%= t:"projects.questionnaire.genre.options.#{@project_instance.genre}" %>
   </p>
   
   <p>
-    <b><%= t :'projects.sociodemographic_forms.student.option' %>:</b>
-    <%= t :"projects.questionnaire.student.options.#{@project_instance.student_status}" %>
+    <b><%= t:'projects.sociodemographic_forms.student.option' %>:</b>
+    <%= t:"projects.questionnaire.student.options.#{@project_instance.student_status}" %>
   </p>
   
   <p>
-    <b><%= t :'projects.sociodemographic_forms.teacher.option' %>:</b>
-    <%= t :"projects.questionnaire.teacher.options.#{@project_instance.teacher_status}" %>
+    <b><%= t:'projects.sociodemographic_forms.teacher.option' %>:</b>
+    <%= t:"projects.questionnaire.teacher.options.#{@project_instance.teacher_status}" %>
   </p>
   <% if @project_instance.teacher_status.present? && @project_instance.teacher_status!="not_a_teacher" %>
   <p>
-    <b><%= t :'projects.sociodemographic_forms.teacher_level.option' %>:</b>
-    <%= t :"projects.questionnaire.teacher_level.options.#{@project_instance.teacher_level}" %>
+    <b><%= t:'projects.sociodemographic_forms.teacher_level.option' %>:</b>
+    <%= t:"projects.questionnaire.teacher_level.options.#{@project_instance.teacher_level}" %>
   </p>
   <% end %>
   <p>
-    <b><%= t :'projects.sociodemographic_forms.degree.option' %>:</b>
-    <%= t :"projects.questionnaire.degree.options.#{@project_instance.degree}" %>
+    <b><%= t:'projects.sociodemographic_forms.degree.option' %>:</b>
+    <%= t:"projects.questionnaire.degree.options.#{@project_instance.degree}" %>
   </p>
   
   <% if @project_instance.degree_school.present? %>
   <p>
-    <b><%= t :'projects.sociodemographic_forms.degree_school.option' %>:</b>
-    <%= t :"projects.sociodemographic_forms.degree_school.options.#{@project_instance.degree_school}" %>
+    <b><%= t:'projects.sociodemographic_forms.degree_school.option' %>:</b>
+    <%= t:"projects.sociodemographic_forms.degree_school.options.#{@project_instance.degree_school}" %>
   </p>
   <% end %>
   
   <% if @project_instance.degree_university.present? %>
   <p>
-    <b><%= t :'projects.sociodemographic_forms.degree_university.option' %>:</b>
-    <%= t :"projects.sociodemographic_forms.degree_university.options.#{@project_instance.degree_university}" %>
+    <b><%= t:'projects.sociodemographic_forms.degree_university.option' %>:</b>
+    <%= t:"projects.sociodemographic_forms.degree_university.options.#{@project_instance.degree_university}" %>
   </p>
   <% end %>
   
   <% if @project_instance.study_subjects.present? %>
   <p>
-    <b><%= t :'projects.sociodemographic_forms.study_subjects.option' %>:</b>
-    <%= t :"projects.sociodemographic_forms.study_subjects.options.#{@project_instance.study_subjects}" %>
+    <b><%= t:'projects.sociodemographic_forms.study_subjects.option' %>:</b>
+    <%= t:"projects.sociodemographic_forms.study_subjects.options.#{@project_instance.study_subjects}" %>
   </p>
   <% end %>
   
   <% if @project_instance.study_subjects_choose.present? %>
   <p>
-    <b><%= t :'projects.sociodemographic_forms.study_subjects_choose.option' %>:</b>
-    <%= t :"projects.sociodemographic_forms.study_subjects_choose.options.#{@project_instance.study_subjects_choose}" %>
+    <b><%= t:'projects.sociodemographic_forms.study_subjects_choose.option' %>:</b>
+    <%= t:"projects.sociodemographic_forms.study_subjects_choose.options.#{@project_instance.study_subjects_choose}" %>
   </p>
   <% end %>
   
   <p>
-    <b><%= t :'projects.sociodemographic_forms.profession.ocuppation' %>:</b>
+    <b><%= t:'projects.sociodemographic_forms.profession.ocuppation' %>:</b>
     <ul class="raw_list">
     <% @project_instance.profession_ocuppation.each do |po| %>
-      <li><%= t :"projects.questionnaire.profession.options.#{po}" %></li>
+      <li><%= t:"projects.questionnaire.profession.options.#{po}" %></li>
     <% end %>
     </ul>
   </p>
   
   <p>
-    <b><%= t :'projects.sociodemographic_forms.profession.certification' %>:</b>
+    <b><%= t:'projects.sociodemographic_forms.profession.certification' %>:</b>
     <ul class="raw_list">
     <% @project_instance.profession_certification.each do |pc| %>
-      <li><%= t :"projects.questionnaire.profession.options.#{pc}" %></li>
+      <li><%= t:"projects.questionnaire.profession.options.#{pc}" %></li>
     <% end %>
     </ul>
   </p>

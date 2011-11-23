@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111025123849) do
+ActiveRecord::Schema.define(:version => 20110915224842) do
 
   create_table "answer_instances", :force => true do |t|
     t.integer  "question_instance_id"
@@ -94,14 +93,6 @@ ActiveRecord::Schema.define(:version => 20111025123849) do
 
   add_index "projects_questions", ["project_id", "question_id"], :name => "index_projects_questions_on_project_id_and_question_id"
 
-  create_table "projects_teaching_units", :id => false, :force => true do |t|
-    t.integer "teaching_unit_id"
-    t.integer "project_id"
-  end
-
-  add_index "projects_teaching_units", ["project_id"], :name => "index_projects_teaching_units_on_project_id"
-  add_index "projects_teaching_units", ["teaching_unit_id"], :name => "index_projects_teaching_units_on_teaching_unit_id"
-
   create_table "question_instances", :force => true do |t|
     t.integer  "project_instance_id"
     t.integer  "question_id"
@@ -125,14 +116,6 @@ ActiveRecord::Schema.define(:version => 20111025123849) do
   add_index "questions", ["code"], :name => "index_questions_on_code", :unique => true
   add_index "questions", ["dimension"], :name => "index_questions_on_dimension"
 
-  create_table "questions_teaching_units", :id => false, :force => true do |t|
-    t.integer "teaching_unit_id"
-    t.integer "question_id"
-  end
-
-  add_index "questions_teaching_units", ["question_id"], :name => "index_questions_teaching_units_on_question_id"
-  add_index "questions_teaching_units", ["teaching_unit_id"], :name => "index_questions_teaching_units_on_teaching_unit_id"
-
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
@@ -142,34 +125,6 @@ ActiveRecord::Schema.define(:version => 20111025123849) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
-
-  create_table "subtopics", :force => true do |t|
-    t.string   "title"
-    t.integer  "topic_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "code"
-  end
-
-  add_index "subtopics", ["title"], :name => "index_subtopics_on_title", :unique => true
-
-  create_table "teaching_units", :force => true do |t|
-    t.string   "title"
-    t.integer  "subtopic_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "teaching_units", ["title"], :name => "index_teaching_units_on_title", :unique => true
-
-  create_table "topics", :force => true do |t|
-    t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "code"
-  end
-
-  add_index "topics", ["title"], :name => "index_topics_on_title", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "user"

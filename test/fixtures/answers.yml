@@ -3,25 +3,25 @@
   order: 1
   clarification: Answer 10111_1 clarification
   answer: 'el estudio de campos tales como biología, química, geología y física'
-  question: q10111
+  question: _10111
 
 '10111_2':
   category: <%= Answer::CATEGORIES[:adecuate] %>
   order: 2
   clarification: Answer 10111_2 clarification
   answer: 'un cuerpo de conocimientos, tales como principios, leyes y teorías que explican el mundo que nos rodea (materia, energía y vida)'
-  question: q10111
+  question: _10111
 
 '10113_1':
   category: <%= Answer::CATEGORIES[:plausible] %>
   order: 1
   clarification: Answer 10113_1 clarification
   answer: 'todo lo que hacemos para entender el mundo que nos rodea.'
-  question: q10113
+  question: _10113
 
 '10113_2':
   category: <%= Answer::CATEGORIES[:naive] %>
   order: 2
   clarification: Answer 10113_2 clarification
   answer: 'el método científico.'
-  question: q10113
+  question: _10113

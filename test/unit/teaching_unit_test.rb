@@ -18,7 +18,7 @@ class TeachingUnitTest < ActiveSupport::TestCase
   test 'create' do
     assert_difference 'TeachingUnit.count' do
       @teaching_unit = TeachingUnit.create(
-        :questions => [questions(:q10111)],
+        :questions => [questions(:_10111)],
         :title => 'Title'
       )
     end

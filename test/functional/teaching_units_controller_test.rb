@@ -1,5 +1,3 @@
-# encoding: UTF-8
-
 require 'test_helper'
 
 class TeachingUnitsControllerTest < ActionController::TestCase
@@ -71,7 +69,7 @@ class TeachingUnitsControllerTest < ActionController::TestCase
       post :create, {
         :teaching_unit => {
           :title => 'Enseñanza en la sociedad',
-          :question_ids => [questions(:q10111).id]
+          :question_ids => [questions(:_10111).id]
         }
       }
     end
@@ -95,7 +93,7 @@ class TeachingUnitsControllerTest < ActionController::TestCase
           :id => @teaching_unit.to_param,
           :teaching_unit => {
             :title => 'Ciencias',
-            :question_ids => [questions(:q10111).id]
+            :question_ids => [questions(:_10111).id]
           }
         }
       end

@@ -86,7 +86,7 @@ class ProjectsControllerTest < ActionController::TestCase
             Project::SOCIODEMOGRAPHIC_FORMS.first,
             Project::SOCIODEMOGRAPHIC_FORMS.last
           ],
-          :question_ids => [questions(:q10111).id]
+          :question_ids => [questions(:_10111).id]
         }
       }
     end
@@ -124,7 +124,7 @@ class ProjectsControllerTest < ActionController::TestCase
               Project::SOCIODEMOGRAPHIC_FORMS.first,
               Project::SOCIODEMOGRAPHIC_FORMS.last
             ],
-            :question_ids => [questions(:q10111).id, questions(:q10113).id]
+            :question_ids => [questions(:_10111).id, questions(:_10113).id]
           }
         }
       end
