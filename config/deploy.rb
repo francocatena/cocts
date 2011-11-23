@@ -16,7 +16,7 @@ role :web, 'cocts.com.ar'
 role :app, 'cocts.com.ar'
 role :db,  'cocts.com.ar', :primary => true
 
-after 'deploy:symlink', 'deploy:create_shared_symlinks'
+after 'deploy:finalize_update', 'deploy:create_shared_symlinks'
 
 namespace :deploy do
   task :start do
