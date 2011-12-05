@@ -9,11 +9,11 @@
   <li><%= link_to t(:'menu.questions'), questions_path,
     :class => "real #{:selected if controller == :questions}" %></li>
   <li><%= link_to t(:'menu.topics'), topics_path,
-    :class => "real #{:selected if controller == :topics}" if @auth_user.admin? %></li>
+    :class => "real #{:selected if controller == :topics}" %></li>
   <li><%= link_to t(:'menu.subtopics'), subtopics_path,
-    :class => "real #{:selected if controller == :subtopics}" if @auth_user.admin? %></li>
+    :class => "real #{:selected if controller == :subtopics}" %></li>
   <li><%= link_to t(:'menu.teaching_units'), teaching_units_path,
-    :class => "real #{:selected if controller == :teaching_units}" if @auth_user.admin? %></li>
+    :class => "real #{:selected if controller == :teaching_units}" %></li>
 </ul>
 
 <div id="user_info">
