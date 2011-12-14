@@ -4,13 +4,13 @@ CoctsApp::Application.routes.draw do
 
   resources :subtopics do
     collection do
-      get :auto_complete_for_teaching_unit
+      get :autocomplete_for_teaching_unit
     end
   end
 
   resources :topics do
     collection do
-      get :auto_complete_for_subtopic
+      get :autocomplete_for_subtopic
     end
   end
 
@@ -30,7 +30,7 @@ CoctsApp::Application.routes.draw do
 
   resources :projects do
     collection do
-      get :auto_complete_for_question
+      get :autocomplete_for_question
       get :preview_form
     end
   end

@@ -86,20 +86,12 @@ class TopicsController < ApplicationController
     end
   end
   
-  def auto_complete_for_subtopic
-    tokens = params[:q][0..100].split(/[\s,]/).uniq
-    tokens.reject! {|t| t.blank?}
-    conditions = []
-    parameters = {}
-    tokens.each_with_index do |t, i|
-      conditions << "LOWER(#{Subtopic.table_name}.title) LIKE :subtopic_data_#{i}"
-      
-      parameters[:"subtopic_data_#{i}"] = "%#{t.downcase}%"
-    end
-
-    @subtopics = Subtopic.where(
-      [conditions.map {|c| "(#{c})"}.join(' AND '), parameters]
-    ).order("#{Subtopic.table_name}.title ASC").limit(10)
+  def autocomplete_for_subtopic
+    query = params[:q].sanitized_for_text_query
+    @query_terms = query.split(/\s+/).reject(&:blank?)
+    @subtopics = Subtopic.scoped
+    @subtopics = @subtopics.full_text(@query_terms) unless @query_terms.empty?
+    @subtopics = @subtopics.limit(10)
     
     respond_to do |format|
       format.json { render :json => @subtopics }

@@ -7,7 +7,7 @@
           <%= f.text_field :nested_question,
             :id => "project_question_#{id}", :class => :autocomplete_field,
             :value => question.question,
-            :'data-autocomplete-url' => auto_complete_for_question_projects_path(:format => :json),
+            :'data-autocomplete-url' => autocomplete_for_question_projects_path(:format => :json),
             :'data-params' => ({:project_id => @project.id}.to_json unless @project.new_record?) %>
           <%= hidden_field_tag 'project[question_ids][]', question.id,
             :id => "hidden_question_#{id}", :class => :autocomplete_id %>
@@ -26,6 +26,5 @@
 <% if question.new_record? %>
   <script type="text/javascript">
     $('#<%= "project_question_#{id}" %>').focus();
-    AutoComplete.observeAll();
   </script>
 <% end %>

@@ -1,5 +1,5 @@
 <div id="form_topics">
-<%= form_for(@topic) do |f| %>
+<%= form_for @topic, :validate => true do |f| %>
   <%= content_for :js_extra do %>
     <%= raw "var subtopic='#{escape_javascript(render(:partial => 'subtopic',
         :object => Subtopic.new, :locals => {:f => f}))}';" %>
