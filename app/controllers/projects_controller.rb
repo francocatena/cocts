@@ -136,9 +136,9 @@ class ProjectsController < ApplicationController
     query = params[:q].sanitized_for_text_query
     @query_terms = query.split(/\s+/).reject(&:blank?)
     @questions = Question.scoped
-    @questions = @questions.full_text(@query_terms) unless @query_terms.empty?
+    @questions.full_text(@query_terms) unless @query_terms.empty?
     @questions = @questions.limit(10)
-    
+   
     respond_to do |format|
       format.json { render :json => @questions }
     end

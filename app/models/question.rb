@@ -1,4 +1,4 @@
-class Question < ActiveRecord::Base
+class Question < ApplicationModel
   DIMENSIONS = 1..9
     
   # Alias de atributos
@@ -59,6 +59,20 @@ class Question < ActiveRecord::Base
   end
 end
 
-
-
+  def self.full_text(query_terms)
+    options = text_query(query_terms, 'question')
+    conditions = [options[:query]]
+    parameters = options[:parameters]
+    
+    query_terms.each_with_index do |term, i|
+      if term =~ /^\d+$/ # Sólo si es un número vale la pena la condición
+        conditions << "#{table_name}.code = :clean_term_#{i}"
+        parameters[:"clean_term_#{i}"] = term.to_i
+      end
+    end
+    
+    where(
+      conditions.map { |c| "(#{c})" }.join(' OR '), parameters
+    ).order(options[:order])
+  end
 end
