@@ -1,11 +1,10 @@
-class Subtopic < ActiveRecord::Base
+class Subtopic < ApplicationModel
   attr_accessor :nested_teaching_unit
   
   alias_attribute :label, :title
     
   belongs_to :topic
-  has_many :teaching_units, :dependent => :destroy
-  
+  has_many :teaching_units  
   
   validates :title, :code, :presence => true
   validates_uniqueness_of :title 
