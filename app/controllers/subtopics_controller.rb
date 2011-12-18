@@ -86,7 +86,7 @@ class SubtopicsController < ApplicationController
     end
   end
   
-   def auto_complete_for_teaching_unit
+   def autocomplete_for_teaching_unit
     tokens = params[:q][0..100].split(/[\s,]/).uniq
     tokens.reject! {|t| t.blank?}
     conditions = []

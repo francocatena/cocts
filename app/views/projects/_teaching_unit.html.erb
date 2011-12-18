@@ -7,7 +7,7 @@
           <%= f.text_field :nested_teaching_unit,
             :id => "project_teaching_unit_#{id}", :class => :autocomplete_field,
             :value => teaching_unit.title,
-            :'data-autocomplete-url' => auto_complete_for_teaching_unit_subtopics_path(:format => :json),
+            :'data-autocomplete-url' => autocomplete_for_teaching_unit_subtopics_path(:format => :json),
             :'data-params' => ({:subject_id => @project.id}.to_json unless @project.new_record?) %>
           <%= hidden_field_tag 'project[teaching_unit_ids][]', teaching_unit.id,
             :id => "hidden_teaching_unit_#{id}", :class => :autocomplete_id %>

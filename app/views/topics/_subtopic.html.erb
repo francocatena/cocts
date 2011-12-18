@@ -7,7 +7,7 @@
           <%= f.text_field :nested_subtopic,
             :id => "topic_subtopic_#{id}", :class => :autocomplete_field,
             :value => subtopic.title,
-            :'data-autocomplete-url' => auto_complete_for_subtopic_topics_path(:format => :json),
+            :'data-autocomplete-url' => autocomplete_for_subtopic_topics_path(:format => :json),
             :'data-params' => ({:subject_id => @topic.id}.to_json unless @topic.new_record?),
             :autofocus => true %>
           <%= hidden_field_tag 'topic[subtopic_ids][]', subtopic.id,
