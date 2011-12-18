@@ -8,7 +8,7 @@
 
 <% @subtopics.each do |subtopic| %>
   <tr class="<%= cycle(:even, :odd) %>">
-    <td><%= subtopic.title %></td>
+    <td><%= "#{subtopic.code}. #{subtopic.title}" %></td>
     <td><%= link_to t(:'labels.show'), subtopic, :class => :real %></td>
     <td><%= link_to t(:'labels.edit'), edit_subtopic_path(subtopic), :class => :real %></td>
     <td class ="delete"><%= button_to t(:'labels.delete'), subtopic,
