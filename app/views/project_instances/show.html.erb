@@ -145,6 +145,13 @@
   </p>
   <% end %>
   
+  <% if @project_instance.study_subjects_different.present? %>
+  <p>
+    <b><%= t:'projects.sociodemographic_forms.study_subjects_different.option' %>:</b>
+    <%= @project_instance.study_subjects_different %>
+  </p>
+  <% end %>
+  
   <% if @project_instance.study_subjects.present? %>
   <p>
     <b><%= t:'projects.sociodemographic_forms.study_subjects.option' %>:</b>
@@ -159,23 +166,19 @@
   </p>
   <% end %>
   
+  <% if @project_instance.educational_center_name.present? %>
   <p>
-    <b><%= t:'projects.sociodemographic_forms.profession.ocuppation' %>:</b>
-    <ul class="raw_list">
-    <% @project_instance.profession_ocuppation.each do |po| %>
-      <li><%= t:"projects.questionnaire.profession.options.#{po}" %></li>
-    <% end %>
-    </ul>
+    <b><%= t:'projects.sociodemographic_forms.educational_center_name.option' %>:</b>
+    <%= @project_instance.educational_center_name %>
   </p>
+  <% end %>
   
+  <% if @project_instance.educational_center_city.present? %>
   <p>
-    <b><%= t:'projects.sociodemographic_forms.profession.certification' %>:</b>
-    <ul class="raw_list">
-    <% @project_instance.profession_certification.each do |pc| %>
-      <li><%= t:"projects.questionnaire.profession.options.#{pc}" %></li>
-    <% end %>
-    </ul>
+    <b><%= t:'projects.sociodemographic_forms.educational_center_city.option' %>:</b>
+    <%= @project_instance.educational_center_city %>
   </p>
+  <% end %>
   
   <div class="questions">
     <h2><%= Project.human_attribute_name :questions %></h2>
@@ -194,13 +197,11 @@
        <% end %>
       </ul>
   </div>   
+    
 
-      
-<% if @auth_user.admin? %>
   <%= link_to t(:'labels.edit'), edit_project_instance_path(@project_instance), :class => :real%> |
   <%= link_to t(:'labels.download'), project_instance_path(@project_instance, :format => :pdf),
     :class => :real %> |
   ←<%= link_to_back %>
-<% end %>
 
 </div>
