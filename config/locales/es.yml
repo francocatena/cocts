@@ -504,6 +504,12 @@
           other: 'Otro'
         option: 'Grado universitario en el que estudia'
         question: '¿Qué grado universitario estudia actualmente?'
+      educational_center_city:
+        option: 'Ciudad donde se encuentra su centro educativo'
+        question: '¿En qué ciudad se encuentra su centro educativo?'
+      educational_center_name:
+        option: 'Nombre del centro educativo donde estudia'
+        question: '¿En qué centro educativo estudia?'
       genre:
         option: 'Género'
         question: '¿Es hombre o mujer?'
@@ -517,7 +523,10 @@
         question: '¿Es estudiante?'
       study_subjects:
         option: 'Asignaturas de ciencias o tecnología que estudia este año'
-        question: '¿Cuántas asignaturas de ciencias o tecnología estudia este año?' 
+        question: '¿Cuántas asignaturas de ciencias o tecnología estudia este año?'
+      study_subjects_different:
+        option: 'Asignaturas diferentes que estudia este año'
+        question: '¿Cuántas asignaturas diferentes estudia este año?'
       study_subjects_choose:
         options:
           nothing_choose: 'Todas son obligatorias, no he podido elegir ninguna de estas asignaturas'

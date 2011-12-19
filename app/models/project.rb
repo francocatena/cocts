@@ -1,4 +1,4 @@
-class Project < ActiveRecord::Base
+class Project < ApplicationModel
   serialize :forms, Array
 
   attr_accessor :nested_question
@@ -20,9 +20,11 @@ class Project < ActiveRecord::Base
     'teacher_level',
     'degree_university',
     'degree',
+    'study_subjects_different',
     'study_subjects',
     'study_subjects_choose',
-    'profession'
+    'educational_center_name',
+    'educational_center_city'
   ]
 
   # Restricciones
@@ -337,6 +339,27 @@ class Project < ActiveRecord::Base
   def add_study_subjects_form(pdf)
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :study_subjects])
+    
+    pdf.text "#{question} ______________"
+  end
+  
+  def add_educational_center_name_form(pdf)
+    question = I18n.t(:question,
+      :scope => [:projects, :sociodemographic_forms, :educational_center_name])
+    
+    pdf.text "#{question} ______________"
+  end
+  
+  def add_educational_center_city_form(pdf)
+    question = I18n.t(:question,
+      :scope => [:projects, :sociodemographic_forms, :educational_center_city])
+    
+    pdf.text "#{question} ______________"
+  end
+  
+  def add_study_subjects_different_form(pdf)
+    question = I18n.t(:question,
+      :scope => [:projects, :sociodemographic_forms, :study_subjects_different])
     
     pdf.text "#{question} ______________"
   end

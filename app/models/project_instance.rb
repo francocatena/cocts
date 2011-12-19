@@ -1,4 +1,4 @@
-class ProjectInstance < ActiveRecord::Base
+class ProjectInstance < ApplicationModel
   serialize :forms, Array
   serialize :profession_certification, Array
   serialize :profession_ocuppation, Array
@@ -28,9 +28,11 @@ class ProjectInstance < ActiveRecord::Base
     'teacher_level',
     'degree_university',
     'degree',
+    'study_subjects_different',
     'study_subjects',
     'study_subjects_choose',
-    'profession'
+    'educational_center_name',
+    'educational_center_city'
   ]
   
   # Restricciones
@@ -272,6 +274,27 @@ class ProjectInstance < ActiveRecord::Base
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :age])
     pdf.text "#{question} #{self.age}"
+  end
+  
+  def add_educational_center_name_form(pdf)
+    question = I18n.t(:question,
+      :scope => [:projects, :sociodemographic_forms, :educational_center_name])
+    
+    pdf.text "#{question} ______________"
+  end
+  
+  def add_educational_center_city_form(pdf)
+    question = I18n.t(:question,
+      :scope => [:projects, :sociodemographic_forms, :educational_center_city])
+    
+    pdf.text "#{question} ______________"
+  end
+  
+  def add_study_subjects_different_form(pdf)
+    question = I18n.t(:question,
+      :scope => [:projects, :sociodemographic_forms, :study_subjects_different])
+    
+    pdf.text "#{question} ______________"
   end
   
   def add_degree_school(pdf)
