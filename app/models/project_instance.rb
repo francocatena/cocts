@@ -1,7 +1,5 @@
 class ProjectInstance < ApplicationModel
   serialize :forms, Array
-  serialize :profession_certification, Array
-  serialize :profession_ocuppation, Array
   
   # Atributos no persistentes
   attr_accessor :manual_degree, :manual_degree_university
@@ -37,7 +35,7 @@ class ProjectInstance < ApplicationModel
   
   # Restricciones
   validates :email, :age, :degree, :genre, :student_status, :teacher_status,
-    :profession_certification, :profession_ocuppation,
+    :educational_center_city, :educational_center_name, :study_subjects_different,
     :presence => true, :length => { :maximum => 255 }
   validates_numericality_of :age, :only_integer => true, :allow_nil => true,
     :allow_blank => true
@@ -51,17 +49,7 @@ class ProjectInstance < ApplicationModel
       record.errors.add attr, :inclusion
     end
   end
-  validates_each :profession_certification do |record, attr, value|
-    unless (value || []).all? { |value| PROFESSIONS.include?(value.to_sym) }
-      record.errors.add attr, :inclusion
-    end
-  end
-  validates_each :profession_ocuppation do |record, attr, value|
-    unless (value || []).all? { |value| PROFESSIONS.include?(value.to_sym) }
-      record.errors.add attr, :inclusion
-    end
-  end
-  
+    
   def initialize(attributes = nil, options = {})
     super(attributes, options)
     

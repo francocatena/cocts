@@ -2,4 +2,5 @@
   <%= t(:question, :scope => [:projects, :sociodemographic_forms, 
       :educational_center_city]) %>
 </strong>
-<%= text_field_tag 'educational_center_city', nil %>
+<%= text_field_tag 'project_instance[educational_center_city]', 
+  @project_instance.educational_center_city %>
