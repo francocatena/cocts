@@ -36,7 +36,7 @@ class Project < ApplicationModel
     :allow_blank => true, :greater_than => 1000, :less_than => 3000
   validates_length_of :name, :identifier, :maximum => 255, :allow_nil => true,
     :allow_blank => true
-  validates :identifier, :exclusion => { :in => ['admin'] }
+  validates :identifier, :exclusion => { :in => %w(admin ayuda help) }
   validates_date :valid_until, :on_or_after => lambda { Date.today },
     :allow_nil => false, :allow_blank => false, :if => :is_interactive?
   validates_each :forms do |record, attr, value|
