@@ -1,4 +1,4 @@
-class TeachingUnit < ActiveRecord::Base
+class TeachingUnit < ApplicationModel
   attr_accessor :nested_question
   
   alias_attribute :label, :title
@@ -24,6 +24,23 @@ class TeachingUnit < ActiveRecord::Base
     default_options = { :only => [:id], :methods => [:label] }
     
     super(default_options.merge(options || {}))
+  end
+  
+  def self.full_text(query_terms)
+    options = text_query(query_terms, 'name', 'tag_path')
+    conditions = [options[:query]]
+    parameters = options[:parameters]
+    
+    query_terms.each_with_index do |term, i|
+      if term =~ /^\d+$/ # Sólo si es un número vale la pena la condición
+        conditions << "#{table_name}.code = :clean_term_#{i}"
+        parameters[:"clean_term_#{i}"] = term.to_i
+      end
+    end
+    
+    where(
+      conditions.map { |c| "(#{c})" }.join(' OR '), parameters
+    ).order(options[:order])
   end
   
 end

@@ -1,4 +1,4 @@
-class AnswerInstance < ActiveRecord::Base
+class AnswerInstance < ApplicationModel
   scope :ordered, order("position")
   # Constantes
   CATEGORIES = {

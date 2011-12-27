@@ -1,4 +1,4 @@
-class Answer < ActiveRecord::Base
+class Answer < ApplicationModel
   # Constantes
   CATEGORIES = {
     :adecuate => 2,

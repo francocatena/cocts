@@ -1,4 +1,4 @@
-class QuestionInstance < ActiveRecord::Base
+class QuestionInstance < ApplicationModel
   # Relaciones
   belongs_to :project_instance
   belongs_to :question

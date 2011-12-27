@@ -1,4 +1,4 @@
-class Topic < ActiveRecord::Base
+class Topic < ApplicationModel
   attr_accessor :nested_subtopic
   
   has_many :subtopics, :dependent => :destroy, :order => "#{Subtopic.table_name}.code ASC"

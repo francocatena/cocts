@@ -1,6 +1,6 @@
 require 'digest/sha2'
 
-class User < ActiveRecord::Base
+class User < ApplicationModel
   # Callbacks
   before_create :encrypt_password
   after_create :password_to_nil
