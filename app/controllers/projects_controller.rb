@@ -132,7 +132,7 @@ class ProjectsController < ApplicationController
   end
 
   # POST /projects/auto_complete_for_question
-  def auto_complete_for_question
+  def autocomplete_for_question
     tokens = params[:q][0..100].split(/[\s,]/).uniq
     tokens.reject! {|t| t.blank?}
     conditions = []
@@ -142,7 +142,7 @@ class ProjectsController < ApplicationController
         "LOWER(#{Question.table_name}.code) LIKE :question_data_#{i}",
         "LOWER(#{Question.table_name}.question) LIKE :question_data_#{i}"
       ].join(' OR ')
-
+    
       parameters[:"question_data_#{i}"] = "%#{t.downcase}%"
     end
 

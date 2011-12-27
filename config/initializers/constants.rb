@@ -74,6 +74,8 @@ TEACHER_LEVELS = [
   :university,
   :other
 ]
+# Adaptador de base de datos
+DB_ADAPTER = ActiveRecord::Base.connection.adapter_name
 
 URL_HOST = (
   Rails.env.development? ? 'localhost:3000' : 'mawida.com.ar'

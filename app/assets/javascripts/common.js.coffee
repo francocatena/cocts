@@ -3,44 +3,7 @@ State =
   # Contador para generar un ID único
   newIdCounter: 0
 
-# Funciones de autocompletado
-window.AutoComplete = 
-  observeAll: -> 
-    $('input.autocomplete_field:not([data-observed])').each -> 
-      input = $(this)
-      input.autocomplete
-        source: (request, response) -> 
-          parameters = jQuery.parseJSON(input.data('params')) || {}
-          parameters['q'] = request.term
-          jQuery.ajax
-            url: input.data('autocompleteUrl')
-            dataType: 'json'
-            data: parameters
-            success: (data) -> 
-              response jQuery.map data, (item) -> 
-                content = $('<div>')
-                content.append($('<span class="label">').text(item.label))
-                if item.informal 
-                  content.append($('<span class="informal">').text(item.informal))
-                label: content.html(), value: item.label, item: item
-               
-        type: 'get'
-        select: (event, ui) -> 
-          selected = ui.item         
-          input.val(selected.value)
-          input.data('item', selected.item)
-          input.next('input.autocomplete_id').val(selected.item.id)
-          input.trigger('autocomplete:update', input)
-          false
-        
-        open: -> $('.ui-menu').css('width', input.width())
-      
-      input.data('autocomplete')._renderItem = (ul, item) -> 
-        $('<li></li>').data('item.autocomplete', item)
-          .append($( "<a></a>" ).html(item.label)).appendTo( ul )
-      
-    .data('observed', true)
-  
+ 
 # Búsqueda de cuestiones
 $ -> 
   $("#questions_search input").keyup -> 
@@ -160,4 +123,4 @@ $('a.open_dialog').live 'click', (event) ->
 $('a.search').live 'click', (event) -> 
   $('#search_form').fadeIn(300)
   false
-  AutoComplete.observeAll()
+  

@@ -1,4 +1,4 @@
-class Question < ActiveRecord::Base
+class Question < ApplicationModel
   DIMENSIONS = 1..9
     
   # Alias de atributos
@@ -59,6 +59,13 @@ class Question < ActiveRecord::Base
   end
 end
 
-
-
+  def self.full_text(query_terms)
+    options = text_query(query_terms, 'code','question')
+    conditions = [options[:query]]
+    parameters = options[:parameters]
+    
+    where(
+      conditions.map { |c| "(#{c})" }.join(' OR '), parameters
+    ).order(options[:order])
+  end
 end
