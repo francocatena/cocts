@@ -133,23 +133,12 @@ class ProjectsController < ApplicationController
 
   # POST /projects/auto_complete_for_question
   def autocomplete_for_question
-    tokens = params[:q][0..100].split(/[\s,]/).uniq
-    tokens.reject! {|t| t.blank?}
-    conditions = []
-    parameters = {}
-    tokens.each_with_index do |t, i|
-      conditions << [
-        "LOWER(#{Question.table_name}.code) LIKE :question_data_#{i}",
-        "LOWER(#{Question.table_name}.question) LIKE :question_data_#{i}"
-      ].join(' OR ')
-    
-      parameters[:"question_data_#{i}"] = "%#{t.downcase}%"
-    end
-
-    @questions = Question.where(
-      [conditions.map {|c| "(#{c})"}.join(' AND '), parameters]
-    ).order("#{Question.table_name}.code ASC").limit(10)
-    
+    query = params[:q].sanitized_for_text_query
+    @query_terms = query.split(/\s+/).reject(&:blank?)
+    @questions = Question.scoped
+    @questions = @questions.full_text(@query_terms) unless @query_terms.empty?
+    @questions = @questions.limit(10)
+        
     respond_to do |format|
       format.json { render :json => @questions }
     end
