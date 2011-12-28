@@ -31,6 +31,9 @@ class ProjectInstanceTest < ActiveSupport::TestCase
         :teacher_level => 'primary',
         :profession_certification => ['social', 'science'],
         :profession_ocuppation => ['engineering', 'mix'],
+        :educational_center_name => 'UNCuyo',
+        :educational_center_city => 'Mza',
+        :study_subjects_different => 2,
         :country => 'Brasil',
         :question_instances => [question_instances(:one)],
         :project => projects(:manual)

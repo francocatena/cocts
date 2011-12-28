@@ -18,6 +18,10 @@ one:
   teacher_level: 'primary'
   profession_certification: ['social']
   profession_ocuppation: ['engineering', 'mix']
+  study_subjects_different: 4
+  study_subjects: 2
+  educational_center_name: 'UTN'
+  educational_center_city: 'Mendoza'
   country: 'Argentina'
 
 two:
