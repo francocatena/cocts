@@ -22,7 +22,7 @@ class SubtopicsControllerTest < ActionController::TestCase
       [:post, :create],
       [:put, :update, id_param],
       [:delete, :destroy, id_param],
-      [:get, :auto_complete_for_teaching_unit]
+      [:get, :autocomplete_for_teaching_unit]
     ]
 
     private_actions.each do |action|
@@ -115,9 +115,9 @@ class SubtopicsControllerTest < ActionController::TestCase
     assert_redirected_to subtopics_path
   end
   
-  test 'auto complete for teaching_unit' do
+  test 'autocomplete for teaching_unit' do
     perform_auth
-    get :auto_complete_for_teaching_unit, { :q => 'UD II', :format => :json }
+    get :autocomplete_for_teaching_unit, { :q => 'UD II', :format => :json }
     assert_response :success
     
     teaching_units = ActiveSupport::JSON.decode(@response.body)
@@ -125,7 +125,7 @@ class SubtopicsControllerTest < ActionController::TestCase
     assert_equal 1, teaching_units.size
     assert teaching_units.all? { |q| ("#{q['label']}").match /UD I/i }
 
-    get :auto_complete_for_teaching_unit, { :q => 'ud', :format => :json }
+    get :autocomplete_for_teaching_unit, { :q => 'ud', :format => :json }
     assert_response :success
     
     teaching_units = ActiveSupport::JSON.decode(@response.body)
@@ -133,7 +133,7 @@ class SubtopicsControllerTest < ActionController::TestCase
     assert_equal 2, teaching_units.size
     assert questions.all? { |q| ("#{q['label']}").match /ud/i }
 
-    get :auto_complete_for_teaching_unit, { :q => 'xyz', :format => :json }
+    get :autocomplete_for_teaching_unit, { :q => 'xyz', :format => :json }
     assert_response :success
     
     teaching_units = ActiveSupport::JSON.decode(@response.body)
