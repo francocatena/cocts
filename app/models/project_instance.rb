@@ -264,21 +264,21 @@ class ProjectInstance < ApplicationModel
     pdf.text "#{question} #{self.age}"
   end
   
-  def add_educational_center_name_form(pdf)
+  def add_educational_center_name(pdf)
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :educational_center_name])
     
     pdf.text "#{question} ______________"
   end
   
-  def add_educational_center_city_form(pdf)
+  def add_educational_center_city(pdf)
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :educational_center_city])
     
     pdf.text "#{question} ______________"
   end
-  
-  def add_study_subjects_different_form(pdf)
+      
+  def add_study_subjects_different(pdf)
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :study_subjects_different])
     
