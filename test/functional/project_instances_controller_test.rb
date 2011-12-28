@@ -80,6 +80,9 @@ class ProjectInstancesControllerTest < ActionController::TestCase
           :profession_certification => ['social'],
           :profession_ocuppation => ['engineering', 'mix'],
           :country => 'Argentina', 
+          :educational_center_name => 'UNCuyo',
+          :educational_center_city => 'Mza',
+          :study_subjects_different => 2,
           :question_instance_ids => [question_instances(:one).id],
           :project_id => projects(:manual).id
         }
