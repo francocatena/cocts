@@ -50,7 +50,6 @@ class ProjectsControllerTest < ActionController::TestCase
     get :show, :id => @project.to_param
     assert_response :success
     assert_not_nil assigns(:project)
-    assert_select '#error_body', false
     assert_template 'projects/show'
   end
 
@@ -155,9 +154,9 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'auto complete for question' do
+  test 'autocomplete for question' do
     perform_auth
-    get :auto_complete_for_question, { :q => '10111', :format => :json }
+    get :autocomplete_for_question, { :q => '10111', :format => :json }
     assert_response :success
     
     questions = ActiveSupport::JSON.decode(@response.body)
@@ -165,7 +164,7 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_equal 1, questions.size
     assert questions.all? { |q| ("#{q['label']} #{q['informal']}").match /10111/i }
 
-    get :auto_complete_for_question, { :q => 'ciencia', :format => :json }
+    get :autocomplete_for_question, { :q => 'ciencia', :format => :json }
     assert_response :success
     
     questions = ActiveSupport::JSON.decode(@response.body)
@@ -173,7 +172,7 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_equal 2, questions.size
     assert questions.all? { |q| ("#{q['label']} #{q['informal']}").match /ciencia/i }
 
-    get :auto_complete_for_question, { :q => 'xyz', :format => :json }
+    get :autocomplete_for_question, { :q => 'xyz', :format => :json }
     assert_response :success
     
     questions = ActiveSupport::JSON.decode(@response.body)
