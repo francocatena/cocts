@@ -21,9 +21,8 @@ class TopicsControllerTest < ActionController::TestCase
       [:get, :edit, id_param],
       [:post, :create],
       [:put, :update, id_param],
-      [:delete, :destroy, id_param],
-      [:get, :auto_complete_for_subtopic]
-    ]
+      [:delete, :destroy, id_param]
+  ]
 
     private_actions.each do |action|
       send *action
@@ -114,31 +113,5 @@ class TopicsControllerTest < ActionController::TestCase
 
     assert_redirected_to topics_path
   end
-  
-  test 'auto complete for subtopic' do
-    perform_auth
-    get :auto_complete_for_subtopic, { :q => 'sub', :format => :json }
-    assert_response :success
-    
-    subtopics = ActiveSupport::JSON.decode(@response.body)
-    
-    assert_equal 2, subtopics.size
-    assert subtopics.all? { |q| ("#{q['label']}").match /sub/i }
-
-    get :auto_complete_for_subtopic, { :q => 'subtopic', :format => :json }
-    assert_response :success
-    
-    subtopics = ActiveSupport::JSON.decode(@response.body)
-    
-    assert_equal 2, subtopics.size
-    assert questions.all? { |q| ("#{q['label']}").match /sub/i }
-
-    get :auto_complete_for_subtopic, { :q => 'xyz', :format => :json }
-    assert_response :success
-    
-    subtopics = ActiveSupport::JSON.decode(@response.body)
-    
-    assert subtopics.empty?
-  end
-  
+     
 end
