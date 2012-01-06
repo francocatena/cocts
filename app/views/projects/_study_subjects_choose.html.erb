@@ -6,11 +6,11 @@
   <% STUDY_SUBJECTS_CHOOSE.each_with_index do |study, i| %>
     <% study_id = :"#{study}_study_subjects_choose" %>
     <li>
+      <%= radio_button_tag :study_subjects_choose, study, false, :id => study_id %>
       <label for="<%= study_id %>">
         <%= t(study, :scope => i18n_scope) %>
         <span class="subscript"><%= i + 1 %></span>
       </label>
-      <%= radio_button_tag :study_subjects_choose, study, false, :id => study_id %>
     </li>
   <% end %>
 </ul>
