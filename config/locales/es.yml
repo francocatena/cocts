@@ -495,6 +495,22 @@
       degree_school:
         option: 'Nivel escolar en el que estudia'
         question: '¿Qué nivel escolar estudia actualmente?'
+        options:
+          first_year: '1 (edad aprox. 6)'
+          second_year: '2 (edad aprox. 7)'
+          third_year: '3 (edad aprox. 8)'
+          fourth_year: '4 (edad aprox. 9)'
+          fifth_year: '5 (edad aprox. 10)'
+          sixth_year: '6 (edad aprox. 11)'
+          seventh_year: '7 (edad aprox. 12)'
+          eighth_year: '8 (edad aprox. 13)'
+          ninth_year: '9 (edad aprox. 14)'
+          tenth_year: '10(edad aprox. 15)'
+          eleventh_year: '11 (edad aprox. 16)'
+          twelfth_year: '12 (edad aprox. 17)'
+          thirteenth_year: '13 (edad aprox. 18)'
+          fourteenth_year: '14 (edad aprox. 19)'
+          fifteenth_year: '15 (edad aprox. 20)'
       degree_university: 
         options:
           first_year: 'Primero'

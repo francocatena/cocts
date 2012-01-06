@@ -33,6 +33,24 @@ DEGREES = [
   :baccalaureate,
   :other
 ]
+# Grado en la escuela
+DEGREES_SCHOOL = [
+  :first_year,
+  :second_year,
+  :third_year,
+  :fourth_year,
+  :fifth_year,
+  :sixth_year,
+  :seventh_year,
+  :eighth_year,
+  :ninth_year,
+  :tenth_year,
+  :eleventh_year,
+  :twelfth_year,
+  :thirteenth_year,
+  :fourteenth_year,
+  :fifteenth_year  
+]
 # Grado en la univesidad
 DEGREES_UNIVERSITY = [
   :first_year,

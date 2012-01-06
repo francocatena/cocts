@@ -1,12 +1,14 @@
+<% i18n_scope = [:projects, :sociodemographic_forms, :degree_school, :options] %>
 <strong>
-  <%= t(:question, :scope => [:projects, :sociodemographic_forms, :degree_school]) %>
+  <%= t(:'projects.sociodemographic_forms.degree_school.question') %>
 </strong>
 <ul class="horizontal_list">
-  <% (1..15).each do |i| %>
+  <% DEGREES_SCHOOL.each_with_index do |degree, i| %>
     <% degree_school_id = i %>
     <li>
       <label for="<%= degree_school_id %>">
-        <%= i %>
+         <%= t(degree, :scope => i18n_scope) %>
+        <span class="subscript"><%= i + 1 %></span>
         
       </label>
       <%= radio_button_tag :degree_shool, i, false, :id => degree_school_id %>
