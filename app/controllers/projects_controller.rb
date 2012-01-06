@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
   def index
     @title = t :'projects.index_title'
     
-    @projects = Project.order('valid_until DESC').paginate(
+    @projects = Project.order('name').paginate(
       :page => params[:page],
       :per_page => APP_LINES_PER_PAGE
     )
