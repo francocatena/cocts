@@ -21,7 +21,7 @@ COUNTRIES = [
   :spain,
   :mexico,
   :portugal,
-  :uruguay,
+  :panama,
   :other
 ]
 # Titulación o grado académico más alto

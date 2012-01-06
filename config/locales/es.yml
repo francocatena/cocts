@@ -438,6 +438,7 @@
           mexico: 'México'
           portugal: 'Portugal'
           uruguay: 'Uruguay'
+          panama: 'Panamá'
           other: 'Otro'
       degree:
         options:
