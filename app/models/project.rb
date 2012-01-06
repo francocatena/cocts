@@ -28,8 +28,6 @@ class Project < ApplicationModel
   ]
 
   # Restricciones
-  validates_format_of :identifier, :with => /\A[A-Za-z][A-Za-z0-9\-]*\z/,
-    :allow_nil => true, :allow_blank => true
   validates :name, :identifier, :description, :valid_until, :presence => true
   validates_uniqueness_of :identifier, :allow_nil => true, :allow_blank => true
   validates_numericality_of :year, :only_integer => true, :allow_nil => true,
