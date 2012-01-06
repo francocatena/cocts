@@ -513,12 +513,12 @@
           fifteenth_year: '15 (edad aprox. 20)'
       degree_university: 
         options:
-          first_year: 'Primero'
-          second_year: 'Segundo'
-          third_year: 'Tercero'
-          fourth_year: 'Cuarto'
-          fifth_year: 'Quinto'
-          sixth_year: 'Sexto'
+          first_year: 'Primero (edad aprox. 18)'
+          second_year: 'Segundo (edad aprox. 19)'
+          third_year: 'Tercero (edad aprox. 20)'
+          fourth_year: 'Cuarto (edad aprox. 21)'
+          fifth_year: 'Quinto (edad aprox. 22)'
+          sixth_year: 'Sexto (edad aprox. 23)'
           graduate: 'Post-grado'
           master: 'Máster'
           other: 'Otro'
