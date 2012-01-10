@@ -6,12 +6,10 @@
   <% DEGREES_SCHOOL.each_with_index do |degree, i| %>
     <% degree_school_id = i %>
     <li>
+      <%= radio_button_tag :degree_shool, i, false, :id => degree_school_id %>
       <label for="<%= degree_school_id %>">
          <%= t(degree, :scope => i18n_scope) %>
-        
-        
       </label>
-      <%= radio_button_tag :degree_shool, i, false, :id => degree_school_id %>
     </li>
   <% end %>
 </ul>
