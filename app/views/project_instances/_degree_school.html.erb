@@ -5,9 +5,7 @@
   <% (1..15).each do |i| %>
     <% degree_school_id = i %>
     <li>
-      <label for="<%= degree_school_id %>">
-        <%= i %>
-      </label>
+      <label for="<%= degree_school_id %>"></label>
       <%= radio_button_tag 'project_instance[degree_school]', i, 
           @project_instance.degree_school.eql?("#{i}"), :id => degree_school_id %>
     </li>
