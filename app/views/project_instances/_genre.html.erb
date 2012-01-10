@@ -6,12 +6,11 @@
   <% GENRES.each_with_index do |genre, i| %>
     <% genre_id = :"#{genre}_genre" %>
     <li>
-      <label for="<%= genre_id %>">
-        <%= t(genre, :scope => i18n_scope) %>
-        <span class="subscript"><%= i + 1 %></span>
-      </label>
       <%= radio_button_tag 'project_instance[genre]', genre, 
         @project_instance.genre.eql?("#{genre}"), :id => genre_id %>
+      <label for="<%= genre_id %>">
+        <%= t(genre, :scope => i18n_scope) %>
+      </label>
     </li>
   <% end %>
 </ul>

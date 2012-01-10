@@ -6,13 +6,12 @@
   <% STUDENT_STATUSES.each_with_index do |student_status, i| %>
     <% student_status_id = :"#{student_status}_student_status" %>
     <li>
-      <label for="<%= student_status_id %>">
-        <%= t(student_status, :scope => i18n_scope) %>
-        <span class="subscript"><%= i + 1 %></span>
-      </label>
       <%= radio_button_tag 'project_instance[student_status]', student_status, 
         @project_instance.student_status.eql?("#{student_status}"),
         :id => student_status_id %>
+      <label for="<%= student_status_id %>">
+        <%= t(student_status, :scope => i18n_scope) %>
+      </label>
     </li>
   <% end %>
 </ul>
