@@ -30,9 +30,9 @@ class ProjectInstance < ApplicationModel
   ]
   
   # Restricciones
-  validates :email, :age, :degree, :genre, :student_status, :teacher_status,
-    :educational_center_city, :educational_center_name, :study_subjects_different,
-    :presence => true, :length => { :maximum => 255 }
+  validates :email, :age, :student_status, :degree_school, :study_subjects, :study_subjects_choose, 
+    :country, :genre, :educational_center_city, :educational_center_name, 
+    :study_subjects_different, :presence => true, :length => { :maximum => 255 }
   validates_numericality_of :age, :only_integer => true, :allow_nil => true,
     :allow_blank => true
   validates_uniqueness_of :email, :scope => :project_id, :allow_nil => true, :allow_blank => true
@@ -264,34 +264,28 @@ class ProjectInstance < ApplicationModel
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :educational_center_name])
     
-    pdf.text "#{question} ______________"
+    pdf.text "#{question} #{self.educational_center_name}"
   end
   
   def add_educational_center_city(pdf)
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :educational_center_city])
     
-    pdf.text "#{question} ______________"
+    pdf.text "#{question} #{self.educational_center_city}"
   end
       
   def add_study_subjects_different(pdf)
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :study_subjects_different])
     
-    pdf.text "#{question} ______________"
+    pdf.text "#{question} #{self.study_subjects_different}"
   end
   
   def add_degree_school(pdf)
-    degrees = []
-    #i18n_scope = [:projects, :sociodemographic_forms, :degree_school, :options]
-    question = I18n.t(:question,
+   question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :degree_school])
-
-    (1..15).each do |degree|
-      degrees << "#{degree} [__]"
-    end
-
-    pdf.text "#{question} #{degrees.join('  ')}"
+   
+    pdf.text "#{question} #{self.degree_school}"
   end
   
   def add_degree_university(pdf)
@@ -315,20 +309,14 @@ class ProjectInstance < ApplicationModel
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :study_subjects])
     
-    pdf.text "#{question} ______________"
+    pdf.text "#{question} #{self.study_subjects}"
   end
   
   def add_study_subjects_choose(pdf)
-    study_subjects = []
-    i18n_scope = [:projects, :sociodemographic_forms, :study_subjects_choose, :options]
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :study_subjects_choose])
 
-    STUDY_SUBJECTS_CHOOSE.each_with_index do |study, i|
-      study_subjects << "#{I18n.t(study, :scope => i18n_scope)} #{i+1} [__]"
-    end
-
-    pdf.text "#{question} #{study_subjects.join('  ')}"
+    pdf.text "#{question} #{self.study_subjects_choose}"
   end
 
   def add_country(pdf)

@@ -6,8 +6,8 @@
   <% DEGREES_SCHOOL.each_with_index do |degree, i| %>
     <% degree_school_id = i %>
     <li>
-      <%= radio_button_tag 'project_instance[degree_school]', i, 
-          @project_instance.degree_school.eql?("#{i}"), :id => degree_school_id %>
+      <%= radio_button_tag 'project_instance[degree_school]', degree, 
+          @project_instance.degree_school.eql?("#{degree}"), :id => degree_school_id %>
       <label for="<%= degree_school_id %>">
          <%= t(degree, :scope => i18n_scope) %>
       </label>

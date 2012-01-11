@@ -96,40 +96,54 @@
       :scope => i18n_scope) %>
   </h2>
 
+  <% unless @project_instance.country.blank?  %>
   <p>
     <b><%= t:'projects.sociodemographic_forms.country.option' %>:</b>
     <%= @project_instance.country %>
   </p>
+  <% end %>
   
+  <% unless @project_instance.age.blank? %>
   <p>
     <b><%= t:'projects.sociodemographic_forms.age.option' %>:</b>
     <%= @project_instance.age %>
   </p>
+  <% end %>
   
+  <% unless @project_instance.genre.blank?  %>
   <p>
     <b><%= t:'projects.sociodemographic_forms.genre.option' %>:</b>
     <%= t:"projects.questionnaire.genre.options.#{@project_instance.genre}" %>
   </p>
+  <% end %>
   
+  <% unless @project_instance.student_status.blank?  %>
   <p>
     <b><%= t:'projects.sociodemographic_forms.student.option' %>:</b>
     <%= t:"projects.questionnaire.student.options.#{@project_instance.student_status}" %>
   </p>
+  <% end %>
   
+  <% unless @project_instance.teacher_status.blank?  %>
   <p>
     <b><%= t:'projects.sociodemographic_forms.teacher.option' %>:</b>
     <%= t:"projects.questionnaire.teacher.options.#{@project_instance.teacher_status}" %>
   </p>
+  <% end %>
+  
   <% if @project_instance.teacher_status.present? && @project_instance.teacher_status!="not_a_teacher" %>
   <p>
     <b><%= t:'projects.sociodemographic_forms.teacher_level.option' %>:</b>
     <%= t:"projects.questionnaire.teacher_level.options.#{@project_instance.teacher_level}" %>
   </p>
   <% end %>
+  
+  <% unless @project_instance.degree.blank?  %>
   <p>
     <b><%= t:'projects.sociodemographic_forms.degree.option' %>:</b>
     <%= t:"projects.questionnaire.degree.options.#{@project_instance.degree}" %>
   </p>
+  <% end %>
   
   <% if @project_instance.degree_school.present? %>
   <p>
@@ -197,8 +211,7 @@
        <% end %>
       </ul>
   </div>   
-    
-
+  
   <%= link_to t(:'labels.edit'), edit_project_instance_path(@project_instance), :class => :real%> |
   <%= link_to t(:'labels.download'), project_instance_path(@project_instance, :format => :pdf),
     :class => :real %> |
