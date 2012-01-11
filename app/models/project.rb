@@ -294,7 +294,7 @@ class Project < ApplicationModel
       :scope => [:projects, :sociodemographic_forms, :country])
 
     COUNTRIES.each_with_index do |country, i|
-      countries << "#{I18n.t(country, :scope => i18n_scope)} #{i+1} [__]"
+      countries << "[__] #{I18n.t(country, :scope => i18n_scope)} "
     end
 
     pdf.text "#{question} #{countries.join('  ')}"
@@ -305,9 +305,10 @@ class Project < ApplicationModel
     #i18n_scope = [:projects, :sociodemographic_forms, :degree_school, :options]
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :degree_school])
+    i18n_scope = [:projects, :sociodemographic_forms, :degree_school, :options]
 
-    (1..15).each do |degree|
-      degrees << "#{degree} [__]"
+    DEGREES_SCHOOL.each do |degree|
+      degrees << "[__] #{I18n.t(degree, :scope => i18n_scope)} "
     end
 
     pdf.text "#{question} #{degrees.join('  ')}"
@@ -321,9 +322,9 @@ class Project < ApplicationModel
 
     DEGREES_UNIVERSITY.each_with_index do |degree, i|
       unless degree == DEGREES.last
-        degrees << "#{I18n.t(degree, :scope => i18n_scope)} #{i+1} [__]"
+        degrees << "#{I18n.t(degree, :scope => i18n_scope)} # [__]"
       else
-        degrees << "#{I18n.t(degree, :scope => i18n_scope)} #{i+1} ______________"
+        degrees << "#{I18n.t(degree, :scope => i18n_scope)} # ______________"
       end
     end
 
@@ -365,7 +366,7 @@ class Project < ApplicationModel
       :scope => [:projects, :sociodemographic_forms, :study_subjects_choose])
 
     STUDY_SUBJECTS_CHOOSE.each_with_index do |study, i|
-      study_subjects << "#{I18n.t(study, :scope => i18n_scope)} #{i+1} [__]"
+      study_subjects << "[__] #{I18n.t(study, :scope => i18n_scope)} "
     end
 
     pdf.text "#{question} #{study_subjects.join('  ')}"
@@ -379,9 +380,9 @@ class Project < ApplicationModel
 
     DEGREES.each_with_index do |degree, i|
       unless degree == DEGREES.last
-        degrees << "#{I18n.t(degree, :scope => i18n_scope)} #{i+1} [__]"
+        degrees << "#{I18n.t(degree, :scope => i18n_scope)} [__]"
       else
-        degrees << "#{I18n.t(degree, :scope => i18n_scope)} #{i+1} ______________"
+        degrees << "#{I18n.t(degree, :scope => i18n_scope)} ______________"
       end
     end
 
@@ -395,7 +396,7 @@ class Project < ApplicationModel
       :scope => [:projects, :sociodemographic_forms, :genre])
 
     GENRES.each_with_index do |genre, i|
-      genres << "#{I18n.t(genre, :scope => i18n_scope)} #{i+1} [__]"
+      genres << "[__] #{I18n.t(genre, :scope => i18n_scope)} "
     end
 
     pdf.text "#{question} #{genres.join('  ')}"
@@ -406,7 +407,7 @@ class Project < ApplicationModel
     i18n_scope = [:projects, :questionnaire, :profession, :options]
 
     PROFESSIONS.each_with_index do |profession, i|
-      data << [I18n.t(profession, :scope => i18n_scope), "#{i+1} [__]",
+      data << [I18n.t(profession, :scope => i18n_scope), "[__]",
         "#{i+1} [__]"]
     end
 
@@ -437,7 +438,7 @@ class Project < ApplicationModel
 
     STUDENT_STATUSES.each_with_index do |student_status, i|
       student_statuses <<
-        "#{I18n.t(student_status, :scope => i18n_scope)} #{i+1} [__]"
+        "[__] #{I18n.t(student_status, :scope => i18n_scope)} "
     end
 
     pdf.text "#{question} #{student_statuses.join('  ')}"
@@ -451,7 +452,7 @@ class Project < ApplicationModel
 
     TEACHER_STATUSES.each_with_index do |teacher_status, i|
       teacher_statuses <<
-        "#{I18n.t(teacher_status, :scope => i18n_scope)} #{i+1} [__]"
+        "[__] #{I18n.t(teacher_status, :scope => i18n_scope)} "
     end
 
     pdf.text "#{question} #{teacher_statuses.join('  ')}"
@@ -465,7 +466,7 @@ class Project < ApplicationModel
 
     TEACHER_LEVELS.each_with_index do |teacher_level, i|
       teacher_levels <<
-        "#{I18n.t(teacher_level, :scope => i18n_scope)} #{i+1} [__]"
+        "[__] #{I18n.t(teacher_level, :scope => i18n_scope)} "
     end
 
     pdf.text "#{question} #{teacher_levels.join('  ')}"
