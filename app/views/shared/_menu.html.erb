@@ -8,10 +8,10 @@
     :class => "real #{:selected if controller == :projects}" %></li>
   <li><%= link_to t(:'menu.questions'), questions_path,
     :class => "real #{:selected if controller == :questions}" %></li>
-  <li><%= link_to "#{t(:'menu.topics')}/#{t(:'menu.subtopics')}", subtopics_path,
-    :class => "real #{:selected if controller == :subtopics}" %></li>
   <li><%= link_to t(:'menu.teaching_units'), teaching_units_path,
     :class => "real #{:selected if controller == :teaching_units}" %></li>
+  <li><%= link_to "#{t(:'menu.topics')}/#{t(:'menu.subtopics')}", subtopics_path,
+    :class => "real #{:selected if controller == :subtopics}" %></li>
 </ul>
 
 <div id="user_info">
