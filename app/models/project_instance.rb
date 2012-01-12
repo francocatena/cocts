@@ -282,10 +282,10 @@ class ProjectInstance < ApplicationModel
   end
   
   def add_degree_school(pdf)
-   question = I18n.t(:question,
-      :scope => [:projects, :sociodemographic_forms, :degree_school])
-   
-    pdf.text "#{question} #{self.degree_school}"
+   i18n_scope = [:projects, :sociodemographic_forms, :degree_school]
+   question = I18n.t(:question, :scope => i18n_scope)
+   i18n_scope = [:projects, :sociodemographic_forms, :degree_school, :options]
+    pdf.text "#{question} #{I18n.t(self.degree_school, :scope => i18n_scope)}"
   end
   
   def add_degree_university(pdf)
@@ -316,7 +316,8 @@ class ProjectInstance < ApplicationModel
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :study_subjects_choose])
 
-    pdf.text "#{question} #{self.study_subjects_choose}"
+    pdf.text "#{question} #{I18n.t(self.study_subjects_choose, :scope => 
+    [:projects, :sociodemographic_forms, :study_subjects_choose, :options]) }"
   end
 
   def add_country(pdf)
