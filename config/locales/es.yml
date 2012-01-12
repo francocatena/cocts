@@ -130,13 +130,13 @@
       question_instance:
         question_text: 'Cuestión'
       teaching_unit:
-        title: 'Título'
+        title: 'Título de la Unidad Didáctica'
         questions: 'Cuestiones'
       topic:
         title: 'Título'
         code: 'Código'
       subtopic:
-        title: 'Título'
+        title: 'Título del Tema/Subtema'
         code: 'Código'
       user:
         user: 'Usuario'
