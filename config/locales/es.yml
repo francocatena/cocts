@@ -382,7 +382,7 @@
     preview_label: 'Previsualizar'
     close_label: 'Cerrar'
     label_questions: 'Cuestiones (solo si no elige Unidades Didácticas)'
-    add_question: 'Agregar otra cuestión'
+    add_question: 'Agregar cuestión'
     interactive_type: 'Interactivo'
     manual_type: 'Manual'
     sociodemographic_label: 'Datos sociodemográficos a incluir'
@@ -697,7 +697,7 @@
     password_stale_object_error: 'La contraseña no pudo ser actualizada, intente nuevamente.'
     
   subtopics:
-    add_new_teaching_unit: 'Agregar otra unidad didáctica'
+    add_new_teaching_unit: 'Agregar unidad didáctica'
   
   topics:
     add_new_subtopic: 'Agregar otro subtema'
