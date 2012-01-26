@@ -87,24 +87,10 @@
   <h2 style="margin: 1em 0em; font-weight: normal;">
     <%= textilize_without_paragraph t(:personal_data_title, :scope => i18n_scope) %>
   </h2>
-  <div class ="personal_data">      
-   <div class="field">
-      <%= f.label :first_name %><br />
-      <%= f.text_field :first_name, :autofocus => true %>
-    </div>
-    <div class="field">
-      <%= f.label :last_name %><br />
-      <%= f.text_field :last_name %>
-    </div>
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.text_field :email %>
-    </div>  
-  </div>
-      <h2 style="margin: 1em 0em; font-weight: normal;">
+  <h2 style="margin: 1em 0em; font-weight: normal;">
         <%= textilize_without_paragraph t(:sociodemographic_forms_title,
           :scope => i18n_scope) %>
-      </h2>
+  </h2>
 
     <% unless @project_instance.forms.empty? %>
         <% @project_instance.forms.each do |form| %>

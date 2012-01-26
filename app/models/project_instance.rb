@@ -17,10 +17,10 @@ class ProjectInstance < ApplicationModel
   }
   
   SOCIODEMOGRAPHIC_FORMS = [
+    'name',
     'country',
     'age',
     'genre',
-    'student',
     'degree_school',
     'study_subjects_different',
     'study_subjects',
@@ -30,15 +30,11 @@ class ProjectInstance < ApplicationModel
   ]
   
   # Restricciones
-  validates :email, :age, :student_status, :degree_school, :study_subjects, :study_subjects_choose, 
-    :country, :genre, :educational_center_city, :educational_center_name, 
-    :study_subjects_different, :presence => true, :length => { :maximum => 255 }
+  validates :first_name, :presence => true, :length => { :maximum => 255 }
   validates_numericality_of :age, :only_integer => true, :allow_nil => true,
     :allow_blank => true
-  validates_uniqueness_of :email, :scope => :project_id, :allow_nil => true, :allow_blank => true
-  validates :email, :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }, 
-    :allow_blank => true, :allow_nil => true    
-  validates_length_of :first_name, :last_name, :email, :maximum => 255, :allow_nil => true,
+  validates_uniqueness_of :first_name, :allow_nil => true, :allow_blank => true
+  validates_length_of :first_name, :last_name, :maximum => 255, :allow_nil => true,
     :allow_blank => true
   validates_each :forms do |record, attr, value|
     unless (value || []).all? { |value| SOCIODEMOGRAPHIC_FORMS.include?(value) }
@@ -191,9 +187,11 @@ class ProjectInstance < ApplicationModel
       name = I18n.t(:last_name, :scope => [:activerecord, :attributes, :project_instance])
       pdf.text name +": "+ self.last_name
     end
-    email = I18n.t(:email, :scope => [:activerecord, :attributes, :project_instance])
-    pdf.text email +": "+ self.email
-      
+    if self.email.present?
+      email = I18n.t(:email, :scope => [:activerecord, :attributes, :project_instance])
+      pdf.text email +": "+ self.email
+    end
+          
     # Datos sociodemográficos
     unless self.forms.empty?
       i18n_scope.slice!(-2, 2)
@@ -252,6 +250,13 @@ class ProjectInstance < ApplicationModel
 
   def pdf_full_path
     File.join(PUBLIC_PATH, self.pdf_relative_path)
+  end
+  
+  def add_name(pdf)
+    question = I18n.t(:question,
+      :scope => [:projects, :sociodemographic_forms, :name])
+    
+    pdf.text "#{question} #{self.first_name}"
   end
 
   def add_age(pdf)

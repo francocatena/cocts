@@ -11,10 +11,10 @@ class Project < ApplicationModel
   }
 
   SOCIODEMOGRAPHIC_FORMS = [
+    'name',
     'country',
     'age',
     'genre',
-    'student',
     'degree_school',
     'study_subjects_different',
     'study_subjects',
@@ -137,12 +137,12 @@ class Project < ApplicationModel
         },
         {:text => I18n.t(:others_title, :scope => i18n_scope), :colspan => 2}
       ],
-      :position => :center,
       :width => pdf.margin_box.width,
+      :align => :center,
       :vertical_padding => 3,
       :border_style => :grid,
-      :size => (PDF_FONT_SIZE * 0.75).round
-
+      :size => (PDF_FONT_SIZE * 0.75).round      
+    
     i18n_scope.slice!(-1)
 
     pdf.font_size((PDF_FONT_SIZE * 0.75).round) do
@@ -283,6 +283,13 @@ class Project < ApplicationModel
   def add_age_form(pdf)
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :age])
+    
+    pdf.text "#{question} ______________"
+  end
+  
+  def add_name_form(pdf)
+    question = I18n.t(:question,
+      :scope => [:projects, :sociodemographic_forms, :name])
     
     pdf.text "#{question} ______________"
   end

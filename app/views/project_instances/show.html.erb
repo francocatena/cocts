@@ -96,6 +96,11 @@
       :scope => i18n_scope) %>
   </h2>
 
+  <p>
+    <b><%= t:'projects.sociodemographic_forms.name.option' %>:</b>
+    <%= @project_instance.first_name %>
+  </p>
+  
   <% unless @project_instance.country.blank?  %>
   <p>
     <b><%= t:'projects.sociodemographic_forms.country.option' %>:</b>
