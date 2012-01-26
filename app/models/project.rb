@@ -84,7 +84,6 @@ class Project < ApplicationModel
   def to_pdf
     i18n_scope = [:projects, :questionnaire]
     pdf = Prawn::Document.new(PDF_OPTIONS)
-
     pdf.font_size = PDF_FONT_SIZE
 
     # Presentación
@@ -367,16 +366,15 @@ class Project < ApplicationModel
   end
   
   def add_study_subjects_choose_form(pdf)
-    study_subjects = []
     i18n_scope = [:projects, :sociodemographic_forms, :study_subjects_choose, :options]
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :study_subjects_choose])
 
+    pdf.text "#{question}"
+    
     STUDY_SUBJECTS_CHOOSE.each_with_index do |study, i|
-      study_subjects << "[__] #{I18n.t(study, :scope => i18n_scope)} "
+      pdf.text "[__] #{I18n.t(study, :scope => i18n_scope)} ", :indent_paragraphs => 10
     end
-
-    pdf.text "#{question} #{study_subjects.join('  ')}"
   end
   
   def add_degree_form(pdf)
