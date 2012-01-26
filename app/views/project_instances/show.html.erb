@@ -37,10 +37,10 @@
   </p>
   <% end %>
 
-  <% unless @project_instance.last_name.blank?  %>
+  <% unless @project_instance.professor_name.blank?  %>
   <p>
-    <b><%= ProjectInstance.human_attribute_name :last_name %>:</b>
-    <%= @project_instance.last_name %>
+    <b><%= ProjectInstance.human_attribute_name :professor_name %>:</b>
+    <%= @project_instance.professor_name %>
   </p>
   <% end %>
 
@@ -100,6 +100,13 @@
     <b><%= t:'projects.sociodemographic_forms.name.option' %>:</b>
     <%= @project_instance.first_name %>
   </p>
+  
+  <% unless @project_instance.professor_name.blank?  %>
+  <p>
+    <b><%= t:'projects.sociodemographic_forms.professor_name.option' %>:</b>
+    <%= @project_instance.professor_name %>
+  </p>
+  <% end %>
   
   <% unless @project_instance.country.blank?  %>
   <p>

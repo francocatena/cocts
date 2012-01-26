@@ -98,7 +98,7 @@
         educational_center_name: 'Nombre del centro educativo'
         study_subjects_different: 'Asignaturas diferentes que estudia este año'
         first_name: 'Nombre'
-        last_name: 'Apellido'
+        professor_name: 'Nombre del profesor'
         email: 'Email'
         name: 'Nombre'
         identifier: 'Identificador'
@@ -541,6 +541,9 @@
         question: '¿Cómo definiría la especialidad principal de...'
         ocuppation: 'Especialidad principal de su ocupación'
         certification: 'Especialidad principal de su titulación'
+      professor_name:
+        option: 'Nombre del profesor'
+        question: '¿Cuál es el nombre de su profesor?'
       student:
         option: '¿Es estudiante?'
         question: '¿Es estudiante?'

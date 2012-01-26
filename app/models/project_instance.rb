@@ -18,6 +18,7 @@ class ProjectInstance < ApplicationModel
   
   SOCIODEMOGRAPHIC_FORMS = [
     'name',
+    'professor_name',
     'country',
     'age',
     'genre',
@@ -34,7 +35,7 @@ class ProjectInstance < ApplicationModel
   validates_numericality_of :age, :only_integer => true, :allow_nil => true,
     :allow_blank => true
   validates_uniqueness_of :first_name, :allow_nil => true, :allow_blank => true
-  validates_length_of :first_name, :last_name, :maximum => 255, :allow_nil => true,
+  validates_length_of :first_name, :professor_name, :maximum => 255, :allow_nil => true,
     :allow_blank => true
   validates_each :forms do |record, attr, value|
     unless (value || []).all? { |value| SOCIODEMOGRAPHIC_FORMS.include?(value) }
@@ -183,9 +184,9 @@ class ProjectInstance < ApplicationModel
       name = I18n.t(:first_name, :scope => [:activerecord, :attributes, :project_instance])
       pdf.text name+": "+ self.first_name
     end 
-    if self.last_name.present?
-      name = I18n.t(:last_name, :scope => [:activerecord, :attributes, :project_instance])
-      pdf.text name +": "+ self.last_name
+    if self.professor_name.present?
+      name = I18n.t(:professor_name, :scope => [:activerecord, :attributes, :project_instance])
+      pdf.text name +": "+ self.professor_name
     end
     if self.email.present?
       email = I18n.t(:email, :scope => [:activerecord, :attributes, :project_instance])
@@ -257,6 +258,13 @@ class ProjectInstance < ApplicationModel
       :scope => [:projects, :sociodemographic_forms, :name])
     
     pdf.text "#{question} #{self.first_name}"
+  end
+  
+  def add_professor_name(pdf)
+    question = I18n.t(:question,
+      :scope => [:projects, :sociodemographic_forms, :professor_name])
+    
+    pdf.text "#{question} #{self.professor_name}"
   end
 
   def add_age(pdf)

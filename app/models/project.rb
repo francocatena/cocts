@@ -12,6 +12,7 @@ class Project < ApplicationModel
 
   SOCIODEMOGRAPHIC_FORMS = [
     'name',
+    'professor_name',
     'country',
     'age',
     'genre',
@@ -289,6 +290,13 @@ class Project < ApplicationModel
   def add_name_form(pdf)
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :name])
+    
+    pdf.text "#{question} ______________"
+  end
+  
+  def add_professor_name_form(pdf)
+    question = I18n.t(:question,
+      :scope => [:projects, :sociodemographic_forms, :professor_name])
     
     pdf.text "#{question} ______________"
   end

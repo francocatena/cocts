@@ -4,8 +4,7 @@
 <table>
   <tr>
     <th><%= ProjectInstance.human_attribute_name :first_name %></th>
-    <th><%= ProjectInstance.human_attribute_name :last_name %></th>
-    <th><%= ProjectInstance.human_attribute_name :email %></th>
+    <th><%= ProjectInstance.human_attribute_name :professor_name %></th>
     <th></th>
     <th class="center"><%= t:'projects.config' %></th>
     <th></th>
@@ -18,13 +17,12 @@
         <%= project_instance.first_name %>
         <% end %>
     </td>
-    <td><% if project_instance.last_name.blank? %>
+    <td><% if project_instance.professor_name.blank? %>
         ----
         <% else %>
-        <%= project_instance.last_name %>
+        <%= project_instance.professor_name %>
         <% end %>
     </td>
-    <td><%= project_instance.email %></td>
     <td><%= link_to t(:'labels.show'), project_instance, :class => :real %></td>
     <td class="center"><%= link_to t(:'labels.edit'), edit_project_instance_path(project_instance),
           :class => :real %></td>
