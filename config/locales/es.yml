@@ -492,9 +492,13 @@
       degree:
         option: 'Titulación de grado'
         question: '¿Cuál es su titulación o grado académico más alto?'
+      degrees:
+        option: 'Nivel escolar (grado o curso) de sus estudios actuales'
+        question: '¿Cuál es el nivel escolar (grado o curso) de sus estudios 
+        actuales?'
       degree_school:
-        option: 'Nivel escolar en el que estudia'
-        question: '¿Qué nivel escolar estudia actualmente?'
+        option: 'ESTUDIOS ANTERIORES A LA UNIVERSIDAD'
+        question: 'ESTUDIOS ANTERIORES A LA UNIVERSIDAD'
         options:
           first_year: '1 (edad aprox. 6)'
           second_year: '2 (edad aprox. 7)'
@@ -522,8 +526,8 @@
           graduate: 'Post-grado'
           master: 'Máster'
           other: 'Otro'
-        option: 'Grado universitario en el que estudia'
-        question: '¿Qué grado universitario estudia actualmente?'
+        option: 'ESTUDIOS EN LA UNIVERSIDAD'
+        question: 'ESTUDIOS EN LA UNIVERSIDAD'
       educational_center_city:
         option: 'Ciudad donde se encuentra su centro educativo'
         question: '¿En qué ciudad se encuentra su centro educativo?'

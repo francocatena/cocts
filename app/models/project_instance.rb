@@ -23,6 +23,7 @@ class ProjectInstance < ApplicationModel
     'age',
     'genre',
     'degree_school',
+    'degree_university',
     'study_subjects_different',
     'study_subjects',
     'study_subjects_choose',
@@ -175,23 +176,6 @@ class ProjectInstance < ApplicationModel
     end
     pdf.text valid_until +": "+ self.valid_until.to_formatted_s(:db)
         
-    # Datos personales
-    pdf.move_down(pdf.font_size)
-    pdf.text I18n.t(:'projects.questionnaire.personal_data_title').gsub(/\*/, ''),
-        :style => :bold
-    pdf.move_down(pdf.font_size)
-    if self.first_name.present?
-      name = I18n.t(:first_name, :scope => [:activerecord, :attributes, :project_instance])
-      pdf.text name+": "+ self.first_name
-    end 
-    if self.professor_name.present?
-      name = I18n.t(:professor_name, :scope => [:activerecord, :attributes, :project_instance])
-      pdf.text name +": "+ self.professor_name
-    end
-    if self.email.present?
-      email = I18n.t(:email, :scope => [:activerecord, :attributes, :project_instance])
-      pdf.text email +": "+ self.email
-    end
           
     # Datos sociodemográficos
     unless self.forms.empty?
@@ -298,24 +282,18 @@ class ProjectInstance < ApplicationModel
    i18n_scope = [:projects, :sociodemographic_forms, :degree_school]
    question = I18n.t(:question, :scope => i18n_scope)
    i18n_scope = [:projects, :sociodemographic_forms, :degree_school, :options]
-    pdf.text "#{question} #{I18n.t(self.degree_school, :scope => i18n_scope)}"
+   pdf.text I18n.t(:'projects.sociodemographic_forms.degrees.question')
+   pdf.move_down(pdf.font_size)
+   pdf.text "#{question}: #{I18n.t(self.degree_school, :scope => i18n_scope)}",
+     :indent_paragraphs => 10
   end
   
   def add_degree_university(pdf)
-    degrees = []
     i18n_scope = [:projects, :sociodemographic_forms, :degree_university, :options]
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :degree_university])
-
-    DEGREES_UNIVERSITY.each_with_index do |degree, i|
-      unless degree == DEGREES.last
-        degrees << "#{I18n.t(degree, :scope => i18n_scope)} #{i+1} [__]"
-      else
-        degrees << "#{I18n.t(degree, :scope => i18n_scope)} #{i+1} ______________"
-      end
-    end
-
-    pdf.text "#{question} #{degrees.join('  ')}"
+    pdf.text "#{question}: #{I18n.t(self.degree_university, :scope => i18n_scope)}",
+     :indent_paragraphs => 10
   end
   
   def add_study_subjects(pdf)

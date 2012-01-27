@@ -17,6 +17,7 @@ class Project < ApplicationModel
     'age',
     'genre',
     'degree_school',
+    'degree_university',
     'study_subjects_different',
     'study_subjects',
     'study_subjects_choose',
@@ -316,7 +317,6 @@ class Project < ApplicationModel
   
   def add_degree_school_form(pdf)
     degrees = []
-    #i18n_scope = [:projects, :sociodemographic_forms, :degree_school, :options]
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :degree_school])
     i18n_scope = [:projects, :sociodemographic_forms, :degree_school, :options]
@@ -325,7 +325,9 @@ class Project < ApplicationModel
       degrees << "[__] #{I18n.t(degree, :scope => i18n_scope)} "
     end
 
-    pdf.text "#{question} #{degrees.join('  ')}"
+    pdf.text I18n.t(:'projects.sociodemographic_forms.degrees.question')
+    pdf.move_down(pdf.font_size)
+    pdf.text "#{question}:  #{degrees.join('  ')}", :indent_paragraphs => 10
   end
   
   def add_degree_university_form(pdf)
@@ -336,13 +338,13 @@ class Project < ApplicationModel
 
     DEGREES_UNIVERSITY.each_with_index do |degree, i|
       unless degree == DEGREES.last
-        degrees << "#{I18n.t(degree, :scope => i18n_scope)} # [__]"
+        degrees << "[__] #{I18n.t(degree, :scope => i18n_scope)}"
       else
-        degrees << "#{I18n.t(degree, :scope => i18n_scope)} # ______________"
+        degrees << "#{I18n.t(degree, :scope => i18n_scope)} ______________"
       end
     end
 
-    pdf.text "#{question} #{degrees.join('  ')}"
+    pdf.text "#{question}:  #{degrees.join('  ')}", :indent_paragraphs => 10
   end
   
   def add_study_subjects_form(pdf)
