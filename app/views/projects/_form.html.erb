@@ -79,8 +79,20 @@
     <div style="margin: 1em 0em;">
       <% Project::SOCIODEMOGRAPHIC_FORMS.each do |sociodemographic_form| %>
         <% i18n_scope = [:projects, :sociodemographic_forms, sociodemographic_form] %>
+      
+      <% if sociodemographic_form.eql? 'degree_school' %>
+        <div class="field">   
+          <strong><%= t(:'projects.sociodemographic_forms.degrees.question') %></strong>
+        </div>
+      <% end %>
+            
+      <% if sociodemographic_form.eql?('degree_school') || 
+          sociodemographic_form.eql?('degree_university') %>
+        <div class="field_degree">
+      <% else %>
         <div class="field">
-          <%= check_box_tag "project[forms][]", sociodemographic_form,
+      <% end %>
+      <%= check_box_tag "project[forms][]", sociodemographic_form,
             @project.forms.include?(sociodemographic_form),
             :id => "project_form_#{sociodemographic_form}" %>
           <%= label_tag "project_form_#{sociodemographic_form}_label",

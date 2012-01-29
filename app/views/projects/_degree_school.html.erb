@@ -5,6 +5,9 @@
 <ul class="horizontal_list">
   <% DEGREES_SCHOOL.each_with_index do |degree, i| %>
     <% degree_school_id = i %>
+    <% if i == 0 %>
+      <strong><%= t(:'projects.sociodemographic_forms.degree_school.courses') %>: </strong>
+    <% end %>
     <li>
       <%= radio_button_tag :degree_shool, i, false, :id => degree_school_id %>
       <label for="<%= degree_school_id %>">
@@ -12,4 +15,6 @@
       </label>
     </li>
   <% end %>
+    
 </ul>
+

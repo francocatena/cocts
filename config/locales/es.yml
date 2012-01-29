@@ -499,6 +499,7 @@
       degree_school:
         option: 'ESTUDIOS ANTERIORES A LA UNIVERSIDAD'
         question: 'ESTUDIOS ANTERIORES A LA UNIVERSIDAD'
+        courses: 'Cursos'
         options:
           first_year: '1 (edad aprox. 6)'
           second_year: '2 (edad aprox. 7)'
@@ -528,6 +529,7 @@
           other: 'Otro'
         option: 'ESTUDIOS EN LA UNIVERSIDAD'
         question: 'ESTUDIOS EN LA UNIVERSIDAD'
+        degrees: 'Grados'
       educational_center_city:
         option: 'Ciudad donde se encuentra su centro educativo'
         question: '¿En qué ciudad se encuentra su centro educativo?'

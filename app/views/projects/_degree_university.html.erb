@@ -5,6 +5,9 @@
 <ul class="horizontal_list">
   <% DEGREES_UNIVERSITY.each_with_index do |degree, i| %>
     <% degree_id = :"#{degree}_degree_university" %>
+    <% if i == 0 %>
+      <strong><%= t(:'projects.sociodemographic_forms.degree_university.degrees') %>: </strong>
+    <% end %>
     <li>
       <label for="<%= degree_id %>">
         <%= t(degree, :scope => i18n_scope) %>
