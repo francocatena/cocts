@@ -35,7 +35,7 @@ class ProjectInstance < ApplicationModel
   validates :first_name, :presence => true, :length => { :maximum => 255 }
   validates_numericality_of :age, :only_integer => true, :allow_nil => true,
     :allow_blank => true
-  validates_uniqueness_of :first_name, :allow_nil => true, :allow_blank => true
+  validates_uniqueness_of :first_name, :scope => :project_id, :allow_nil => true, :allow_blank => true
   validates_length_of :first_name, :professor_name, :maximum => 255, :allow_nil => true,
     :allow_blank => true
   validates_each :forms do |record, attr, value|
