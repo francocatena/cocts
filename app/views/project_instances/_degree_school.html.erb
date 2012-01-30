@@ -1,16 +1,23 @@
 <% i18n_scope = [:projects, :sociodemographic_forms, :degree_school, :options] %>
-<strong>
-  <%= t(:question, :scope => [:projects, :sociodemographic_forms, :degree_school]) %>
-</strong>
-<ul class="horizontal_list">
-  <% DEGREES_SCHOOL.each_with_index do |degree, i| %>
-    <% degree_school_id = i %>
-    <li>
-      <%= radio_button_tag 'project_instance[degree_school]', degree, 
-          @project_instance.degree_school.eql?("#{degree}"), :id => degree_school_id %>
-      <label for="<%= degree_school_id %>">
-         <%= t(degree, :scope => i18n_scope) %>
-      </label>
-    </li>
-  <% end %>
-</ul>
+<div class="field">   
+  <strong><%= t(:'projects.sociodemographic_forms.degrees.question') %></strong>
+</div>
+<div id="degree_school">
+  <div class ="field_degree">
+    <strong>
+      <%= t(:'projects.sociodemographic_forms.degree_school.question') %>
+    </strong>
+  </div>
+  <ul class="horizontal_list">
+    <% DEGREES_SCHOOL.each_with_index do |degree, i| %>
+      <% degree_school_id = i %>
+      <li>
+        <%= radio_button_tag 'project_instance[degree_school]', degree, 
+            @project_instance.degree_school.eql?("#{degree}"), :id => degree_school_id %>
+        <label for="<%= degree_school_id %>">
+           <%= t(degree, :scope => i18n_scope) %>
+        </label>
+      </li>
+    <% end %>
+  </ul>
+</div>

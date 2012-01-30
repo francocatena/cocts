@@ -14,6 +14,10 @@ Question =
       $('.actions input[type="submit"]').attr('disabled', false)
     
 $ ->
+  $('#degree_school').click (event) ->
+    $('#degree_university').fadeOut(300)
+  $('#degree_university').click (event) ->
+    $('#degree_school').fadeOut(300)
   $('#in_training_teacher_status').click (event) -> 
     $('#teacher').fadeIn(300)
   $('#in_exercise_teacher_status').click (event) ->
