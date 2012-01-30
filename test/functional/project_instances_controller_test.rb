@@ -69,7 +69,7 @@ class ProjectInstancesControllerTest < ActionController::TestCase
       post :create, {
         :project_instance => {
           :first_name => 'Firstname',
-          :last_name => 'Lastname',
+          :professor_name => 'Professorname',
           :email => 'test@cirope.com.ar',
           :age => 25,
           :degree => 'doctor',
@@ -111,7 +111,7 @@ class ProjectInstancesControllerTest < ActionController::TestCase
           :id => @project_instance.to_param,
           :project_instance => {
             :first_name => 'Updated firstname',
-            :last_name => 'Updated lastname',
+            :professor_name => 'Updated professorname',
             :email => 'updated@cirope.com.ar',
             :question_instance_ids => [question_instances(:one).id], 
              # question_instances(:two).id],
