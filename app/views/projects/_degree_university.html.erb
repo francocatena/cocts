@@ -1,7 +1,9 @@
 <% i18n_scope = [:projects, :sociodemographic_forms, :degree_university, :options] %>
-<strong>
-  <%= t(:question, :scope => [:projects, :sociodemographic_forms, :degree_university]) %>
-</strong>
+<div class ="field_degree">
+  <strong>
+    <%= t(:question, :scope => [:projects, :sociodemographic_forms, :degree_university]) %>
+  </strong>
+</div>
 <ul class="horizontal_list">
   <% DEGREES_UNIVERSITY.each_with_index do |degree, i| %>
     <% degree_id = :"#{degree}_degree_university" %>
