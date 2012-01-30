@@ -12,7 +12,7 @@ class ProjectInstanceTest < ActiveSupport::TestCase
   test 'search' do
     assert_kind_of ProjectInstance, @project_instance
     assert_equal project_instances(:one).first_name, @project_instance.first_name
-    assert_equal project_instances(:one).last_name, @project_instance.last_name
+    assert_equal project_instances(:one).professor_name, @project_instance.professor_name
     assert_equal project_instances(:one).email, @project_instance.email
   end
   
@@ -21,7 +21,7 @@ class ProjectInstanceTest < ActiveSupport::TestCase
     assert_difference 'ProjectInstance.count' do
       @project_instance = ProjectInstance.create(
         :first_name => 'Name',
-        :last_name => 'Lastname',
+        :professor_name => 'Professor name',
         :email => 'email@cirope.com.ar',
         :age => 25,
         :degree => 'doctor',
@@ -61,39 +61,31 @@ class ProjectInstanceTest < ActiveSupport::TestCase
   
   # Prueba que las validaciones del modelo se cumplan como es esperado
   test 'validates blank attributes' do
-    @project_instance.email = '   '
+    @project_instance.first_name = '   '
     assert @project_instance.invalid?
     assert_equal 1, @project_instance.errors.count
-    assert_equal [error_message_from_model(@project_instance, :email, :blank)],
-      @project_instance.errors[:email]
+    assert_equal [error_message_from_model(@project_instance, :first_name, :blank)],
+      @project_instance.errors[:first_name]
   end
   
   test 'validates unique attributes' do
-    @project_instance.email = project_instances(:two).email
+    @project_instance.first_name = project_instances(:two).first_name
     assert @project_instance.invalid?
     assert_equal 1, @project_instance.errors.count
-    assert_equal [error_message_from_model(@project_instance, :email, :taken)],
-      @project_instance.errors[:email]
+    assert_equal [error_message_from_model(@project_instance, :first_name, :taken)],
+      @project_instance.errors[:first_name]
   end
 
   
   test 'validates lenght attributes' do
     @project_instance.first_name = 'abcde' * 52
-    @project_instance.last_name = 'abcde' * 52
+    @project_instance.professor_name = 'abcde' * 52
     assert @project_instance.invalid?
     assert_equal 2, @project_instance.errors.count
     assert_equal [error_message_from_model(@project_instance, :first_name, :too_long,
       :count => 255)], @project_instance.errors[:first_name]
-    assert_equal [error_message_from_model(@project_instance, :last_name, :too_long,
-      :count => 255)], @project_instance.errors[:last_name]
-  end
-  
-  test 'validates formated attributes' do
-    @project_instance.email = 'name.com.ar'
-    assert @project_instance.invalid?
-    assert_equal 1, @project_instance.errors.count
-    assert_equal [error_message_from_model(@project_instance, :email, :invalid)],
-      @project_instance.errors[:email]
+    assert_equal [error_message_from_model(@project_instance, :professor_name, :too_long,
+      :count => 255)], @project_instance.errors[:professor_name]
   end
   
   test 'conversion to pdf' do

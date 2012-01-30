@@ -82,11 +82,11 @@ class ProjectTest < ActiveSupport::TestCase
   # Prueba que las validaciones del modelo se cumplan como es esperado
   test 'validates formated attributes' do
     @project = Project.find projects(:interactive).id
-    @project.identifier = 'xx_'
+    @project.identifier = 'admin'
     @project.valid_until = '10/10/10'
     assert @project.invalid?
     assert_equal 2, @project.errors.count
-    assert_equal [error_message_from_model(@project, :identifier, :invalid)],
+    assert_equal [error_message_from_model(@project, :identifier, :exclusion)],
       @project.errors[:identifier]
     assert_equal [error_message_from_model(@project, :valid_until,
       :on_or_after, :restriction => Time.now.strftime('%d/%m/%Y'))], 

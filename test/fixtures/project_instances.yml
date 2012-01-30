@@ -8,7 +8,7 @@ one:
   forms: <%= Project::SOCIODEMOGRAPHIC_FORMS.to_yaml.inspect %>
   project: manual
   first_name: 'Gastón'
-  last_name: 'Gaudio'
+  professor_name: 'Profe'
   email: 'gaudiog@aat.com.ar'
   age: 25
   degree: 'doctor'
@@ -27,7 +27,7 @@ one:
 two:
   project: manual
   first_name: 'Pablo'
-  last_name: 'Aimar'
+  professor_name: 'Professor'
   email: 'paimar@mail.com'
   age: 29
   degree: 'doctor'
