@@ -322,7 +322,7 @@ class Project < ApplicationModel
     i18n_scope = [:projects, :sociodemographic_forms, :degree_school, :options]
 
     DEGREES_SCHOOL.each do |degree|
-      degrees << "[__] #{I18n.t(degree, :scope => i18n_scope)} "
+      degrees << "#{I18n.t(:'projects.sociodemographic_forms.degree_school.courses')}:  [__] #{I18n.t(degree, :scope => i18n_scope)} "
     end
 
     pdf.text I18n.t(:'projects.sociodemographic_forms.degrees.question')
@@ -338,7 +338,7 @@ class Project < ApplicationModel
 
     DEGREES_UNIVERSITY.each_with_index do |degree, i|
       unless degree == DEGREES.last
-        degrees << "[__] #{I18n.t(degree, :scope => i18n_scope)}"
+        degrees << "#{I18n.t(:'projects.sociodemographic_forms.degree_university.degrees')}:  [__] #{I18n.t(degree, :scope => i18n_scope)}"
       else
         degrees << "#{I18n.t(degree, :scope => i18n_scope)} ______________"
       end
