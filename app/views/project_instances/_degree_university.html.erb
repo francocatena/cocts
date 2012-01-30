@@ -6,14 +6,18 @@
   <% DEGREES_UNIVERSITY.each_with_index do |degree_university, i| %>
     <% degree_id = :"#{degree_university}_degree_university" %>
     <li>
-      <label for="<%= degree_id %>">
-        <%= t(degree_university, :scope => i18n_scope) %>
-        <span class="subscript"><%= i + 1 %></span>
-      </label>
       <% unless degree_university == DEGREES_UNIVERSITY.last %>
         <%= radio_button_tag 'project_instance[degree_university]', degree_university, 
           @project_instance.degree_university.eql?("#{degree_university}"), :id => degree_id %>
+          <label for="<%= degree_id %>">
+            <%= t(degree_university, :scope => i18n_scope) %>
+            <span class="subscript"><%= i + 1 %></span>
+           </label>
       <% else %>
+        <label for="<%= degree_id %>">
+          <%= t(degree_university, :scope => i18n_scope) %>
+          <span class="subscript"><%= i + 1 %></span>
+        </label>
         <% if @project_instance.degree_university.present? && DEGREES_UNIVERSITY.exclude?(@project_instance.degree_university.to_sym) %>
           <%= text_field_tag 'project_instance[degree_university]', @project_instance.degree_university,
             :id => degree_id %>
@@ -22,6 +26,8 @@
             :id => degree_id %>
         <% end %>
       <% end %>
+      
+      
     </li>
   <% end %>
 </ul>
