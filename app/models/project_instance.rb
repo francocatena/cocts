@@ -106,8 +106,10 @@ class ProjectInstance < ApplicationModel
       pdf.move_down pdf.font_size
     end
 
-    pdf.text I18n.t(:presentation_text, :scope => i18n_scope)
-    pdf.move_down pdf.font_size
+    pdf.font_size((PDF_FONT_SIZE * 0.85).round) do
+      pdf.text I18n.t(:presentation_text, :scope => i18n_scope)
+      pdf.move_down pdf.font_size
+    end
 
     # Explicación de la escala
     i18n_scope << :scale_table
