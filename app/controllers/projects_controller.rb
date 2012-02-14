@@ -103,7 +103,7 @@ class ProjectsController < ApplicationController
     
     else respond_to do |format|
       if @project.update_attributes(params[:project])
-        flash[:notice] = t :'projects.correctly_created'
+        flash[:notice] = t :'projects.correctly_updated'
         format.html { redirect_to projects_path }
         format.xml  { render :xml => @project, :status => :created, :location => @project }
       else
