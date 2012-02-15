@@ -26,7 +26,8 @@ class Project < ApplicationModel
   ]
 
   # Restricciones
-  validates :name, :identifier, :description, :valid_until, :presence => true
+  validates :name, :identifier, :group_name, :group_type, :description, :valid_until,
+    :presence => true
   validates_uniqueness_of :identifier, :allow_nil => true, :allow_blank => true
   validates_numericality_of :year, :only_integer => true, :allow_nil => true,
     :allow_blank => true, :greater_than => 1000, :less_than => 3000

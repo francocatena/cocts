@@ -48,6 +48,27 @@
       <%= f.text_field :year %>
       
     </div>
+    
+    <div class="field">
+      <%= f.label :group_name %>
+      <%= f.text_field :group_name %>
+    </div>
+    
+    <div class="field">
+      <%= f.label :group_type %>
+      <ul class="horizontal_list">
+        <% GROUP_TYPES.each do |group| %>
+          <% group_id = :"#{group}_group_type" %>
+          <li>
+            <label for="<%= group_id %>">
+              <%= t(:"projects.questionnaire.group_type.options.#{group}") %>
+            </label>
+            <%= radio_button_tag :group_type, group, false, :id => group_id %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    
     <div class="field">
       <%= f.label :project_type %>
       <%= link_to '?', '#', :class => 'open_dialog', :'data-dialog' => '#help_project_type' %>

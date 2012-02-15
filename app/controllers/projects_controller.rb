@@ -58,6 +58,7 @@ class ProjectsController < ApplicationController
     @title = t :'projects.new_title'
     params[:project][:question_ids] ||= []
     params[:project][:teaching_unit_ids] ||= []
+    puts params[:project]
     @project = Project.new(params[:project])
     @project.user = @auth_user
     

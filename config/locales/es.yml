@@ -119,6 +119,8 @@
         name: 'Nombre'
         identifier: 'Identificador'
         description: 'Descripción'
+        group_name: 'Nombre del grupo'
+        group_type: 'Tipo de grupo'
         year: 'Año'
         valid_until: 'Vencimiento'
         project_type: 'Tipo de carga'
@@ -452,6 +454,11 @@
         options:
           male: 'Hombre'
           female: 'Mujer'
+      group_type:
+        options:
+          experimental: 'Experimental'
+          control: 'Control'
+          test: 'Pruebas'
       profession:
         certification: '...su titulación?'
         ocuppation: '...su ocupación?'
