@@ -34,6 +34,16 @@
   </p>
 
   <p>
+    <b><%= ProjectInstance.human_attribute_name :group_name %>:</b>
+    <%= @project_instance.group_name %>
+  </p>
+  
+  <p>
+    <b><%= ProjectInstance.human_attribute_name :group_type %>:</b>
+    <%= @project_instance.group_type %>
+  </p>
+  
+  <p>
     <b><%= ProjectInstance.human_attribute_name :project_type %>:</b>
     <%= @project_instance.project_type_text %>
   </p>

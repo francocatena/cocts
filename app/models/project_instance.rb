@@ -51,6 +51,8 @@ class ProjectInstance < ApplicationModel
       self.forms = self.project.forms
       self.name = self.project.name
       self.identifier = self.project.identifier
+      self.group_type = self.project.group_type
+      self.group_name = self.project.group_name
       self.description = self.project.description
       self.year = self.project.year
       self.project_type = self.project.project_type
@@ -170,6 +172,8 @@ class ProjectInstance < ApplicationModel
     description = I18n.t(:description, :scope => [:activerecord, :attributes, :project_instance])
     year = I18n.t(:year, :scope => [:activerecord, :attributes, :project_instance])
     valid_until = I18n.t(:valid_until, :scope => [:activerecord, :attributes, :project_instance])
+    group_name = I18n.t(:group_name, :scope => [:activerecord, :attributes, :project_instance])
+    group_type = I18n.t(:group_type, :scope => [:activerecord, :attributes, :project_instance])
     pdf.move_down(pdf.font_size)
     pdf.text "["+self.identifier+"] " + self.name
     pdf.text description +": "+ self.description
@@ -177,6 +181,8 @@ class ProjectInstance < ApplicationModel
       pdf.text year +": "+ self.year.to_s
     end
     pdf.text valid_until +": "+ self.valid_until.to_formatted_s(:db)
+    pdf.text group_name +": "+ self.group_name
+    pdf.text group_type +": "+ self.group_type
         
           
     # Datos sociodemográficos

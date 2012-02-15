@@ -89,6 +89,8 @@
         age: 'Edad'
         degree: 'Grado académico'
         genre: 'Sexo'
+        group_type: 'Tipo de grupo'
+        group_name: 'Nombre del grupo'
         student_status: 'Nivel estudiante'
         teacher_status: 'Nivel educativo profesor'
         teacher_level: 'Nivel profesor'

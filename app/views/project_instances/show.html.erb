@@ -43,11 +43,23 @@
     <%= @project_instance.professor_name %>
   </p>
   <% end %>
+  
+  <p>
+    <b><%= ProjectInstance.human_attribute_name :group_name %>:</b>
+    <%= @project_instance.group_name %>
+  </p>
+  
+  <p>
+    <b><%= ProjectInstance.human_attribute_name :group_type %>:</b>
+    <%= @project_instance.group_type %>
+  </p>
 
+  <% unless @project_instance.email.blank?  %>
   <p>
     <b><%= ProjectInstance.human_attribute_name :email %>:</b>
     <%= @project_instance.email %>
   </p>
+  <% end %>
   
   <h1 style="margin-top: 1em;"><%= t(:presentation, :scope => i18n_scope) %></h1>
   <p><%= t(:presentation_text, :scope => i18n_scope) %></p>
