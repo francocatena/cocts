@@ -37,13 +37,13 @@ EventHandler =
     FormUtil.completeSortNumbers()
   
 # Utilidades para formularios
-FormUtil = 
+window.FormUtil = 
   # Completa todos los inputs con la clase "sort_number" con números en secuencia
    completeSortNumbers: -> 
     $('input.sort_number').val((i) ->  i + 1)
  
 # Utilidades varias para asistir con efectos sobre los elementos
-Helper = 
+window.Helper = 
   # Oculta el elemento indicado
   hideItem: (element, callback) -> 
     $(element).stop().slideUp(500, callback)  
