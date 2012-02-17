@@ -63,7 +63,8 @@
             <label for="<%= group_id %>">
               <%= t(:"projects.questionnaire.group_type.options.#{group}") %>
             </label>
-            <%= radio_button_tag :group_type, group, false, :id => group_id %>
+            <%= radio_button_tag 'project[group_type]', group, 
+              @project.group_type.eql?("#{group}"), :id => group_id %>
           </li>
         <% end %>
       </ul>
