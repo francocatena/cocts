@@ -212,8 +212,13 @@ class ProjectInstance < ApplicationModel
       pdf.font_size((PDF_FONT_SIZE * 1).round) do
         pdf.move_down(pdf.font_size)
         pdf.text "#{question.question_text}", :style => :bold_italic
-
+        
+        
         question.answer_instances.each do |answer|
+          unless answer.clarification.blank?
+                pdf.text answer.clarification
+                pdf.move_down(pdf.font_size)
+          end
           pdf.text "[#{answer.valuation}] #{letter}. #{answer.answer_text}",
             :indent_paragraphs => pdf.font_size
           

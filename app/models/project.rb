@@ -214,6 +214,7 @@ class Project < ApplicationModel
           question.answers.each do |answer|
             unless answer.clarification.blank?
               pdf.text answer.clarification
+              pdf.move_down(pdf.font_size)
             end
 
             pdf.text "[__] #{letter}. #{answer.answer}",
@@ -249,6 +250,7 @@ class Project < ApplicationModel
             question.answers.each do |answer|
               unless answer.clarification.blank?
                 pdf.text answer.clarification
+                pdf.move_down(pdf.font_size)
               end
 
               pdf.text "[__] #{letter}. #{answer.answer}",
