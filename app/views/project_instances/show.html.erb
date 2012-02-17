@@ -51,7 +51,7 @@
   
   <p>
     <b><%= ProjectInstance.human_attribute_name :group_type %>:</b>
-    <%= @project_instance.group_type %>
+    <%= t(:"projects.questionnaire.group_type.options.#{@project_instance.group_type}") %>
   </p>
 
   <% unless @project_instance.email.blank?  %>

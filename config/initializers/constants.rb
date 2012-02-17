@@ -67,7 +67,11 @@ DEGREES_UNIVERSITY = [
 GENRES = [:male, :female]
 
 # Tipos de grupos
-GROUP_TYPES = [:control, :experimental, :test]
+GROUP_TYPES = [
+  :control, 
+  :experimental, 
+  :test
+]
 
 # Profesiones disponibles en el formulario
 PROFESSIONS = [:arts, :humanities, :social, :engineering, :science, :mix, :none]
