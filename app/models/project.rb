@@ -212,11 +212,8 @@ class Project < ApplicationModel
           pdf.text "#{question.code} #{question.question}", :style => :bold_italic
 
           question.answers.each do |answer|
-            unless answer.clarification.blank?
-              pdf.text answer.clarification
-              pdf.move_down(pdf.font_size)
-            end
-
+            pdf.text answer.clarification
+           
             pdf.text "[__] #{letter}. #{answer.answer}",
               :indent_paragraphs => pdf.font_size
 
@@ -248,11 +245,8 @@ class Project < ApplicationModel
             pdf.text "#{question.code} #{question.question}", :style => :bold_italic
 
             question.answers.each do |answer|
-              unless answer.clarification.blank?
-                pdf.text answer.clarification
-                pdf.move_down(pdf.font_size)
-              end
-
+              pdf.text answer.clarification
+              
               pdf.text "[__] #{letter}. #{answer.answer}",
                 :indent_paragraphs => pdf.font_size
 

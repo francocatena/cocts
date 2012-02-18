@@ -215,10 +215,8 @@ class ProjectInstance < ApplicationModel
         
         
         question.answer_instances.each do |answer|
-          unless answer.clarification.blank?
-                pdf.text answer.clarification
-                pdf.move_down(pdf.font_size)
-          end
+          pdf.text answer.clarification
+          
           pdf.text "[#{answer.valuation}] #{letter}. #{answer.answer_text}",
             :indent_paragraphs => pdf.font_size
           
