@@ -44,16 +44,20 @@
   </p>
   <% end %>
   
+  <% unless @project_instance.group_name.blank?  %>
   <p>
     <b><%= ProjectInstance.human_attribute_name :group_name %>:</b>
     <%= @project_instance.group_name %>
   </p>
+  <% end %>
   
+  <% unless @project_instance.group_type.blank?  %>
   <p>
     <b><%= ProjectInstance.human_attribute_name :group_type %>:</b>
     <%= t(:"projects.questionnaire.group_type.options.#{@project_instance.group_type}") %>
   </p>
-
+  <% end %>
+  
   <% unless @project_instance.email.blank?  %>
   <p>
     <b><%= ProjectInstance.human_attribute_name :email %>:</b>
