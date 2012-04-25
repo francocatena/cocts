@@ -94,6 +94,45 @@ class ProjectInstance < ApplicationModel
     end
   end
   
+  def calculate_attitudinal_rates
+    calculate_attitudinal_assessment
+    self.plausible_attitude_index = calculate_attitudinal_index(1)
+    self.naive_attitude_index = calculate_attitudinal_index(0)
+    self.adecuate_attitude_index = calculate_attitudinal_index(2) 
+        
+  end
+  
+  def calculate_attitudinal_assessment
+    self.question_instances.each do |qi|
+      qi.answer_instances.each do |ai|
+        ai.calculate_attitudinal_assessment
+        ai.attitudinal_assessment
+      end
+    end
+  end
+  
+  def calculate_attitudinal_index(category)
+    total = 0
+    index = 0
+    self.question_instances.each do |qi|
+      qi.answer_instances.each do |ai|
+        if ai.answer_category == category
+          index+= ai.attitudinal_assessment
+          total+= 1
+        end
+      end
+    end
+    if total == 0
+      0
+    else
+      index / total
+    end
+  end
+  
+  def calculate_attitudinal_global_index
+    (plausible_attitude_index + naive_attitude_index + adecuate_attitude_index) / 3
+  end
+  
   def to_pdf
     i18n_scope = [:projects, :questionnaire]
     pdf = Prawn::Document.new(PDF_OPTIONS)

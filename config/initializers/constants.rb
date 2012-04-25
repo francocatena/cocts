@@ -13,6 +13,13 @@ PDF_OPTIONS = {
 }
 # Tamaño de fuente normal en los PDFs
 PDF_FONT_SIZE = 11
+
+CORRESPONDENCE_WITH_NORMALIZED_INDEX = {
+  2 => ['x',-1,-0.75,-0.5,-0.25,0,0.25,0.5,0.75,1],
+  1 => ['x',-1,-0.25,0.25,0.5,1,0.5,0.25,-0.25,-1],
+  0 => ['x',1,0.75,0.5,0.25,0,-0.25,-0.5,-0.75,-1]
+}
+
 # Paises disponibles en el formulario
 COUNTRIES = [
   :argentina,

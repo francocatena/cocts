@@ -25,5 +25,5 @@ class QuestionInstance < ApplicationModel
       end
     end
   end
-
+    
 end

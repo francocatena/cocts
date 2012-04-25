@@ -20,4 +20,9 @@ class AnswerInstance < ApplicationModel
     :allow_blank => true, :allow_nil => true
   validates_inclusion_of :valuation, :in => VALUATIONS, 
     :allow_blank => true, :allow_nil => true
+  
+  def calculate_attitudinal_assessment
+    self.attitudinal_assessment = 
+      CORRESPONDENCE_WITH_NORMALIZED_INDEX[self.answer_category][self.valuation.to_i]
+  end
 end
