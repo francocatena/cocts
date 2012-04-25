@@ -220,8 +220,12 @@ class ProjectInstance < ApplicationModel
       pdf.text year +": "+ self.year.to_s
     end
     pdf.text valid_until +": "+ self.valid_until.to_formatted_s(:db)
-    pdf.text group_name +": "+ self.group_name
-    pdf.text group_type +": "+ self.group_type
+    if self.group_name
+      pdf.text group_name +": "+ self.group_name
+    end
+    if self.group_type
+      pdf.text group_type +": "+ self.group_type
+    end
         
           
     # Datos sociodemográficos
@@ -254,8 +258,7 @@ class ProjectInstance < ApplicationModel
         
         
         question.answer_instances.each do |answer|
-          pdf.text answer.clarification
-          
+                   
           pdf.text "[#{answer.valuation}] #{letter}. #{answer.answer_text}",
             :indent_paragraphs => pdf.font_size
           
