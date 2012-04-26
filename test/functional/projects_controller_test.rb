@@ -78,6 +78,8 @@ class ProjectsControllerTest < ActionController::TestCase
           :name => 'New name',
           :identifier => 'new-project',
           :description => 'New description',
+          :group_name => 'New Group',
+          :group_type => 'Group type',
           :year => Date.today.year,
           :project_type => Project::TYPES[:manual],
           :valid_until => 1.month.from_now.to_date,
