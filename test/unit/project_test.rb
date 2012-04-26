@@ -28,6 +28,8 @@ class ProjectTest < ActiveSupport::TestCase
         :identifier => 'new-project',
         :description => 'New description',
         :year => 2010,
+        :group_name => 'New group',
+        :group_type => 'control',
         :project_type => Project::TYPES[:manual],
         :valid_until => 20.days.from_now.to_date,
         :questions => [questions(:_10111)]
