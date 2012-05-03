@@ -126,6 +126,7 @@
         year: 'Año'
         valid_until: 'Vencimiento'
         project_type: 'Tipo de carga'
+        test_type: 'Tipo de test'
         questions: 'Cuestiones'
       question:
         code: 'Código'
@@ -461,6 +462,10 @@
           experimental: 'Experimental'
           control: 'Control'
           test: 'Pruebas'
+      test_type:
+        options:
+          pre_test: Pre-test
+          pos_test: Pos-test
       profession:
         certification: '...su titulación?'
         ocuppation: '...su ocupación?'

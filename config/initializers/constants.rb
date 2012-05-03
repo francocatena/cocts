@@ -58,6 +58,11 @@ DEGREES_SCHOOL = [
   :fourteenth_year,
   :fifteenth_year  
 ]
+TEST_TYPES = [
+  :pre_test,
+  :pos_test
+]
+
 # Grado en la univesidad
 DEGREES_UNIVERSITY = [
   :first_year,
