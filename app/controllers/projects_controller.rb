@@ -121,6 +121,10 @@ class ProjectsController < ApplicationController
       render :action => :edit
     
     else respond_to do |format|
+      @project.generate_description
+      params[:project][:description] = @project.description
+      params[:project][:identifier] = @project.generate_identifier
+      
       if @project.update_attributes(params[:project])
         flash[:notice] = t :'projects.correctly_updated'
         format.html { redirect_to projects_path }
