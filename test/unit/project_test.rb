@@ -28,6 +28,7 @@ class ProjectTest < ActiveSupport::TestCase
         :identifier => 'new-project',
         :description => 'New description',
         :year => 2010,
+        :test_type => 'Pre-test',
         :group_name => 'New group',
         :group_type => 'control',
         :project_type => Project::TYPES[:manual],
@@ -58,18 +59,15 @@ class ProjectTest < ActiveSupport::TestCase
   # Prueba que las validaciones del modelo se cumplan como es esperado
   test 'validates blank attributes' do
     @project.name = '   '
-    @project.identifier = '   '
     @project.description = '   '
-    @project.type_test = '   '
+    @project.test_type = '   '
     @project.group_type = '   '
     @project.group_name = '   '
     @project.valid_until = nil
     assert @project.invalid?
-    assert_equal 7, @project.errors.count
+    assert_equal 6, @project.errors.count
     assert_equal [error_message_from_model(@project, :name, :blank)],
       @project.errors[:name]
-    assert_equal [error_message_from_model(@project, :identifier, :blank)],
-      @project.errors[:identifier]
     assert_equal [error_message_from_model(@project, :description, :blank)],
       @project.errors[:description]
     assert_equal [error_message_from_model(@project, :valid_until,
