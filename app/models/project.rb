@@ -26,7 +26,7 @@ class Project < ApplicationModel
   ]
 
   # Restricciones
-  validates :name, :identifier, :group_name, :group_type, :description, :valid_until,
+  validates :name, :test_type, :group_name, :group_type, :description, :valid_until,
     :presence => true
   validates_uniqueness_of :identifier, :allow_nil => true, :allow_blank => true
   validates_numericality_of :year, :only_integer => true, :allow_nil => true,
@@ -82,6 +82,39 @@ class Project < ApplicationModel
 
   def project_type_text
     I18n.t :"projects.#{TYPES.invert[self.project_type]}_type"
+  end
+  
+  def project_group_type_text
+    I18n.t :"projects.questionnaire.group_type.options.#{self.group_type}"
+  end
+  
+  def short_test_type_text
+    self.test_type[0..2]
+  end
+
+  def short_group_type_text
+    self.group_type[0,1]
+  end
+  
+  def project_test_type_text
+    I18n.t :"projects.questionnaire.test_type.options.#{self.test_type}"
+  end
+  
+  def generate_identifier
+    "#{self.id}_#{self.short_group_type_text}_#{self.short_test_type_text}"
+  end
+  
+  def generate_description
+    if self.questions.present?
+      self.questions.each do |q|
+        self.description = "#{q.question}\n"
+      end
+    end
+    if self.teaching_units.present?
+      self.teaching_units.each do |tu|
+        self.description = "#{tu.code}-#{tu.title}\n"
+      end
+    end
   end
 
   def to_pdf

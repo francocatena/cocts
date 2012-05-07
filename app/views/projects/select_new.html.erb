@@ -1,0 +1,23 @@
+<div id="new_project">
+  <h3><%= t:'projects.new_title' %></h3>
+
+  <div id="items">
+    <%= t:'projects.new_help' %>
+    <%= link_to t(:'labels.new'), new_project_path,
+        :class => :important_action %>
+  </div>
+
+  <h3><%= t:'projects.existing_title' %></h3>
+
+  <div id="items">
+    <%= t:'projects.existing_help' %>
+  </div>
+  <div id="items"
+    <%= form_tag new_project_path, :method => 'get' do %>
+
+      <%= select_tag(:project, options_from_collection_for_select(Project.all, "id", 
+        "name")) %>
+      <%= submit_tag t(:'labels.select') %>
+    <% end %>
+</div>
+</div>

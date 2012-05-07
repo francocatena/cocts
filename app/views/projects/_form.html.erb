@@ -15,17 +15,17 @@
         title= <%= "#{t(:'help_title')}-#{t(:'activerecord.attributes.project.name')}" %>
            <p><%= t(:'projects.name_help') %></p>
       </div>  
-      <%= f.text_field :name, :maxlength => 255, :autofocus => true %>
-      
+     <% if @old %> 
+        <%= f.text_field :name, :disabled => true, :maxlength => 255 %>
+     <% else %>  
+       <%= f.text_field :name, :maxlength => 255, :autofocus => true %>
+     <% end %>
     </div>
     <div class="field">
       <%= f.label :identifier %>
       <%= link_to '?', '#', :class => 'open_dialog', :'data-dialog' => '#help_project_identifier' %>
-      <div id="help_project_identifier" class="hidden_dialog" style="display: none;" 
-        title= <%= "#{t(:'help_title')}-#{t(:'activerecord.attributes.project.identifier')}" %>
-           <p><%= t(:'projects.identifier_help') %></p>
-      </div>
-      <%= f.text_field :identifier %>
+      
+      <%= f.text_field :identifier, :disabled => true %>
       
     </div>
     <div class="field">
@@ -35,7 +35,7 @@
         title= <%= "#{t(:'help_title')}-#{t(:'activerecord.attributes.project.description')}" %>
            <p><%= t(:'projects.description_help') %></p>
       </div>
-      <%= f.text_area :description %>
+      <%= f.text_area :description, :disabled => true %>
       
     </div>
     <div class="field">
@@ -45,8 +45,11 @@
         title= <%= "#{t(:'help_title')}-#{t(:'activerecord.attributes.project.year')}" %>
            <p><%= t(:'projects.year_help') %></p>
       </div>
-      <%= f.text_field :year %>
-      
+      <% if @old %>
+        <%= f.text_field :year, :disabled => true %>
+      <% else %>
+        <%= f.text_field :year %>
+      <% end %>
     </div>
     
     <div class="field">
@@ -63,8 +66,26 @@
             <label for="<%= group_id %>">
               <%= t(:"projects.questionnaire.group_type.options.#{group}") %>
             </label>
-            <%= radio_button_tag 'project[group_type]', group, 
-              @project.group_type.eql?("#{group}"), :id => group_id %>
+          <%= radio_button_tag 'project[group_type]', group, 
+              @project.group_type.eql?("#{group}"), {:disabled => group.to_s == @group,
+              :id => group_id} %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    
+    <div class="field">
+      <%= f.label :test_type %>
+      <ul class="horizontal_list">
+        <% TEST_TYPES.each do |test| %>
+          <% test_id = :"#{test}_test_type" %>
+          <li>
+            <label for="<%= test_id %>">
+              <%= t(:"projects.questionnaire.test_type.options.#{test}") %>
+            </label>
+            <%= radio_button_tag 'project[test_type]', test, 
+              @project.test_type.eql?("#{test}"), {:id => test_id,
+            :disabled => test.to_s == @test} %>
           </li>
         <% end %>
       </ul>
@@ -87,8 +108,11 @@
         title= <%= "#{t(:'help_title')}-#{t(:'activerecord.attributes.project.valid_until')}" %>
            <p><%= t(:'projects.valid_until_help') %></p>
       </div>
-      <%= calendar_text_field f, :valid_until %>
-      
+      <% if @old %>
+        <%= f.text_field :valid_until, :disabled => true %>
+      <% else %>
+        <%= calendar_text_field f, :valid_until %>
+      <% end %>
     </div>
   </div>
 

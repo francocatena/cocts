@@ -40,6 +40,20 @@ class ProjectsController < ApplicationController
     @title = t :'projects.new_title'
     @project = Project.new
 
+    if params[:project]
+      @old = true
+      project = Project.find params[:project]
+      @group = project.group_type
+      @test = project.test_type
+      @project.name = project.name
+      @project.description = project.description
+      @project.valid_until = project.valid_until
+      @project.year = project.year
+      @project.forms = project.forms
+      @project.teaching_units = project.teaching_units
+      @project.questions = project.questions
+    end
+    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @project }
@@ -70,13 +84,17 @@ class ProjectsController < ApplicationController
       render :action => :new
     
     else respond_to do |format|
-      if @project.save
-        flash[:notice] = t :'projects.correctly_created'
-        format.html { redirect_to projects_path }
-        format.xml  { render :xml => @project, :status => :created, :location => @project }
-      else
-        format.html { render :action => :new }
-        format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
+      @project.transaction do
+        @project.generate_description
+        if @project.save
+          @project.update_attribute :identifier, @project.generate_identifier
+          flash[:notice] = t :'projects.correctly_created'
+          format.html { redirect_to projects_path }
+          format.xml  { render :xml => @project, :status => :created, :location => @project }
+        else
+          format.html { render :action => :new }
+          format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
+        end
       end
      end
     end
@@ -132,6 +150,9 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def select_new
+  end
+    
   # POST /projects/auto_complete_for_question
   def autocomplete_for_question
     query = params[:q].sanitized_for_text_query

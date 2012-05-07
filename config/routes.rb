@@ -32,6 +32,7 @@ CoctsApp::Application.routes.draw do
     collection do
       get :autocomplete_for_question
       get :preview_form
+      get :select_new
     end
   end
 
