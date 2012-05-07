@@ -377,11 +377,11 @@
     index_title: 'Listado de proyectos'
     show_title: 'Detalle del proyecto'
     new_title: 'Nuevo proyecto'
-    new_help: 'En caso de crear un nuevo proyecto presione'
+    new_help: 'En caso de que quiera crear un nuevo proyecto presione'
     new_link: 'Crear un nuevo proyecto'
     existing_title: 'Proyecto existente'
     existing_help: 'Si desea utilizar un proyecto existente con un nuevo tipo de grupo "Control" 
-  o "Experimental" o un nuevo tipo de test "Pre-Test" o "Pos-Test" seleccione el 
+  o "Experimental", o un nuevo tipo de test "Pre-Test" o "Pos-Test", seleccione el 
   proyecto correspondiente:'
     edit_title: 'Modificar proyecto'
     correctly_created: 'Proyecto creado correctamente.'
