@@ -12,12 +12,11 @@
   <div id="items">
     <%= t:'projects.existing_help' %>
   </div>
-  <div id="items"
+  <div id="option">
     <%= form_tag new_project_path, :method => 'get' do %>
-
-      <%= select_tag(:project, options_from_collection_for_select(Project.all, "id", 
-        "name")) %>
+      <%= select_tag(:project, options_from_collection_for_select(Project.order('name'), 
+          'id', 'name')) %>
       <%= submit_tag t(:'labels.select') %>
     <% end %>
-</div>
+  </div>
 </div>
