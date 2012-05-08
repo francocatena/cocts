@@ -18,9 +18,10 @@
             :title => question.dimension_text %></td>
         <td><%= question.code %></td>
         <td><%= truncate(question.question, :length => 30, :omission => '...') %></td>
-        <td><%= link_to t(:'labels.show'), question, :class => :real %></td>
-        <td><%= link_to t(:'labels.edit'), edit_question_path(question),
-            :class => :real %></td>
+         <td><%= link_to '&#xe074;'.html_safe, question, :class => :iconic, 
+        :title => t(:'labels.show'), :data => {:'show-tooltip' => true} %></td>
+      <td><%= link_to '&#x270e;'.html_safe, edit_question_path(question), :class => :iconic,
+        :title => (t:'labels.edit'), :data => {:'show-tooltip' => true} %></td>
         <td class="delete"><%= button_to t(:'labels.delete'), question,
             :confirm => t(:'messages.confirmation_question'), :method => :delete %></td>
     </tr>
