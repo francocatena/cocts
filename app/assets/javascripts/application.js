@@ -9,6 +9,7 @@
 //= require jquery_ujs
 //= require datepicker/jquery.ui.datepicker-es
 //= require common
+//= require tooltip
 //= require project_instances
 //= require autocomplete
 

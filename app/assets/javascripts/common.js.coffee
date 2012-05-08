@@ -3,9 +3,9 @@ State =
   # Contador para generar un ID único
   newIdCounter: 0
 
- 
-# Búsqueda de cuestiones
 $ -> 
+  $('*[data-show-tooltip]').tooltip()
+  
   $("#questions_search input").keyup -> 
     setTimeout(searchQuestions, 400)
     $(this).event.stopPropagation()
