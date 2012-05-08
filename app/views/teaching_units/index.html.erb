@@ -9,8 +9,11 @@
 <% @teaching_units.each do |teaching_unit| %>
   <tr class="<%= cycle(:even, :odd) %>">
     <td><%= teaching_unit.title %></td>
-    <td><%= link_to t(:'labels.show'), teaching_unit, :class => :real %></td>
-    <td><%= link_to t(:'labels.edit'), edit_teaching_unit_path(teaching_unit), :class => :real %></td>
+    <td><%= link_to '&#xe074;'.html_safe, teaching_unit, :class => :iconic, 
+      :title => t(:'labels.show'), :data => {:'show-tooltip' => true} %></td>
+    <td><%= link_to '&#x270e;'.html_safe, edit_teaching_unit_path(teaching_unit),
+      :class => :iconic, :title => (t:'labels.edit'), 
+      :data => {:'show-tooltip' => true} %></td>
     <td class ="delete"><%= button_to t(:'labels.delete'), teaching_unit,
         :confirm => t(:'messages.confirmation_question'), :method => :delete %></td>
     </tr>
