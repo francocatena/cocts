@@ -29,10 +29,10 @@
           <%= "|" unless project.interactive? || project.project_instances.empty? %>
             <%= link_to t(:'labels.list'), project_instances_url(:id => project.id),
               :class => :real unless project.project_instances.empty? %></td>
-        <td><%= link_to t(:'labels.show'), project, :class => :real %></td>
-        
-        <td class="center"><%= link_to t(:'labels.edit'), edit_project_path(project),
-  :class => :real %></td>
+        <td><%= link_to '&#xe074;'.html_safe, project, :class => :iconic, 
+          :title => t(:'labels.show'), :data => {:'show-tooltip' => true} %></td>
+        <td class="center"><%= link_to '&#x270e;'.html_safe, edit_project_path(project), :class => :iconic,
+          :title => (t:'labels.edit'), :data => {:'show-tooltip' => true} %></td>
         <td class="delete"><%= button_to t(:'labels.delete'), project,
             :confirm => t(:'messages.confirmation_question'),
             :method => :delete %></td>
