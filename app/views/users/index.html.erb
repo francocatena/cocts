@@ -1,10 +1,10 @@
 <table>
   <thead>
     <tr>
-      <th><%= User.human_attribute_name('user') %></th>
-      <th><%= User.human_attribute_name('name') %></th>
-      <th><%= User.human_attribute_name('enable') %></th>
-      <th><%= User.human_attribute_name('admin') %></th>
+      <th><%= User.human_attribute_name 'user' %></th>
+      <th><%= User.human_attribute_name 'name' %></th>
+      <th><%= User.human_attribute_name 'enable' %></th>
+      <th><%= User.human_attribute_name 'admin' %></th>
       <th></th>
       <th></th>
       <th></th>
@@ -14,12 +14,14 @@
   <tbody>
   <% @users.each do |user| %>
     <tr class="<%= cycle(:even, :odd) %>">
-      <td><%= h user.user %></td>
-      <td><%= h user.to_s %></td>
-      <td><%= t user.enable? ? :'labels.yes' : :'labels.no' %></td>
-      <td><%= t user.admin? ? :'labels.yes' : :'labels.no' %></td>
-      <td><%= link_to t(:'labels.show'), user, :class => :real %></td>
-      <td><%= link_to t(:'labels.edit'), edit_user_path(user), :class => :real %></td>
+      <td><%= user.user %></td>
+      <td><%= user.to_s %></td>
+      <td><%= user.enable? ? :'labels.yes' : :'labels.no' %></td>
+      <td><%= user.admin? ? :'labels.yes' : :'labels.no' %></td>
+      <td><%= link_to '&#xe074;'.html_safe, user, :class => :iconic, 
+        :title => t(:'labels.show'), :data => {:'show-tooltip' => true} %></td>
+      <td><%= link_to '&#x270e;'.html_safe, edit_user_path(user), :class => :iconic,
+        :title => (t:'labels.edit'), :data => {:'show-tooltip' => true} %></td>
       <td class ="delete"><%= button_to t(:'labels.delete'), user,
           :confirm => t(:'messages.confirmation_question'), :method => :delete %></td>
     </tr>
