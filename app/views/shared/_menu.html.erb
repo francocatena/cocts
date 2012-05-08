@@ -16,6 +16,9 @@
 
 <div id="user_info">
   <div id="user">
+    <div class="iconic">
+      <%= '&#xe062'.html_safe %>
+    </div>
     <%= @auth_user.user%>
   </div>
   <%= link_to t(:'users.edit_personal_data_link'),
