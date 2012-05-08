@@ -23,9 +23,11 @@
         <%= project_instance.professor_name %>
         <% end %>
     </td>
-    <td><%= link_to t(:'labels.show'), project_instance, :class => :real %></td>
-    <td class="center"><%= link_to t(:'labels.edit'), edit_project_instance_path(project_instance),
-          :class => :real %></td>
+    <td><%= link_to '&#xe074;'.html_safe, project_instance, :class => :iconic, 
+        :title => t(:'labels.show'), :data => {:'show-tooltip' => true} %></td>
+    <td class="center"><%= link_to '&#x270e;'.html_safe, 
+      edit_project_instance_path(project_instance), :class => :iconic,
+      :title => (t:'labels.edit'), :data => {:'show-tooltip' => true} %></td>
     <td class="delete"><%= button_to t(:'labels.delete'), project_instance,
             :confirm => t(:'messages.confirmation_question'),
             :method => :delete %></td>
