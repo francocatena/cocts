@@ -9,8 +9,10 @@
 <% @subtopics.each do |subtopic| %>
   <tr class="<%= cycle(:even, :odd) %>">
     <td><%= "#{subtopic.code}. #{subtopic.title}" %></td>
-    <td><%= link_to t(:'labels.show'), subtopic, :class => :real %></td>
-    <td><%= link_to t(:'labels.edit'), edit_subtopic_path(subtopic), :class => :real %></td>
+     <td><%= link_to '&#xe074;'.html_safe, subtopic, :class => :iconic, 
+        :title => t(:'labels.show'), :data => {:'show-tooltip' => true} %></td>
+      <td><%= link_to '&#x270e;'.html_safe, edit_subtopic_path(subtopic), :class => :iconic,
+        :title => (t:'labels.edit'), :data => {:'show-tooltip' => true} %></td>
     <td class ="delete"><%= button_to t(:'labels.delete'), subtopic,
         :confirm => t(:'messages.confirmation_question'), :method => :delete %></td>
     </tr>
