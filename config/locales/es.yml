@@ -250,8 +250,6 @@
       submit: 'Guardar'
   
   labels:
-    'yes': 'Si'
-    'no': 'No'
     add: 'Agregar'
     back: 'Volver'
     change: 'Cambiar'
@@ -270,7 +268,8 @@
     save: 'Guardar'
     search: 'Buscar'
     select: 'Seleccionar'
-    
+    whether: 'Si'
+    not: 'No'
   
   menu:
     projects: 'Proyectos'

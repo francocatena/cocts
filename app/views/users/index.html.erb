@@ -16,8 +16,8 @@
     <tr class="<%= cycle(:even, :odd) %>">
       <td><%= user.user %></td>
       <td><%= user.to_s %></td>
-      <td><%= user.enable? ? :'labels.yes' : :'labels.no' %></td>
-      <td><%= user.admin? ? :'labels.yes' : :'labels.no' %></td>
+      <td><%= user.enable? ? t(:'labels.whether') : t(:'labels.not') %></td>
+      <td><%= user.admin? ? t(:'labels.whether') : t(:'labels.not') %></td>
       <td><%= link_to '&#xe074;'.html_safe, user, :class => :iconic, 
         :title => t(:'labels.show'), :data => {:'show-tooltip' => true} %></td>
       <td><%= link_to '&#x270e;'.html_safe, edit_user_path(user), :class => :iconic,
