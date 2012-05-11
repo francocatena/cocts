@@ -13,8 +13,7 @@
   <tr class="<%= cycle(:even, :odd) %>">
     <td><%= project_instance.first_name if project_instance.first_name.present?%></td>
     <td><%= project_instance.professor_name  if project_instance.professor_name.blank? %></td>
-    <td><%= link_to '&#xe074;'.html_safe, project_instance, :class => :iconic, 
-        :title => t(:'labels.show'), :data => {:'show-tooltip' => true} %></td>
+    <td><%= link_to_show project_instance %></td>
     <td><%= link_to_edit edit_project_instance_path(project_instance) %></td>
     <td><%= link_to_destroy project_instance %></td>
   </tr>

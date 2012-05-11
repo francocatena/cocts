@@ -154,6 +154,18 @@ module ApplicationHelper
     form.text_field attribute, options
   end
   
+  def link_to_show(*args)
+    options = args.extract_options!
+    
+    options['class'] ||= 'iconic'
+    options['title'] ||= t('labels.show')
+    options['data-show-tooltip'] ||= true
+    
+    args << options
+    
+    link_to '&#xe074;'.html_safe, *args
+  end
+  
   def link_to_edit(*args)
     options = args.extract_options!
     

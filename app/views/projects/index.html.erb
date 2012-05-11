@@ -23,14 +23,12 @@
         <td><%= project.year %></td>
         <td><%= project.project_type_text %></td>
         <td><%= l(project.valid_until) if project.valid_until %></td>
-        <td><%= link_to t(:'labels.new_fem'), 
-            new_project_instance_path(:identifier => project.identifier), 
-            :class => :real if project.manual? %> 
-          <%= "|" unless project.interactive? || project.project_instances.empty? %>
-            <%= link_to t(:'labels.list'), project_instances_url(:id => project.id),
-              :class => :real unless project.project_instances.empty? %></td>
-        <td><%= link_to '&#xe074;'.html_safe, project, :class => :iconic, 
-          :title => t(:'labels.show'), :data => {:'show-tooltip' => true} %></td>
+        <td><%= link_to t(:'labels.new_fem'), new_project_instance_path(
+              :identifier => project.identifier), :class => :real if project.manual? %> 
+            <%= "|" unless project.interactive? || project.project_instances.empty? %>
+              <%= link_to t(:'labels.list'), project_instances_url(:id => project.id),
+                :class => :real unless project.project_instances.empty? %></td>
+        <td><%= link_to_show project %></td>
         <td><%= link_to_edit  edit_project_path(project) %></td>
         <td><%= link_to_destroy project %></td>
       </tr>

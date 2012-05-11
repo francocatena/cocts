@@ -18,8 +18,7 @@
       <td><%= user.to_s %></td>
       <td><%= user.enable? ? t(:'labels.whether') : t(:'labels.not') %></td>
       <td><%= user.admin? ? t(:'labels.whether') : t(:'labels.not') %></td>
-      <td><%= link_to '&#xe074;'.html_safe, user, :class => :iconic, 
-        :title => t(:'labels.show'), :data => {:'show-tooltip' => true} %></td>
+      <td><%= link_to_show user %></td>
       <td><%= link_to_edit edit_user_path(user) %></td>
       <td><%= link_to_destroy user %></td>
     </tr>
