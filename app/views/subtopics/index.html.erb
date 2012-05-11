@@ -13,8 +13,7 @@
         :title => t(:'labels.show'), :data => {:'show-tooltip' => true} %></td>
       <td><%= link_to '&#x270e;'.html_safe, edit_subtopic_path(subtopic), :class => :iconic,
         :title => (t:'labels.edit'), :data => {:'show-tooltip' => true} %></td>
-    <td class ="delete"><%= button_to t(:'labels.delete'), subtopic,
-        :confirm => t(:'messages.confirmation_question'), :method => :delete %></td>
+      <td><%= link_to_destroy subtopic %></td>
     </tr>
   </tr>
 <% end %>

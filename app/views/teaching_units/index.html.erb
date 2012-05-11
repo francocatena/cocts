@@ -14,8 +14,7 @@
     <td><%= link_to '&#x270e;'.html_safe, edit_teaching_unit_path(teaching_unit),
       :class => :iconic, :title => (t:'labels.edit'), 
       :data => {:'show-tooltip' => true} %></td>
-    <td class ="delete"><%= button_to t(:'labels.delete'), teaching_unit,
-        :confirm => t(:'messages.confirmation_question'), :method => :delete %></td>
+    <td><%= link_to_destroy teaching_unit %></td>
     </tr>
   </tr>
 <% end %>

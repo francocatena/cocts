@@ -153,4 +153,18 @@ module ApplicationHelper
     
     form.text_field attribute, options
   end
+  
+   def link_to_destroy(*args)
+    options = args.extract_options!
+    
+    options['class'] ||= 'btn btn-small btn-danger'
+    options['title'] ||= t('labels.delete')
+    options['confirm'] ||= t('messages.confirmation_question')
+    options['method'] ||= :delete
+    
+    args << options
+        
+    link_to "<span class=iconic>&#xe05a;</span> #{t:'labels.delete'}".html_safe, *args
+  end
+  
 end
