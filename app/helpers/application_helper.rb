@@ -154,7 +154,19 @@ module ApplicationHelper
     form.text_field attribute, options
   end
   
-   def link_to_destroy(*args)
+  def link_to_edit(*args)
+    options = args.extract_options!
+    
+    options['class'] ||= 'iconic'
+    options['title'] ||= t('labels.edit')
+    options['data-show-tooltip'] ||= true
+    
+    args << options
+    
+    link_to '&#x270e;'.html_safe, *args
+  end
+  
+  def link_to_destroy(*args)
     options = args.extract_options!
     
     options['class'] ||= 'btn btn-small btn-danger'
@@ -164,7 +176,8 @@ module ApplicationHelper
     
     args << options
         
-    link_to "<span class=iconic>&#xe05a;</span> #{t:'labels.delete'}".html_safe, *args
+    link_to "<span class=iconic>&#xe05a;</span> #{t:'labels.delete'}".html_safe, 
+      *args
   end
   
 end

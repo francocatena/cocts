@@ -9,7 +9,7 @@
       <th><%= Project.human_attribute_name :valid_until %></th>
       <th><%= t :'projects.instances' %></th>
       <th></th>
-      <th class="center"><%= t :'projects.config' %></th>
+      <th></th>
       <th></th>
     </tr>
   </thead>
@@ -31,8 +31,7 @@
               :class => :real unless project.project_instances.empty? %></td>
         <td><%= link_to '&#xe074;'.html_safe, project, :class => :iconic, 
           :title => t(:'labels.show'), :data => {:'show-tooltip' => true} %></td>
-        <td class="center"><%= link_to '&#x270e;'.html_safe, edit_project_path(project), :class => :iconic,
-          :title => (t:'labels.edit'), :data => {:'show-tooltip' => true} %></td>
+        <td><%= link_to_edit  edit_project_path(project) %></td>
         <td><%= link_to_destroy project %></td>
       </tr>
     <% end %>

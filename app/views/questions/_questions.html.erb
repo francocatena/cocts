@@ -20,8 +20,7 @@
         <td><%= truncate(question.question, :length => 30, :omission => '...') %></td>
         <td><%= link_to '&#xe074;'.html_safe, question, :class => :iconic, 
         :title => t(:'labels.show'), :data => {:'show-tooltip' => true} %></td>
-        <td><%= link_to '&#x270e;'.html_safe, edit_question_path(question), :class => :iconic,
-        :title => (t:'labels.edit'), :data => {:'show-tooltip' => true} %></td>
+        <td><%= link_to_edit edit_question_path(question) %></td>
         <td><%= link_to_destroy question %></td>
     </tr>
     <% end %>

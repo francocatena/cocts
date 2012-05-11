@@ -6,28 +6,16 @@
     <th><%= ProjectInstance.human_attribute_name :first_name %></th>
     <th><%= ProjectInstance.human_attribute_name :professor_name %></th>
     <th></th>
-    <th class="center"><%= t:'projects.config' %></th>
+    <th></th>
     <th></th>
   </tr>
 <%  @project_instances.each do |project_instance| %>
   <tr class="<%= cycle(:even, :odd) %>">
-    <td><% if project_instance.first_name.blank? %>
-        ----
-        <% else %>
-        <%= project_instance.first_name %>
-        <% end %>
-    </td>
-    <td><% if project_instance.professor_name.blank? %>
-        ----
-        <% else %>
-        <%= project_instance.professor_name %>
-        <% end %>
-    </td>
+    <td><%= project_instance.first_name if project_instance.first_name.present?%></td>
+    <td><%= project_instance.professor_name  if project_instance.professor_name.blank? %></td>
     <td><%= link_to '&#xe074;'.html_safe, project_instance, :class => :iconic, 
         :title => t(:'labels.show'), :data => {:'show-tooltip' => true} %></td>
-    <td class="center"><%= link_to '&#x270e;'.html_safe, 
-      edit_project_instance_path(project_instance), :class => :iconic,
-      :title => (t:'labels.edit'), :data => {:'show-tooltip' => true} %></td>
+    <td><%= link_to_edit edit_project_instance_path(project_instance) %></td>
     <td><%= link_to_destroy project_instance %></td>
   </tr>
 <% end %>

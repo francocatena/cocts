@@ -11,8 +11,7 @@
     <td><%= "#{subtopic.code}. #{subtopic.title}" %></td>
      <td><%= link_to '&#xe074;'.html_safe, subtopic, :class => :iconic, 
         :title => t(:'labels.show'), :data => {:'show-tooltip' => true} %></td>
-      <td><%= link_to '&#x270e;'.html_safe, edit_subtopic_path(subtopic), :class => :iconic,
-        :title => (t:'labels.edit'), :data => {:'show-tooltip' => true} %></td>
+      <td><%= link_to_edit edit_subtopic_path(subtopic) %></td>
       <td><%= link_to_destroy subtopic %></td>
     </tr>
   </tr>

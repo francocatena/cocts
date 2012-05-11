@@ -387,7 +387,6 @@
     correctly_updated: 'Proyecto actualizado correctamente.'
     stale_object_error: 'El proyecto no pudo ser actualizado, intente nuevamente.'
     instances: 'Instancias'
-    config: 'Configuración'
     add: 'Crear proyecto'
     preview_label: 'Previsualizar'
     close_label: 'Cerrar'

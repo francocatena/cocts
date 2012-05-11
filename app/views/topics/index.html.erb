@@ -10,7 +10,7 @@
   <tr class="<%= cycle(:even, :odd) %>">
     <td><%= topic.title %></td>
     <td><%= link_to t(:'labels.show'), topic, :class => :real %></td>
-    <td><%= link_to t(:'labels.edit'), edit_topic_path(topic), :class => :real %></td>
+    <td><%= link_to_edit edit_topic_path(topic) %></td>
     <td><%= link_to_destroy topic %></td>
     </tr>
   </tr>
