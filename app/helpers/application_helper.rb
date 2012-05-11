@@ -30,7 +30,8 @@ module ApplicationHelper
 
   # Devuelve el HTML de un vínculo para volver (history.back())
   def link_to_back
-    link_to_function t(:'labels.back'), 'history.back()', :class => :real
+    link_to_function '&#x2190;'.html_safe, 'history.back()', :class => :iconic,
+      :'data-show-tooltip' => true, :title => t(:'labels.back') 
   end
 
   # Devuelve HTML con un link para eliminar un componente de un formulario

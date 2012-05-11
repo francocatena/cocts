@@ -244,10 +244,8 @@
        <% end %>
       </ul>
   </div>   
-  
+  <%= link_to_back %>
   <%= link_to t(:'labels.edit'), edit_project_instance_path(@project_instance), :class => :real%> |
   <%= link_to t(:'labels.download'), project_instance_path(@project_instance, :format => :pdf),
-    :class => :real %> |
-  ←<%= link_to_back %>
-
+    :class => :real %> 
 </div>
