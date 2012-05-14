@@ -112,7 +112,7 @@ class Project < ApplicationModel
     end
     if self.teaching_units.present?
       self.teaching_units.each do |tu|
-        self.description = "#{tu.code}-#{tu.title}\n"
+        self.description = "#{tu.title}\n"
       end
     end
   end
