@@ -102,25 +102,6 @@ jQuery ($) ->
     else 
       $(this).datepicker(showOn: 'both').focus()
     
-$('.hidden_dialog').dialog
-  autoOpen: false
-  draggable: false
-  resizable: false
-  close: -> 
-    $(this).parents('.ui-dialog').show().fadeOut(500)  
-  open: -> 
-    $(this).parents('.ui-dialog').hide().fadeIn(500)
-  
-# Dialogs JQuery  
-$('a.open_dialog').live 'click', (event) -> 
-  $($(this).data('dialog')).dialog('open').dialog(
-    'option', 'position', [
-      event.pageX - $(window).scrollLeft(),
-      event.pageY - $(window).scrollTop()
-    ]
-  )
-  false
-
 $('a.search').live 'click', (event) -> 
   $('#search_form').fadeIn(300)
   false
