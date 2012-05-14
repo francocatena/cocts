@@ -361,22 +361,24 @@
     project_instance_error: 'El proyecto no pudo ser eliminado ya que existen
     instancias de resolución asociadas al mismo.'
     valid_until_error: 'El proyecto ha vencido: no se pueden cargar instancias.'
-    identifier_help: 'Campo que identifica unívocamente al proyecto. Si se trata
-    de un proyecto de tipo interactivo se utilizará como subdominio para realizar
-    la carga dinámica del mismo.'
+    identifier_help: 'Campo generado por el sistema que identifica unívocamente 
+    al proyecto. Si se trata de un proyecto de tipo interactivo se utilizará 
+    como subdominio para realizar la carga dinámica del mismo.'
     name_help: 'Título que recibirá el proyecto.'
-    description_help: 'Breve reseña del proyecto y sus características.'
+    description_help: 'Campo generado automáticamente por el sistema con la 
+    descrición de las cuestiones o UDs.'
     year_help: 'Año en el cuál se realizará el proyecto.'
     project_type_help: 'Existen dos tipos de proyectos: manual e interactivo. En caso de
-    un proyecto manual la carga del mismo se realizará por un administrador. 
+    un proyecto manual la carga se realizará por el docente cuestionario por cuestionario. 
     En cambio si se trata de un proyecto Interactivo la carga se realizará en línea
-    y estará a cargo de cada uno de los encuestados.'
+    (puede ser simultáneamente) y estará a cargo de cada uno de los alumnos.'
     valid_until_help: 'Fecha hasta la cual el proyecto estará vigente.'
     teaching_units_help: 'Seleccione la Unidad Didáctica(UD) que desee asociar al proyecto.
     Cada UD tiene asignadas cuestiones que se asociarán automáticamente al proyecto.'
     questions_help: 'Detalle de las cuestiones asociadas al proyecto. Para asociar una
-    cuestión al proyecto ingrese el código de la misma, si y solo si no va a asociar
+    cuestión al proyecto ingrese el código o texto de la misma si y solo si no va a asociar
     ninguna Unidad Didáctica al proyecto.'
+    group_name_help: 'Nombre del grupo al cual se va a aplicar el proyecto.'
     index_title: 'Listado de proyectos'
     show_title: 'Detalle del proyecto'
     new_title: 'Nuevo proyecto'
