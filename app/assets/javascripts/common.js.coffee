@@ -5,6 +5,7 @@ State =
 
 $ -> 
   $('*[data-show-tooltip]').tooltip()
+  $('*[data-show-popover]').popover()
   
   $("#questions_search input").keyup -> 
     setTimeout(searchQuestions, 400)

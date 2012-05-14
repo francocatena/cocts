@@ -3,83 +3,43 @@
   <%= f.error_messages %>
   <div class="one_column_form">
     <div class="field">
-      <%= f.label :name %>
-      <%= link_to '?', '#', :class => 'open_dialog', :'data-dialog' => '#help_user_name' %>
-      <div id="help_user_name" class="hidden_dialog" style="display: none;" 
-        title= <%= "#{t(:'help_title')}-#{t(:'activerecord.attributes.user.name')}" %>
-           <p><%= t(:'users.name_help') %></p>
-      </div> 
+      <%= f.label :name, 'data-show-popover' => true, 'data-content' => 
+        t(:'users.name_help'), :title => t(:'activerecord.attributes.user.name') %>
       <%= f.text_field :name, :maxlength => 255, :autofocus => true %>
     </div>
     <div class="field">
-      <%= f.label :lastname %>
-      <%= link_to '?', '#', :class => 'open_dialog', :'data-dialog' => '#help_user_lastname' %>
-      <div id="help_user_lastname" class="hidden_dialog" style="display: none;" 
-        title= <%= "#{t(:'help_title')}-#{t(:'activerecord.attributes.user.lastname')}" %>
-           <p><%= t(:'users.lastname_help') %></p>
-      </div>
+      <%= f.label :lastname, 'data-show-popover' => true, 'data-content' => 
+        t(:'users.lastname_help'), :title => t(:'activerecord.attributes.user.lastname') %>
       <%= f.text_field :lastname, :maxlength => 255 %>
     </div>
     <div class="field">
-      <%= f.label :user %>
-      <%= link_to '?', '#', :class => 'open_dialog', :'data-dialog' => '#help_user_user' %>
-      <div id="help_user_user" class="hidden_dialog" style="display: none;" 
-        title= <%= "#{t(:'help_title')}-#{t(:'activerecord.attributes.user.user')}" %>
-           <p><%= t(:'users.user_help') %></p>
-      </div>
+      <%= f.label :user, 'data-show-popover' => true, 'data-content' => t(:'users.user_help'), 
+        :title => t(:'activerecord.attributes.user.user') %>
       <%= f.text_field :user, :maxlength => 30 %>
     </div>
-    <% if [:new, :create].include?(controller.action_name.to_sym) %>
-      <div class="field">
-        <%= f.label :password %>
-        <%= link_to '?', '#', :class => 'open_dialog', :'data-dialog' => '#help_user_password' %>
-      <div id="help_user_password" class="hidden_dialog" style="display: none;" 
-        title= <%= "#{t(:'help_title')}-#{t(:'activerecord.attributes.user.password')}" %>
-           <p><%= t(:'users.password_help') %></p>
-      </div>
-        <%= f.password_field :password, :maxlength => 128 %>
-      </div>
-      <div class="field">
-        <%= f.label :password_confirmation %>
-        <%= link_to '?', '#', :class => 'open_dialog', :'data-dialog' => '#help_user_password_confirmation' %>
-      <div id="help_user_password_confirmation" class="hidden_dialog" style="display: none;" 
-        title= <%= "#{t(:'help_title')}-#{t(:'activerecord.attributes.user.password_confirmation')}" %>
-           <p><%= t(:'users.password_confirmation_help') %></p>
-      </div>
-        <%= f.password_field :password_confirmation, :maxlength => 128 %>
-      </div>
-    <% elsif @auth_user.admin? %>
-      <div class="field">
-        <%= f.label t:'users.new_password_label' %>
-        <%= password_field_tag :new_password, nil, :maxlength => 128 %>
-      </div>
-    <% end %>
     <div class="field">
-      <%= f.label :email %>
-      <%= link_to '?', '#', :class => 'open_dialog', :'data-dialog' => '#help_user_email' %>
-      <div id="help_user_email" class="hidden_dialog" style="display: none;" 
-        title= <%= "#{t(:'help_title')}-#{t(:'activerecord.attributes.user.email')}" %>
-           <p><%= t(:'users.email_help') %></p>
-      </div>
+      <%= f.label :password, 'data-show-popover' => true, 'data-content' => 
+        t(:'users.password_help'), :title => t(:'activerecord.attributes.user.password') %>
+      <%= f.password_field :password, :maxlength => 128 %>
+    </div>
+    <div class="field">
+      <%= f.label :password_confirmation, 'data-show-popover' => true, 'data-content' => 
+        t(:'users.password_confirmation_help'), :title => t(:'activerecord.attributes.user.password_confirmation') %>
+      <%= f.password_field :password_confirmation, :maxlength => 128 %>
+    </div>
+    <div class="field">
+      <%= f.label :email, 'data-show-popover' => true, 'data-content' => 
+          t(:'users.email_help'), :title => t(:'activerecord.attributes.user.email') %>
       <%= f.text_field :email %>
     </div>
     <div class="field">
-      <%= f.label :enable %>
-      <%= link_to '?', '#', :class => 'open_dialog', :'data-dialog' => '#help_user_enable' %>
-      <div id="help_user_enable" class="hidden_dialog" style="display: none;" 
-        title= <%= "#{t(:'help_title')}-#{t(:'activerecord.attributes.user.enable')}" %>
-           <p><%= t(:'users.enable_help') %></p>
-      </div>
+      <%= f.label :enable, 'data-show-popover' => true, 'data-content' => 
+          t(:'users.enable_help'), :title => t(:'activerecord.attributes.user.enable') %>
       <%= f.check_box :enable %>
     </div>
-    
     <div class="field">
-      <%= f.label :admin %>
-      <%= link_to '?', '#', :class => 'open_dialog', :'data-dialog' => '#help_user_admin' %>
-      <div id="help_user_admin" class="hidden_dialog" style="display: none;" 
-        title= <%= "#{t(:'help_title')}-#{t(:'activerecord.attributes.user.admin')}" %>
-           <p><%= t(:'users.admin_help') %></p>
-      </div>
+      <%= f.label :admin, 'data-show-popover' => true, 'data-content' => 
+          t(:'users.admin_help'), :title => t(:'activerecord.attributes.user.admin') %>
       <%= f.check_box :admin %>
     </div>
   </div>
