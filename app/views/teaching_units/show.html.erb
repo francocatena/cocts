@@ -7,7 +7,7 @@
   <b><%= t(:'activerecord.models.questions') %>:</b>
   <ul>
   <% @teaching_unit.questions.each do |question| %>
-      <li><%= question.question %></li>
+      <li><%= "#{question.code} - #{question.question}" %></li>
   <% end %>
   </ul>
   <% end %>
