@@ -12,10 +12,10 @@
       <%= f.label :name, 'data-show-popover' => true, 'data-content' => 
         t(:'projects.name_help'), :title => t(:'activerecord.attributes.project.name') %>
       <% if @old %> 
-        <%= f.text_field :name, :disabled => true, :maxlength => 255 %>
-     <% else %>  
-       <%= f.text_field :name, :maxlength => 255, :autofocus => true %>
-     <% end %>
+        <%= f.text_field :name, :readonly => true, :maxlength => 255 %>
+      <% else %>  
+        <%= f.text_field :name, :maxlength => 255, :autofocus => true %>
+      <% end %>
     </div>
     <div class="field">
       <%= f.label :identifier, 'data-show-popover' => true, 'data-content' => 
@@ -25,13 +25,13 @@
     <div class="field">
       <%= f.label :description, 'data-show-popover' => true, 'data-content' => 
         t(:'projects.description_help'), :title => t(:'activerecord.attributes.project.description') %>
-      <%= f.text_area :description, :disabled => true %>
+      <%= f.text_area :description, :readonly => true %>
     </div>
     <div class="field">
       <%= f.label :year, 'data-show-popover' => true, 'data-content' => 
         t(:'projects.year_help'), :title => t(:'activerecord.attributes.project.year') %>
       <% if @old %>
-        <%= f.text_field :year, :disabled => true %>
+        <%= f.text_field :year, :readonly => true %>
       <% else %>
         <%= f.text_field :year %>
       <% end %>
@@ -51,8 +51,7 @@
               <%= t(:"projects.questionnaire.group_type.options.#{group}") %>
             </label>
           <%= radio_button_tag 'project[group_type]', group, 
-              @project.group_type.eql?("#{group}"), {:disabled => group.to_s == @group,
-              :id => group_id} %>
+              @project.group_type.eql?("#{group}"), :id => group_id %>
           </li>
         <% end %>
       </ul>
@@ -67,8 +66,7 @@
               <%= t(:"projects.questionnaire.test_type.options.#{test}") %>
             </label>
             <%= radio_button_tag 'project[test_type]', test, 
-              @project.test_type.eql?("#{test}"), {:id => test_id,
-            :disabled => test.to_s == @test} %>
+              @project.test_type.eql?("#{test}"), :id => test_id %>
           </li>
         <% end %>
       </ul>
@@ -81,12 +79,8 @@
     <div class="field">
       <%= f.label :valid_until, 'data-show-popover' => true, 'data-content' => 
         t(:'projects.valid_until_help'), :title => t(:'activerecord.attributes.project.valid_until') %>
-      <% if @old %>
-        <%= f.text_field :valid_until, :disabled => true %>
-      <% else %>
-        <%= calendar_text_field f, :valid_until %>
-      <% end %>
-    </div>
+      <%= calendar_text_field f, :valid_until %>
+     </div>
   </div>
   <p style="margin: 1em 0em;">
     <%= link_to_function t(:'projects.sociodemographic_label'),

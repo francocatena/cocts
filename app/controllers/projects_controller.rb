@@ -40,6 +40,8 @@ class ProjectsController < ApplicationController
     @title = t :'projects.new_title'
     @project = Project.new
 
+    puts "PARAMETROS #{params}"
+    
     if params[:project]
       @old = true
       project = Project.find params[:project]
@@ -72,16 +74,15 @@ class ProjectsController < ApplicationController
     @title = t :'projects.new_title'
     params[:project][:question_ids] ||= []
     params[:project][:teaching_unit_ids] ||= []
-    puts params[:project]
     @project = Project.new(params[:project])
     @project.user = @auth_user
     
     if @project.questions.empty? && @project.teaching_units.empty?
       @project.errors[:base] << t(:'projects.empty_questions_error') 
-      render :action => :new    
+      render :action => :new, :project => params[:project] 
     elsif !@project.teaching_units.empty? && !@project.questions.empty?
       @project.errors[:base] << t(:'projects.questions_error') 
-      render :action => :new
+      render :action => :new, :project => params[:project]
     
     else respond_to do |format|
       @project.transaction do
@@ -114,7 +115,7 @@ class ProjectsController < ApplicationController
     # Validación de que solo tenga cuestiones ya sean de UDs O cuestiones individuales
     if params[:project][:question_ids].empty? && params[:project][:teaching_unit_ids].empty? 
       @project.errors[:base] << t(:'projects.empty_questions_error') 
-      render :action => :edit    
+      render :action => :edit  
     # Validación de que no tenga cuestiones de UDs Y cuestiones individuales
     elsif !(params[:project][:question_ids].blank? || @project.questions.empty?) && !(params[:project][:teaching_unit_ids].blank? || @project.teaching_units.empty?)
       @project.errors[:base] << t(:'projects.questions_error') 
