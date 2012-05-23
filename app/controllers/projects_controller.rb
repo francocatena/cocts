@@ -40,11 +40,9 @@ class ProjectsController < ApplicationController
     @title = t :'projects.new_title'
     @project = Project.new
 
-    puts "PARAMETROS #{params}"
-    
-    if params[:project]
+    if params[:parent_project_id]
       @old = true
-      project = Project.find params[:project]
+      project = Project.find params[:parent_project_id]
       @group = project.group_type
       @test = project.test_type
       @project.name = project.name
@@ -79,10 +77,16 @@ class ProjectsController < ApplicationController
     
     if @project.questions.empty? && @project.teaching_units.empty?
       @project.errors[:base] << t(:'projects.empty_questions_error') 
-      render :action => :new, :project => params[:project] 
+      render :action => :new
     elsif !@project.teaching_units.empty? && !@project.questions.empty?
       @project.errors[:base] << t(:'projects.questions_error') 
-      render :action => :new, :project => params[:project]
+      render :action => :new
+    # Verifico que no sea del mismo tipo de test y tipo de grupo que el padre
+    elsif params[:project][:test_type] == params[:parent_test_type] && 
+      params[:project][:group_type] == params[:parent_group_type]
+        @project.errors[:base] << t(:'projects.type_error') 
+        render :action => :new
+      
     
     else respond_to do |format|
       @project.transaction do

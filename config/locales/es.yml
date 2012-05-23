@@ -353,6 +353,8 @@
           tb: 'TB'
 
   projects:
+    type_error: 'El tipo de grupo y tipo de test deben ser distintos al del 
+    proyecto seleccionado'
     questions_error: 'Por defecto se toman las cuestiones asociadas a las Unidades
     Didácticas (UDs), por favor elimine las cuestiones individuales o 
     elimine las UDs.'

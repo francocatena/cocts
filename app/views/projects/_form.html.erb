@@ -14,7 +14,7 @@
       <% if @old %> 
         <%= f.text_field :name, :readonly => true, :maxlength => 255 %>
       <% else %>  
-        <%= f.text_field :name, :maxlength => 255, :autofocus => true %>
+        <%= f.text_field :name, :maxlength => 255 %>
       <% end %>
     </div>
     <div class="field">
@@ -55,6 +55,7 @@
           </li>
         <% end %>
       </ul>
+      <%= hidden_field_tag :parent_group_type, @group %>
     </div>
     <div class="field">
       <%= f.label :test_type %>
@@ -70,6 +71,8 @@
           </li>
         <% end %>
       </ul>
+      <%= hidden_field_tag :parent_test_type, @test %>
+      <%= hidden_field_tag :parent_project_id, params[:parent_project_id] %>
     </div>
     <div class="field">
       <%= f.label :project_type, 'data-show-popover' => true, 'data-content' => 
