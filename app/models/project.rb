@@ -101,7 +101,7 @@ class Project < ApplicationModel
   end
   
   def generate_identifier
-    "#{self.id}_#{self.short_group_type_text}_#{self.short_test_type_text}"
+    "#{self.id}-#{self.short_group_type_text}-#{self.short_test_type_text}"
   end
   
   def generate_description
