@@ -7,31 +7,16 @@
   <div class="one_column_form">
     <div class="field">
       <%= q_f.label :dimension %>
-      <%= link_to '?', '#', :class => 'open_dialog', :'data-dialog' => '#help_question_dimension' %>
-      <div id="help_question_dimension" class="hidden_dialog" style="display: none;" 
-        title= <%= "#{t(:'help_title')}-#{t(:'activerecord.attributes.question.dimension')}" %>
-           <p><%= t(:'questions.dimension_help') %></p>
-      </div>  
       <%= q_f.select :dimension,
         Question::DIMENSIONS.map { |d| ["#{d}. #{t(:"questions.dimensions.#{d}")}", d] },
         {:prompt => true}, {:autofocus => true} %>
     </div>
     <div class="field">
       <%= q_f.label :code %>
-      <%= link_to '?', '#', :class => 'open_dialog', :'data-dialog' => '#help_question_code' %>
-      <div id="help_question_code" class="hidden_dialog" style="display: none;" 
-        title= <%= "#{t(:'help_title')}-#{t(:'activerecord.attributes.question.code')}" %>
-           <p><%= t(:'questions.code_help') %></p>
-      </div>  
       <%= q_f.text_field :code %>
     </div>
     <div class="field">
       <%= q_f.label :question %>
-      <%= link_to '?', '#', :class => 'open_dialog', :'data-dialog' => '#help_question_text' %>
-      <div id="help_question_text" class="hidden_dialog" style="display: none;" 
-        title= <%= "#{t(:'help_title')}-#{t(:'activerecord.attributes.question.question')}" %>
-           <p><%= t(:'questions.question_help') %></p>
-      </div>  
       <%= q_f.text_area :question %>
     </div>
   </div>
@@ -40,27 +25,12 @@
     <div class="column_headers">
       <div class="item_column" style="width: 20%;">
         <h3><%= Answer.human_attribute_name :clarification %></h3>
-        <%= link_to '?', '#', :class => 'open_dialog', :'data-dialog' => '#help_answer_clarification' %>
-      <div id="help_answer_clarification" class="hidden_dialog" style="display: none;" 
-        title= <%= "#{t(:'help_title')}-#{t(:'activerecord.attributes.answer.clarification')}" %>
-           <p><%= t(:'questions.answer_clarification_help') %></p>
-      </div>  
       </div>
       <div class="item_column" style="width: 20%;">
         <h3><%= Answer.human_attribute_name :category %></h3>
-        <%= link_to '?', '#', :class => 'open_dialog', :'data-dialog' => '#help_answer_category' %>
-      <div id="help_answer_category" class="hidden_dialog" style="display: none;" 
-        title= <%= "#{t(:'help_title')}-#{t(:'activerecord.attributes.answer.category')}" %>
-           <p><%= t(:'questions.answer_category_help') %></p>
-      </div>  
       </div>
       <div class="item_column" style="width: 50%;">
         <h3><%= Answer.human_attribute_name :answer %></h3>
-        <%= link_to '?', '#', :class => 'open_dialog', :'data-dialog' => '#help_answer_text' %>
-      <div id="help_answer_text" class="hidden_dialog" style="display: none;" 
-        title= <%= "#{t(:'help_title')}-#{t(:'activerecord.attributes.answer.answer')}" %>
-           <p><%= t(:'questions.answer_text_help') %></p>
-      </div>  
       </div>
       <div class="item_column" style="width: 10%;"></div>
       <div style="clear: both;">&nbsp;</div>
