@@ -160,6 +160,7 @@ class ProjectsController < ApplicationController
   end
 
   def select_new
+    @projects = Project.select('distinct name').order('name')
   end
     
   # POST /projects/auto_complete_for_question
