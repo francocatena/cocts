@@ -20,12 +20,20 @@
     <div class="field">
       <%= f.label :identifier, 'data-show-popover' => true, 'data-content' => 
         t(:'projects.identifier_help'), :title => t(:'activerecord.attributes.project.identifier') %>
-      <%= f.text_field :identifier, :disabled => true %>
+      <% if @auth_user.admin? %>
+        <%= f.text_field :identifier %> 
+      <% else %>
+        <%= f.text_field :identifier, :disabled => true %>
+      <% end %>
     </div>
     <div class="field">
       <%= f.label :description, 'data-show-popover' => true, 'data-content' => 
         t(:'projects.description_help'), :title => t(:'activerecord.attributes.project.description') %>
-      <%= f.text_area :description, :readonly => true %>
+      <% if @auth_user.admin? %>
+        <%= f.text_area :description %>
+      <% else %>
+        <%= f.text_area :description, :readonly => true %>
+      <% end %>
     </div>
     <div class="field">
       <%= f.label :year, 'data-show-popover' => true, 'data-content' => 
