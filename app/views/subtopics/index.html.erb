@@ -11,7 +11,7 @@
     <td><%= "#{subtopic.code}. #{subtopic.title}" %></td>
     <td><%= link_to_show subtopic %></td>
     <td><%= link_to_edit edit_subtopic_path(subtopic) %></td>
-    <td><%= link_to_destroy subtopic %></td>
+    <td><%= link_to_destroy subtopic if @auth_user.admin? %></td>
   </tr>
 <% end %>
 </table>

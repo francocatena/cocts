@@ -20,7 +20,7 @@
         <td><%= truncate(question.question, :length => 30, :omission => '...') %></td>
         <td><%= link_to_show question %></td>
         <td><%= link_to_edit edit_question_path(question) %></td>
-        <td><%= link_to_destroy question %></td>
+        <td><%= link_to_destroy question if @auth_user.admin? %></td>
       </tr>
     <% end %>
   </tbody>

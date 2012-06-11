@@ -30,7 +30,7 @@
                 :class => :real unless project.project_instances.empty? %></td>
         <td><%= link_to_show project %></td>
         <td><%= link_to_edit  edit_project_path(project) %></td>
-        <td><%= link_to_destroy project %></td>
+        <td><%= link_to_destroy project if @auth_user.admin? %></td>
       </tr>
     <% end %>
   </tbody>

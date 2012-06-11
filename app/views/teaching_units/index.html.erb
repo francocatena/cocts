@@ -11,7 +11,7 @@
     <td><%= teaching_unit.title %></td>
     <td><%= link_to_show teaching_unit %></td>
     <td><%= link_to_edit edit_teaching_unit_path(teaching_unit) %></td>
-    <td><%= link_to_destroy teaching_unit %></td>
+    <td><%= link_to_destroy teaching_unit if @auth_user.admin? %></td>
     </tr>
   </tr>
 <% end %>

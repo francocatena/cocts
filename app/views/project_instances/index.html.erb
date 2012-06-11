@@ -15,7 +15,7 @@
     <td><%= project_instance.professor_name  if project_instance.professor_name.present? %></td>
     <td><%= link_to_show project_instance %></td>
     <td><%= link_to_edit edit_project_instance_path(project_instance) %></td>
-    <td><%= link_to_destroy project_instance %></td>
+    <td><%= link_to_destroy project_instance if @auth_user.admin? %></td>
   </tr>
 <% end %>
 </table>
