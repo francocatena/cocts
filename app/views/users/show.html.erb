@@ -1,32 +1,36 @@
 <div id="showed_data">
   <p>
     <b><%= User.human_attribute_name 'user' %>:</b>
-    <%=h @user.user %>
+    <%= @user.user %>
   </p>
 
   <p>
     <b><%= User.human_attribute_name 'name' %>:</b>
-    <%=h @user.name %>
+    <%= @user.name %>
   </p>
 
   <p>
     <b><%= User.human_attribute_name 'lastname' %>:</b>
-    <%=h @user.lastname %>
+    <%= @user.lastname %>
   </p>
 
   <p>
     <b><%= User.human_attribute_name 'enable' %>:</b>
-    <%=t @user.enable? ? :'labels.yes' : :'labels.no' %>
+    <%=t @user.enable ? :'labels.yes' : :'labels.no' %>
   </p>
-  
+
+  <p>
+    <b><%= User.human_attribute_name 'private' %>:</b>
+    <%=t @user.private ? :'labels.yes' : :'labels.no' %>
+  </p>  
   <p>
     <b><%= User.human_attribute_name 'admin' %>:</b>
-    <%=t @user.admin? ? :'labels.yes' : :'labels.no' %>
+    <%=t @user.admin ? :'labels.yes' : :'labels.no' %>
   </p>
 
   <p>
     <b><%= User.human_attribute_name 'email' %>:</b>
-    <%=h @user.email %>
+    <%= @user.email %>
   </p>
 </div>
 

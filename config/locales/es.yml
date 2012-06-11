@@ -155,6 +155,7 @@
         lastname: 'Apellido'
         email: 'E-Mail'
         enable: 'Habilitado'
+        private: 'Privado'
         admin: 'Administrador'
   
   app_title: 'COCTS'
@@ -710,6 +711,7 @@
     password_confirmation_help: "Repetición del valor ingresado en el campo 'Contraseña'."
     enable_help: 'Casilla que determina si el usuario está habilitado o no para ingresar
     al sistema.'
+    private_help: 'Casilla que determina si el usuario pertenece a un grupo privado.'    
     admin_help: 'Casilla que determina si el usuario cuenta o no con privilegios de 
     administrador.'
     email_help: 'Casilla de email del usuario.'

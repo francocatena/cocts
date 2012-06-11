@@ -4,6 +4,7 @@
       <th><%= User.human_attribute_name 'user' %></th>
       <th><%= User.human_attribute_name 'name' %></th>
       <th><%= User.human_attribute_name 'enable' %></th>
+      <th><%= User.human_attribute_name 'private' %></th>
       <th><%= User.human_attribute_name 'admin' %></th>
       <th></th>
       <th></th>
@@ -16,8 +17,9 @@
     <tr class="<%= cycle(:even, :odd) %>">
       <td><%= user.user %></td>
       <td><%= user.to_s %></td>
-      <td><%= user.enable? ? t(:'labels.whether') : t(:'labels.not') %></td>
-      <td><%= user.admin? ? t(:'labels.whether') : t(:'labels.not') %></td>
+      <td><%= user.enable ? t(:'labels.whether') : t(:'labels.not') %></td>
+       <td><%= user.private ? t(:'labels.whether') : t(:'labels.not') %></td>
+      <td><%= user.admin ? t(:'labels.whether') : t(:'labels.not') %></td>
       <td><%= link_to_show user %></td>
       <td><%= link_to_edit edit_user_path(user) %></td>
       <td><%= link_to_destroy user %></td>

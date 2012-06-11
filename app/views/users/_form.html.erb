@@ -38,6 +38,11 @@
       <%= f.check_box :enable %>
     </div>
     <div class="field">
+      <%= f.label :private, 'data-show-popover' => true, 'data-content' => 
+          t(:'users.private_help'), :title => t(:'activerecord.attributes.user.private') %>
+      <%= f.check_box :private %>
+    </div>
+    <div class="field">
       <%= f.label :admin, 'data-show-popover' => true, 'data-content' => 
           t(:'users.admin_help'), :title => t(:'activerecord.attributes.user.admin') %>
       <%= f.check_box :admin %>
