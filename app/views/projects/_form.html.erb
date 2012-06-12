@@ -44,6 +44,13 @@
         <%= f.text_field :year %>
       <% end %>
     </div>
+    <% if @auth_user.admin %>
+      <div class="field">
+        <%= f.label :user %>
+        <%= f.collection_select :user_id, User.all, :id, 
+          :user, :prompt => 'Seleccione el usuario' %>
+      </div>
+    <% end %>
     <div class="field">
       <%= f.label :group_name, 'data-show-popover' => true, 'data-content' => 
         t(:'projects.group_name_help'), :title => t(:'activerecord.attributes.project.group_name') %>
