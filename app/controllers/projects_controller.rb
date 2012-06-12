@@ -7,11 +7,17 @@ class ProjectsController < ApplicationController
   def index
     @title = t :'projects.index_title'
     
-    @projects = Project.order('name').paginate(
-      :page => params[:page],
-      :per_page => APP_LINES_PER_PAGE
-    )
-    
+    if @auth_user.private
+      @projects = Project.order('name').where('user_id = ?', @auth_user.id).paginate(
+        :page => params[:page], :per_page => APP_LINES_PER_PAGE)
+      
+    elsif @auth_user.admin
+      @projects = Project.paginate(:page => params[:page], :per_page => APP_LINES_PER_PAGE)  
+    else
+      @projects = Project.joins(:user).where(
+        "#{User.table_name}.private" => false
+      ).paginate(:page => params[:page], :per_page => APP_LINES_PER_PAGE)  
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @projects }
@@ -73,7 +79,7 @@ class ProjectsController < ApplicationController
     params[:project][:question_ids] ||= []
     params[:project][:teaching_unit_ids] ||= []
     @project = Project.new(params[:project])
-    @project.user = @auth_user
+    @project.user = @auth_user unless @auth_user.admin
     
     if @project.questions.empty? && @project.teaching_units.empty?
       @project.errors[:base] << t(:'projects.empty_questions_error') 
@@ -92,7 +98,11 @@ class ProjectsController < ApplicationController
       @project.transaction do
         @project.generate_description
         if @project.save
-          @project.update_attribute :identifier, @project.generate_identifier
+          if @auth_user.private?
+            @project.update_attribute :identifier, @project.generate_identifier(@auth_user.user)
+          else
+            @project.update_attribute :identifier, @project.generate_identifier
+          end
           flash[:notice] = t :'projects.correctly_created'
           format.html { redirect_to projects_path }
           format.xml  { render :xml => @project, :status => :created, :location => @project }
@@ -126,10 +136,14 @@ class ProjectsController < ApplicationController
       render :action => :edit
     
     else respond_to do |format|
+      @project.user = @auth_user unless @auth_user.admin
       @project.generate_description
       params[:project][:description] = @project.description
-      params[:project][:identifier] = @project.generate_identifier
-      
+      if @auth_user.private?
+        params[:project][:identifier] = @project.generate_identifier(@auth_user.user)
+      else  
+        params[:project][:identifier] = @project.generate_identifier
+      end
       if @project.update_attributes(params[:project])
         flash[:notice] = t :'projects.correctly_updated'
         format.html { redirect_to projects_path }
