@@ -18,6 +18,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal users(:admin).user, @user.user
     assert_equal users(:admin).password, @user.password
     assert_equal users(:admin).enable, @user.enable
+    assert_equal users(:admin).private, @user.private
   end
 
   # Prueba la creación de un usuario
@@ -31,6 +32,7 @@ class UserTest < ActiveSupport::TestCase
         :password_confirmation => 'new_password_123',
         :email => 'new_user@users.com',
         :enable => true,
+        :private => false,
         :admin => true
       )
     end
@@ -49,6 +51,8 @@ class UserTest < ActiveSupport::TestCase
 
   # Prueba de eliminación de usuarios
   test 'delete' do
+    assert_no_difference('User.count') { @user.destroy }
+    @user.projects.clear
     assert_difference('User.count', -1) { @user.destroy }
   end
 

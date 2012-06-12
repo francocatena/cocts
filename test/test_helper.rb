@@ -16,9 +16,13 @@ class ActiveSupport::TestCase
     temp_controller, @controller = @controller, UsersController.new
 
     post :create_session, :user => {:user => user.user, :password => user.password}
-    assert_redirected_to :action => :index
     assert_not_nil session[:user_id]
     auth_user = User.find(session[:user_id])
+    if auth_user.admin
+      assert_redirected_to :action => :index
+    elsif auth_user.private?
+      assert_redirected_to projects_path
+    end
     assert_not_nil auth_user
     assert_equal user.user, auth_user.user
 

@@ -36,11 +36,22 @@ class ProjectsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'list projects' do
+  test 'list admin projects' do
     perform_auth
     get :index
     assert_response :success
     assert_not_nil assigns(:projects)
+    assert_equal assigns(:projects).size, 2
+    assert_select '#error_body', false
+    assert_template 'projects/index'
+  end
+  
+  test 'list private projects' do
+    perform_auth(users(:private))
+    get :index
+    assert_response :success
+    assert_not_nil assigns(:projects)
+    assert_equal assigns(:projects).size, 1
     assert_select '#error_body', false
     assert_template 'projects/index'
   end

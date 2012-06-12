@@ -10,6 +10,7 @@ manual:
   valid_until: <%= 1.month.from_now.to_date %>
   forms: <%= Project::SOCIODEMOGRAPHIC_FORMS.to_yaml.inspect %>
   questions: _10111
+  user: admin
 
 interactive:
   name: Interactive project
@@ -23,3 +24,4 @@ interactive:
   valid_until: <%= 3.days.from_now.to_date %>
   forms: <%= Project::SOCIODEMOGRAPHIC_FORMS.to_yaml.inspect %>
   questions: _10111, _10113
+  user: private

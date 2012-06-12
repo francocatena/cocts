@@ -15,6 +15,15 @@ class UsersControllerTest < ActionController::TestCase
     public_actions = [
       [:get, :login]
     ]
+    admin_actions = [
+      [:get, :index],
+      [:get, :show, id_param],
+      [:get, :new],
+      [:get, :edit, id_param],
+      [:post, :create],
+      [:put, :update, id_param],
+      [:delete, :destroy, id_param],
+    ]
     private_actions = [
       [:get, :index],
       [:get, :show, id_param],
@@ -35,7 +44,14 @@ class UsersControllerTest < ActionController::TestCase
       assert_redirected_to login_users_path
       assert_equal I18n.t(:'messages.must_be_authenticated'), flash[:notice]
     end
-
+    
+    perform_auth(users(:private))
+    admin_actions.each do |action|
+      send *action
+      assert_redirected_to projects_path
+      assert_equal I18n.t(:'users.admin_error'), flash[:alert]
+    end
+    
     public_actions.each do |action|
       send *action
       assert_response :success
@@ -128,6 +144,7 @@ class UsersControllerTest < ActionController::TestCase
           :password => 'new_password_123',
           :password_confirmation => 'new_password_123',
           :email => 'new_user@user.com',
+          :private => false,
           :enable => true
         }
       }
@@ -171,6 +188,10 @@ class UsersControllerTest < ActionController::TestCase
 
   test 'destroy user' do
     perform_auth
+    assert_no_difference 'User.count' do
+      delete :destroy, :id => @user.to_param
+    end
+    @user.projects.clear
     assert_difference('User.count', -1) do
       delete :destroy, :id => @user.to_param
     end

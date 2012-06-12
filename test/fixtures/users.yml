@@ -5,6 +5,7 @@ admin:
   name: Administrator
   lastname: Administrator
   enable: true
+  private: false
   admin: true
   email: administrator@users.com
   salt: <%= salt %>
@@ -16,6 +17,19 @@ disable:
   name: Disabled
   lastname: User
   enable: false
+  private: false
+  admin: false
+  email: disable@users.com
+  salt: <%= salt %>
+  
+  <% salt = Digest::SHA512.hexdigest("private#{rand}") %>
+private:
+  user: private
+  password: <%= Digest::SHA512.hexdigest("#{salt}-private123") %>
+  name: Private
+  lastname: User
+  enable: true
+  private: true
   admin: false
   email: disable@users.com
   salt: <%= salt %>
