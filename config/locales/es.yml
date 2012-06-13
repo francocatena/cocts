@@ -274,6 +274,7 @@
     search: 'Buscar'
     select: 'Seleccionar'
     whether: 'Si'
+    rates: 'Índices'
     not: 'No'
   
   menu:
@@ -354,6 +355,10 @@
           tb: 'TB'
 
   projects:
+    attitudinal_index_by_questionnaire_title: 'Índices actitudinales por cuestionario'
+    attitudinal_index_by_category_title: 'Índice actitudinal por categoría de respuesta'
+    control_group_title: 'Grupo control'
+    experimental_group_title: 'Grupo experimental'
     type_error: 'El tipo de grupo y tipo de test deben ser distintos al del 
     proyecto seleccionado'
     questions_error: 'Por defecto se toman las cuestiones asociadas a las Unidades

@@ -172,9 +172,20 @@ class ProjectsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  def pdf_rates 
+    @project = Project.find_by_identifier(params[:id])
+    projects = Project.where('name = ?', @project.name)
+    respond_to do |format|
+       format.pdf  {
+        @project.generate_pdf_rates(projects)
+        redirect_to "/#{@project.pdf_relative_path}"
+      }
+    end
+  end
 
   def select_new
-    @projects = Project.select('distinct name').order('name')
+    @projects = Project.select('distinct name')
   end
     
   # POST /projects/auto_complete_for_question

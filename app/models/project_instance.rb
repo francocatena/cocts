@@ -129,8 +129,8 @@ class ProjectInstance < ApplicationModel
     end
   end
   
-  def calculate_attitudinal_global_index
-    (plausible_attitude_index + naive_attitude_index + adecuate_attitude_index) / 3
+  def attitudinal_global_index
+    (self.plausible_attitude_index + self.naive_attitude_index + self.adecuate_attitude_index) / 3
   end
   
   def to_pdf

@@ -34,6 +34,9 @@ CoctsApp::Application.routes.draw do
       get :preview_form
       get :select_new
     end
+    member do
+      get :pdf_rates
+    end
   end
 
   resources :users do

@@ -148,5 +148,7 @@
   <%= link_to t(:'labels.edit'), edit_project_path(@project), :class => :real %> |
   <%= link_to t(:'labels.download'), project_path(@project, :format => :pdf),
     :class => :real %> |
+  <%= link_to t(:'labels.rates'), pdf_rates_project_path(@project, :format => :pdf),
+    :class => :real %> |
   <%= link_to t(:'labels.list'), projects_path, :class => :real %>
 </div>

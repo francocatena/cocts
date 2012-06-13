@@ -14,7 +14,7 @@
   </div>
   <div id="option">
     <%= form_tag new_project_path, :method => 'get' do %>
-      <%= select_tag(:parent_project_id, options_from_collection_for_select(@projects, 
+      <%= select_tag(:parent_project_id, options_from_collection_for_select(Project.all, 
           'id', 'name')) %>
       <%= submit_tag t(:'labels.select') %>
     <% end %>

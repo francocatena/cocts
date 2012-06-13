@@ -116,6 +116,96 @@ class Project < ApplicationModel
       end
     end
   end
+  
+  def generate_pdf_rates(projects)
+    pdf = Prawn::Document.new(PDF_OPTIONS)
+    pdf.font_size = PDF_FONT_SIZE
+    # Título
+    pdf.font_size((PDF_FONT_SIZE * 1.6).round) do
+      pdf.text "#{I18n.t('labels.rates')} Proyecto: #{self.name}", :style => :bold,
+        :align => :center
+      pdf.move_down pdf.font_size
+    end
+    
+    pdf.font_size((PDF_FONT_SIZE * 1.4).round) do
+      pdf.text I18n.t('projects.attitudinal_index_by_questionnaire_title')
+      pdf.move_down pdf.font_size
+    end
+    data = []
+    
+    projects.each do |project|
+      if project.group_type == 'control' 
+        pdf.font_size((PDF_FONT_SIZE * 1.2).round) do
+          pdf.move_down pdf.font_size
+          pdf.text I18n.t('projects.control_group_title')
+        end
+      elsif project.group_type == 'experimental'
+        pdf.font_size((PDF_FONT_SIZE * 1.2).round) do
+          pdf.move_down pdf.font_size
+          pdf.text I18n.t('projects.experimental_group_title')
+        end
+      end
+      
+      if project.test_type == 'pre_test'
+        pdf.font_size((PDF_FONT_SIZE * 1.2).round) do
+          pdf.text I18n.t('projects.questionnaire.test_type.options.pre_test')
+        end
+      else
+        pdf.font_size((PDF_FONT_SIZE * 1.2).round) do  
+          pdf.text I18n.t('projects.questionnaire.test_type.options.pos_test')
+        end
+      end
+      
+      pdf.move_down pdf.font_size
+      
+      data[0] = ['Alumno', 'Índice actitudinal']
+      
+      adecuate_index = plausible_index = naive_index = global_index = 0
+      
+      project.project_instances.each_with_index do |instance, i|
+        instance.calculate_attitudinal_rates
+        attitudinal_global_index = instance.attitudinal_global_index
+        
+        adecuate_index += instance.adecuate_attitude_index
+        plausible_index += instance.plausible_attitude_index
+        naive_index += instance.naive_attitude_index
+        global_index += instance.attitudinal_global_index
+        
+        data[i+1] = [instance.first_name, attitudinal_global_index ]
+      end
+      
+      pdf.flexible_table data,
+        :width => pdf.margin_box.width,
+        :align => :center,
+        :vertical_padding => 3,
+        :border_style => :grid,
+        :size => (PDF_FONT_SIZE * 0.75).round 
+      
+      pdf.move_down pdf.font_size
+    
+    pdf.font_size((PDF_FONT_SIZE * 1.2).round) do
+      pdf.move_down pdf.font_size
+      pdf.text I18n.t('projects.attitudinal_index_by_category_title')
+      pdf.move_down pdf.font_size
+    end
+    pdf.text "Categoría adecuada: #{adecuate_index}"
+    pdf.text "Categoría plausible: #{plausible_index}"
+    pdf.text "Categoría ingenua: #{naive_index}"
+    pdf.text "Global: #{global_index}"
+    
+    pdf.move_down pdf.font_size
+    
+    end
+    
+    # Numeración en pie de página
+    pdf.page_count.times do |i|
+      pdf.go_to_page(i+1)
+      pdf.draw_text "#{i+1} / #{pdf.page_count}", :at=>[1,1], :size => (PDF_FONT_SIZE * 0.75).round
+    end
+    
+    FileUtils.mkdir_p File.dirname(self.pdf_full_path)
+    pdf.render_file self.pdf_full_path
+  end
 
   def to_pdf
     i18n_scope = [:projects, :questionnaire]
