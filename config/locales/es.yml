@@ -355,6 +355,9 @@
           tb: 'TB'
 
   projects:
+    attitudinal_index: 'Índice actitudinal'
+    alumn_title: 'Alumno'
+    rates_title: 'Índices del proyecto'
     attitudinal_index_by_questionnaire_title: 'Índices actitudinales por cuestionario'
     attitudinal_index_by_category_title: 'Índice actitudinal por categoría de respuesta'
     control_group_title: 'Grupo control'
