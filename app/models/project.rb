@@ -122,7 +122,7 @@ class Project < ApplicationModel
     pdf.font_size = PDF_FONT_SIZE
     # Título
     pdf.font_size((PDF_FONT_SIZE * 1.6).round) do
-      pdf.text "#{I18n.t('labels.rates')} Proyecto: #{self.name}", :style => :bold,
+      pdf.text "#{I18n.t('projects.rates_title')} #{self.name}", :style => :bold,
         :align => :center
       pdf.move_down pdf.font_size
     end
@@ -158,7 +158,7 @@ class Project < ApplicationModel
       
       pdf.move_down pdf.font_size
       
-      data[0] = ['Alumno', 'Índice actitudinal']
+      data[0] = [I18n.t('projects.alumn_title'), I18n.t('projects.attitudinal_index')]
       
       adecuate_index = plausible_index = naive_index = global_index = 0
       
