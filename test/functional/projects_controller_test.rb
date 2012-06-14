@@ -71,6 +71,14 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:project)
     assert_select '#error_body', false
   end
+  
+  test 'rates in pdf' do
+    perform_auth
+    get :pdf_rates, :id => @project.to_param, :format => 'pdf'
+    assert_redirected_to "/#{@project.pdf_relative_path}"
+    assert_not_nil assigns(:project)
+    assert_select '#error_body', false
+  end
 
   test 'new project' do
     perform_auth
