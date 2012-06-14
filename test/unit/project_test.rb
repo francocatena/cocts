@@ -156,13 +156,23 @@ class ProjectTest < ActiveSupport::TestCase
     FileUtils.rm @project.pdf_full_path if File.exists?(@project.pdf_full_path)
 
     assert !File.exists?(@project.pdf_full_path)
-
     assert_nothing_raised(Exception) do
       @project.to_pdf
     end
-
     assert File.exists?(@project.pdf_full_path)
-
     FileUtils.rm @project.pdf_full_path
   end
+  
+  test 'rates to pdf' do
+    FileUtils.rm @project.pdf_full_path if File.exists?(@project.pdf_full_path)
+
+    assert !File.exists?(@project.pdf_full_path)
+    assert_nothing_raised(Exception) do
+      @project.generate_pdf_rates(Project.all)
+    end
+
+    assert File.exists?(@project.pdf_full_path)
+    FileUtils.rm @project.pdf_full_path
+  end
+  
 end
