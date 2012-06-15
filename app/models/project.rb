@@ -100,8 +100,8 @@ class Project < ApplicationModel
     I18n.t :"projects.questionnaire.test_type.options.#{self.test_type}"
   end
   
-  def generate_identifier(user = nil)
-    "#{user}#{self.id}-#{self.short_group_type_text}-#{self.short_test_type_text}"
+  def generate_identifier
+    "#{self.id}-#{self.short_group_type_text}-#{self.short_test_type_text}"
   end
   
   def generate_pdf_rates(projects)

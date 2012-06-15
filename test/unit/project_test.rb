@@ -125,16 +125,9 @@ class ProjectTest < ActiveSupport::TestCase
       @project.errors[:identifier]
   end
 
-  test 'generate public project identifier' do
+  test 'generate project identifier' do
     id_project = @project.generate_identifier
     id = "#{@project.id}-#{@project.short_group_type_text}-#{@project.short_test_type_text}"
-    assert_equal id_project, id
-  end
-  
-  test 'generate private project identifier' do
-    user = users(:private).user
-    id_project = @project.generate_identifier(user)
-    id = "#{user}#{@project.id}-#{@project.short_group_type_text}-#{@project.short_test_type_text}"
     assert_equal id_project, id
   end
   
