@@ -185,7 +185,14 @@ class ProjectsController < ApplicationController
   end
 
   def select_new
-    @projects = Project.select('distinct name')
+    if @auth_user.private
+      @projects = Project.select('distinct name').where('user_id = ?', @auth_user.id)
+    elsif @auth_user.admin
+      @projects = Project.select('distinct name')
+    else
+      @projects = Project.joins(:user).select('distinct projects.name').where(
+        "#{User.table_name}.private" => false)    
+    end
   end
     
   # POST /projects/auto_complete_for_question
