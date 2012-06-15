@@ -138,20 +138,6 @@ class ProjectTest < ActiveSupport::TestCase
     assert_equal id_project, id
   end
   
-  test 'generate description' do
-    # Descripción con cuestiones
-    @project.generate_description
-    question = @project.questions.first.question + "\n"
-    assert_equal @project.description, question
-    
-    # Descripción con UDs
-    @project.questions.clear
-    @project.teaching_units << teaching_units(:udI)
-    @project.generate_description
-    description = teaching_units(:udI).title + "\n"
-    assert_equal @project.description, description
-  end
-  
   test 'conversion to pdf' do
     FileUtils.rm @project.pdf_full_path if File.exists?(@project.pdf_full_path)
 

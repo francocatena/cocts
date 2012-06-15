@@ -96,7 +96,6 @@ class ProjectsController < ApplicationController
     
     else respond_to do |format|
       @project.transaction do
-        @project.generate_description
         if @project.save
           if @auth_user.private?
             @project.update_attribute :identifier, @project.generate_identifier(@auth_user.user)
@@ -137,7 +136,6 @@ class ProjectsController < ApplicationController
     
     else respond_to do |format|
       @project.user = @auth_user unless @auth_user.admin
-      @project.generate_description
       params[:project][:description] = @project.description
       if @auth_user.private?
         params[:project][:identifier] = @project.generate_identifier(@auth_user.user)

@@ -104,19 +104,6 @@ class Project < ApplicationModel
     "#{user}#{self.id}-#{self.short_group_type_text}-#{self.short_test_type_text}"
   end
   
-  def generate_description
-    if self.questions.present?
-      self.questions.each do |q|
-        self.description = "#{q.question}\n"
-      end
-    end
-    if self.teaching_units.present?
-      self.teaching_units.each do |tu|
-        self.description = "#{tu.title}\n"
-      end
-    end
-  end
-  
   def generate_pdf_rates(projects)
     pdf = Prawn::Document.new(PDF_OPTIONS)
     pdf.font_size = PDF_FONT_SIZE
