@@ -149,6 +149,8 @@ class Project < ApplicationModel
       
       adecuate_index = plausible_index = naive_index = global_index = 0
       
+      count = 0
+      
       project.project_instances.each_with_index do |instance, i|
         instance.calculate_attitudinal_rates
         attitudinal_global_index = instance.attitudinal_global_index
@@ -159,6 +161,7 @@ class Project < ApplicationModel
         global_index += instance.attitudinal_global_index
         
         data[i+1] = [instance.first_name, attitudinal_global_index ]
+        count += 1
       end
       
       pdf.flexible_table data,
@@ -175,10 +178,10 @@ class Project < ApplicationModel
       pdf.text I18n.t('projects.attitudinal_index_by_category_title')
       pdf.move_down pdf.font_size
     end
-    pdf.text "Categoría adecuada: #{adecuate_index}"
-    pdf.text "Categoría plausible: #{plausible_index}"
-    pdf.text "Categoría ingenua: #{naive_index}"
-    pdf.text "Global: #{global_index}"
+    pdf.text "Promedio categoría adecuada: #{(adecuate_index/count).round 2}"
+    pdf.text "Promedio categoría plausible: #{(plausible_index/count).round 2}"
+    pdf.text "Promedio categoría ingenua: #{(naive_index/count).round 2}"
+    pdf.text "Promedio global: #{(global_index/count).round 2}"
     
     pdf.move_down pdf.font_size
     

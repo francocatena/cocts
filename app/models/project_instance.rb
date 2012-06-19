@@ -106,7 +106,6 @@ class ProjectInstance < ApplicationModel
     self.question_instances.each do |qi|
       qi.answer_instances.each do |ai|
         ai.calculate_attitudinal_assessment
-        ai.attitudinal_assessment
       end
     end
   end
@@ -125,12 +124,12 @@ class ProjectInstance < ApplicationModel
     if total == 0
       0
     else
-      index / total
+      (index/total).round 2
     end
   end
   
   def attitudinal_global_index
-    (self.plausible_attitude_index + self.naive_attitude_index + self.adecuate_attitude_index) / 3
+    ((self.plausible_attitude_index + self.naive_attitude_index + self.adecuate_attitude_index) / 3).round 2
   end
   
   def to_pdf
