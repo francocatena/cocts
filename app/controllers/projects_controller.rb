@@ -46,7 +46,7 @@ class ProjectsController < ApplicationController
     @title = t :'projects.new_title'
     @project = Project.new
 
-    if params[:parent_project_id]
+    if params[:parent_project_id].present?
       @old = true
       project = Project.find params[:parent_project_id]
       @group = project.group_type
