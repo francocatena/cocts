@@ -147,7 +147,7 @@ class ProjectTest < ActiveSupport::TestCase
 
     assert !File.exists?(@project.pdf_full_path)
     assert_nothing_raised(Exception) do
-      @project.generate_pdf_rates(Project.all)
+      @project.generate_pdf_rates(Project.all, User.first)
     end
 
     assert File.exists?(@project.pdf_full_path)

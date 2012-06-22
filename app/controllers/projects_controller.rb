@@ -169,7 +169,7 @@ class ProjectsController < ApplicationController
     projects = Project.where('name = ?', @project.name)
     respond_to do |format|
        format.pdf  {
-        @project.generate_pdf_rates(projects)
+        @project.generate_pdf_rates(projects, @auth_user)
         redirect_to "/#{@project.pdf_relative_path}"
       }
     end

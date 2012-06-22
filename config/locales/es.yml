@@ -257,11 +257,13 @@
   labels:
     add: 'Agregar'
     back: 'Volver'
+    by: 'por'
     change: 'Cambiar'
     close: 'Cerrar'
     delete: 'Eliminar'
     download: 'Descargar'
     edit: 'Editar'
+    generated_on: 'Generado el'
     show: 'Ver'
     list: 'Listado'
     modify: 'Modificar'

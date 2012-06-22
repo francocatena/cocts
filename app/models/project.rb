@@ -104,11 +104,19 @@ class Project < ApplicationModel
     "#{self.id}-#{self.short_group_type_text}-#{self.short_test_type_text}"
   end
   
-  def generate_pdf_rates(projects)
+  def generate_pdf_rates(projects, user)
     pdf = Prawn::Document.new(PDF_OPTIONS)
     pdf.font_size = PDF_FONT_SIZE
+    # Fecha
+    date = I18n.l(Date.today, :format => :long)
+    name = "#{user.name} #{user.lastname}"
+    pdf.font_size((PDF_FONT_SIZE * 0.7).round) do
+      pdf.move_down pdf.font_size
+      pdf.text "#{I18n.t 'labels.generated_on'} #{date} #{I18n.t 'labels.by'} #{name}", :align => :right
+    end
     # Título
     pdf.font_size((PDF_FONT_SIZE * 1.6).round) do
+      pdf.move_down pdf.font_size
       pdf.text "#{I18n.t('projects.rates_title')} #{self.name}", :style => :bold,
         :align => :center
       pdf.move_down pdf.font_size
