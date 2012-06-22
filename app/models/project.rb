@@ -160,7 +160,7 @@ class Project < ApplicationModel
         naive_index += instance.naive_attitude_index
         global_index += instance.attitudinal_global_index
         
-        data[i+1] = [instance.first_name, attitudinal_global_index ]
+        data[i+1] = [instance.first_name, '%.2f' % attitudinal_global_index ]
         count += 1
       end
       
@@ -178,11 +178,12 @@ class Project < ApplicationModel
       pdf.text I18n.t('projects.attitudinal_index_by_category_title')
       pdf.move_down pdf.font_size
     end
-    pdf.text "Promedio categoría adecuada: #{(adecuate_index/count).round 2}"
-    pdf.text "Promedio categoría plausible: #{(plausible_index/count).round 2}"
-    pdf.text "Promedio categoría ingenua: #{(naive_index/count).round 2}"
-    pdf.text "Promedio global: #{(global_index/count).round 2}"
-    
+    unless count == 0
+      pdf.text 'Promedio categoría adecuada: %.2f' % (adecuate_index/count)
+      pdf.text 'Promedio categoría plausible: %.2f' % (plausible_index/count)
+      pdf.text 'Promedio categoría ingenua: %.2f' % (naive_index/count)
+      pdf.text 'Promedio global: %.2f' % (global_index/count)
+    end
     pdf.move_down pdf.font_size
     
     end
