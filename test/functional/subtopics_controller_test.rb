@@ -70,7 +70,8 @@ class SubtopicsControllerTest < ActionController::TestCase
       post :create, {
         :subtopic => {
           :title => 'Enseñanza de la ciencia',
-          :code => 001
+          :code => 001,
+          :teaching_unit_ids => [teaching_units(:udII).id]
         }
       }
     end
