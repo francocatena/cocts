@@ -6,7 +6,7 @@
 <div id="search_form" style="display: none;">
   <%= form_tag questions_path, :method => 'get', :id => "questions_search" do %>
     <div id="field">
-      <%= text_field_tag :search, params[:search] %>
+      <%= text_field_tag :search, params[:search], :autofocus => true %>
     </div>
   <% end %>
 </div>
