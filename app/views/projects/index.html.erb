@@ -1,3 +1,13 @@
+<div id="search_link">
+  <%= link_to t(:'projects.search_projects'), '#', :class => 'search' %>
+</div>
+<div id="search_form" style="display: none;">
+  <%= form_tag projects_path, :method => 'get', :id => "projects_search" do %>
+    <div id="field">
+      <%= text_field_tag :search, params[:search] %>
+    </div>
+  <% end %>
+</div>
 <table>
   <thead>
     <tr>

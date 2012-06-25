@@ -12,9 +12,12 @@ class ProjectsController < ApplicationController
         :page => params[:page], :per_page => APP_LINES_PER_PAGE)
       
     elsif @auth_user.admin
-      @projects = Project.paginate(:page => params[:page], :per_page => APP_LINES_PER_PAGE)  
+      @projects = Project.search(params[:search]).paginate(:page => params[:page], 
+        :per_page => APP_LINES_PER_PAGE
+      )
+    
     else
-      @projects = Project.joins(:user).where(
+      @projects = Project.search(params[:search]).joins(:user).where(
         "#{User.table_name}.private" => false
       ).paginate(:page => params[:page], :per_page => APP_LINES_PER_PAGE)  
     end

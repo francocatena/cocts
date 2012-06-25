@@ -357,6 +357,7 @@
           tb: 'TB'
 
   projects:
+    search_projects: Buscar proyectos
     attitudinal_index: 'Índice actitudinal'
     alumn_title: 'Alumno'
     rates_title: 'Índices del proyecto'

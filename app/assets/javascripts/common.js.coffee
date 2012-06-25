@@ -11,10 +11,18 @@ $ ->
     setTimeout(searchQuestions, 400)
     $(this).event.stopPropagation()
     false
+    
+  $("#projects_search input").keyup -> 
+    setTimeout(searchQuestions, 400)
+    $(this).event.stopPropagation()
+    false
 
 searchQuestions = ->
   $.get($("#questions_search").attr("action"), $("#questions_search").serialize(), null, "script")
-  
+
+searchProjects = ->
+  $.get($("#projects_search").attr("action"), $("#projects_search").serialize(), null, "script")
+
 # Manejadores de eventos
 EventHandler = 
   # Agrega un ítem anidado

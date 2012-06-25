@@ -100,6 +100,14 @@ class Project < ApplicationModel
     I18n.t :"projects.questionnaire.test_type.options.#{self.test_type}"
   end
   
+  def self.search(search)
+    if search
+      where('name ILIKE :q OR identifier ILIKE :q', :q => "%#{search}%")
+    else
+      scoped
+    end
+  end
+  
   def generate_identifier
     "#{self.id}-#{self.short_group_type_text}-#{self.short_test_type_text}"
   end
