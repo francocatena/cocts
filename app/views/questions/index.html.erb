@@ -1,7 +1,7 @@
 <%= javascript_include_tag 'pagination' %>
 
 <div id="search_link">
-<%= link_to t(:'questions.search_questions'), '#', :class => 'search' %>
+  <%= link_to t(:'questions.search_questions'), '#', :class => 'search' %>
 </div>
 <div id="search_form" style="display: none;">
   <%= form_tag questions_path, :method => 'get', :id => "questions_search" do %>
@@ -9,8 +9,7 @@
       <%= text_field_tag :search, params[:search] %>
     </div>
   <% end %>
-   
-  </div>
+</div>
 
 <div id="questions">
   <%= render :partial => 'questions' %>

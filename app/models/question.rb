@@ -52,12 +52,12 @@ class Question < ApplicationModel
   end
   
   def self.search(search)
-  if search
-    where('question LIKE ? OR code LIKE ?', "%#{search}%", "%#{search}%")
-  else
-    scoped
+    if search
+      where('question ILIKE :q OR code ILIKE :q', :q => "%#{search}%")
+    else
+      scoped
+    end
   end
-end
 
   def self.full_text(query_terms)
     options = text_query(query_terms, 'code','question')
