@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
     @title = t :'projects.index_title'
     
     if @auth_user.private
-      @projects = Project.order('name').where('user_id = ?', @auth_user.id).paginate(
+      @projects = Project.search(params[:search]).order('name').where('user_id = ?', @auth_user.id).paginate(
         :page => params[:page], :per_page => APP_LINES_PER_PAGE)
       
     elsif @auth_user.admin
