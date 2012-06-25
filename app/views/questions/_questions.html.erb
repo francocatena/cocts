@@ -14,7 +14,7 @@
   <tbody>
     <% @questions.each do |question| %>
       <tr class="<%= cycle(:even, :odd) %>">
-        <td><%= content_tag :acronym, question.dimension,
+        <td><%= content_tag :abbr, question.dimension,
             :title => question.dimension_text %></td>
         <td><%= question.code %></td>
         <td><%= truncate(question.question, :length => 30, :omission => '...') %></td>
@@ -27,8 +27,5 @@
 </table>
 </div>
 
-<div id="links">
-  <%= pagination_links @questions %>
-</div>
-  
+ 
 
