@@ -125,83 +125,84 @@ class Project < ApplicationModel
     # Título
     pdf.font_size((PDF_FONT_SIZE * 1.6).round) do
       pdf.move_down pdf.font_size
-      pdf.text "#{I18n.t('projects.rates_title')} #{self.name}", :style => :bold,
+      pdf.text "#{I18n.t('activerecord.models.project')} #{self.name}", :style => :bold,
         :align => :center
       pdf.move_down pdf.font_size
     end
     
     pdf.font_size((PDF_FONT_SIZE * 1.4).round) do
-      pdf.text I18n.t('projects.attitudinal_index_by_questionnaire_title')
+      pdf.text I18n.t('projects.attitudinal_index_title')
       pdf.move_down pdf.font_size
     end
     data = []
     
     projects.each do |project|
-      if project.group_type == 'control' 
-        pdf.font_size((PDF_FONT_SIZE * 1.2).round) do
-          pdf.move_down pdf.font_size
-          pdf.text I18n.t('projects.control_group_title')
+      if project.project_instances.present?
+        if project.group_type == 'control' 
+          pdf.font_size((PDF_FONT_SIZE * 1.2).round) do
+            pdf.move_down pdf.font_size
+            pdf.text I18n.t('projects.control_group_title')
+          end
+        elsif project.group_type == 'experimental'
+          pdf.font_size((PDF_FONT_SIZE * 1.2).round) do
+            pdf.move_down pdf.font_size
+            pdf.text I18n.t('projects.experimental_group_title')
+          end
         end
-      elsif project.group_type == 'experimental'
-        pdf.font_size((PDF_FONT_SIZE * 1.2).round) do
-          pdf.move_down pdf.font_size
-          pdf.text I18n.t('projects.experimental_group_title')
+
+        if project.test_type == 'pre_test'
+          pdf.font_size((PDF_FONT_SIZE * 1.2).round) do
+            pdf.text I18n.t('projects.questionnaire.test_type.options.pre_test')
+          end
+        else
+          pdf.font_size((PDF_FONT_SIZE * 1.2).round) do  
+            pdf.text I18n.t('projects.questionnaire.test_type.options.pos_test')
+          end
         end
+
+        pdf.move_down pdf.font_size
+
+        data[0] = [I18n.t('projects.alumn_title'), I18n.t('projects.attitudinal_index')]
+
+        adecuate_index = plausible_index = naive_index = global_index = 0
+
+        count = 0
+
+        project.project_instances.each_with_index do |instance, i|
+          instance.calculate_attitudinal_rates
+          attitudinal_global_index = instance.attitudinal_global_index
+
+          adecuate_index += instance.adecuate_attitude_index
+          plausible_index += instance.plausible_attitude_index
+          naive_index += instance.naive_attitude_index
+          global_index += instance.attitudinal_global_index
+
+          data[i+1] = [instance.first_name, '%.2f' % attitudinal_global_index ]
+          count += 1
+        end
+
+        pdf.flexible_table data,
+          :width => pdf.margin_box.width,
+          :align => :center,
+          :vertical_padding => 3,
+          :border_style => :grid,
+          :size => (PDF_FONT_SIZE * 0.75).round 
+
+        pdf.move_down pdf.font_size
+
+      pdf.font_size((PDF_FONT_SIZE * 1.2).round) do
+        pdf.move_down pdf.font_size
+        pdf.text I18n.t('projects.attitudinal_index_by_category_title')
+        pdf.move_down pdf.font_size
       end
-      
-      if project.test_type == 'pre_test'
-        pdf.font_size((PDF_FONT_SIZE * 1.2).round) do
-          pdf.text I18n.t('projects.questionnaire.test_type.options.pre_test')
-        end
-      else
-        pdf.font_size((PDF_FONT_SIZE * 1.2).round) do  
-          pdf.text I18n.t('projects.questionnaire.test_type.options.pos_test')
-        end
+      unless count == 0
+        pdf.text "#{t 'projects.attitudinal_index_category_adecuate'}: %.2f" % (adecuate_index/count)
+        pdf.text "#{t 'projects.attitudinal_index_category_plausible'}: %.2f" % (plausible_index/count)
+        pdf.text "#{t 'projects.attitudinal_index_category_naive'}: %.2f" % (naive_index/count)
+        pdf.text "#{t 'projects.attitudinal_global_index'}: %.2f" % (global_index/count)
       end
-      
       pdf.move_down pdf.font_size
-      
-      data[0] = [I18n.t('projects.alumn_title'), I18n.t('projects.attitudinal_index')]
-      
-      adecuate_index = plausible_index = naive_index = global_index = 0
-      
-      count = 0
-      
-      project.project_instances.each_with_index do |instance, i|
-        instance.calculate_attitudinal_rates
-        attitudinal_global_index = instance.attitudinal_global_index
-        
-        adecuate_index += instance.adecuate_attitude_index
-        plausible_index += instance.plausible_attitude_index
-        naive_index += instance.naive_attitude_index
-        global_index += instance.attitudinal_global_index
-        
-        data[i+1] = [instance.first_name, '%.2f' % attitudinal_global_index ]
-        count += 1
-      end
-      
-      pdf.flexible_table data,
-        :width => pdf.margin_box.width,
-        :align => :center,
-        :vertical_padding => 3,
-        :border_style => :grid,
-        :size => (PDF_FONT_SIZE * 0.75).round 
-      
-      pdf.move_down pdf.font_size
-    
-    pdf.font_size((PDF_FONT_SIZE * 1.2).round) do
-      pdf.move_down pdf.font_size
-      pdf.text I18n.t('projects.attitudinal_index_by_category_title')
-      pdf.move_down pdf.font_size
-    end
-    unless count == 0
-      pdf.text 'Promedio categoría adecuada: %.2f' % (adecuate_index/count)
-      pdf.text 'Promedio categoría plausible: %.2f' % (plausible_index/count)
-      pdf.text 'Promedio categoría ingenua: %.2f' % (naive_index/count)
-      pdf.text 'Promedio global: %.2f' % (global_index/count)
-    end
-    pdf.move_down pdf.font_size
-    
+    end 
     end
     
     # Numeración en pie de página
