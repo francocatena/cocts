@@ -131,6 +131,7 @@
         valid_until: 'Vencimiento'
         project_type: 'Tipo de carga'
         test_type: 'Tipo de test'
+        user_id: 'Usuario'
         questions: 'Cuestiones'
       question:
         code: 'Código'
