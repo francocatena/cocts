@@ -115,25 +115,24 @@
    <% end %>
   <% else %>
     <div class="questions">
-      <h2><li><%= Project.human_attribute_name :questions %></li></h2>
+      <h2><%= Project.human_attribute_name :questions %></h2>
       <ul class="raw_list">
         <% @project.questions.each do |question| %>
           <li><strong><%= question.code %></strong> - <%= question.question %></li>
         <% end %>
       </ul>
     </div>  
- </div>
   <% end %>  
 
-
-<div id="links">
-  <%= link_to_back %> 
-  <%= link_to t(:'labels.edit'), edit_project_path(@project), :class => :real %> |
-  <%= link_to t(:'labels.download'), project_path(@project, :format => :pdf),
-    :class => :real %> |
-  <% if @project.project_instances.present? %>
-    <%= link_to t(:'labels.rates'), pdf_rates_project_path(@project, :format => :pdf),
+  <div id="links">
+    <%= link_to_back %> 
+    <%= link_to t(:'labels.edit'), edit_project_path(@project), :class => :real %> |
+    <%= link_to t(:'labels.download'), project_path(@project, :format => :pdf),
       :class => :real %> |
-  <% end %>
-  <%= link_to t(:'labels.list'), projects_path, :class => :real %>
-</div></div>
+    <% if @project.project_instances.present? %>
+      <%= link_to t(:'labels.rates'), pdf_rates_project_path(@project, :format => :pdf),
+        :class => :real %> |
+    <% end %>
+    <%= link_to t(:'labels.list'), projects_path, :class => :real %>
+  </div>
+</div>
