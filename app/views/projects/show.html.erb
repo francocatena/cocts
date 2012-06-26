@@ -54,7 +54,6 @@
         <th colspan="4"><%= t(:disagreement_title, :scope => i18n_scope) %></th>
         <th><%= t(:undecided_title, :scope => i18n_scope) %></th>
         <th colspan="4"><%= t(:in_agreement_title, :scope => i18n_scope) %></th>
-        <th colspan="2"><%= t(:others_title, :scope => i18n_scope) %></th>
       </tr>
     </thead>
     <tbody>
@@ -71,20 +70,15 @@
         <% [:'6', :'7', :'8', :'9'].each do |opt| %>
           <td><%= t(opt, :scope => i18n_scope) %></td>
         <% end %>
-        <% i18n_scope[-1] = :others %>
-        <% [:'E', :'S'].each do |opt| %>
-          <td><%= t(opt, :scope => i18n_scope) %></td>
-        <% end %>
       </tr>
       <tr>
-        <% ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'E', 'S'].each do |opt| %>
+        <% ['1', '2', '3', '4', '5', '6', '7', '8', '9'].each do |opt| %>
           <td><%= opt %></td>
         <% end %>
       </tr>
     </tbody>
   </table>
   <% i18n_scope.slice!(-2, 2) %>
-  <%= raw textilize(t(:scale_clarification, :scope => i18n_scope)) %>
   <%= render 'answer_example' %>
 
   <h2 style="margin: 1em 0em; font-weight: normal;">
@@ -130,7 +124,7 @@
      </div>  
     </div>
   <% end %>  
-    </div>
+</div>
 
 <div id="links">
   <%= link_to_back %> 

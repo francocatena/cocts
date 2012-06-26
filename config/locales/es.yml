@@ -358,7 +358,7 @@
 
   projects:
     search_projects: Buscar proyectos
-    attitudinal_index: 'Índice global actitudinal medio'
+    attitudinal_index_title: 'Índice global actitudinal medio'
     attitudinal_index_category_adecuate: Índice actitudinal de categoría adecuada
     attitudinal_index_category_plausible: Índice actitudinal de categoría plausible
     attitudinal_index_category_naive: Índice actitudinal de categoría ingenua
