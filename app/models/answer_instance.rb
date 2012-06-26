@@ -6,7 +6,7 @@ class AnswerInstance < ApplicationModel
     :plausible => 1,
     :naive => 0
   }
-  VALUATIONS = (1..9).map(&:to_s) + ['E','S']
+  VALUATIONS = (1..9).map(&:to_s)
   
   # Relaciones
   belongs_to :question_instance
