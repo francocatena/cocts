@@ -162,7 +162,7 @@ class Project < ApplicationModel
 
         pdf.move_down pdf.font_size
 
-        data[0] = [I18n.t('projects.alumn_title'), I18n.t('projects.attitudinal_index')]
+        data[0] = [I18n.t('projects.alumn_title'), I18n.t('projects.global_attitudinal_index_title')]
 
         adecuate_index = plausible_index = naive_index = global_index = 0
 
@@ -196,10 +196,10 @@ class Project < ApplicationModel
         pdf.move_down pdf.font_size
       end
       unless count == 0
-        pdf.text "#{t 'projects.attitudinal_index_category_adecuate'}: %.2f" % (adecuate_index/count)
-        pdf.text "#{t 'projects.attitudinal_index_category_plausible'}: %.2f" % (plausible_index/count)
-        pdf.text "#{t 'projects.attitudinal_index_category_naive'}: %.2f" % (naive_index/count)
-        pdf.text "#{t 'projects.attitudinal_global_index'}: %.2f" % (global_index/count)
+        pdf.text "#{I18n.t 'projects.attitudinal_index_category_adecuate'}: %.2f" % (adecuate_index/count)
+        pdf.text "#{I18n.t 'projects.attitudinal_index_category_plausible'}: %.2f" % (plausible_index/count)
+        pdf.text "#{I18n.t 'projects.attitudinal_index_category_naive'}: %.2f" % (naive_index/count)
+        pdf.text "#{I18n.t 'projects.attitudinal_global_index'}: %.2f" % (global_index/count)
       end
       pdf.move_down pdf.font_size
     end 

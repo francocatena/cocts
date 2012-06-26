@@ -358,11 +358,11 @@
 
   projects:
     search_projects: Buscar proyectos
-    attitudinal_index_title: 'Índice global actitudinal medio'
-    attitudinal_index_category_adecuate: Índice actitudinal de categoría adecuada
-    attitudinal_index_category_plausible: Índice actitudinal de categoría plausible
-    attitudinal_index_category_naive: Índice actitudinal de categoría ingenua
-    attitudinal_global_index: Índice actitudinal global ponderado
+    global_attitudinal_index_title: 'Índice global actitudinal medio'
+    attitudinal_index_category_adecuate: 'Índice actitudinal de categoría adecuada'
+    attitudinal_index_category_plausible: 'Índice actitudinal de categoría plausible'
+    attitudinal_index_category_naive: 'Índice actitudinal de categoría ingenua'
+    attitudinal_global_index: 'Índice actitudinal global ponderado'
     alumn_title: 'Alumno'
     attitudinal_index_title: 'Índices actitudinales'
     attitudinal_index_by_category_title: 'Índice actitudinal por categoría de respuesta'
