@@ -99,49 +99,38 @@
   <% end %>
   
   <% unless @project.teaching_units.empty? %>
-    
-      <h2><%= t:'activerecord.models.teaching_units' %></h2>
+    <h2><%= t:'activerecord.models.teaching_units' %></h2>
       
     <% @project.teaching_units.each do |teaching_unit| %>
-      
       <% subtopic = teaching_unit.subtopic  %>
-      <% topic = subtopic.topic %>
-      
       <h3><%= teaching_unit.title %>:</h3>
-      
-      <% unless subtopic.blank? || topic.blank? %>
-        <h4><%= "#{t:'activerecord.models.topic'}: #{topic.code}- 
-          #{topic.title}" %></h4>
+      <% unless subtopic.blank? %>
         <h4><%= "#{t:'activerecord.models.subtopic'}: #{subtopic.code}- 
           #{subtopic.title}" %></h4>
       <% end %>
       
       <h4><%= Project.human_attribute_name :questions %></h4>
-      
-      
-      <% teaching_unit.questions.each do |question| %>
-      <div class="questions">
+            
+        <% teaching_unit.questions.each do |question| %>
+          <div class="questions">
+            <ul class="raw_list">
+              <li><strong><%= question.code %></strong> - <%= question.question %></li>
+            </ul>
+          </div>
+        <% end %>
+   <% end %>
+  <% else %>
+    <div class="questions">
+      <h2><li><%= Project.human_attribute_name :questions %></li></h2>
       <ul class="raw_list">
-        <li><strong><%= question.code %></strong> - <%= question.question %></li>
+        <% @project.questions.each do |question| %>
+          <li><strong><%= question.code %></strong> - <%= question.question %></li>
+        <% end %>
       </ul>
-      </div>
-      <% end %>
-      
-      
-    <% end %>
-    
-  
-<% else %>
-  <div class="questions">
-    <h2><li><%= Project.human_attribute_name :questions %></li></h2>
-    <ul class="raw_list">
-      <% @project.questions.each do |question| %>
-        <li><strong><%= question.code %></strong> - <%= question.question %></li>
-      <% end %>
-    </ul>
-   </div>
-      <% end %>  
-  </div>
+     </div>  
+    </div>
+  <% end %>  
+    </div>
 
 <div id="links">
   <%= link_to_back %> 
