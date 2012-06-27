@@ -59,15 +59,6 @@ class ProjectInstanceTest < ActiveSupport::TestCase
     assert_difference('ProjectInstance.count', -1) { @project_instance.destroy }
   end
   
-  # Prueba que las validaciones del modelo se cumplan como es esperado
-  test 'validates blank attributes' do
-    @project_instance.first_name = '   '
-    assert @project_instance.invalid?
-    assert_equal 1, @project_instance.errors.count
-    assert_equal [error_message_from_model(@project_instance, :first_name, :blank)],
-      @project_instance.errors[:first_name]
-  end
-  
   test 'validates unique attributes' do
     @project_instance.first_name = project_instances(:two).first_name
     assert @project_instance.invalid?
