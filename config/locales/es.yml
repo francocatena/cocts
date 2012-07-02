@@ -6,11 +6,11 @@
     topics: 'Temas'
     subtopics: 'Subtemas'
     teaching_units: 'Unidades didácticas'
-  
+
   will_paginate:
     previous_label: "&#8592; Anterior"
     next_label: "Siguiente &#8594;"
-    page_gap: "&hellip;"  
+    page_gap: "&hellip;"
   # Attributes names common to most models
   attributes:
     created_at: 'Creación'
@@ -66,7 +66,7 @@
           attributes:
             code:
               invalid: 'debe contener solamente números'
-        
+
     models:
       answer: 'Respuesta'
       project: 'Proyecto'
@@ -81,7 +81,7 @@
       subtopics: 'Subtemas'
       teaching_unit: 'Unidad didáctica'
       teaching_units: 'Unidades didácticas'
-      
+
     attributes:
       answer_instance:
         answer_category: 'Categoría'
@@ -158,7 +158,7 @@
         enable: 'Habilitado'
         private: 'Privado'
         admin: 'Administrador'
-  
+
   app_title: 'COCTS'
   help_title: 'Ayuda'
 
@@ -254,7 +254,7 @@
       create: 'Guardar'
       update: 'Actualizar'
       submit: 'Guardar'
-  
+
   labels:
     add: 'Agregar'
     back: 'Volver'
@@ -279,7 +279,7 @@
     whether: 'Si'
     rates: 'Índices'
     not: 'No'
-  
+
   menu:
     projects: 'Proyectos'
     questions: 'Cuestiones'
@@ -324,9 +324,9 @@
     percentage:
       format:
         # These three are to override number.format and are optional
-        # separator: 
+        # separator:
         delimiter: ''
-        # precision: 
+        # precision:
 
     # Used in number_to_precision()
     precision:
@@ -340,7 +340,7 @@
     human:
       format:
         # These three are to override number.format and are optional
-        # separator: 
+        # separator:
         delimiter: ''
         precision: 1
       # Rails <= v2.2.2
@@ -366,28 +366,28 @@
     attitudinal_global_index: 'Índice actitudinal global ponderado'
     alumn_title: 'Alumno'
     attitudinal_index_title: 'Índices actitudinales'
-    attitudinal_index_by_category_title: 'Índice actitudinal por categoría de respuesta'
+    attitudinal_index_by_category_title: 'Índice actitudinal por categoría'
     control_group_title: 'Grupo control'
     experimental_group_title: 'Grupo experimental'
-    type_error: 'El tipo de grupo y tipo de test deben ser distintos al del 
+    type_error: 'El tipo de grupo y tipo de test deben ser distintos al del
     proyecto seleccionado'
     questions_error: 'Por defecto se toman las cuestiones asociadas a las Unidades
-    Didácticas (UDs), por favor elimine las cuestiones individuales o 
+    Didácticas (UDs), por favor elimine las cuestiones individuales o
     elimine las UDs.'
-    empty_questions_error: 'El proyecto debe contener al menos una cuestión: seleccione 
+    empty_questions_error: 'El proyecto debe contener al menos una cuestión: seleccione
     una Unidad Didáctica o en su defecto seleccione las cuestiones individualmente.'
     project_instance_error: 'El proyecto no pudo ser eliminado ya que existen
     instancias de resolución asociadas al mismo.'
     valid_until_error: 'El proyecto ha vencido: no se pueden cargar instancias.'
-    identifier_help: 'Campo generado por el sistema que identifica unívocamente 
-    al proyecto. Si se trata de un proyecto de tipo interactivo se utilizará 
+    identifier_help: 'Campo generado por el sistema que identifica unívocamente
+    al proyecto. Si se trata de un proyecto de tipo interactivo se utilizará
     como subdominio para realizar la carga dinámica del mismo.'
     name_help: 'Título que recibirá el proyecto.'
-    description_help: 'Campo generado automáticamente por el sistema con la 
+    description_help: 'Campo generado automáticamente por el sistema con la
     descrición de las cuestiones o UDs.'
     year_help: 'Año en el cuál se realizará el proyecto.'
     project_type_help: 'Existen dos tipos de proyectos: manual e interactivo. En caso de
-    un proyecto manual la carga se realizará por el docente cuestionario por cuestionario. 
+    un proyecto manual la carga se realizará por el docente cuestionario por cuestionario.
     En cambio si se trata de un proyecto Interactivo la carga se realizará en línea
     (puede ser simultáneamente) y estará a cargo de cada uno de los alumnos.'
     valid_until_help: 'Fecha hasta la cual el proyecto estará vigente.'
@@ -403,8 +403,8 @@
     new_help: 'En caso de que quiera crear un nuevo proyecto presione'
     new_link: 'Crear un nuevo proyecto'
     existing_title: 'Proyecto existente'
-    existing_help: 'Si desea utilizar un proyecto existente con un nuevo tipo de grupo "Control" 
-  o "Experimental", o un nuevo tipo de test "Pre-Test" o "Pos-Test", seleccione el 
+    existing_help: 'Si desea utilizar un proyecto existente con un nuevo tipo de grupo "Control"
+  o "Experimental", o un nuevo tipo de test "Pre-Test" o "Pos-Test", seleccione el
   proyecto correspondiente:'
     edit_title: 'Modificar proyecto'
     correctly_created: 'Proyecto creado correctamente.'
@@ -536,7 +536,7 @@
         question: '¿Cuál es su titulación o grado académico más alto?'
       degrees:
         option: 'Nivel escolar (grado o curso) de sus estudios actuales'
-        question: '¿Cuál es el nivel escolar (grado o curso) de sus estudios 
+        question: '¿Cuál es el nivel escolar (grado o curso) de sus estudios
         actuales?'
       degree_school:
         option: 'ESTUDIOS ANTERIORES A LA UNIVERSIDAD'
@@ -558,7 +558,7 @@
           thirteenth_year: '13 (edad aprox. 18)'
           fourteenth_year: '14 (edad aprox. 19)'
           fifteenth_year: '15 (edad aprox. 20)'
-      degree_university: 
+      degree_university:
         options:
           first_year: 'Primero (edad aprox. 18)'
           second_year: 'Segundo (edad aprox. 19)'
@@ -606,7 +606,7 @@
           nothing_choose: 'Todas son obligatorias, no he podido elegir ninguna de estas asignaturas'
           choose_study: 'Todas son obligatorias, no he podido elegir ninguna estas asignaturas, pero sí he elegido los estudios de ciencias, tecnología, matemáticas, ingenierías, etc. donde están estas asignaturas '
           choose_part: 'Algunas de estas asignaturas  son obligatorias y otras han sido elegidas por mí'
-          choose_all: 'Todas estas asignaturas  han sido elegidas por mí' 
+          choose_all: 'Todas estas asignaturas  han sido elegidas por mí'
         option: 'Asignaturas de ciencias o tecnología que han sido elegidas'
         question: '¿Las asignaturas de ciencias o tecnología que estudia este año son obligatorias o han sido elegidas?'
       teacher:
@@ -654,7 +654,7 @@
     error_file_extension: 'Error: Debe seleccionar un archivo CSV'
     attach_csv: 'Importar cuestiones'
     import_csv_file: 'Importar archivo CSV'
-    csv_import: 
+    csv_import:
       one: 'Una cuestión ha sido importada satisfactoriamente.'
       other: '%{count} cuestiones han sido importadas satisfactoriamente.'
     add: 'Crear cuestión'
@@ -670,7 +670,7 @@
         naive: 'Ingenua'
       attach_csv: 'Importar respuestas'
       import_file: 'Seleccione archivo de respuestas (CSV):'
-      csv_import: 
+      csv_import:
         one: 'Una respuesta ha sido importada satisfactoriamente.'
         other: '%{count} respuestas han sido importadas satisfactoriamente.'
     dimensions:
@@ -688,16 +688,16 @@
     correctly_created: 'Subtema creado correctamente.'
     correctly_updated: 'Subtema actualizado correctamente.'
     stale_object_error: 'El subtema no pudo ser actualizado, intente nuevamente.'
-  
+
   teaching_units:
     correctly_created: 'Unidad didáctica creada correctamente.'
     correctly_updated: 'Unidad didáctica actualizada correctamente.'
     stale_object_error: 'La unidad didáctica no pudo ser actualizada, intente nuevamente.'
-  
+
   topic:
     correctly_created: 'Tema creado correctamente.'
-    correctly_updated: 'Tema actualizado correctamente.'  
-     
+    correctly_updated: 'Tema actualizado correctamente.'
+
   support:
     # Used in array.to_sentence.
     array:
@@ -726,8 +726,8 @@
     password_confirmation_help: "Repetición del valor ingresado en el campo 'Contraseña'."
     enable_help: 'Casilla que determina si el usuario está habilitado o no para ingresar
     al sistema.'
-    private_help: 'Casilla que determina si el usuario pertenece a un grupo privado.'    
-    admin_help: 'Casilla que determina si el usuario cuenta o no con privilegios de 
+    private_help: 'Casilla que determina si el usuario pertenece a un grupo privado.'
+    admin_help: 'Casilla que determina si el usuario cuenta o no con privilegios de
     administrador.'
     email_help: 'Casilla de email del usuario.'
     enter: 'Ingresar'
@@ -746,13 +746,13 @@
     stale_object_error: 'El usuario no pudo ser actualizado, intente nuevamente.'
     add: 'Crear usuario'
     personal_data_correctly_updated: 'Datos personales actualizados correctamente.'
-    current_password_error: 'La contraseña actual no es correcta o no coincide con la 
+    current_password_error: 'La contraseña actual no es correcta o no coincide con la
     confirmación.'
     password_correctly_updated: 'Contraseña actualizada correctamente.'
     password_stale_object_error: 'La contraseña no pudo ser actualizada, intente nuevamente.'
-    
+
   subtopics:
     add_new_teaching_unit: 'Agregar unidad didáctica'
-  
+
   topics:
     add_new_subtopic: 'Agregar otro subtema'
