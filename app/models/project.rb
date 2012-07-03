@@ -4,7 +4,6 @@ class Project < ApplicationModel
 
   attr_accessor :nested_question
   attr_accessor :nested_teaching_unit
-
   # Constantes
   TYPES = {
     :manual => 0,
@@ -189,7 +188,9 @@ class Project < ApplicationModel
           end
         end
 
-        data << [I18n.t('projects.global_attitudinal_index_title'),'%.2f' % (attitudinal_assessments / answers)] if answers
+        unless answers == 0
+          data << [I18n.t('projects.global_attitudinal_index_title'),'%.2f' % (attitudinal_assessments / answers)]
+        end
 
         pdf.flexible_table data,
           :width => pdf.margin_box.width,
