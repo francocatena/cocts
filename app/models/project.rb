@@ -199,7 +199,7 @@ class Project < ApplicationModel
           :size => (PDF_FONT_SIZE * 0.75).round
 
         pdf.move_down pdf.font_size
-
+        data.clear
       pdf.font_size((PDF_FONT_SIZE * 1.2).round) do
         pdf.move_down pdf.font_size
         pdf.text I18n.t('projects.attitudinal_index_by_category_title')
