@@ -71,6 +71,7 @@ class ProjectInstancesController < ApplicationController
 
   # GET /project_instances/1/edit
   def edit
+    session[:go_to] = request.env['HTTP_REFERER']
     @title = t :'project_instances.edit_title'
     @project_instance = ProjectInstance.find(params[:id])
   end
@@ -114,7 +115,14 @@ class ProjectInstancesController < ApplicationController
 
     respond_to do |format|
       if @project_instance.update_attributes(params[:project_instance])
-        format.html { redirect_to(@project_instance, :notice => t(:'project_instances.correctly_updated')) }
+        go_to = session[:go_to]
+        session[:go_to] = nil
+        if go_to
+          format.html { redirect_to go_to, :notice => t('project_instances.correctly_updated')}
+        else
+          format.html { redirect_to(@project_instance, :notice => t(:'project_instances.correctly_updated')) }
+        end
+
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

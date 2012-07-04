@@ -49,6 +49,7 @@ class ProjectsController < ApplicationController
   def new
     @title = t :'projects.new_title'
     @project = Project.new
+    session[:go_to] = request.env['HTTP_REFERER']
 
     if params[:project_name].present?
       @name = true
@@ -63,7 +64,6 @@ class ProjectsController < ApplicationController
       @project.teaching_units = project.teaching_units
       @project.questions = project.questions
     end
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @project }
@@ -72,6 +72,7 @@ class ProjectsController < ApplicationController
 
   # * GET /projects/1/edit
   def edit
+    session[:go_to] = request.env['HTTP_REFERER']
     @title = t :'projects.edit_title'
     @project = Project.find_by_identifier(params[:id])
   end
@@ -97,14 +98,19 @@ class ProjectsController < ApplicationController
         @project.errors[:base] << t(:'projects.type_error')
         render :action => :new
 
-
     else respond_to do |format|
       @project.transaction do
         if @project.save
           @project.update_attribute :identifier, @project.generate_identifier
-
+          go_to = session[:go_to]
+          session[:go_to] = nil
           flash[:notice] = t :'projects.correctly_created'
-          format.html { redirect_to projects_path }
+          if go_to
+            format.html { redirect_to go_to }
+          else
+            format.html { redirect_to projects_path }
+          end
+
           format.xml  { render :xml => @project, :status => :created, :location => @project }
         else
           format.html { render :action => :new }
@@ -119,9 +125,7 @@ class ProjectsController < ApplicationController
   # * PUT /projects/1
   # * PUT /projects/1.xml
   def update
-
     @title = t :'projects.edit_title'
-
     @project = Project.find_by_identifier(params[:id])
     params[:project][:question_ids] ||= []
     params[:project][:teaching_unit_ids] ||= []
@@ -141,7 +145,14 @@ class ProjectsController < ApplicationController
 
       if @project.update_attributes(params[:project])
         flash[:notice] = t :'projects.correctly_updated'
-        format.html { redirect_to projects_path }
+        go_to = session[:go_to]
+        session[:go_to] = nil
+        if go_to
+          format.html { redirect_to go_to }
+        else
+          format.html { redirect_to projects_path }
+        end
+
         format.xml  { render :xml => @project, :status => :created, :location => @project }
       else
         format.html { render :action => :edit }
