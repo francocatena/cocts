@@ -9,46 +9,42 @@
   <%= f.error_messages %>
   <div class="one_column_form">
     <div class="field">
-      <%= f.label :name, 'data-show-popover' => true, 'data-content' => 
+      <%= f.label :name, 'data-show-popover' => true, 'data-content' =>
         t(:'projects.name_help'), :title => t(:'activerecord.attributes.project.name') %>
-      <% if @old %> 
+      <% if @name %>
         <%= f.text_field :name, :readonly => true, :maxlength => 255 %>
-      <% else %>  
+      <% else %>
         <%= f.text_field :name, :maxlength => 255 %>
       <% end %>
     </div>
     <div class="field">
-      <%= f.label :identifier, 'data-show-popover' => true, 'data-content' => 
+      <%= f.label :identifier, 'data-show-popover' => true, 'data-content' =>
         t(:'projects.identifier_help'), :title => t(:'activerecord.attributes.project.identifier') %>
       <% if @auth_user.admin? %>
-        <%= f.text_field :identifier %> 
+        <%= f.text_field :identifier %>
       <% else %>
-        <%= f.text_field :identifier, :disabled => true %>
+        <%= f.text_field :identifier, :readonly => true %>
       <% end %>
     </div>
     <div class="field">
-      <%= f.label :description, 'data-show-popover' => true, 'data-content' => 
+      <%= f.label :description, 'data-show-popover' => true, 'data-content' =>
         t(:'projects.description_help'), :title => t(:'activerecord.attributes.project.description') %>
       <%= f.text_area :description %>
     </div>
     <div class="field">
-      <%= f.label :year, 'data-show-popover' => true, 'data-content' => 
+      <%= f.label :year, 'data-show-popover' => true, 'data-content' =>
         t(:'projects.year_help'), :title => t(:'activerecord.attributes.project.year') %>
-      <% if @old %>
-        <%= f.text_field :year, :readonly => true %>
-      <% else %>
         <%= f.text_field :year %>
-      <% end %>
     </div>
     <% if @auth_user.admin %>
       <div class="field">
         <%= f.label :user_id %>
-        <%= f.collection_select :user_id, User.all, :id, 
+        <%= f.collection_select :user_id, User.all, :id,
           :user, :prompt => 'Seleccione el usuario' %>
       </div>
     <% end %>
     <div class="field">
-      <%= f.label :group_name, 'data-show-popover' => true, 'data-content' => 
+      <%= f.label :group_name, 'data-show-popover' => true, 'data-content' =>
         t(:'projects.group_name_help'), :title => t(:'activerecord.attributes.project.group_name') %>
       <%= f.text_field :group_name %>
     </div>
@@ -61,7 +57,7 @@
             <label for="<%= group_id %>">
               <%= t(:"projects.questionnaire.group_type.options.#{group}") %>
             </label>
-          <%= radio_button_tag 'project[group_type]', group, 
+          <%= radio_button_tag 'project[group_type]', group,
               @project.group_type.eql?("#{group}"), :id => group_id %>
           </li>
         <% end %>
@@ -77,7 +73,7 @@
             <label for="<%= test_id %>">
               <%= t(:"projects.questionnaire.test_type.options.#{test}") %>
             </label>
-            <%= radio_button_tag 'project[test_type]', test, 
+            <%= radio_button_tag 'project[test_type]', test,
               @project.test_type.eql?("#{test}"), :id => test_id %>
           </li>
         <% end %>
@@ -86,12 +82,12 @@
       <%= hidden_field_tag :parent_project_id, params[:parent_project_id] %>
     </div>
     <div class="field">
-      <%= f.label :project_type, 'data-show-popover' => true, 'data-content' => 
+      <%= f.label :project_type, 'data-show-popover' => true, 'data-content' =>
         t(:'projects.project_type_help'), :title => t(:'activerecord.attributes.project.project_type') %>
     </div>
       <%= project_type_field f %>
     <div class="field">
-      <%= f.label :valid_until, 'data-show-popover' => true, 'data-content' => 
+      <%= f.label :valid_until, 'data-show-popover' => true, 'data-content' =>
         t(:'projects.valid_until_help'), :title => t(:'activerecord.attributes.project.valid_until') %>
       <%= calendar_text_field f, :valid_until %>
      </div>
@@ -104,18 +100,18 @@
     <div style="margin: 1em 0em;">
       <% Project::SOCIODEMOGRAPHIC_FORMS.each do |sociodemographic_form| %>
         <% i18n_scope = [:projects, :sociodemographic_forms, sociodemographic_form] %>
-        <% checked = false %> 
+        <% checked = false %>
         <%  if sociodemographic_form.eql? 'name' %>
           <% checked = true %>
         <% end %>
-  
+
       <% if sociodemographic_form.eql? 'degree_school' %>
-        <div class="field">   
+        <div class="field">
           <strong><%= t(:'projects.sociodemographic_forms.degrees.question') %></strong>
         </div>
       <% end %>
-            
-      <% if sociodemographic_form.eql?('degree_school') || 
+
+      <% if sociodemographic_form.eql?('degree_school') ||
           sociodemographic_form.eql?('degree_university') %>
         <div class="field_degree">
       <% else %>
@@ -141,14 +137,14 @@
   <div class="items">
     <div class="column_headers">
       <div class="item_column" style="width: 90%;">
-        <h3><%= label_tag t(:'activerecord.models.teaching_units'), nil, {'data-show-popover' => true, 'data-content' => 
+        <h3><%= label_tag t(:'activerecord.models.teaching_units'), nil, {'data-show-popover' => true, 'data-content' =>
         t(:'projects.teaching_units_help'), :title => t(:'activerecord.models.teaching_unit')} %></h3>
       </div>
       <div class="item_column" style="width: 10%;"></div>
       <div style="clear: both;">&nbsp;</div>
     </div>
     <div id="teaching_units">
-      <% if @project.teaching_units.empty? %>  
+      <% if @project.teaching_units.empty? %>
         <% @project.teaching_units.build %>
       <% else %>
         <%= render :partial => 'teaching_unit', :collection => @project.teaching_units,
@@ -159,10 +155,10 @@
       <%= link_to t(:'subtopics.add_new_teaching_unit'), '#',
         :'data-template' => :teaching_unit, :'data-event' => 'addNestedItem',
         :'data-container' => '#teaching_units', :class => :important_action %>
-    </p>  
+    </p>
     <div class="column_headers">
       <div class="item_column" style="width: 90%;">
-        <h3><%= label_tag t(:'projects.label_questions'), nil, {'data-show-popover' => true, 'data-content' => 
+        <h3><%= label_tag t(:'projects.label_questions'), nil, {'data-show-popover' => true, 'data-content' =>
         t(:'projects.questions_help'), :title => t(:'activerecord.models.question')} %></h3>
       </div>
       <div class="item_column" style="width: 10%;"></div>
