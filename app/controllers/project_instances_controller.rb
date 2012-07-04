@@ -1,10 +1,9 @@
 class ProjectInstancesController < ApplicationController
   before_filter :auth, :except => [:new, :create]
   before_filter :load_auth_user, :only => [:new, :create]
-  
+
   # GET /project_instances
   # GET /project_instances.xml
-  
   def index
     @title = t :'project_instances.index_title'
     if params[:id]
@@ -39,31 +38,31 @@ class ProjectInstancesController < ApplicationController
   # GET /project_instances/new.xml
   def new
     @title = t :'project_instances.new_title'
-    
+    session[:go_to] = request.env['HTTP_REFERER']
     if params[:identifier]
       @project = Project.find_by_identifier(params[:identifier])
       @project_instance = ProjectInstance.new(:project =>  @project)
-      
+
     else
       @project = Project.find_by_identifier(request.subdomains.first)
-      if @project 
+      if @project
         unless @project.is_valid?
           flash[:alert]= t :'projects.valid_until_error'
           redirect_to login_users_path
-        end        
+        end
         if @project.interactive?
           @project_instance = ProjectInstance.new(:project => @project)
         else
           flash[:alert]= t :'project_instances.error_manual_type'
           redirect_to login_users_path
         end
-                     
+
       else
         flash[:alert]= t :'project_instances.error_subdomain'
         redirect_to login_users_path
       end
     end
-    
+
    respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @project_instance }
@@ -76,23 +75,29 @@ class ProjectInstancesController < ApplicationController
     @project_instance = ProjectInstance.find(params[:id])
   end
 
-  
+
   # POST /project_instances
   # POST /project_instances.xml
   def create
     @title = t :'project_instances.new_title'
     @project_instance = ProjectInstance.new(params[:project_instance])
-    
+
     respond_to do |format|
-      
+
       if @project_instance.save
         if @project_instance.manual?
+          go_to = session[:go_to]
+          session[:go_to] = nil
           flash[:notice] = t :'project_instances.correctly_created'
-          format.html { redirect_to projects_path }
+          if go_to
+            format.html { redirect_to go_to }
+          else
+            format.html { redirect_to projects_path }
+          end
           format.xml  { render :xml => @project_instance, :status => :created, :location => @project_instance }
         else
           flash[:notice] = t :'project_instances.correctly_created_interactive'
-          format.html { render :action => 'show', :id => @project_instance.to_param} 
+          format.html { render :action => 'show', :id => @project_instance.to_param}
         end
       else
         format.html { render :action => "new" }
