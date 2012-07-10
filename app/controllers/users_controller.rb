@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :auth, :except => [:login, :create_session]
-  before_filter :admin, :except => [:login, :create_session, :edit_password, 
+  before_filter :admin, :except => [:login, :create_session, :edit_password,
     :update_password, :edit_personal_data, :update_personal_data,:logout]
   layout proc { |controller|
     ['login', 'session'].include?(controller.action_name) ?
@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   # * GET /users.xml
   def index
     @title = t :'users.index_title'
-    @users = User.order("#{User.table_name}.user ASC").paginate(
+    @users = User.search(params[:search]).order("#{User.table_name}.user ASC").paginate(
       :page => params[:page],
       :per_page => APP_LINES_PER_PAGE
     )
@@ -58,7 +58,7 @@ class UsersController < ApplicationController
     @title = t :'users.new_title'
     pass = params[:user][:password]
     @user = User.new(params[:user])
-    
+
     respond_to do |format|
       if @user.save
         UserMailer.new_user_notification(@user, pass).deliver
@@ -105,7 +105,7 @@ class UsersController < ApplicationController
     unless @user.destroy
       flash[:alert] = t :'users.project_error'
     end
-    
+
     respond_to do |format|
       format.html { redirect_to(users_url) }
       format.xml  { head :ok }
@@ -118,7 +118,7 @@ class UsersController < ApplicationController
       redirect_to projects_path
     end
   end
-  
+
   # * GET /users/login
   def login
     @title = t :'users.login_title'
@@ -163,13 +163,13 @@ class UsersController < ApplicationController
   def update_password
     @user = User.new
     @user.user = @auth_user.user
-           
+
     auth_user = User.find_by_user(@auth_user.user)
     @user.salt = auth_user.salt if auth_user
 
     @user.encrypt_password
-   
-    unless auth_user && auth_user.password 
+
+    unless auth_user && auth_user.password
       flash[:alert] = t :'users.current_password_error'
       redirect_to edit_password_user_path(auth_user)
     else
@@ -199,8 +199,8 @@ class UsersController < ApplicationController
     flash[:alert] = t :'users.password_stale_object_error'
     redirect_to edit_password_user_path(@auth_user)
   end
-  
-  
+
+
 
   # * GET /users/edit_personal_data/1
   # * GET /users/edit_personal_data/1.xml
@@ -213,7 +213,7 @@ class UsersController < ApplicationController
   # * PUT /users/update_personal_data/1.xml
   def update_personal_data
     @user = User.find(session[:user_id])
-    
+
     if @user.valid?
       if @user.update_attributes(params[:user])
         flash[:notice] = t :'users.personal_data_correctly_updated'

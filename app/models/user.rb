@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'digest/sha2'
 
 class User < ApplicationModel
@@ -7,7 +8,7 @@ class User < ApplicationModel
 
   # Restricciones
   validates :user, :name, :lastname, :email, :presence => true
-  validates_uniqueness_of :user, :case_sensitive => false, :allow_nil => true, 
+  validates_uniqueness_of :user, :case_sensitive => false, :allow_nil => true,
     :allow_blank => true
   validates_uniqueness_of :email, :allow_nil => true, :allow_blank => true
   validates_length_of :user, :in => 5..30, :allow_nil => true,
@@ -22,9 +23,9 @@ class User < ApplicationModel
 
   # Relaciones
   has_many :projects
-  
+
   before_destroy :can_be_destroyed?
-  
+
   def to_s
     [self.name, self.lastname].join(' ')
   end
@@ -33,7 +34,7 @@ class User < ApplicationModel
   def password_to_nil
     self.password = nil
   end
-  
+
   def can_be_destroyed?
     self.projects.blank?
   end
@@ -60,5 +61,13 @@ class User < ApplicationModel
   def is_not_encrypted?
     self.password &&
       (self.password.length < 120 || self.password !~ /^(\d|[a-f])+$/)
+  end
+
+  def self.search(search)
+    if search
+      where('name ILIKE :q OR lastname ILIKE :q OR email ILIKE :q OR user ILIKE :q', :q => "%#{search}%")
+    else
+      scoped
+    end
   end
 end
