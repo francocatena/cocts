@@ -5,7 +5,8 @@
   <tr>
     <th><%= ProjectInstance.human_attribute_name :first_name %></th>
     <th><%= ProjectInstance.human_attribute_name :professor_name %></th>
-    <th></th>
+    <th><%= ProjectInstance.human_attribute_name :age %></th>
+    <th><%= ProjectInstance.human_attribute_name :genre %></th>
     <th></th>
     <th></th>
   </tr>
@@ -13,6 +14,8 @@
   <tr class="<%= cycle(:even, :odd) %>">
     <td><%= project_instance.first_name if project_instance.first_name.present?%></td>
     <td><%= project_instance.professor_name  if project_instance.professor_name.present? %></td>
+    <td><%= project_instance.age if project_instance.age.present?%></td>
+    <td><%= t "projects.questionnaire.genre.options.#{project_instance.genre}" if project_instance.genre.present?%></td>
     <td><%= link_to_show project_instance %></td>
     <td><%= link_to_edit edit_project_instance_path(project_instance) %></td>
     <td><%= link_to_destroy project_instance if @auth_user.admin? %></td>
