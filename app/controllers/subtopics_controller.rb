@@ -3,7 +3,7 @@ class SubtopicsController < ApplicationController
   # GET /subtopics
   # GET /subtopics.json
   def index
-    @subtopics = Subtopic.order("#{Subtopic.table_name}.code ASC").paginate(
+    @subtopics = Subtopic.search(params[:search]).order("#{Subtopic.table_name}.code ASC").paginate(
       :page => params[:page],
       :per_page => APP_LINES_PER_PAGE
     )
@@ -62,7 +62,7 @@ class SubtopicsController < ApplicationController
   def update
     @subtopic = Subtopic.find(params[:id])
     params[:subtopic][:teaching_unit_ids] ||= []
-    
+
     respond_to do |format|
       if @subtopic.update_attributes(params[:subtopic])
         format.html { redirect_to @subtopic, :notice => t(:'subtopic.correctly_updated') }
@@ -85,14 +85,14 @@ class SubtopicsController < ApplicationController
       format.json { head :ok }
     end
   end
-  
+
   def autocomplete_for_teaching_unit
     query = params[:q].sanitized_for_text_query
     @query_terms = query.split(/\s+/).reject(&:blank?)
     @teaching_units = TeachingUnit.scoped
     @teaching_units = @teaching_units.full_text(@query_terms) unless @query_terms.empty?
     @teaching_units = @teaching_units.limit(10)
-    
+
     respond_to do |format|
       format.json { render :json => @teaching_units }
     end
