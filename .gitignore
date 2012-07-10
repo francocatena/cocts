@@ -5,6 +5,7 @@ nbproject/private/
 public/pdfs/
 tmp/
 config/app_config.yml
-
+[#]*
+*~
 # No ignorar
 !doc/README_FOR_APP
