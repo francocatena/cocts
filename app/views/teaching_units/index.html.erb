@@ -1,3 +1,13 @@
+<div id="search_link">
+  <%= link_to t(:'teaching_units.search_teaching_units'), '#', :class => 'search' %>
+</div>
+<div id="search_form" style="display: none;">
+  <%= form_tag teaching_units_path, :method => 'get', :id => "teaching_units_search" do %>
+    <div id="field">
+      <%= text_field_tag :search, params[:search], :autofocus => true %>
+    </div>
+  <% end %>
+</div>
 <table>
   <tr>
     <th><%= TeachingUnit.human_attribute_name :title %></th>

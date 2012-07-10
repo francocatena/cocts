@@ -3,7 +3,7 @@ class TeachingUnitsController < ApplicationController
   # GET /teaching_units
   # GET /teaching_units.json
   def index
-    @teaching_units = TeachingUnit.order("#{TeachingUnit.table_name}.title ASC").paginate(
+    @teaching_units = TeachingUnit.search(params[:search]).order("#{TeachingUnit.table_name}.title ASC").paginate(
       :page => params[:page],
       :per_page => APP_LINES_PER_PAGE
     )
@@ -45,7 +45,7 @@ class TeachingUnitsController < ApplicationController
   # POST /teaching_units.json
   def create
     @teaching_unit = TeachingUnit.new(params[:teaching_unit])
-    
+
     respond_to do |format|
       if @teaching_unit.save
         format.html { redirect_to teaching_units_path, :notice => t(:'teaching_units.correctly_created') }
