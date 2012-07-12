@@ -10,6 +10,7 @@
     <th></th>
     <th></th>
   </tr>
+
 <%  @project_instances.each do |project_instance| %>
   <tr class="<%= cycle(:even, :odd) %>">
     <td><%= project_instance.first_name if project_instance.first_name.present?%></td>

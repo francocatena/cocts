@@ -7,21 +7,8 @@ class ProjectsController < ApplicationController
   # * GET /projects.xml
   def index
     @title = t :'projects.index_title'
+    @projects = Project.search(params[:search], @auth_user, params[:page])
 
-    if @auth_user.private
-      @projects = Project.search(params[:search]).order('name').where('user_id = ?', @auth_user.id).paginate(
-        :page => params[:page], :per_page => APP_LINES_PER_PAGE)
-
-    elsif @auth_user.admin
-      @projects = Project.search(params[:search]).paginate(:page => params[:page],
-        :per_page => APP_LINES_PER_PAGE
-      )
-
-    else
-      @projects = Project.search(params[:search]).joins(:user).where(
-        "#{User.table_name}.private" => false
-      ).paginate(:page => params[:page], :per_page => APP_LINES_PER_PAGE)
-    end
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @projects }

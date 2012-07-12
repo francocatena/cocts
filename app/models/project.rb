@@ -100,11 +100,18 @@ class Project < ApplicationModel
     I18n.t :"projects.questionnaire.test_type.options.#{self.test_type}"
   end
 
-  def self.search(search)
+  def self.search(search, user, page)
     if search
-      where('name ILIKE :q OR identifier ILIKE :q', :q => "%#{search}%")
+      sql_search = where('name ILIKE :q OR identifier ILIKE :q', :q => "%#{search}%")
     else
-      scoped
+      sql_search = scoped
+    end
+    if user.private
+      sql_search.order('name').where('user_id = :id', :id => user.id).paginate(:page => page, :per_page => APP_LINES_PER_PAGE)
+    elsif user.admin
+      sql_search.paginate(:page => page, :per_page => APP_LINES_PER_PAGE )
+    else
+      sql_search.joins(:user).where("#{User.table_name}.private" => false).paginate(:page => page, :per_page => APP_LINES_PER_PAGE)
     end
   end
 
