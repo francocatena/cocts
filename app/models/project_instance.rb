@@ -95,7 +95,7 @@ class ProjectInstance < ApplicationModel
   
   def student_data
     if self.first_name && self.genre && self.age
-      "#{self.first_name}(#{self.age}, #{I18n.t "projects.questionnaire.genre.options.#{self.genre}"})"
+      "#{self.first_name} (#{self.age}, #{I18n.t "projects.questionnaire.genre.options.#{self.genre}"})"
     elsif self.first_name
       self.first_name
     end 
