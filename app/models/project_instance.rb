@@ -93,6 +93,14 @@ class ProjectInstance < ApplicationModel
     end
   end
   
+  def student_data
+    if self.first_name && self.genre && self.age
+      "#{self.first_name}(#{self.age}, #{I18n.t "projects.questionnaire.genre.options.#{self.genre}"})"
+    elsif self.first_name
+      self.first_name
+    end 
+  end
+  
   def calculate_attitudinal_rates
     calculate_attitudinal_assessment
     self.plausible_attitude_index = calculate_attitudinal_index(1)

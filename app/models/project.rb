@@ -184,7 +184,7 @@ class Project < ApplicationModel
           naive_index += instance.naive_attitude_index
           global_index += instance.attitudinal_global_index
 
-          data[i+1] = [instance.first_name, '%.2f' % attitudinal_global_index ]
+          data[i+1] = [instance.student_data, '%.2f' % attitudinal_global_index ]
           count += 1
 
           instance.question_instances.each do |question|
