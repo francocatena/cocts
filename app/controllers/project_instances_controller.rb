@@ -7,10 +7,10 @@ class ProjectInstancesController < ApplicationController
   def index
     @title = t :'project_instances.index_title'
     if params[:id]
-      @project_instances = ProjectInstance.where("project_id = ?", params[:id])
+      @project_instances = ProjectInstance.with_project(params[:id])
       @project = Project.find(params[:id])
     else
-    @project_instances = ProjectInstance.all
+      @project_instances = ProjectInstance.scoped
     end
     respond_to do |format|
       format.html # index.html.erb

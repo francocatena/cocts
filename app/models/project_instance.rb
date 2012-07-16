@@ -1,21 +1,24 @@
+# -*- coding: utf-8 -*-
 class ProjectInstance < ApplicationModel
   serialize :forms, Array
-  
+
   # Atributos no persistentes
   attr_accessor :manual_degree, :manual_degree_university
-  
+
   # Relaciones
   belongs_to :project
   has_many :question_instances, :dependent => :destroy
   accepts_nested_attributes_for :question_instances
-  
-  
+
+  # Scopes
+  scope :with_project, lambda { |project_id| where('project_id = :id', :id => project_id)}
+
   # Constantes
   TYPES = {
     :manual => 0,
     :interactive => 1
   }
-  
+
   SOCIODEMOGRAPHIC_FORMS = [
     'name',
     'professor_name',
@@ -30,7 +33,7 @@ class ProjectInstance < ApplicationModel
     'educational_center_name',
     'educational_center_city'
   ]
-  
+
   # Restricciones
   validates_numericality_of :age, :only_integer => true, :allow_nil => true,
     :allow_blank => true
@@ -42,10 +45,10 @@ class ProjectInstance < ApplicationModel
       record.errors.add attr, :inclusion
     end
   end
-    
+
   def initialize(attributes = nil, options = {})
     super(attributes, options)
-    
+
     if self.project
       self.forms = self.project.forms
       self.name = self.project.name
@@ -78,37 +81,37 @@ class ProjectInstance < ApplicationModel
         end
       end
     end
-    
+
     self.degree = self.manual_degree if self.manual_degree.present?
     self.degree_university = self.manual_degree_university if self.manual_degree_university.present?
   end
-  
+
   def project_type_text
     I18n.t :"projects.#{TYPES.invert[self.project_type]}_type"
   end
-  
+
   TYPES.each do |type, value|
     define_method(:"#{type}?") do
       self.project_type == value
     end
   end
-  
+
   def student_data
     if self.first_name && self.genre && self.age
       "#{self.first_name} (#{self.age}, #{I18n.t "projects.questionnaire.genre.options.#{self.genre}"})"
     elsif self.first_name
       self.first_name
-    end 
+    end
   end
-  
+
   def calculate_attitudinal_rates
     calculate_attitudinal_assessment
     self.plausible_attitude_index = calculate_attitudinal_index(1)
     self.naive_attitude_index = calculate_attitudinal_index(0)
-    self.adecuate_attitude_index = calculate_attitudinal_index(2) 
-        
+    self.adecuate_attitude_index = calculate_attitudinal_index(2)
+
   end
-  
+
   def calculate_attitudinal_assessment
     self.question_instances.each do |qi|
       qi.answer_instances.each do |ai|
@@ -116,7 +119,7 @@ class ProjectInstance < ApplicationModel
       end
     end
   end
-  
+
   def calculate_attitudinal_index(category)
     total = 0
     index = 0
@@ -134,11 +137,11 @@ class ProjectInstance < ApplicationModel
       index/total
     end
   end
-  
+
   def attitudinal_global_index
     (self.plausible_attitude_index + self.naive_attitude_index + self.adecuate_attitude_index) / 3
   end
-  
+
   def to_pdf
     i18n_scope = [:projects, :questionnaire]
     pdf = Prawn::Document.new(PDF_OPTIONS)
@@ -161,25 +164,25 @@ class ProjectInstance < ApplicationModel
     # Explicación de la escala
     i18n_scope << :scale_table
     i18n_scope << :disagreement
-    
+
     data = [[], ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'E', 'S']]
-    
+
     [:'1', :'2', :'3', :'4'].each do |opt|
       data[0] << I18n.t(opt, :scope => i18n_scope)
     end
-    
+
     i18n_scope[-1] = :undecided
-    
+
     [:'5'].each { |opt| data[0] << I18n.t(opt, :scope => i18n_scope) }
-    
+
     i18n_scope[-1] = :in_agreement
-    
+
     [:'6', :'7', :'8', :'9'].each do |opt|
       data[0] << I18n.t(opt, :scope => i18n_scope)
     end
 
     i18n_scope[-1] = :others
-    
+
     [:'E', :'S'].each { |opt| data[0] << I18n.t(opt, :scope => i18n_scope) }
 
     i18n_scope.slice!(-1)
@@ -209,7 +212,7 @@ class ProjectInstance < ApplicationModel
       pdf.move_down(pdf.font_size)
       pdf.text I18n.t(:scale_clarification, :scope => i18n_scope)
     end
-    
+
     # Datos proyecto
     pdf.move_down(pdf.font_size)
     pdf.text I18n.t(:'projects.questionnaire.project_data_title').gsub(/\*/, ''),
@@ -232,8 +235,8 @@ class ProjectInstance < ApplicationModel
     if self.group_type
       pdf.text group_type +": "+ self.group_type
     end
-        
-          
+
+
     # Datos sociodemográficos
     unless self.forms.empty?
       i18n_scope.slice!(-2, 2)
@@ -261,33 +264,33 @@ class ProjectInstance < ApplicationModel
       pdf.font_size((PDF_FONT_SIZE * 1).round) do
         pdf.move_down(pdf.font_size)
         pdf.text "#{question.question_text}", :style => :bold_italic
-        
-        
+
+
         question.answer_instances.each do |answer|
-                   
+
           pdf.text "[#{answer.valuation}] #{letter}. #{answer.answer_text}",
             :indent_paragraphs => pdf.font_size
-          
+
           letter.next!
         end
       end
     end
-    
+
     # Numeración en pie de página
     pdf.page_count.times do |i|
       pdf.go_to_page(i+1)
       pdf.draw_text "#{i+1} / #{pdf.page_count}", :at=>[1,1], :size => (PDF_FONT_SIZE * 0.75).round
     end
-     
+
     FileUtils.mkdir_p File.dirname(self.pdf_full_path)
-    
+
     pdf.render_file self.pdf_full_path
   end
 
   def pdf_name
     I18n.t(:'projects.pdf_name', :identifier => self.identifier)
   end
-  
+
   def pdf_relative_path
     File.join(*(['pdfs'] + ('%08d' % self.id).scan(/..../) + [self.pdf_name]))
   end
@@ -295,18 +298,18 @@ class ProjectInstance < ApplicationModel
   def pdf_full_path
     File.join(PUBLIC_PATH, self.pdf_relative_path)
   end
-  
+
   def add_name(pdf)
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :name])
-    
+
     pdf.text "#{question} #{self.first_name}"
   end
-  
+
   def add_professor_name(pdf)
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :professor_name])
-    
+
     pdf.text "#{question} #{self.professor_name}"
   end
 
@@ -315,28 +318,28 @@ class ProjectInstance < ApplicationModel
       :scope => [:projects, :sociodemographic_forms, :age])
     pdf.text "#{question} #{self.age}"
   end
-  
+
   def add_educational_center_name(pdf)
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :educational_center_name])
-    
+
     pdf.text "#{question} #{self.educational_center_name}"
   end
-  
+
   def add_educational_center_city(pdf)
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :educational_center_city])
-    
+
     pdf.text "#{question} #{self.educational_center_city}"
   end
-      
+
   def add_study_subjects_different(pdf)
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :study_subjects_different])
-    
+
     pdf.text "#{question} #{self.study_subjects_different}"
   end
-  
+
   def add_degree_school(pdf)
    i18n_scope = [:projects, :sociodemographic_forms, :degree_school]
    question = I18n.t(:question, :scope => i18n_scope)
@@ -346,7 +349,7 @@ class ProjectInstance < ApplicationModel
    pdf.text "#{question}: #{I18n.t(self.degree_school, :scope => i18n_scope)}",
      :indent_paragraphs => 10
   end
-  
+
   def add_degree_university(pdf)
     i18n_scope = [:projects, :sociodemographic_forms, :degree_university, :options]
     question = I18n.t(:question,
@@ -354,19 +357,19 @@ class ProjectInstance < ApplicationModel
     pdf.text "#{question}: #{I18n.t(self.degree_university, :scope => i18n_scope)}",
      :indent_paragraphs => 10
   end
-  
+
   def add_study_subjects(pdf)
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :study_subjects])
-    
+
     pdf.text "#{question} #{self.study_subjects}"
   end
-  
+
   def add_study_subjects_choose(pdf)
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :study_subjects_choose])
 
-    pdf.text "#{question} #{I18n.t(self.study_subjects_choose, :scope => 
+    pdf.text "#{question} #{I18n.t(self.study_subjects_choose, :scope =>
     [:projects, :sociodemographic_forms, :study_subjects_choose, :options]) }"
   end
 
@@ -433,7 +436,7 @@ class ProjectInstance < ApplicationModel
   def add_student(pdf)
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :student])
-    student = I18n.t(self.student_status, :scope => [:projects, :questionnaire, 
+    student = I18n.t(self.student_status, :scope => [:projects, :questionnaire,
         :student, :options])
     pdf.text question +" "+ student
   end
@@ -441,7 +444,7 @@ class ProjectInstance < ApplicationModel
   def add_teacher(pdf)
     question = I18n.t(:question,
       :scope => [:projects, :sociodemographic_forms, :teacher])
-    teacher = I18n.t(self.teacher_status, :scope => [:projects, :questionnaire, 
+    teacher = I18n.t(self.teacher_status, :scope => [:projects, :questionnaire,
         :teacher, :options])
     pdf.text question +" "+ teacher
   end
@@ -450,10 +453,10 @@ class ProjectInstance < ApplicationModel
     if self.teacher_level.present?
       question = I18n.t(:question,
         :scope => [:projects, :sociodemographic_forms, :teacher_level])
-      teacher_level = I18n.t(self.teacher_level, :scope => [:projects, :questionnaire, 
+      teacher_level = I18n.t(self.teacher_level, :scope => [:projects, :questionnaire,
           :teacher_level, :options])
       pdf.text question +" "+ teacher_level
     end
   end
-  
+
 end
