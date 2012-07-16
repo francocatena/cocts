@@ -1,6 +1,6 @@
 class Question < ApplicationModel
   DIMENSIONS = 1..9
-    
+
   # Alias de atributos
   alias_attribute :informal, :question
   alias_attribute :label, :code
@@ -26,7 +26,7 @@ class Question < ApplicationModel
   accepts_nested_attributes_for :answers, :allow_destroy => true
 
   before_destroy :can_be_destroyed?
-  
+
   def ==(other)
     if other.kind_of?(Question)
       if other.new_record?
@@ -36,10 +36,10 @@ class Question < ApplicationModel
       end
     end
   end
-  
+
   def as_json(options = nil)
     default_options = { :only => [:id], :methods => [:label, :informal] }
-    
+
     super(default_options.merge(options || {}))
   end
 
@@ -50,12 +50,20 @@ class Question < ApplicationModel
   def can_be_destroyed?
     self.projects.blank?
   end
-  
-  def self.search(search)
+
+  def self.search(search, page = 12)
+    order = order(
+      [
+        "#{Question.table_name}.dimension ASC",
+        "#{Question.table_name}.code ASC"
+      ].join(', '))
+
     if search
-      where('question ILIKE :q OR code ILIKE :q', :q => "%#{search}%")
+      where('question ILIKE :q OR code ILIKE :q', :q => "%#{search}%").order.paginate(
+        :page => page, :per_page => APP_LINES_PER_PAGE
+      )
     else
-      scoped
+      scoped.order.paginate(:page => page, :per_page => APP_LINES_PER_PAGE)
     end
   end
 
@@ -63,7 +71,7 @@ class Question < ApplicationModel
     options = text_query(query_terms, 'code','question')
     conditions = [options[:query]]
     parameters = options[:parameters]
-    
+
     where(
       conditions.map { |c| "(#{c})" }.join(' OR '), parameters
     ).order(options[:order])

@@ -4,24 +4,15 @@ class QuestionsController < ApplicationController
   before_filter :admin, :except => [:index, :show]
   require 'csv'
   require 'iconv'
-  
+
   layout proc{ |controller| controller.request.xhr? ? false : 'application' }
-  
+
   # * GET /questions
   # * GET /questions.xml
   def index
     @title = t :'questions.index_title'
-    
-    @questions = Question.search(params[:search]).order(
-    [
-      "#{Question.table_name}.dimension ASC",
-      "#{Question.table_name}.code ASC"
-    ].join(', ')
-    ).paginate(
-      :page => params[:page],
-      :per_page => APP_LINES_PER_PAGE
-    )
-   
+    @questions = Question.search(params[:search], params[:page])
+
     respond_to do |format|
       format.html # index.html.erb
       format.js
@@ -114,7 +105,7 @@ class QuestionsController < ApplicationController
 
   def import_csv
   end
-  
+
   def admin
     unless @auth_user.admin?
       flash[:alert] = t :'users.admin_error'
@@ -146,7 +137,7 @@ class QuestionsController < ApplicationController
   end
 
   def csv_import_answers
-    if params[:dump_answers] && File.extname(params[:dump_answers][:file].original_filename).downcase == '.csv'    
+    if params[:dump_answers] && File.extname(params[:dump_answers][:file].original_filename).downcase == '.csv'
       @parsed_file=CSV::Reader.parse(params[:dump_answers][:file], delimiter = ';')
       n=0
       conv = Iconv.new('UTF-8//IGNORE//TRANSLIT', 'ISO-8859-15')
@@ -167,7 +158,7 @@ class QuestionsController < ApplicationController
         question = Question.find_by_code(row[0].to_s)
         puts "CATEGORY #{category}, CLARIFICATION #{a.clarification}, QUESTION #{row[0].to_s},
         ORDER #{a.order}, ANSWER #{a.answer} "
-        unless question.blank? 
+        unless question.blank?
           a.question_id = question.id
         end
         if a.save
