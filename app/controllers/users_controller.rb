@@ -11,10 +11,7 @@ class UsersController < ApplicationController
   # * GET /users.xml
   def index
     @title = t :'users.index_title'
-    @users = User.search(params[:search]).order("#{User.table_name}.user ASC").paginate(
-      :page => params[:page],
-      :per_page => APP_LINES_PER_PAGE
-    )
+    @users = User.search(params[:search], params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

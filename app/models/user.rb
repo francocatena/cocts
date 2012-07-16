@@ -63,11 +63,19 @@ class User < ApplicationModel
       (self.password.length < 120 || self.password !~ /^(\d|[a-f])+$/)
   end
 
-  def self.search(search)
+  def self.search(search, page)
+    order = order("#{User.table_name}.user ASC")
     if search
-      where('name ILIKE :q OR lastname ILIKE :q OR email ILIKE :q OR user ILIKE :q', :q => "%#{search}%")
+      where('name ILIKE :q OR lastname ILIKE :q OR email ILIKE :q OR user ILIKE :q',
+        :q => "%#{search}%").order.paginate(
+          :page => page,
+          :per_page => APP_LINES_PER_PAGE
+        )
     else
-      scoped
+      scoped.order.paginate(
+        :page => page,
+        :per_page => APP_LINES_PER_PAGE
+      )
     end
   end
 end
