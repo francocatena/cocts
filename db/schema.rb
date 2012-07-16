@@ -10,17 +10,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111013230656) do
+ActiveRecord::Schema.define(:version => 20120611172001) do
 
   create_table "answer_instances", :force => true do |t|
     t.integer  "question_instance_id"
     t.integer  "answer_id"
     t.text     "answer_text"
-    t.integer  "order"
     t.integer  "answer_category"
-    t.string   "valuation",            :limit => 1
+    t.string   "valuation",              :limit => 1
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "order"
+    t.float    "attitudinal_assessment"
   end
 
   add_index "answer_instances", ["answer_id"], :name => "index_answer_instances_on_answer_id"
@@ -41,8 +42,11 @@ ActiveRecord::Schema.define(:version => 20111013230656) do
 
   create_table "project_instances", :force => true do |t|
     t.string   "first_name"
-    t.string   "last_name"
+    t.string   "professor_name"
     t.string   "email"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "name"
     t.string   "identifier"
     t.text     "description"
@@ -52,20 +56,25 @@ ActiveRecord::Schema.define(:version => 20111013230656) do
     t.text     "forms"
     t.integer  "age"
     t.string   "country"
-    t.string   "genre"
     t.string   "degree"
     t.text     "profession_ocuppation"
     t.text     "profession_certification"
     t.string   "student_status"
     t.string   "teacher_status"
     t.string   "teacher_level"
-    t.integer  "project_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "genre"
     t.integer  "study_subjects"
     t.text     "degree_school"
     t.text     "degree_university"
     t.text     "study_subjects_choose"
+    t.text     "educational_center_city"
+    t.text     "educational_center_name"
+    t.text     "study_subjects_different"
+    t.text     "group_type"
+    t.text     "group_name"
+    t.string   "plausible_attitude_index"
+    t.string   "adecuate_attitude_index"
+    t.string   "naive_attitude_index"
   end
 
   add_index "project_instances", ["project_id"], :name => "index_project_instances_on_project_id"
@@ -82,6 +91,9 @@ ActiveRecord::Schema.define(:version => 20111013230656) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.text     "group_name"
+    t.text     "group_type"
+    t.string   "test_type"
   end
 
   add_index "projects", ["identifier"], :name => "index_projects_on_identifier", :unique => true
@@ -150,6 +162,8 @@ ActiveRecord::Schema.define(:version => 20111013230656) do
     t.integer  "code"
   end
 
+  add_index "subtopics", ["title"], :name => "index_subtopics_on_title", :unique => true
+
   create_table "teaching_units", :force => true do |t|
     t.string   "title"
     t.integer  "subtopic_id"
@@ -157,12 +171,16 @@ ActiveRecord::Schema.define(:version => 20111013230656) do
     t.datetime "updated_at"
   end
 
+  add_index "teaching_units", ["title"], :name => "index_teaching_units_on_title", :unique => true
+
   create_table "topics", :force => true do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "code"
   end
+
+  add_index "topics", ["title"], :name => "index_topics_on_title", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "user"
@@ -176,6 +194,7 @@ ActiveRecord::Schema.define(:version => 20111013230656) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "admin"
+    t.boolean  "private",      :default => false
   end
 
   add_index "users", ["user"], :name => "index_users_on_user", :unique => true
