@@ -41,15 +41,9 @@ class ProjectsController < ApplicationController
     if params[:project_name].present?
       @name = true
       project = Project.find_by_name params[:project_name]
-      @project.name = project.name
-      @project.description = project.description
+      @project.set_parent_data(project)
       @type = project.group_type
       @test = project.test_type
-      @project.valid_until = project.valid_until
-      @project.year = project.year
-      @project.forms = project.forms
-      @project.teaching_units = project.teaching_units
-      @project.questions = project.questions
     end
     respond_to do |format|
       format.html # new.html.erb

@@ -80,6 +80,16 @@ class Project < ApplicationModel
     end
   end
 
+  def set_parent_data(project)
+    self.name = project.name
+    self.description = project.description
+    self.valid_until = project.valid_until
+    self.year = project.year
+    self.forms = project.forms
+    self.teaching_units = project.teaching_units
+    self.questions = project.questions
+  end
+
   def project_type_text
     I18n.t :"projects.#{TYPES.invert[self.project_type]}_type"
   end
