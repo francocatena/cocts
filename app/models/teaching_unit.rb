@@ -36,11 +36,18 @@ class TeachingUnit < ApplicationModel
     ).order(options[:order])
   end
 
-  def self.search(search)
+  def self.search(search, page)
+    order = order("#{TeachingUnit.table_name}.title ASC")
     if search
-      where('title ILIKE :q', :q => "%#{search}%")
+      where('title ILIKE :q', :q => "%#{search}%").order.paginate(
+        :page => page,
+        :per_page => APP_LINES_PER_PAGE
+      )
     else
-      scoped
+      scoped.order.paginate(
+        :page => page,
+        :per_page => APP_LINES_PER_PAGE
+      )
     end
   end
 
