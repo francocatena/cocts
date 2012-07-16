@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 class Project < ApplicationModel
   serialize :forms, Array
+  # Scopes
+  default_scope :order, order('name')
 
+  # Atributos no persistentes
   attr_accessor :nested_question
   attr_accessor :nested_teaching_unit
+
   # Constantes
   TYPES = {
     :manual => 0,
@@ -117,7 +121,7 @@ class Project < ApplicationModel
       sql_search = scoped
     end
     if user.private
-      sql_search.order('name').where('user_id = :id', :id => user.id).paginate(:page => page, :per_page => APP_LINES_PER_PAGE)
+      sql_search.where('user_id = :id', :id => user.id).paginate(:page => page, :per_page => APP_LINES_PER_PAGE)
     elsif user.admin
       sql_search.paginate(:page => page, :per_page => APP_LINES_PER_PAGE )
     else
