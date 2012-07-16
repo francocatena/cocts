@@ -3,7 +3,6 @@
     projects: 'Proyectos'
     questions: 'Cuestiones'
     users: 'Usuarios'
-    topics: 'Temas'
     subtopics: 'Subtemas'
     teaching_units: 'Unidades didácticas'
 
@@ -76,7 +75,6 @@
       answer_instance: 'Instancia de respuesta'
       question_instance: 'Instancia de pregunta'
       project_instance: 'Instancia de proyecto'
-      topic: 'Tema'
       subtopic: 'Subtema'
       subtopics: 'Subtemas'
       teaching_unit: 'Unidad didáctica'
@@ -142,9 +140,6 @@
       teaching_unit:
         title: 'Título de la Unidad Didáctica'
         questions: 'Cuestiones'
-      topic:
-        title: 'Título'
-        code: 'Código'
       subtopic:
         title: 'Título del Tema/Subtema'
         code: 'Código'
@@ -284,7 +279,6 @@
     projects: 'Proyectos'
     questions: 'Cuestiones'
     users: 'Usuarios'
-    topics: 'Temas'
     subtopics: 'Subtemas'
     teaching_units: 'UDs'
 
@@ -696,10 +690,6 @@
     correctly_updated: 'Unidad didáctica actualizada correctamente.'
     stale_object_error: 'La unidad didáctica no pudo ser actualizada, intente nuevamente.'
 
-  topic:
-    correctly_created: 'Tema creado correctamente.'
-    correctly_updated: 'Tema actualizado correctamente.'
-
   support:
     # Used in array.to_sentence.
     array:
@@ -756,6 +746,3 @@
 
   subtopics:
     add_new_teaching_unit: 'Agregar unidad didáctica'
-
-  topics:
-    add_new_subtopic: 'Agregar otro subtema'

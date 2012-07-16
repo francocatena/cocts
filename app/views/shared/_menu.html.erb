@@ -10,7 +10,7 @@
     :class => "real #{:selected if controller == :questions}" %></li>
   <li><%= link_to t(:'menu.teaching_units'), teaching_units_path,
     :class => "real #{:selected if controller == :teaching_units}" %></li>
-  <li><%= link_to "#{t(:'menu.topics')}/#{t(:'menu.subtopics')}", subtopics_path,
+  <li><%= link_to t('menu.subtopics'), subtopics_path,
     :class => "real #{:selected if controller == :subtopics}" %></li>
 </ul>
 
