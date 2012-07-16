@@ -1,5 +1,12 @@
 class Question < ApplicationModel
   DIMENSIONS = 1..9
+  # Scopes
+  default_scope order(
+    [
+      "#{Question.table_name}.dimension ASC",
+      "#{Question.table_name}.code ASC"
+    ].join(', ')
+  )
 
   # Alias de atributos
   alias_attribute :informal, :question
@@ -52,18 +59,12 @@ class Question < ApplicationModel
   end
 
   def self.search(search, page = 12)
-    order = order(
-      [
-        "#{Question.table_name}.dimension ASC",
-        "#{Question.table_name}.code ASC"
-      ].join(', '))
-
     if search
-      where('question ILIKE :q OR code ILIKE :q', :q => "%#{search}%").order.paginate(
+      where('question ILIKE :q OR code ILIKE :q', :q => "%#{search}%").paginate(
         :page => page, :per_page => APP_LINES_PER_PAGE
       )
     else
-      scoped.order.paginate(:page => page, :per_page => APP_LINES_PER_PAGE)
+      scoped.paginate(:page => page, :per_page => APP_LINES_PER_PAGE)
     end
   end
 

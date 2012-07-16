@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 class ProjectInstance < ApplicationModel
   serialize :forms, Array
+  # Scopes
+  default_scope order('first_name')
 
   # Atributos no persistentes
   attr_accessor :manual_degree, :manual_degree_university
