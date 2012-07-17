@@ -150,8 +150,37 @@ class Project < ApplicationModel
         :align => :center
       pdf.move_down pdf.font_size
     end
+    # UDs
+    questions = ""
+    if self.teaching_units.present?
+      pdf.font_size((PDF_FONT_SIZE * 1.4).round) do
+        pdf.move_down pdf.font_size
+        pdf.text I18n.t('actioncontroller.teaching_units')
+        pdf.move_down pdf.font_size
+      end
+      self.teaching_units.each do |unit|
+        unit.questions.each do |question|
+          questions += " #{question.code} "
+        end
+        pdf.font_size((PDF_FONT_SIZE * 1.1).round) do
+          pdf.text "#{unit.title} (#{questions})"
+          pdf.move_down pdf.font_size
+        end
+      end
+    # Cuestiones
+    else
+      pdf.font_size((PDF_FONT_SIZE * 1.4).round) do
+        self.questions.each do |question|
+          questions += " #{question.code} "
+        end
+        pdf.move_down pdf.font_size
+        pdf.text "#{I18n.t('actioncontroller.questions')}: #{questions}"
+        pdf.move_down pdf.font_size
+      end
+    end
 
     pdf.font_size((PDF_FONT_SIZE * 1.4).round) do
+      pdf.move_down pdf.font_size
       pdf.text I18n.t('projects.attitudinal_index_title')
       pdf.move_down pdf.font_size
     end
