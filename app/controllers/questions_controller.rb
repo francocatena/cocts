@@ -156,8 +156,6 @@ class QuestionsController < ApplicationController
         a.clarification = conv.iconv(row[4].to_s)
         a.answer = conv.iconv(row[5].to_s)
         question = Question.find_by_code(row[0].to_s)
-        puts "CATEGORY #{category}, CLARIFICATION #{a.clarification}, QUESTION #{row[0].to_s},
-        ORDER #{a.order}, ANSWER #{a.answer} "
         unless question.blank?
           a.question_id = question.id
         end

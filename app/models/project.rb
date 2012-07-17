@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 class Project < ApplicationModel
   serialize :forms, Array
+  # Scopes
+  default_scope order('name')
 
+  # Atributos no persistentes
   attr_accessor :nested_question
   attr_accessor :nested_teaching_unit
+
   # Constantes
   TYPES = {
     :manual => 0,
@@ -117,7 +121,7 @@ class Project < ApplicationModel
       sql_search = scoped
     end
     if user.private
-      sql_search.order('name').where('user_id = :id', :id => user.id).paginate(:page => page, :per_page => APP_LINES_PER_PAGE)
+      sql_search.where('user_id = :id', :id => user.id).paginate(:page => page, :per_page => APP_LINES_PER_PAGE)
     elsif user.admin
       sql_search.paginate(:page => page, :per_page => APP_LINES_PER_PAGE )
     else
@@ -146,8 +150,37 @@ class Project < ApplicationModel
         :align => :center
       pdf.move_down pdf.font_size
     end
+    # UDs
+    questions = ""
+    if self.teaching_units.present?
+      pdf.font_size((PDF_FONT_SIZE * 1.4).round) do
+        pdf.move_down pdf.font_size
+        pdf.text I18n.t('actioncontroller.teaching_units')
+        pdf.move_down pdf.font_size
+      end
+      self.teaching_units.each do |unit|
+        unit.questions.each do |question|
+          questions += " #{question.code} "
+        end
+        pdf.font_size((PDF_FONT_SIZE * 1.1).round) do
+          pdf.text "#{unit.title} (#{questions})"
+          pdf.move_down pdf.font_size
+        end
+      end
+    # Cuestiones
+    else
+      pdf.font_size((PDF_FONT_SIZE * 1.4).round) do
+        self.questions.each do |question|
+          questions += " #{question.code} "
+        end
+        pdf.move_down pdf.font_size
+        pdf.text "#{I18n.t('actioncontroller.questions')}: #{questions}"
+        pdf.move_down pdf.font_size
+      end
+    end
 
     pdf.font_size((PDF_FONT_SIZE * 1.4).round) do
+      pdf.move_down pdf.font_size
       pdf.text I18n.t('projects.attitudinal_index_title')
       pdf.move_down pdf.font_size
     end
