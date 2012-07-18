@@ -100,9 +100,10 @@
     <div style="margin: 1em 0em;">
       <% Project::SOCIODEMOGRAPHIC_FORMS.each do |sociodemographic_form| %>
         <% i18n_scope = [:projects, :sociodemographic_forms, sociodemographic_form] %>
-        <% checked = false %>
         <%  if sociodemographic_form.eql? 'name' %>
           <% checked = true %>
+        <% else %>
+          <% checked = @project.forms.include? sociodemographic_form %>
         <% end %>
 
       <% if sociodemographic_form.eql? 'degree_school' %>
