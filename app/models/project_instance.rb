@@ -37,6 +37,7 @@ class ProjectInstance < ApplicationModel
   ]
 
   # Restricciones
+  validates :first_name, :presence => true
   validates_numericality_of :age, :only_integer => true, :allow_nil => true,
     :allow_blank => true
   validates_uniqueness_of :first_name, :scope => :project_id, :allow_nil => true, :allow_blank => true
