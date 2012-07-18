@@ -3,6 +3,7 @@ class ProjectInstance < ApplicationModel
   serialize :forms, Array
   # Scopes
   default_scope order('first_name')
+  scope :with_project, lambda { |project_id| where('project_id = :id', :id => project_id) }
 
   # Atributos no persistentes
   attr_accessor :manual_degree, :manual_degree_university
@@ -11,9 +12,6 @@ class ProjectInstance < ApplicationModel
   belongs_to :project
   has_many :question_instances, :dependent => :destroy
   accepts_nested_attributes_for :question_instances
-
-  # Scopes
-  scope :with_project, lambda { |project_id| where('project_id = :id', :id => project_id)}
 
   # Constantes
   TYPES = {
