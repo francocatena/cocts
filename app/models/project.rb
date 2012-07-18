@@ -39,7 +39,7 @@ class Project < ApplicationModel
     :allow_blank => true
   validates :identifier, :exclusion => { :in => %w(admin ayuda help) }
   validates_date :valid_until, :on_or_after => lambda { Date.today },
-    :allow_nil => false, :allow_blank => false, :if => :is_interactive?
+    :allow_nil => false, :allow_blank => false, :if => :interactive?
   validates_each :forms do |record, attr, value|
     unless (value || []).all? { |value| SOCIODEMOGRAPHIC_FORMS.include?(value) }
       record.errors.add attr, :inclusion
@@ -70,10 +70,6 @@ class Project < ApplicationModel
     self.identifier
   end
 
-  def is_interactive?
-    self.project_type == 1
-  end
-
   def can_be_destroyed?
     self.project_instances.blank?
   end
@@ -95,11 +91,11 @@ class Project < ApplicationModel
   end
 
   def project_type_text
-    I18n.t :"projects.#{TYPES.invert[self.project_type]}_type"
+    I18n.t "projects.#{TYPES.invert[self.project_type]}_type"
   end
 
   def project_group_type_text
-    I18n.t :"projects.questionnaire.group_type.options.#{self.group_type}"
+    I18n.t "projects.questionnaire.group_type.options.#{self.group_type}"
   end
 
   def short_test_type_text
@@ -111,7 +107,7 @@ class Project < ApplicationModel
   end
 
   def project_test_type_text
-    I18n.t :"projects.questionnaire.test_type.options.#{self.test_type}"
+    I18n.t "projects.questionnaire.test_type.options.#{self.test_type}"
   end
 
   def self.search(search, user, page)

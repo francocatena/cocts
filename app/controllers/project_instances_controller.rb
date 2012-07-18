@@ -7,10 +7,12 @@ class ProjectInstancesController < ApplicationController
   def index
     @title = t :'project_instances.index_title'
     if params[:id]
-      @project_instances = ProjectInstance.with_project(params[:id])
+      @project_instances = ProjectInstance.with_project(params[:id]).paginate(:page => params[:page],
+       :per_page => APP_LINES_PER_PAGE)
       @project = Project.find(params[:id])
     else
-      @project_instances = ProjectInstance.scoped
+      @project_instances = ProjectInstance.scoped.paginate(:page => params[:page],
+       :per_page => APP_LINES_PER_PAGE)
     end
     respond_to do |format|
       format.html # index.html.erb
