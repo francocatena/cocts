@@ -3,47 +3,47 @@
   <%= f.error_messages %>
   <div class="one_column_form">
     <div class="field">
-      <%= f.label :name, 'data-show-popover' => true, 'data-content' => 
+      <%= f.label :name, 'data-show-popover' => true, 'data-content' =>
         t(:'users.name_help'), :title => t(:'activerecord.attributes.user.name') %>
       <%= f.text_field :name, :maxlength => 255, :autofocus => true %>
     </div>
     <div class="field">
-      <%= f.label :lastname, 'data-show-popover' => true, 'data-content' => 
+      <%= f.label :lastname, 'data-show-popover' => true, 'data-content' =>
         t(:'users.lastname_help'), :title => t(:'activerecord.attributes.user.lastname') %>
       <%= f.text_field :lastname, :maxlength => 255 %>
     </div>
     <div class="field">
-      <%= f.label :user, 'data-show-popover' => true, 'data-content' => t(:'users.user_help'), 
+      <%= f.label :user, 'data-show-popover' => true, 'data-content' => t(:'users.user_help'),
         :title => t(:'activerecord.attributes.user.user') %>
       <%= f.text_field :user, :maxlength => 30 %>
     </div>
     <div class="field">
-      <%= f.label :password, 'data-show-popover' => true, 'data-content' => 
+      <%= f.label :password, 'data-show-popover' => true, 'data-content' =>
         t(:'users.password_help'), :title => t(:'activerecord.attributes.user.password') %>
       <%= f.password_field :password, :maxlength => 128 %>
     </div>
     <div class="field">
-      <%= f.label :password_confirmation, 'data-show-popover' => true, 'data-content' => 
+      <%= f.label :password_confirmation, 'data-show-popover' => true, 'data-content' =>
         t(:'users.password_confirmation_help'), :title => t(:'activerecord.attributes.user.password_confirmation') %>
       <%= f.password_field :password_confirmation, :maxlength => 128 %>
     </div>
     <div class="field">
-      <%= f.label :email, 'data-show-popover' => true, 'data-content' => 
+      <%= f.label :email, 'data-show-popover' => true, 'data-content' =>
           t(:'users.email_help'), :title => t(:'activerecord.attributes.user.email') %>
       <%= f.text_field :email %>
     </div>
     <div class="field">
-      <%= f.label :enable, 'data-show-popover' => true, 'data-content' => 
+      <%= f.label :enable, 'data-show-popover' => true, 'data-content' =>
           t(:'users.enable_help'), :title => t(:'activerecord.attributes.user.enable') %>
       <%= f.check_box :enable %>
     </div>
     <div class="field">
-      <%= f.label :private, 'data-show-popover' => true, 'data-content' => 
+      <%= f.label :private, 'data-show-popover' => true, 'data-content' =>
           t(:'users.private_help'), :title => t(:'activerecord.attributes.user.private') %>
       <%= f.check_box :private %>
     </div>
     <div class="field">
-      <%= f.label :admin, 'data-show-popover' => true, 'data-content' => 
+      <%= f.label :admin, 'data-show-popover' => true, 'data-content' =>
           t(:'users.admin_help'), :title => t(:'activerecord.attributes.user.admin') %>
       <%= f.check_box :admin %>
     </div>
