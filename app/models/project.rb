@@ -2,7 +2,7 @@
 class Project < ApplicationModel
   serialize :forms, Array
   # Scopes
-  default_scope order('name')
+  default_scope order('name, group_type DESC, test_type DESC')
 
   # Atributos no persistentes
   attr_accessor :nested_question

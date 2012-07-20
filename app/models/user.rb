@@ -5,6 +5,8 @@ class User < ApplicationModel
   # Callbacks
   before_create :encrypt_password
   after_create :password_to_nil
+  before_update :encrypt_password
+  after_update :password_to_nil
 
   # Restricciones
   validates :user, :name, :lastname, :email, :presence => true
