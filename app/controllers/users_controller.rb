@@ -74,9 +74,10 @@ class UsersController < ApplicationController
   def update
     @title = t :'users.edit_title'
     @user = User.find(params[:id])
-    if @auth_user.admin? && !params[:new_password].blank?
-      @user.password = params[:new_password]
-      @user.encrypt_password
+
+    if params[:user][:password].blank?
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation)
     end
 
     respond_to do |format|
