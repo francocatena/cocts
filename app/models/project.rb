@@ -294,8 +294,12 @@ class Project < ApplicationModel
           :border_style => :grid,
           :size => (PDF_FONT_SIZE * 0.75).round
 
-        pdf.move_down pdf.font_size
+        pdf.font_size((PDF_FONT_SIZE * 0.2).round) do
+          pdf.move_down pdf.font_size
+        end
         data.clear
+
+        pdf.text "Media de los #{project.project_instances.count} individuos por cuestión"
 
         pdf.font_size((PDF_FONT_SIZE * 1.2).round) do
           pdf.move_down pdf.font_size
