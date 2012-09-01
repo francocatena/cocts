@@ -277,7 +277,7 @@ class Project < ApplicationModel
             end
           end
           unless total == 0
-            if index_by_question.zero?
+            if ('%.2f' % index_by_question).to_f.zero?
               index_by_question = index_by_question.abs
             end
 
