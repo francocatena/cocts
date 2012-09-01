@@ -249,19 +249,24 @@ class Project < ApplicationModel
         data.clear
 
         # Attitudinal index by question
-        questions = []
         data[0] = [I18n.t('activerecord.models.question'), I18n.t('projects.global_attitudinal_index_title')]
         total = 0
+        questions = {}
 
         if project.questions.present?
           questions = project.questions
         else
           project.teaching_units.each do |t_u|
-            questions << t_u.questions
+            if questions.empty?
+              questions = t_u.questions
+            else
+              questions << t_u.questions
+            end
           end
         end
-
-        questions.each_with_index do |q, i|
+        index = 0
+        questions.each do |q|
+          index += 1
           index_by_question = 0
           project.project_instances.each do |p_i|
             p_i.question_instances.each do |q_i|
@@ -272,7 +277,7 @@ class Project < ApplicationModel
             end
           end
           unless total == 0
-            data[i+1] = [q.code, '%.2f' % (index_by_question/total) ]
+            data[index] = [q.code, '%.2f' % (index_by_question/total) ]
           end
         end
 
