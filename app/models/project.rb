@@ -271,8 +271,9 @@ class Project < ApplicationModel
               end
             end
           end
-
-          data[i+1] = [q.code, '%.2f' % (index_by_question/total) ]
+          unless total == 0
+            data[i+1] = [q.code, '%.2f' % (index_by_question/total) ]
+          end
         end
 
         pdf.move_down pdf.font_size
