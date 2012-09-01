@@ -277,7 +277,10 @@ class Project < ApplicationModel
             end
           end
           unless total == 0
-            index_by_question = index_by_question.abs if index_by_question.zero?
+            if index_by_question.zero?
+              index_by_question = index_by_question.abs
+            end
+
             data[index] = [q.code, '%.2f' % (index_by_question/total) ]
           end
         end
