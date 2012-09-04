@@ -270,14 +270,17 @@ class Project < ApplicationModel
           index_by_question = 0
           project.project_instances.each do |p_i|
             p_i.question_instances.each do |q_i|
+              assessments = 0
+              count = 0
               if q_i.question_text.eql? "[#{q.code}] #{q.question}"
-                index_by_question += q_i.attitudinal_assessment_average
-                total += 1
+                assessments, count = q_i.attitudinal_assessment_average
+                index_by_question += assessments
+                total += count
               end
             end
           end
           unless total == 0
-            if ('%.2f' % index_by_question).to_f.zero?
+            if (index_by_question.round(2)).zero?
               index_by_question = index_by_question.abs
             end
 

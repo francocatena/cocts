@@ -35,8 +35,6 @@ class QuestionInstance < ApplicationModel
       count += 1
     end
 
-    unless count == 0
-      assessments / count
-    end
+    return assessments, count
   end
 end
