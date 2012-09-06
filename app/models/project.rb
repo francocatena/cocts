@@ -247,22 +247,83 @@ class Project < ApplicationModel
 
         pdf.move_down pdf.font_size
         data.clear
-      pdf.font_size((PDF_FONT_SIZE * 1.2).round) do
+
+        # Attitudinal index by question
+        data[0] = [I18n.t('activerecord.models.question'), I18n.t('projects.global_attitudinal_index_title')]
+        total = 0
+        questions = {}
+
+        if project.questions.present?
+          questions = project.questions
+        else
+          project.teaching_units.each do |t_u|
+            if questions.empty?
+              questions = t_u.questions
+            else
+              questions << t_u.questions
+            end
+          end
+        end
+        index = 0
+        questions.each do |q|
+          index += 1
+          index_by_question = 0
+          project.project_instances.each do |p_i|
+            p_i.question_instances.each do |q_i|
+              assessments = 0
+              count = 0
+              if q_i.question_text.eql? "[#{q.code}] #{q.question}"
+                assessments, count = q_i.attitudinal_assessment_average
+                index_by_question += assessments
+                total += count
+              end
+            end
+          end
+          unless total == 0
+            if (index_by_question.round(2)).zero?
+              index_by_question = index_by_question.abs
+            end
+
+            data[index] = [q.code, '%.2f' % (index_by_question/total) ]
+          end
+        end
+
         pdf.move_down pdf.font_size
-        pdf.text I18n.t('projects.attitudinal_index_by_category_title')
+        pdf.font_size((PDF_FONT_SIZE * 1.2).round) do
+          pdf.text I18n.t 'projects.attitudinal_index_by_question_title'
+        end
         pdf.move_down pdf.font_size
-      end
-      unless count == 0
-        pdf.text "#{I18n.t 'projects.attitudinal_index_category_adecuate'}: %.2f" % (adecuate_index/count)
-        pdf.text "#{I18n.t 'projects.attitudinal_index_category_plausible'}: %.2f" % (plausible_index/count)
-        pdf.text "#{I18n.t 'projects.attitudinal_index_category_naive'}: %.2f" % (naive_index/count)
+
+        pdf.flexible_table data,
+          :width => pdf.margin_box.width,
+          :align => :center,
+          :vertical_padding => 3,
+          :border_style => :grid,
+          :size => (PDF_FONT_SIZE * 0.75).round
+
+        pdf.font_size((PDF_FONT_SIZE * 0.2).round) do
+          pdf.move_down pdf.font_size
+        end
+        data.clear
+
+        pdf.text "Media de los #{project.project_instances.count} individuos por cuestión"
+
         pdf.font_size((PDF_FONT_SIZE * 1.2).round) do
           pdf.move_down pdf.font_size
-          pdf.text "#{I18n.t 'projects.attitudinal_global_index'}: %.2f" % (global_index/count)
+          pdf.text I18n.t('projects.attitudinal_index_by_category_title')
+          pdf.move_down pdf.font_size
         end
+        unless count == 0
+          pdf.text "#{I18n.t 'projects.attitudinal_index_category_adecuate'}: %.2f" % (adecuate_index/count)
+          pdf.text "#{I18n.t 'projects.attitudinal_index_category_plausible'}: %.2f" % (plausible_index/count)
+          pdf.text "#{I18n.t 'projects.attitudinal_index_category_naive'}: %.2f" % (naive_index/count)
+          pdf.font_size((PDF_FONT_SIZE * 1.2).round) do
+          pdf.move_down pdf.font_size
+            pdf.text "#{I18n.t 'projects.attitudinal_global_index'}: %.2f" % (global_index/count)
+          end
+        end
+        pdf.move_down pdf.font_size
       end
-      pdf.move_down pdf.font_size
-    end
     end
 
     # Numeración en pie de página

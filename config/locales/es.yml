@@ -361,6 +361,7 @@
     alumn_title: 'Alumno'
     attitudinal_index_title: 'Índices actitudinales'
     attitudinal_index_by_category_title: 'Índice actitudinal por categoría'
+    attitudinal_index_by_question_title: 'Índice actitudinal por cuestión'
     control_group_title: 'Grupo control'
     experimental_group_title: 'Grupo experimental'
     type_error: 'El tipo de grupo y tipo de test deben ser distintos al del
