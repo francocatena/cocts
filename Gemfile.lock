@@ -162,5 +162,5 @@ DEPENDENCIES
   therubyracer
   turn
   uglifier
-  validates_timeliness (= 3.0.8)
+  validates_timeliness
   will_paginate
