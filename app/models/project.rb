@@ -250,7 +250,6 @@ class Project < ApplicationModel
 
         # Attitudinal index by question
         data[0] = [I18n.t('activerecord.models.question'), I18n.t('projects.global_attitudinal_index_title')]
-        total = 0
         questions = {}
 
         if project.questions.present?
@@ -268,6 +267,8 @@ class Project < ApplicationModel
         questions.each do |q|
           index += 1
           index_by_question = 0
+          total = 0
+
           project.project_instances.each do |p_i|
             p_i.question_instances.each do |q_i|
               if q_i.question_text.eql? "[#{q.code}] #{q.question}"
@@ -276,8 +277,9 @@ class Project < ApplicationModel
               end
             end
           end
+
           unless total == 0
-            if ('%.2f' % index_by_question).to_f.zero?
+            if index_by_question.round(2).zero?
               index_by_question = index_by_question.abs
             end
 
