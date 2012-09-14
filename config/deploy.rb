@@ -5,7 +5,7 @@ set :repository,  'https://github.com/francocatena/cocts.git'
 set :deploy_to, '/var/rails/cocts'
 set :user, 'deployer'
 set :group_writable, false
-set :shared_children, %w(system log pids private public config)
+set :shared_children, %w(log private)
 set :use_sudo, false
 
 set :scm, :git
