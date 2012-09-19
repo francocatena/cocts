@@ -215,6 +215,8 @@ class Project < ApplicationModel
         count = attitudinal_assessments = answers = 0
 
         project.project_instances.each_with_index do |instance, i|
+          alumn_assessments = 0
+          alumn_answers = 0
           instance.calculate_attitudinal_rates
           attitudinal_global_index = instance.attitudinal_global_index
 
@@ -223,15 +225,17 @@ class Project < ApplicationModel
           naive_index += instance.naive_attitude_index
           global_index += instance.attitudinal_global_index
 
-          data[i+1] = [instance.student_data, '%.2f' % attitudinal_global_index ]
-          count += 1
-
           instance.question_instances.each do |question|
             question.answer_instances.each do |answer|
               attitudinal_assessments += answer.attitudinal_assessment
               answers += 1
+              alumn_assessments += answer.attitudinal_assessment
+              alumn_answers += 1
             end
           end
+
+          data[i+1] = [instance.student_data, '%.2f' % (alumn_assessments / alumn_answers) ]
+          count += 1
         end
 
         unless answers == 0
