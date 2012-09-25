@@ -4,7 +4,7 @@
     questions: 'Cuestiones'
     users: 'Usuarios'
     subtopics: 'Subtemas'
-    teaching_units: 'Unidades didácticas'
+    teaching_units: 'Secuencias de Enseñanza Aprendizaje'
 
   will_paginate:
     previous_label: "&#8592; Anterior"
@@ -77,12 +77,12 @@
       project_instance: 'Instancia de proyecto'
       subtopic: 'Subtema'
       subtopics: 'Subtemas'
-      teaching_unit: 'Unidad didáctica'
-      teaching_units: 'Unidades didácticas'
+      teaching_unit: 'Secuencia de Enseñanza Aprendizaje'
+      teaching_units: 'Secuencias de Enseñanza Aprendizaje'
 
     attributes:
       answer_instance:
-        answer_category: 'Categoría'
+        answeppr_category: 'Categoría'
         valuation: 'Valor'
         answer_text: 'Respuesta'
       question_instance:
@@ -138,7 +138,7 @@
       question_instance:
         question_text: 'Cuestión'
       teaching_unit:
-        title: 'Título de la Unidad Didáctica'
+        title: 'Título'
         questions: 'Cuestiones'
       subtopic:
         title: 'Título del Tema/Subtema'
@@ -280,7 +280,7 @@
     questions: 'Cuestiones'
     users: 'Usuarios'
     subtopics: 'Subtemas'
-    teaching_units: 'UDs'
+    teaching_units: 'SEAs'
 
   messages:
     confirmation_question: '¿Está seguro?'
@@ -366,11 +366,10 @@
     experimental_group_title: 'Grupo experimental'
     type_error: 'El tipo de grupo y tipo de test deben ser distintos al del
     proyecto seleccionado'
-    questions_error: 'Por defecto se toman las cuestiones asociadas a las Unidades
-    Didácticas (UDs), por favor elimine las cuestiones individuales o
+    questions_error: 'Por defecto se toman las cuestiones asociadas a las Secuencias de Enseñanza Aprendizaje (SEAs), por favor elimine las cuestiones individuales o
     elimine las UDs.'
     empty_questions_error: 'El proyecto debe contener al menos una cuestión: seleccione
-    una Unidad Didáctica o en su defecto seleccione las cuestiones individualmente.'
+    una Secuencia de Enseñanza Aprendizaje o en su defecto seleccione las cuestiones individualmente.'
     project_instance_error: 'El proyecto no pudo ser eliminado ya que existen
     instancias de resolución asociadas al mismo.'
     valid_until_error: 'El proyecto ha vencido: no se pueden cargar instancias.'
@@ -386,11 +385,11 @@
     En cambio si se trata de un proyecto Interactivo la carga se realizará en línea
     (puede ser simultáneamente) y estará a cargo de cada uno de los alumnos.'
     valid_until_help: 'Fecha hasta la cual el proyecto estará vigente.'
-    teaching_units_help: 'Seleccione la Unidad Didáctica(UD) que desee asociar al proyecto.
-    Cada UD tiene asignadas cuestiones que se asociarán automáticamente al proyecto.'
+    teaching_units_help: 'Seleccione la Secuencia de Enseñanza Aprendizaje (SEA) que desee asociar al proyecto.
+    Cada SEA tiene asignadas cuestiones que se asociarán automáticamente al proyecto.'
     questions_help: 'Detalle de las cuestiones asociadas al proyecto. Para asociar una
     cuestión al proyecto ingrese el código o texto de la misma si y solo si no va a asociar
-    ninguna Unidad Didáctica al proyecto.'
+    ninguna Secuencia de Enseñanza Aprendizaje al proyecto.'
     group_name_help: 'Nombre del grupo al cual se va a aplicar el proyecto.'
     index_title: 'Listado de proyectos'
     show_title: 'Detalle del proyecto'
@@ -409,7 +408,7 @@
     add: 'Crear proyecto'
     preview_label: 'Previsualizar'
     close_label: 'Cerrar'
-    label_questions: 'Cuestiones (solo si no elige Unidades Didácticas)'
+    label_questions: 'Cuestiones (solo si no elige Secuencias de Enseñanza Aprendizaje)'
     add_question: 'Agregar cuestión'
     interactive_type: 'Interactivo'
     manual_type: 'Manual'
@@ -686,10 +685,10 @@
     stale_object_error: 'El subtema no pudo ser actualizado, intente nuevamente.'
 
   teaching_units:
-    search_teaching_units: 'Buscar unidades didácticas'
-    correctly_created: 'Unidad didáctica creada correctamente.'
-    correctly_updated: 'Unidad didáctica actualizada correctamente.'
-    stale_object_error: 'La unidad didáctica no pudo ser actualizada, intente nuevamente.'
+    search_teaching_units: 'Buscar SEAs'
+    correctly_created: 'Secuencia Enseñanza Aprendizaje creada correctamente.'
+    correctly_updated: 'Secuencia Enseñanza Aprendizaje actualizada correctamente.'
+    stale_object_error: 'La Secuencia Enseñanza Aprendizaje no pudo ser actualizada, intente nuevamente.'
 
   support:
     # Used in array.to_sentence.
@@ -746,4 +745,4 @@
     password_stale_object_error: 'La contraseña no pudo ser actualizada, intente nuevamente.'
 
   subtopics:
-    add_new_teaching_unit: 'Agregar unidad didáctica'
+    add_new_teaching_unit: 'Agregar secuencia de enseñanza aprendizaje'
