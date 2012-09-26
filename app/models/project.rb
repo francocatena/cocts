@@ -473,7 +473,7 @@ class Project < ApplicationModel
        topic = subtopic.topic
 
        pdf.move_down(pdf.font_size)
-       pdf.text "Unidad Didáctica: #{teaching_unit.title}", :style => :bold_italic
+       pdf.text "#{I18n.t('activerecord.models.teaching_unit')}: #{teaching_unit.title}", :style => :bold_italic
 
        unless subtopic.blank? || topic.blank?
            pdf.font_size((PDF_FONT_SIZE * 0.75).round) do
