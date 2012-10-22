@@ -1,10 +1,10 @@
 <div id="showed_data">
   <p>
     <b><%= Subtopic.human_attribute_name :title %>:</b>
-    <strong><%= @subtopic.code %> - <strong><%= @subtopic.title %>
+    <strong><%= @subtopic.code %> - <%= @subtopic.title %></strong>
   </p>
   <% unless @subtopic.teaching_units.empty? %>
-  <b><%= t(:'activerecord.models.teaching_units') %>:</b>  
+  <b><%= t(:'activerecord.models.teaching_units') %>:</b>
   <ul>
   <% @subtopic.teaching_units.each do |teaching_unit| %>
       <li><%= teaching_unit.title %></li>
@@ -15,7 +15,7 @@
 
 
 <div id="links">
-  <%= link_to_back %> 
+  <%= link_to_back %>
   <%= link_to t(:'labels.edit'), edit_subtopic_path(@subtopic), :class => :real %> |
   <%= link_to t(:'labels.list'), subtopics_path, :class => :real %>
 </div>
