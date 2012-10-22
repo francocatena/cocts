@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'test_helper'
 
 # Clase para probar el modelo "Project"
@@ -98,9 +99,9 @@ class ProjectTest < ActiveSupport::TestCase
     assert_equal [error_message_from_model(@project, :identifier, :exclusion)],
       @project.errors[:identifier]
     assert_equal [error_message_from_model(@project, :valid_until,
-      :on_or_after, :restriction => Time.now.strftime('%d/%m/%Y'))], 
+      :on_or_after, :restriction => Time.now.strftime('%d/%m/%Y'))],
       @project.errors[:valid_until]
-    
+
   end
 
   test 'validates lenght attributes' do
@@ -130,7 +131,7 @@ class ProjectTest < ActiveSupport::TestCase
     id = "#{@project.id}-#{@project.short_group_type_text}-#{@project.short_test_type_text}"
     assert_equal id_project, id
   end
-  
+
   test 'conversion to pdf' do
     FileUtils.rm @project.pdf_full_path if File.exists?(@project.pdf_full_path)
 
@@ -141,17 +142,18 @@ class ProjectTest < ActiveSupport::TestCase
     assert File.exists?(@project.pdf_full_path)
     FileUtils.rm @project.pdf_full_path
   end
-  
+
   test 'rates to pdf' do
     FileUtils.rm @project.pdf_full_path if File.exists?(@project.pdf_full_path)
+    projects = Project.where(:name => @project.name)
 
     assert !File.exists?(@project.pdf_full_path)
     assert_nothing_raised(Exception) do
-      @project.generate_pdf_rates(Project.all, User.first)
+      @project.generate_pdf_rates(projects, User.first)
     end
 
     assert File.exists?(@project.pdf_full_path)
     FileUtils.rm @project.pdf_full_path
   end
-  
+
 end

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'test_helper'
 
 # Pruebas para el controlador de usuarios
@@ -44,14 +45,14 @@ class UsersControllerTest < ActionController::TestCase
       assert_redirected_to login_users_path
       assert_equal I18n.t(:'messages.must_be_authenticated'), flash[:notice]
     end
-    
+
     perform_auth(users(:private))
     admin_actions.each do |action|
       send *action
       assert_redirected_to projects_path
       assert_equal I18n.t(:'users.admin_error'), flash[:alert]
     end
-    
+
     public_actions.each do |action|
       send *action
       assert_response :success
@@ -103,7 +104,7 @@ class UsersControllerTest < ActionController::TestCase
         :user => users(:admin).user,
         :password => users(:admin).password
       }
-    assert_redirected_to users_path
+    assert_redirected_to projects_path
   end
 
   test 'list users' do

@@ -18,11 +18,7 @@ class ActiveSupport::TestCase
     post :create_session, :user => {:user => user.user, :password => user.password}
     assert_not_nil session[:user_id]
     auth_user = User.find(session[:user_id])
-    if auth_user.admin
-      assert_redirected_to :action => :index
-    elsif auth_user.private?
-      assert_redirected_to projects_path
-    end
+    assert_redirected_to projects_path
     assert_not_nil auth_user
     assert_equal user.user, auth_user.user
 
