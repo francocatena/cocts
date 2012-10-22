@@ -46,14 +46,16 @@ class Project < ApplicationModel
     end
   end
 
-    # Relaciones
+  # Relaciones
   has_and_belongs_to_many :questions, :validate => false, :order => 'code ASC',
     :uniq => true
   has_and_belongs_to_many :teaching_units, :validate => false, :uniq => true
   has_many :project_instances
   belongs_to :user
 
+  # Callbacks
   before_destroy :can_be_destroyed?
+  before_save :check_types
 
   def initialize(attributes = nil, options = {})
     super(attributes, options)
@@ -72,6 +74,14 @@ class Project < ApplicationModel
 
   def can_be_destroyed?
     self.project_instances.blank?
+  end
+
+  def check_types
+    projects = (Project.where(:name => self.name)).to_a
+    puts projects.count
+    projects.each.all? { |p|
+      !(p.test_type == self.test_type && p.group_type == self.group_type && self.identifier != p.identifier)
+    }
   end
 
   TYPES.each do |type, value|
@@ -238,8 +248,10 @@ class Project < ApplicationModel
             end
           end
 
-          data[i+1] = [instance.student_data, '%.2f' % (alumn_assessments / alumn_answers) ]
-          count += 1
+          unless alumn_answers == 0
+            data[i+1] = [instance.student_data, '%.2f' % (alumn_assessments / alumn_answers) ]
+            count += 1
+          end
         end
 
         unless answers == 0

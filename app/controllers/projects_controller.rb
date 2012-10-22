@@ -73,12 +73,6 @@ class ProjectsController < ApplicationController
     elsif !@project.teaching_units.empty? && !@project.questions.empty?
       @project.errors[:base] << t(:'projects.questions_error')
       render :action => :new
-    # Verifico que no sea del mismo tipo de test y tipo de grupo que el padre
-    elsif params[:project][:test_type] == params[:parent_test_type] &&
-      params[:project][:group_type] == params[:parent_group_type]
-        @project.errors[:base] << t(:'projects.type_error')
-        render :action => :new
-
     else respond_to do |format|
       @project.transaction do
         if @project.save
@@ -94,6 +88,7 @@ class ProjectsController < ApplicationController
 
           format.xml  { render :xml => @project, :status => :created, :location => @project }
         else
+         @project.errors[:base] << t(:'projects.type_error') unless @project.check_types
           format.html { render :action => :new }
           format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
         end
@@ -136,6 +131,7 @@ class ProjectsController < ApplicationController
 
         format.xml  { render :xml => @project, :status => :created, :location => @project }
       else
+        @project.errors[:base] << t(:'projects.type_error') unless @project.check_types
         format.html { render :action => :edit }
         format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
       end
