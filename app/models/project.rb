@@ -214,7 +214,11 @@ class Project < ApplicationModel
 
         count = attitudinal_assessments = answers = 0
 
+        professors = []
         project.project_instances.each_with_index do |instance, i|
+          if professors.exclude?(instance.professor_name.try(:titleize)) && instance.professor_name
+            professors << instance.professor_name.titleize
+          end
           alumn_assessments = 0
           alumn_answers = 0
           instance.calculate_attitudinal_rates
@@ -240,6 +244,11 @@ class Project < ApplicationModel
 
         unless answers == 0
           data << [I18n.t('projects.global_attitudinal_index_title'),'%.2f' % (attitudinal_assessments / answers)]
+        end
+
+        if professors.present?
+          pdf.text I18n.t('activerecord.attributes.project_instance.professor_name') + ': ' + professors.join(', ')
+          pdf.move_down pdf.font_size
         end
 
         pdf.flexible_table data,
