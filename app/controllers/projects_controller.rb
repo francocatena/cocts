@@ -76,7 +76,7 @@ class ProjectsController < ApplicationController
     else respond_to do |format|
       @project.transaction do
         if @project.save
-          @project.update_attribute :identifier, @project.generate_identifier
+          @project.update_column :identifier, @project.generate_identifier
           go_to = session[:go_to]
           session[:go_to] = nil
           flash[:notice] = t :'projects.correctly_created'
