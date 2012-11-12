@@ -122,7 +122,7 @@ class Project < ApplicationModel
 
   def self.search(search, user, page)
     if search
-      sql_search = where('name ILIKE :q OR identifier ILIKE :q', :q => "%#{search}%")
+      sql_search = where("#{Project.table_name}.name ILIKE :q OR #{Project.table_name}.identifier ILIKE :q", :q => "%#{search}%")
     else
       sql_search = scoped
     end
