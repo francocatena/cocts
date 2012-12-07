@@ -31,8 +31,10 @@ class QuestionInstance < ApplicationModel
     count = 0
 
     self.answer_instances.each do |a_i|
-      assessments += a_i.attitudinal_assessment
-      count += 1
+      if a_i.attitudinal_assessment.present?
+        assessments += a_i.attitudinal_assessment
+        count += 1
+      end
     end
 
     unless count == 0

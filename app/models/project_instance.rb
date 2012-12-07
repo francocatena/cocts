@@ -126,7 +126,7 @@ class ProjectInstance < ApplicationModel
     index = 0
     self.question_instances.each do |qi|
       qi.answer_instances.each do |ai|
-        if ai.answer_category == category
+        if ai.answer_category == category && ai.attitudinal_assessment
           index+= ai.attitudinal_assessment
           total+= 1
         end

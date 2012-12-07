@@ -241,10 +241,12 @@ class Project < ApplicationModel
 
           instance.question_instances.each do |question|
             question.answer_instances.each do |answer|
-              attitudinal_assessments += answer.attitudinal_assessment
-              answers += 1
-              alumn_assessments += answer.attitudinal_assessment
-              alumn_answers += 1
+              if answer.attitudinal_assessment.present?
+                attitudinal_assessments += answer.attitudinal_assessment
+                answers += 1
+                alumn_assessments += answer.attitudinal_assessment
+                alumn_answers += 1
+              end
             end
           end
 
@@ -382,7 +384,7 @@ class Project < ApplicationModel
     i18n_scope << :scale_table
     i18n_scope << :disagreement
 
-    data = [[], ['1', '2', '3', '4', '5', '6', '7', '8', '9']]
+    data = [[], ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'E', 'S']]
 
     [:'1', :'2', :'3', :'4'].each do |opt|
       data[0] << I18n.t(opt, :scope => i18n_scope)
@@ -398,6 +400,10 @@ class Project < ApplicationModel
       data[0] << I18n.t(opt, :scope => i18n_scope)
     end
 
+    i18n_scope[-1] = :others
+
+    [:'E', :'S'].each { |opt| data[0] << I18n.t(opt, :scope => i18n_scope) }
+
     i18n_scope.slice!(-1)
 
     pdf.flexible_table data,
@@ -410,7 +416,8 @@ class Project < ApplicationModel
         {
           :text => I18n.t(:in_agreement_title, :scope => i18n_scope),
           :colspan => 4
-        }
+        },
+        {:text => I18n.t(:others_title, :scope => i18n_scope), :colspan => 2}
       ],
       :width => pdf.margin_box.width,
       :align => :center,
@@ -419,6 +426,11 @@ class Project < ApplicationModel
       :size => (PDF_FONT_SIZE * 0.75).round
 
     i18n_scope.slice!(-1)
+
+    pdf.font_size((PDF_FONT_SIZE * 0.75).round) do
+      pdf.move_down(pdf.font_size)
+      pdf.text I18n.t(:scale_clarification, :scope => i18n_scope)
+    end
 
     # Pregunta de ejemplo
     i18n_scope = [:projects, :questionnaire, :answer_example]
