@@ -251,8 +251,8 @@ class Project < ApplicationModel
           end
 
           unless alumn_answers == 0
-            data[i+1] = [instance.student_data, '%.2f' % (alumn_assessments / alumn_answers) ]
             count += 1
+            data[count] = [instance.student_data, '%.2f' % (alumn_assessments / alumn_answers) ]
           end
         end
 
@@ -299,8 +299,10 @@ class Project < ApplicationModel
           project.project_instances.each do |p_i|
             p_i.question_instances.each do |q_i|
               if q_i.question_text.eql? "[#{q.code}] #{q.question}"
-                index_by_question += q_i.attitudinal_assessment_average
-                total += 1
+                if q_i.attitudinal_assessment_average
+                  index_by_question += q_i.attitudinal_assessment_average
+                  total += 1
+                end
               end
             end
           end
