@@ -15,13 +15,6 @@
     created_at: 'Creación'
     updated_at: 'Actualización'
 
-  # Active Record models configuration
-  activerecord:
-    errors:
-      messages:
-        taken: 'ya está en uso'
-        record_invalid: 'La validación falló: %{errors}'
-
   activerecord:
     errors:
       # The values :model, :attribute and :value are always available for interpolation
@@ -52,7 +45,13 @@
         after: "debe ser posterior a %{restriction}"
         on_or_after: "debe ser posterior o igual a %{restriction}"
         between: "debe estar entre %{earliest} y %{latest}"
-        taken: 'debe ser único'
+        taken: 'ya está en uso'
+      template:
+        header:
+          one: 'No se pudo guardar porque se encontró 1 error'
+          other: 'No se pudo guardar porque se encontraron %{count} errores'
+        # The variable :count is also available
+        body: 'Se encontraron problemas con los siguientes campos:'
 
       models:
         project:
@@ -232,12 +231,6 @@
     hide_details: 'Ocultar detalles'
     show_details: 'Ver detalles'
     apologies_for_the_inconvenience: 'Disculpe las molestias'
-    template:
-      header:
-        one: 'No se pudo guardar porque se encontró 1 error'
-        other: 'No se pudo guardar porque se encontraron %{count} errores'
-      # The variable :count is also available
-      body: 'Se encontraron problemas con los siguientes campos:'
 
   helpers:
     select:
