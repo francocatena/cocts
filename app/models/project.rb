@@ -55,7 +55,6 @@ class Project < ApplicationModel
 
   # Callbacks
   before_destroy :can_be_destroyed?
-  before_save :check_types
 
   def initialize(attributes = nil, options = {})
     super(attributes, options)
@@ -74,14 +73,6 @@ class Project < ApplicationModel
 
   def can_be_destroyed?
     self.project_instances.blank?
-  end
-
-  def check_types
-    projects = (Project.where(:name => self.name)).to_a
-    puts projects.count
-    projects.each.all? { |p|
-      !(p.test_type == self.test_type && p.group_type == self.group_type && self.identifier != p.identifier)
-    }
   end
 
   TYPES.each do |type, value|

@@ -88,7 +88,6 @@ class ProjectsController < ApplicationController
 
           format.xml  { render :xml => @project, :status => :created, :location => @project }
         else
-         @project.errors[:base] << t(:'projects.type_error') unless @project.check_types
           format.html { render :action => :new }
           format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
         end
@@ -131,7 +130,6 @@ class ProjectsController < ApplicationController
 
         format.xml  { render :xml => @project, :status => :created, :location => @project }
       else
-        @project.errors[:base] << t(:'projects.type_error') unless @project.check_types
         format.html { render :action => :edit }
         format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
       end
