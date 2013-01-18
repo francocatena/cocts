@@ -93,7 +93,7 @@
      </div>
   </div>
   <p style="margin: 1em 0em;">
-    <%= link_to_function t(:'projects.sociodemographic_label'),
+    <%= link_to t(:'projects.sociodemographic_label'), '#', :onclick =>
       "$('#sociodemographic').slideToggle()" %>
   </p>
   <div id="sociodemographic" style="display: none;">
@@ -128,7 +128,7 @@
             preview_form_projects_path(:form => sociodemographic_form, :format => :html),
             :class => :sociodemographic_form, :remote => true, :method => :get %>
           <div class="form_details"></div>
-          <%= link_to_function t(:'projects.close_label'),
+          <%= link_to t(:'projects.close_label'), '#', :onclick =>
             "$(this).prev('div.form_details').hide(); $(this).hide()",
             :class => :hide_form_details, :style => 'display: none;' %>
         </div>

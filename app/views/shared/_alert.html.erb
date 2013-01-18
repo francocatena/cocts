@@ -1,5 +1,5 @@
 <div id="alert">
   <p><%= flash[:alert] %></p>
-  <div id="close_alert"><%= link_to_function 'X', "$('#alert').stop().fadeOut()",
+  <div id="close_alert"><%= link_to 'X', '#', :onclik => "$('#alert').stop().fadeOut()",
     :title => t(:'labels.close') %></div>
 </div>

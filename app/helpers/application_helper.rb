@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 module ApplicationHelper
   # Ordena un array que será utilizado en un select por el valor de los campos
   # que serán mostrados
@@ -6,7 +7,7 @@ module ApplicationHelper
   def sort_options_array(options_array)
     options_array.sort { |o_1, o_2| o_1.first <=> o_2.first }
   end
-  
+
   # Devuelve el HTML devuelto por un render :partial => 'form', con el texto en
   # el botón submit reemplazado por el indicado. El resultado está "envuelto" en
   # un div con la clase "form_container"
@@ -30,8 +31,8 @@ module ApplicationHelper
 
   # Devuelve el HTML de un vínculo para volver (history.back())
   def link_to_back
-    link_to_function '&#x2190;'.html_safe, 'history.back()', :class => :iconic,
-      :'data-show-tooltip' => true, :title => t(:'labels.back') 
+    link_to '&#x2190;'.html_safe, :back, :class => :iconic,
+      :'data-show-tooltip' => true, :title => t(:'labels.back')
   end
 
   # Devuelve HTML con un link para eliminar un componente de un formulario
@@ -94,7 +95,7 @@ module ApplicationHelper
   def dynamic_object_id(prefix, form_builder)
     "#{prefix}_#{form_builder.object_name.to_s.gsub(/[_\]\[]+/, '_')}"
   end
-  
+
   # Devuelve el HTML necesario para insertar un nuevo ítem en un nested form
   #
   # * _form_builder_::  Formulario "Padre" de la relación anidada
@@ -144,53 +145,53 @@ module ApplicationHelper
 
     textiled.html_safe
   end
-  
+
   def calendar_text_field(form, attribute, time = false, value = nil)
     value ||= form.object.send(attribute)
     options = {:class => :calendar}
-    
+
     options[:value] = l(value, :format => time ? :minimal : :default) if value
     options[:'data-time'] = true if time
-    
+
     form.text_field attribute, options
   end
-  
+
   def link_to_show(*args)
     options = args.extract_options!
-    
+
     options['class'] ||= 'iconic'
     options['title'] ||= t('labels.show')
     options['data-show-tooltip'] ||= true
-    
+
     args << options
-    
+
     link_to '&#xe074;'.html_safe, *args
   end
-  
+
   def link_to_edit(*args)
     options = args.extract_options!
-    
+
     options['class'] ||= 'iconic'
     options['title'] ||= t('labels.edit')
     options['data-show-tooltip'] ||= true
-    
+
     args << options
-    
+
     link_to '&#x270e;'.html_safe, *args
   end
-  
+
   def link_to_destroy(*args)
     options = args.extract_options!
-    
+
     options['class'] ||= 'btn btn-small btn-danger'
     options['title'] ||= t('labels.delete')
-    options['confirm'] ||= t('messages.confirmation_question')
+    options['data'] ||= { :confirm => t('messages.confirmation_question') }
     options['method'] ||= :delete
-    
+
     args << options
-        
-    link_to "<span class=iconic>&#xe05a;</span> #{t:'labels.delete'}".html_safe, 
+
+    link_to "<span class=iconic>&#xe05a;</span> #{t:'labels.delete'}".html_safe,
       *args
   end
-  
+
 end

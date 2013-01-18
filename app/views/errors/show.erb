@@ -13,10 +13,10 @@
 </div>
 
 <% unless Rails.env.production? %>
-  <%= link_to_function t(:'errors.show_details'),
+  <%= link_to t(:'errors.show_details'), '#', :onclick =>
     "$('#error_details').slideDown(); $(this).fadeOut();", :id => 'show_link' %>
   <div style="display: none;" id="error_details">
-    <%= link_to_function t(:'errors.hide_details'),
+    <%= link_to t(:'errors.hide_details'), '#', :onclick =>
       "$('#error_details').slideUp(); $('#show_link').fadeIn();" %>
     <!-- Final -->
     <h2 style="margin: 1em 0em;"><%=h error.message %></h2>
