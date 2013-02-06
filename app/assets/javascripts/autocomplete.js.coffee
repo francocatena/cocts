@@ -1,11 +1,11 @@
 jQuery ($)->
   $(document).on 'change', 'input.autocomplete_field', ->
     if /^\s*$/.test($(this).val())
-      $(this).next('input.autocomplete_id:first').val('')
-  
+      $(this).prev('input.autocomplete_id:first').val('')
+
   $(document).on 'focus', 'input.autocomplete_field:not([data-observed])', ->
     input = $(this)
-    
+
     input.autocomplete
       source: (request, response)->
         $.ajax
@@ -27,11 +27,9 @@ jQuery ($)->
       type: 'get'
       select: (event, ui)->
         selected = ui.item
-
         input.val(selected.value)
         input.data('item', selected.item)
-        input.next('input.autocomplete_id').val(selected.item.id)
-
+        input.prev('input.autocomplete_id').val(selected.item.id)
         input.trigger 'autocomplete:update', input
 
         false

@@ -3,15 +3,15 @@
   <div>
     <div class="item_field" style="width: 90%; white-space: normal;">
       <% if teaching_unit.new_record? %>
-        <div class="search">
+         <%= hidden_field_tag 'subtopic[teaching_unit_ids][]', teaching_unit.id,
+           :id => "hidden_teaching_unit_#{id}", :class => :autocomplete_id %>
+         <div class="search">
           <%= f.text_field :nested_teaching_unit,
             :id => "subtopic_teaching_unit_#{id}", :class => :autocomplete_field,
             :value => teaching_unit.title,
             :'data-autocomplete-url' => autocomplete_for_teaching_unit_subtopics_path(:format => :json),
             :'data-params' => ({:subject_id => @subtopic.id}.to_json unless @subtopic.new_record?),
             :autofocus => true %>
-          <%= hidden_field_tag 'subtopic[teaching_unit_ids][]', teaching_unit.id,
-            :id => "hidden_teaching_unit_#{id}", :class => :autocomplete_id %>
         </div>
       <% else %>
         <p><strong><%= teaching_unit.title %></strong></p>
