@@ -3,9 +3,9 @@
   <div>
     <div class="item_field" style="width: 90%; white-space: normal;">
       <% if teaching_unit.new_record? %>
-        <%= hidden_field_tag 'project[teaching_unit_ids][]', teaching_unit.id,
-          :id => "hidden_teaching_unit_#{id}", :class => :autocomplete_id %>
         <div class="search">
+          <%= hidden_field_tag 'project[teaching_unit_ids][]', teaching_unit.id,
+            :id => "hidden_teaching_unit_#{id}", :class => :autocomplete_id %>
           <%= f.text_field :nested_teaching_unit,
             :id => "project_teaching_unit_#{id}", :class => :autocomplete_field,
             :value => teaching_unit.title,
