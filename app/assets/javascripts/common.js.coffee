@@ -84,7 +84,7 @@ jQuery ($) ->
   # Para que los navegadores que no soportan HTML5 funcionen con autofocus
   $('*[autofocus]:not([readonly]):not([disabled]):visible:first').focus()
 
-  $('a[data-event]').live 'click', (event) ->
+  $('a[data-event]').on 'click', (event) ->
     if (event.stopped)
       return
     element = $(this)
@@ -94,7 +94,7 @@ jQuery ($) ->
       event.preventDefault()
       event.stopPropagation()
 
-  $('input.autocomplete_field').live 'change', ->
+  $('input.autocomplete_field').on 'change', ->
     element = $(this)
 
     if /^\s*$/.test(element.val())
@@ -104,13 +104,13 @@ jQuery ($) ->
     ajaxStart: -> $(this).show()
     ajaxStop: -> $(this).hide()
 
-  $('input.calendar:not(.hasDatepicker)').live 'focus', ->
+  $('input.calendar:not(.hasDatepicker)').on 'focus', ->
     if $(this).data('time')
       $(this).datetimepicker(showOn: 'both').focus()
     else
       $(this).datepicker(showOn: 'both').focus()
 
-$('a.search').live 'click', (event) ->
-  $('#search_form').fadeIn 300, -> $('#search_form *[autofocus]').focus()
-  false
+  $('a.search').on 'click', (event) ->
+    $('#search_form').fadeIn 300, -> $('#search_form *[autofocus]').focus()
+    false
 

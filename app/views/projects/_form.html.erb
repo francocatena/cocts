@@ -186,7 +186,7 @@
 <% end %>
 <!--[eoform:project] -->
 <script type="text/javascript">
-  $('a.sociodemographic_form').live('ajax:success', function(event, data) {
+  $('a.sociodemographic_form').on('ajax:success', function(event, data) {
     $(this).next('div.form_details').html(data).show();
     $(this).siblings('a.hide_form_details').show();
   });

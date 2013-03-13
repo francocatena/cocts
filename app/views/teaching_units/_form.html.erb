@@ -14,13 +14,13 @@
   <div class="items">
     <div class="column_headers">
       <div class="item_column" style="width: 90%;">
-        <h3><%= t:'activerecord.models.questions' %></h3>
+        <h3><%= t('activerecord.models.questions') %></h3>
       </div>
-    
+
       <div class="item_column" style="width: 10%;"></div>
       <div style="clear: both;">&nbsp;</div>
     </div>
-    
+
     <div id="questions">
       <% @teaching_unit.questions.build if @teaching_unit.questions.empty? %>
       <%= render :partial => 'question', :collection => @teaching_unit.questions,
@@ -33,10 +33,10 @@
       :'data-template' => :question, :'data-event' => 'addNestedItem',
       :'data-container' => '#questions', :class => :important_action %>
   </p>
-    
+
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
-  
+
 </div>

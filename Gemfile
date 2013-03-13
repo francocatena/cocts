@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.12'
 gem 'pg'
 gem 'jquery-rails'
 gem 'will_paginate'
@@ -19,7 +19,7 @@ group :assets do
 end
 
 group :development do
-  gem 'mongrel'
+  gem 'thin'
 end
 
 group :test do

@@ -190,7 +190,7 @@ module ApplicationHelper
 
     args << options
 
-    link_to "<span class=iconic>&#xe05a;</span> #{t:'labels.delete'}".html_safe,
+    link_to "<span class=iconic>&#xe05a;</span> #{t('labels.delete')}".html_safe,
       *args
   end
 
