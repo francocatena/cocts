@@ -45,7 +45,7 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_select '#error_body', false
     assert_template 'projects/index'
   end
-  
+
   test 'list private projects' do
     perform_auth(users(:private))
     get :index
@@ -71,7 +71,7 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:project)
     assert_select '#error_body', false
   end
-  
+
   test 'rates in pdf' do
     perform_auth
     get :pdf_rates, :id => @project.to_param, :format => 'pdf'
@@ -107,7 +107,7 @@ class ProjectsControllerTest < ActionController::TestCase
             Project::SOCIODEMOGRAPHIC_FORMS.first,
             Project::SOCIODEMOGRAPHIC_FORMS.last
           ],
-          :question_ids => [questions(:_10111).id]
+          :question_ids => [questions('10111').id]
         }
       }
     end
@@ -145,7 +145,7 @@ class ProjectsControllerTest < ActionController::TestCase
               Project::SOCIODEMOGRAPHIC_FORMS.first,
               Project::SOCIODEMOGRAPHIC_FORMS.last
             ],
-            :question_ids => [questions(:_10111).id, questions(:_10113).id]
+            :question_ids => [questions('10111').id, questions('10113').id]
           }
         }
       end
@@ -180,25 +180,25 @@ class ProjectsControllerTest < ActionController::TestCase
     perform_auth
     get :autocomplete_for_question, { :q => '10111', :format => :json }
     assert_response :success
-    
+
     questions = ActiveSupport::JSON.decode(@response.body)
-    
+
     assert_equal 1, questions.size
     assert questions.all? { |q| ("#{q['label']} #{q['informal']}").match /10111/i }
 
     get :autocomplete_for_question, { :q => 'ciencia', :format => :json }
     assert_response :success
-    
+
     questions = ActiveSupport::JSON.decode(@response.body)
-    
+
     assert_equal 2, questions.size
     assert questions.all? { |q| ("#{q['label']} #{q['informal']}").match /ciencia/i }
 
     get :autocomplete_for_question, { :q => 'xyz', :format => :json }
     assert_response :success
-    
+
     questions = ActiveSupport::JSON.decode(@response.body)
-    
+
     assert questions.empty?
   end
 end

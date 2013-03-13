@@ -1,8 +1,9 @@
+# -*- coding: utf-8 -*-
 require 'test_helper'
 
 class ProjectInstancesControllerTest < ActionController::TestCase
   fixtures :question_instances, :answer_instances, :projects
-  
+
   setup do
     @project_instance = ProjectInstance.find(project_instances(:one).id)
   end
@@ -15,11 +16,11 @@ class ProjectInstancesControllerTest < ActionController::TestCase
     id_project = {:id => projects(:manual).to_param}
     public_actions = [
       [:post, :create],
-      [:get, :new, identifier_project]      
+      [:get, :new, identifier_project]
     ]
     private_actions = [
       [:get, :index, id_project],
-      [:get, :show, id_param],     
+      [:get, :show, id_param],
       [:get, :edit, id_param],
       [:put, :update, id_param],
       [:delete, :destroy, id_param]
@@ -36,16 +37,16 @@ class ProjectInstancesControllerTest < ActionController::TestCase
       assert_response :success
     end
   end
-  
+
   test 'list project instances' do
     perform_auth
     get :index
     assert_response :success
     assert_not_nil assigns(:project_instances)
-    #assert_select '#error_body', false
+    assert_select '#error_body', false
     assert_template 'project_instances/index'
   end
-  
+
   test 'show project instance' do
     perform_auth
     get :show, :id => @project_instance.to_param
@@ -54,7 +55,7 @@ class ProjectInstancesControllerTest < ActionController::TestCase
     assert_select '#error_body', false
     assert_template 'project_instances/show'
   end
- 
+
   test 'new project instance' do
     get :new, :identifier => @project_instance.to_param
     assert_response :success
@@ -79,7 +80,7 @@ class ProjectInstancesControllerTest < ActionController::TestCase
           :teacher_level => 'primary',
           :profession_certification => ['social'],
           :profession_ocuppation => ['engineering', 'mix'],
-          :country => 'Argentina', 
+          :country => 'Argentina',
           :educational_center_name => 'UNCuyo',
           :educational_center_city => 'Mza',
           :study_subjects_different => 2,
@@ -113,7 +114,7 @@ class ProjectInstancesControllerTest < ActionController::TestCase
             :first_name => 'Updated firstname',
             :professor_name => 'Updated professorname',
             :email => 'updated@cirope.com.ar',
-            :question_instance_ids => [question_instances(:one).id], 
+            :question_instance_ids => [question_instances(:one).id],
              # question_instances(:two).id],
             :project_id => projects(:manual).id
           }
@@ -125,9 +126,9 @@ class ProjectInstancesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:project_instance)
     assert_equal 'Updated firstname', assigns(:project_instance).first_name
     assert_equal 'updated@cirope.com.ar', assigns(:project_instance).email
-    
+
   end
-  
+
   test 'destroy project instance' do
     perform_auth
     id_project = @project_instance.project_id
@@ -137,7 +138,7 @@ class ProjectInstancesControllerTest < ActionController::TestCase
 
     assert_redirected_to project_instances_url(:id => id_project)
   end
-  
+
   test 'show project instance in pdf' do
     perform_auth
     get :show, :id => @project_instance.to_param, :format => 'pdf'

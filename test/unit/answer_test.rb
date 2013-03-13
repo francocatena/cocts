@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'test_helper'
 
 # Clase para probar el modelo "Answer"
@@ -6,24 +7,24 @@ class AnswerTest < ActiveSupport::TestCase
 
   # Función para inicializar las variables utilizadas en las pruebas
   def setup
-    @answer = Answer.find answers(:'10111_1').id
+    @answer = Answer.find answers('10111_1').id
   end
 
   # Prueba que se realicen las búsquedas como se espera
   test 'search' do
     assert_kind_of Answer, @answer
-    assert_equal answers(:'10111_1').category, @answer.category
-    assert_equal answers(:'10111_1').order, @answer.order
-    assert_equal answers(:'10111_1').clarification, @answer.clarification
-    assert_equal answers(:'10111_1').answer, @answer.answer
-    assert_equal answers(:'10111_1').question_id, @answer.question_id
+    assert_equal answers('10111_1').category, @answer.category
+    assert_equal answers('10111_1').order, @answer.order
+    assert_equal answers('10111_1').clarification, @answer.clarification
+    assert_equal answers('10111_1').answer, @answer.answer
+    assert_equal answers('10111_1').question_id, @answer.question_id
   end
 
   # Prueba la creación de una respuesta
   test 'create' do
     assert_difference 'Answer.count' do
       @answer = Answer.create(
-        :question => questions(:_10111),
+        :question => questions('10111'),
         :category => Answer::CATEGORIES[:plausible],
         :order => 1,
         :clarification => 'New clarification',

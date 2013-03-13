@@ -34,7 +34,7 @@ class ProjectTest < ActiveSupport::TestCase
         :group_type => 'control',
         :project_type => Project::TYPES[:manual],
         :valid_until => 20.days.from_now.to_date,
-        :questions => [questions(:_10111)]
+        :questions => [questions('10111')]
       )
     end
   end

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'test_helper'
 
 class TeachingUnitsControllerTest < ActionController::TestCase
@@ -8,7 +9,7 @@ class TeachingUnitsControllerTest < ActionController::TestCase
   def setup
     @teaching_unit = TeachingUnit.find(teaching_units(:udI).id)
   end
-  
+
   # Prueba que sin realizar autenticación esten accesibles las partes publicas
   # y no accesibles las privadas
   test 'public and private actions' do
@@ -35,7 +36,7 @@ class TeachingUnitsControllerTest < ActionController::TestCase
       assert_response :success
     end
   end
-  
+
   test 'list teaching_units' do
     perform_auth
     get :index
@@ -44,7 +45,7 @@ class TeachingUnitsControllerTest < ActionController::TestCase
     assert_select '#error_body', false
     assert_template 'teaching_units/index'
   end
-  
+
   test 'show teaching_unit' do
     perform_auth
     get :show, :id => @teaching_unit.to_param
@@ -62,14 +63,14 @@ class TeachingUnitsControllerTest < ActionController::TestCase
     assert_select '#error_body', false
     assert_template 'teaching_units/new'
   end
-  
+
   test 'create teaching_unit' do
     perform_auth
     assert_difference ['TeachingUnit.count'] do
       post :create, {
         :teaching_unit => {
           :title => 'Enseñanza en la sociedad',
-          :question_ids => [questions(:_10111).id]
+          :question_ids => [questions('10111').id]
         }
       }
     end
@@ -77,7 +78,7 @@ class TeachingUnitsControllerTest < ActionController::TestCase
     assert_redirected_to teaching_units_path
     assert_not_nil assigns(:teaching_unit)
   end
-  
+
   test 'edit teaching_unit' do
     perform_auth
     get :edit, :id => @teaching_unit.to_param
@@ -85,7 +86,7 @@ class TeachingUnitsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:teaching_unit)
     assert_select '#error_body', false
   end
-  
+
   test 'update teaching_unit' do
     perform_auth
     assert_no_difference'TeachingUnit.count' do
@@ -93,15 +94,15 @@ class TeachingUnitsControllerTest < ActionController::TestCase
           :id => @teaching_unit.to_param,
           :teaching_unit => {
             :title => 'Ciencias',
-            :question_ids => [questions(:_10111).id]
+            :question_ids => [questions('10111').id]
           }
         }
       end
-    
+
     assert_redirected_to teaching_units_path
     assert_not_nil assigns(:teaching_unit)
   end
-  
+
   test 'destroy teaching_unit' do
     perform_auth
     assert_difference('TeachingUnit.count', -1) do

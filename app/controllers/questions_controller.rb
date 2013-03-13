@@ -115,16 +115,25 @@ class QuestionsController < ApplicationController
 
   def csv_import_questions
     if params[:dump_questions] && File.extname(params[:dump_questions][:file].original_filename).downcase == '.csv'
-      @parsed_file=CSV::Reader.parse(params[:dump_questions][:file], delimiter = ';')
+      uploaded_file = params[:dump_questions][:file]
+      file_name = uploaded_file.tempfile.to_path.to_s
+      text = File.read(
+        file_name,
+        {:encoding => 'UTF-8',
+        :delimiter => ';'}
+      )
+
+      @parsed_file=CSV.parse(text)
+
       n=0
-      conv = Iconv.new('UTF-8//IGNORE//TRANSLIT', 'ISO-8859-15')
+
       @parsed_file.each  do |row|
         q = Question.new
         q.dimension = row[0]
         q.code = row[1]
-        q.question = conv.iconv(row[2].to_s)
+        q.question = row[2].to_s #conv.iconv(row[2].to_s)
         if q.save
-        n+=1
+          n+=1
         end
       end
       flash[:notice] = t(:'questions.csv_import', :count => n)

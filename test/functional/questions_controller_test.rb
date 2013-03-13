@@ -8,7 +8,7 @@ class QuestionsControllerTest < ActionController::TestCase
   # Inicializa de forma correcta todas las variables que se utilizan en las
   # pruebas
   def setup
-    @question = Question.find(questions(:_10111).id)
+    @question = Question.find(questions('10111').id)
   end
 
   # Prueba que sin realizar autenticación esten accesibles las partes publicas
@@ -160,7 +160,7 @@ class QuestionsControllerTest < ActionController::TestCase
 
     assert_redirected_to questions_path
   end
-  
+
   test 'import csv questions' do
     perform_auth
     assert_difference('Question.count', 2) do
@@ -168,11 +168,11 @@ class QuestionsControllerTest < ActionController::TestCase
         :file => fixture_file_upload('../files/test_questions.csv', 'text/csv')
       }
     end
-       
+
     assert_no_difference('Question.count') do
       post :csv_import_questions, :dump_questions => {}
     end
-        
+
     # Prueba adjuntar un archivo que no sea csv
     assert_no_difference('Question.count') do
       post :csv_import_questions, :dump_questions => {
@@ -189,11 +189,11 @@ class QuestionsControllerTest < ActionController::TestCase
         :file => fixture_file_upload('../files/test_answers.csv', 'text/csv')
       }
     end
-    # Prueba de enviar el formulario sin el archivo csv  
+    # Prueba de enviar el formulario sin el archivo csv
     assert_no_difference('Answer.count') do
       post :csv_import_answers, :dump_answers => {}
     end
-        
+
     # Prueba adjuntar un archivo que no sea csv
     assert_no_difference('Answer.count') do
       post :csv_import_answers, :dump_answers => {
@@ -201,7 +201,7 @@ class QuestionsControllerTest < ActionController::TestCase
       }
     end
     assert_redirected_to questions_path
-           
+
   end
 
 end

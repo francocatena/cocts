@@ -99,13 +99,13 @@
   <% end %>
 
   <% unless @project.teaching_units.empty? %>
-    <h2><%= t:'activerecord.models.teaching_units' %></h2>
+    <h2><%= t('activerecord.models.teaching_units') %></h2>
 
     <% @project.teaching_units.each do |teaching_unit| %>
       <% subtopic = teaching_unit.subtopic  %>
       <h3><%= teaching_unit.title %>:</h3>
       <% unless subtopic.blank? %>
-        <h4><%= "#{t:'activerecord.models.subtopic'}: #{subtopic.code}-
+        <h4><%= "#{t'activerecord.models.subtopic'}: #{subtopic.code}-
           #{subtopic.title}" %></h4>
       <% end %>
 
@@ -132,13 +132,13 @@
 
   <div id="links">
     <%= link_to_back %>
-    <%= link_to t(:'labels.edit'), edit_project_path(@project), :class => :real %> |
-    <%= link_to t(:'labels.download'), project_path(@project, :format => :pdf),
+    <%= link_to t('labels.edit'), edit_project_path(@project), :class => :real %> |
+    <%= link_to t('labels.download'), project_path(@project, :format => :pdf),
       :class => :real %> |
     <% if @project.project_instances.present? %>
-      <%= link_to t(:'labels.rates'), pdf_rates_project_path(@project, :format => :pdf),
+      <%= link_to t('labels.rates'), pdf_rates_project_path(@project, :format => :pdf),
         :class => :real %> |
     <% end %>
-    <%= link_to t(:'labels.list'), projects_path, :class => :real %>
+    <%= link_to t('labels.list'), projects_path, :class => :real %>
   </div>
 </div>
