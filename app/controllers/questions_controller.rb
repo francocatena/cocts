@@ -3,7 +3,6 @@ class QuestionsController < ApplicationController
   before_filter :auth
   before_filter :admin, :except => [:index, :show]
   require 'csv'
-  require 'iconv'
 
   layout proc{ |controller| controller.request.xhr? ? false : 'application' }
 
@@ -119,19 +118,18 @@ class QuestionsController < ApplicationController
       file_name = uploaded_file.tempfile.to_path.to_s
       text = File.read(
         file_name,
-        {:encoding => 'UTF-8',
-        :delimiter => ';'}
+        { :encoding => 'UTF-8',
+          :delimiter => ';'
+        }
       )
 
-      @parsed_file=CSV.parse(text)
-
+      @parsed_file=CSV.parse(text, :col_sep => ';')
       n=0
-
       @parsed_file.each  do |row|
         q = Question.new
-        q.dimension = row[0]
+        q.dimension = row[0].to_i
         q.code = row[1]
-        q.question = row[2].to_s #conv.iconv(row[2].to_s)
+        q.question = row[2]
         if q.save
           n+=1
         end
@@ -147,12 +145,20 @@ class QuestionsController < ApplicationController
 
   def csv_import_answers
     if params[:dump_answers] && File.extname(params[:dump_answers][:file].original_filename).downcase == '.csv'
-      @parsed_file=CSV::Reader.parse(params[:dump_answers][:file], delimiter = ';')
+      uploaded_file = params[:dump_answers][:file]
+      file_name = uploaded_file.tempfile.to_path.to_s
+      text = File.read(
+        file_name,
+        { :encoding => 'UTF-8',
+          :delimiter => ';'
+        }
+      )
+
+      @parsed_file=CSV.parse(text, :col_sep => ';')
       n=0
-      conv = Iconv.new('UTF-8//IGNORE//TRANSLIT', 'ISO-8859-15')
       @parsed_file.each  do |row|
         a = Answer.new
-        category = row[1].to_s
+        category = row[1]
         if category == 'A'
           category = 2
         elsif category == 'P'
@@ -162,9 +168,9 @@ class QuestionsController < ApplicationController
         end
         a.category = category
         a.order = row[2].to_i
-        a.clarification = conv.iconv(row[4].to_s)
-        a.answer = conv.iconv(row[5].to_s)
-        question = Question.find_by_code(row[0].to_s)
+        a.clarification = row[4]
+        a.answer = row[5]
+        question = Question.find_by_code(row[0])
         unless question.blank?
           a.question_id = question.id
         end
