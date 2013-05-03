@@ -496,12 +496,12 @@ class Project < ApplicationModel
    else
      self.teaching_units.each do |teaching_unit|
        subtopic = teaching_unit.subtopic
-       topic = subtopic.topic
+       topic = subtopic.try(:topic)
 
        pdf.move_down(pdf.font_size)
        pdf.text "#{I18n.t('activerecord.models.teaching_unit')}: #{teaching_unit.title}", :style => :bold_italic
 
-       unless subtopic.blank? || topic.blank?
+       if subtopic.present? && topic.present?
            pdf.font_size((PDF_FONT_SIZE * 0.75).round) do
            pdf.move_down(pdf.font_size)
            pdf.text "Tema: #{topic.code}- #{topic.title}"
