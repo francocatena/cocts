@@ -13,7 +13,6 @@
     <tr>
       <th><%= Project.human_attribute_name :name %></th>
       <th><%= Project.human_attribute_name :identifier %></th>
-      <th><%= User.human_attribute_name :user if @auth_user.admin? %></th>
       <th><%= Project.human_attribute_name :year %></th>
       <th><%= Project.human_attribute_name :project_type %></th>
       <th><%= Project.human_attribute_name :valid_until %></th>
@@ -27,14 +26,13 @@
   <tbody>
     <% @projects.each do |project| %>
       <tr class="<%= cycle(:even, :odd) %>">
-        <td><%= truncate project.name, :length => 40, :omission => '...' %></td>
+        <td><%= truncate project.name, :length => 80, :omission => '...' %></td>
         <td><%= project.identifier %></td>
-        <td><%= project.user.user if project.user && @auth_user.admin? %></td>
         <td><%= project.year %></td>
         <td><%= project.project_type_text %></td>
         <td><%= l(project.valid_until) if project.valid_until %></td>
         <td><%= link_to t(:'labels.new_fem'), new_project_instance_path(
-              :identifier => project.identifier), :class => :real if project.manual? %> 
+              :identifier => project.identifier), :class => :real if project.manual? %>
             <%= "|" unless project.interactive? || project.project_instances.empty? %>
               <%= link_to t(:'labels.list'), project_instances_url(:id => project.id),
                 :class => :real unless project.project_instances.empty? %></td>
