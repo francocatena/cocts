@@ -21,6 +21,7 @@ set :deploy_via, :remote_cache
 server 'cocts.com.ar', :web, :app, :db, primary: true
 
 after 'deploy:finalize_update', 'deploy:create_shared_symlinks'
+after 'deploy:restart', 'deploy:cleanup'
 
 namespace :deploy do
   task :start do
