@@ -21,7 +21,7 @@ class User < ApplicationModel
   validates_confirmation_of :password, :if => :is_not_encrypted?
   validates_format_of :email,
     :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i,
-    :allow_nil => true, :allow_blank => true
+    :multiline => true, :allow_nil => true, :allow_blank => true
 
   # Relaciones
   has_many :projects
