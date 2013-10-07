@@ -10,7 +10,10 @@ ValidatesTimeliness.setup do |config|
   config.ignore_restriction_errors = true
   #
   # Re-display invalid values in date/time selects
-  config.enable_date_time_select_extension!
+  # config.enable_date_time_select_extension!
+  
+  # Use the plugin date/time parser which is stricter and extendable
+  config.use_plugin_parser = true  
   #
   # Handle multiparameter date/time values strictly
   #config.enable_multiparameter_extension!

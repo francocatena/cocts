@@ -1,6 +1,8 @@
 CoctsApp::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
+  config.eager_load = true
+
   # Code is not reloaded between requests
   config.cache_classes = true
 
@@ -13,7 +15,8 @@ CoctsApp::Application.configure do
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
-  
+  config.assets.js_compressor = :uglifier
+
   # Enable assets fingerprint
   config.assets.digest = true
 
