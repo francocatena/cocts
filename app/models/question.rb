@@ -1,12 +1,12 @@
 class Question < ApplicationModel
   DIMENSIONS = 1..9
   # Scopes
-  default_scope order(
+  default_scope { order(
     [
       "#{Question.table_name}.dimension ASC",
       "#{Question.table_name}.code ASC"
     ].join(', ')
-  )
+  )}
 
   # Alias de atributos
   alias_attribute :informal, :question
@@ -25,9 +25,7 @@ class Question < ApplicationModel
     :allow_nil => true
 
   # Relaciones
-  has_many :answers, :dependent => :destroy,
-    :order => "#{Answer.table_name}.order ASC"
-  has_and_belongs_to_many :projects
+  has_many :answers, -> { order("#{Answer.table_name}.order ASC") }, dependent: :destroy
   has_and_belongs_to_many :teaching_units
 
   accepts_nested_attributes_for :answers, :allow_destroy => true

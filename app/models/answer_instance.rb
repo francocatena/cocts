@@ -1,5 +1,5 @@
 class AnswerInstance < ApplicationModel
-  scope :ordered, order("position")
+  scope :ordered, -> { order("position") }
   # Constantes
   CATEGORIES = {
     :adecuate => 2,

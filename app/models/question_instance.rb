@@ -2,8 +2,8 @@ class QuestionInstance < ApplicationModel
   # Relaciones
   belongs_to :project_instance
   belongs_to :question
-  has_many :answer_instances, :dependent => :destroy,
-    :order => "#{AnswerInstance.table_name}.order ASC"
+  has_many :answer_instances, -> { order("#{AnswerInstance.table_name}.order ASC") }, dependent: :destroy
+
   accepts_nested_attributes_for :answer_instances
 
   # Restricciones
