@@ -41,7 +41,7 @@ class SubtopicsController < ApplicationController
   # POST /subtopics
   # POST /subtopics.json
   def create
-    @subtopic = Subtopic.new(params[:subtopic])
+    @subtopic = Subtopic.new(subtopic_params)
 
     respond_to do |format|
       if @subtopic.save
@@ -61,7 +61,7 @@ class SubtopicsController < ApplicationController
     params[:subtopic][:teaching_unit_ids] ||= []
 
     respond_to do |format|
-      if @subtopic.update_attributes(params[:subtopic])
+      if @subtopic.update_attributes(subtopic_params)
         format.html { redirect_to @subtopic, :notice => t(:'subtopic.correctly_updated') }
         format.json { head :ok }
       else
@@ -93,5 +93,13 @@ class SubtopicsController < ApplicationController
     respond_to do |format|
       format.json { render :json => @teaching_units }
     end
+  end
+
+  private
+
+  def subtopic_params
+    params.require(:subtopic).permit(
+      :title, :code, teaching_units_ids: []
+    )
   end
 end
