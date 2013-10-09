@@ -31,7 +31,7 @@ class Subtopic < ApplicationModel
         :per_page => APP_LINES_PER_PAGE
       )
     else
-      scoped.order("#{Subtopic.table_name}.code ASC").paginate(
+      all.order("#{Subtopic.table_name}.code ASC").paginate(
         :page => page,
         :per_page => APP_LINES_PER_PAGE
       )
