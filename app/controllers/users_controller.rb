@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :auth, :except => [:login, :create_session]
-  before_filter :admin, :except => [:login, :create_session, :edit_password,
+  before_action :auth, :except => [:login, :create_session]
+  before_action :admin, :except => [:login, :create_session, :edit_password,
     :update_password, :edit_personal_data, :update_personal_data,:logout]
   layout proc { |controller|
     ['login', 'session'].include?(controller.action_name) ?
@@ -54,7 +54,7 @@ class UsersController < ApplicationController
   def create
     @title = t :'users.new_title'
     pass = params[:user][:password]
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
 
     respond_to do |format|
       if @user.save
@@ -81,7 +81,7 @@ class UsersController < ApplicationController
     end
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if @user.update_attributes(user_params)
         flash[:notice] = t :'users.correctly_updated'
         format.html { redirect_to(users_path) }
         format.xml  { head :ok }
@@ -126,11 +126,10 @@ class UsersController < ApplicationController
   # * POST /users/create_session
   def create_session
     @title = t :'users.login_title'
-    @user = User.new(params[:user])
 
-    auth_user = User.find_by_user(@user.user)
+    @user = User.new user_params
+    auth_user = User.find_by_user @user.user
     @user.salt = auth_user.salt if auth_user
-
     @user.encrypt_password
 
     if auth_user && auth_user.is_enable? && auth_user.password &&
@@ -158,7 +157,7 @@ class UsersController < ApplicationController
     @user = User.new
     @user.user = @auth_user.user
 
-    auth_user = User.find_by_user(@auth_user.user)
+    auth_user = User.find_by_user @auth_user.user
     @user.salt = auth_user.salt if auth_user
 
     @user.encrypt_password
@@ -209,7 +208,7 @@ class UsersController < ApplicationController
     @user = User.find(session[:user_id])
 
     if @user.valid?
-      if @user.update_attributes(params[:user])
+      if @user.update_attributes(user_params)
         flash[:notice] = t :'users.personal_data_correctly_updated'
       end
     end
@@ -225,5 +224,14 @@ class UsersController < ApplicationController
   def logout
     restart_session
     redirect_to_login t(:'messages.session_closed_correctly')
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(
+      :user, :name, :lastname, :password, :password_confirmation, :email, :enable,
+      :private, :admin
+    )
   end
 end
