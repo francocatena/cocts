@@ -23,14 +23,15 @@ class Subtopic < ApplicationModel
   end
 
   def self.search(search, page)
-    order = order("#{Subtopic.table_name}.code ASC")
     if search
-      where('title ILIKE :t OR code = :c', :t => "%#{search}%", :c => search.to_i).order.paginate(
+      where('title ILIKE :t OR code = :c', :t => "%#{search}%", :c => search.to_i).order(
+        "#{Subtopic.table_name}.code ASC"
+      ).paginate(
         :page => page,
         :per_page => APP_LINES_PER_PAGE
       )
     else
-      scoped.order.paginate(
+      scoped.order("#{Subtopic.table_name}.code ASC").paginate(
         :page => page,
         :per_page => APP_LINES_PER_PAGE
       )

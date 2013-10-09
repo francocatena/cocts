@@ -114,7 +114,7 @@ class Project < ApplicationModel
     if search
       sql_search = where("#{Project.table_name}.name ILIKE :q OR #{Project.table_name}.identifier ILIKE :q", :q => "%#{search}%")
     else
-      sql_search = scoped
+      sql_search = all
     end
     if user.private
       sql_search.where('user_id = :id', :id => user.id).paginate(:page => page, :per_page => APP_LINES_PER_PAGE)

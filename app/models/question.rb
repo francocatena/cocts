@@ -27,6 +27,7 @@ class Question < ApplicationModel
   # Relaciones
   has_many :answers, -> { order("#{Answer.table_name}.order ASC") }, dependent: :destroy
   has_and_belongs_to_many :teaching_units
+  has_and_belongs_to_many :projects
 
   accepts_nested_attributes_for :answers, :allow_destroy => true
 
@@ -62,7 +63,7 @@ class Question < ApplicationModel
         :page => page, :per_page => APP_LINES_PER_PAGE
       )
     else
-      scoped.paginate(:page => page, :per_page => APP_LINES_PER_PAGE)
+      all.paginate(:page => page, :per_page => APP_LINES_PER_PAGE)
     end
   end
 
