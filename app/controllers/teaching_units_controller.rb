@@ -1,5 +1,5 @@
 class TeachingUnitsController < ApplicationController
-  before_filter :auth
+  before_action :auth
   # GET /teaching_units
   # GET /teaching_units.json
   def index
@@ -41,7 +41,7 @@ class TeachingUnitsController < ApplicationController
   # POST /teaching_units
   # POST /teaching_units.json
   def create
-    @teaching_unit = TeachingUnit.new(params[:teaching_unit])
+    @teaching_unit = TeachingUnit.new(teaching_unit_params)
 
     respond_to do |format|
       if @teaching_unit.save
@@ -60,7 +60,7 @@ class TeachingUnitsController < ApplicationController
     @teaching_unit = TeachingUnit.find(params[:id])
     params[:teaching_unit][:question_ids] ||= []
     respond_to do |format|
-      if @teaching_unit.update_attributes(params[:teaching_unit])
+      if @teaching_unit.update_attributes(teaching_unit_params)
         format.html { redirect_to teaching_units_path, :notice => t(:'teaching_units.correctly_updated') }
         format.json { head :ok }
       else
@@ -80,5 +80,13 @@ class TeachingUnitsController < ApplicationController
       format.html { redirect_to teaching_units_url }
       format.json { head :ok }
     end
+  end
+
+  private
+
+  def teaching_unit_params
+    params.require(:teaching_unit).permit(
+      :title, :question_ids => []
+    )
   end
 end
