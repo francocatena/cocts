@@ -75,14 +75,14 @@ class QuestionsControllerTest < ActionController::TestCase
           :question => 'Definir qué es la tecnología puede resultar difícil ' +
             'porque ésta sirve para muchas cosas. Pero la tecnología ' +
             'PRINCIPALMENTE es:',
-          :answers_attributes => {
-            :new_1 => {
+          :answers_attributes => [
+            {
               :category => Answer::CATEGORIES[:plausible],
               :order => 1,
               :clarification => 'New clarification',
               :answer => 'New answer'
             }
-          }
+          ]
         }
       }
     end
@@ -114,28 +114,28 @@ class QuestionsControllerTest < ActionController::TestCase
             :question => 'Definir qué es la tecnología puede resultar difícil ' +
               'porque ésta sirve para muchas cosas. Pero la tecnología ' +
               'PRINCIPALMENTE es:',
-            :answers_attributes => {
-              :new_1 => {
+            :answers_attributes => [
+              {
                 :category => Answer::CATEGORIES[:plausible],
                 :order => 1,
                 :clarification => 'New clarification',
                 :answer => 'New answer'
               },
-              answers(:'10111_1').id => {
+              {
                 :id => answers(:'10111_1').id,
                 :category => Answer::CATEGORIES[:plausible],
                 :order => 2,
                 :clarification => 'Updated clarification 1',
                 :answer => 'Updated answer 1'
               },
-              answers(:'10111_2').id => {
+              {
                 :id => answers(:'10111_2').id,
                 :category => Answer::CATEGORIES[:adecuate],
                 :order => 3,
                 :clarification => 'Updated clarification 2',
                 :answer => 'Updated answer 2'
               }
-            }
+            ]
           }
         }
       end

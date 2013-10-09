@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 class QuestionsController < ApplicationController
-  before_filter :auth
-  before_filter :admin, :except => [:index, :show]
+  before_action :auth
+  before_action :admin, :except => [:index, :show]
   require 'csv'
 
   layout proc{ |controller| controller.request.xhr? ? false : 'application' }
@@ -53,7 +53,7 @@ class QuestionsController < ApplicationController
   # POST /questions.xml
   def create
     @title = t :'questions.new_title'
-    @question = Question.new(params[:question])
+    @question = Question.new(question_params)
 
     respond_to do |format|
       if @question.save
@@ -74,7 +74,7 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
 
     respond_to do |format|
-      if @question.update_attributes(params[:question])
+      if @question.update_attributes(question_params)
         flash[:notice] = t :'questions.correctly_updated'
         format.html { redirect_to(questions_path) }
         format.xml  { head :ok }
@@ -190,5 +190,13 @@ class QuestionsController < ApplicationController
     end
   end
 
+  private
 
+  def question_params
+    params.require(:question).permit(
+      :dimension, :code, :question, answers_attributes: [
+        :category, :order, :clarification, :answer
+      ]
+    )
+  end
 end
