@@ -66,6 +66,9 @@ class ProjectInstancesControllerTest < ActionController::TestCase
   test 'create project instance' do
     perform_auth
     @request.host = 'admin.cocts.com'
+    question = projects(:manual).questions.first
+    answers = question.answers
+
     assert_difference 'ProjectInstance.count' do
       post :create, {
         :project_instance => {
@@ -78,14 +81,36 @@ class ProjectInstancesControllerTest < ActionController::TestCase
           :student_status => 'no_study',
           :teacher_status => 'in_training',
           :teacher_level => 'primary',
-          :profession_certification => ['social'],
-          :profession_ocuppation => ['engineering', 'mix'],
           :country => 'Argentina',
           :educational_center_name => 'UNCuyo',
+          :project_type => 0,
           :educational_center_city => 'Mza',
           :study_subjects_different => 2,
-          :question_instance_ids => [question_instances(:one).id],
-          :project_id => projects(:manual).id
+          :project_id => projects(:manual).id,
+          question_instances_attributes: [
+            { 
+              :question_id => question.id, 
+              :question_text => question.question,
+              :code => question.code,
+              :dimension => question.dimension,
+              answer_instances_attributes: [
+                { 
+                  :answer_id => answers.first.id, 
+                  :valuation => '1',
+                  :order => answers.first.order,
+                  :answer_text => answers.first.answer, 
+                  :answer_category => answers.first.category
+                },
+                {
+                  :answer_id => answers.last.id,
+                  :valuation => '3',
+                  :order => answers.last.order,
+                  :answer_text => answers.last.answer,                                                    
+                  :answer_category => answers.last.category
+                }
+              ]
+            }
+          ]
         }
       }
     end
@@ -106,20 +131,19 @@ class ProjectInstancesControllerTest < ActionController::TestCase
 
   test 'update project instance' do
     perform_auth
-    assert_no_difference 'ProjectInstance.count' do
-      assert_difference '@project_instance.reload.question_instances.size' do
-        put :update, {
-          :id => @project_instance.to_param,
-          :project_instance => {
-            :first_name => 'Updated firstname',
-            :professor_name => 'Updated professorname',
-            :email => 'updated@cirope.com.ar',
-            :question_instance_ids => [question_instances(:one).id],
-             # question_instances(:two).id],
-            :project_id => projects(:manual).id
-          }
+    
+    question = @project_instance.project.questions.first
+    answers = question.answers
+    
+    assert_no_difference ['ProjectInstance.count', 'QuestionInstance.count'] do
+      put :update, {
+        :id => @project_instance.to_param,
+        :project_instance => {
+          :first_name => 'Updated firstname',
+          :professor_name => 'Updated professorname',
+          :email => 'updated@cirope.com.ar',
         }
-      end
+      }
     end
 
     assert_redirected_to project_instance_path

@@ -1,6 +1,6 @@
 class ProjectInstancesController < ApplicationController
-  before_filter :auth, :except => [:new, :create]
-  before_filter :load_auth_user, :only => [:new, :create]
+  before_action :auth, :except => [:new, :create]
+  before_action :load_auth_user, :only => [:new, :create]
 
   # GET /project_instances
   # GET /project_instances.xml
@@ -83,10 +83,9 @@ class ProjectInstancesController < ApplicationController
   # POST /project_instances.xml
   def create
     @title = t :'project_instances.new_title'
-    @project_instance = ProjectInstance.new(params[:project_instance])
-
+    @project_instance = ProjectInstance.new(project_instance_params)
+    
     respond_to do |format|
-
       if @project_instance.save
         if @project_instance.manual?
           go_to = session[:go_to]
@@ -116,7 +115,7 @@ class ProjectInstancesController < ApplicationController
     @project_instance = ProjectInstance.find(params[:id])
 
     respond_to do |format|
-      if @project_instance.update_attributes(params[:project_instance])
+      if @project_instance.update_attributes(project_instance_params)
         go_to = session[:go_to]
         session[:go_to] = nil
         if go_to
@@ -144,5 +143,23 @@ class ProjectInstancesController < ApplicationController
       format.html { redirect_to(project_instances_url(:id => id)) }
       format.xml  { head :ok }
     end
+  end
+
+  private
+
+  def project_instance_params
+    params.require(:project_instance).permit(
+      :first_name, :professor_name, :email, :name, :identifier, :description, :age, 
+      :degree, :genre, :student_status, :teacher_level, :teacher_status, :country, 
+      :educational_center_name, :educational_center_city, :study_subjects_different, 
+      :year, :project_type, :valid_until, :country, :study_subjects, :project_type, 
+      :study_subjects_choose, :degree_school, :manual_degree_university, :group_type,
+      :group_name, :project_id, 
+      question_instances_attributes: [
+        :question_id, :question_text, answer_instances_attributes: [
+          :answer_id, :valuation, :order, :answer_text, :answer_category
+        ]
+      ]
+    )
   end
 end
