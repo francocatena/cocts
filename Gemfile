@@ -1,16 +1,16 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.14'
 gem 'pg'
 gem 'jquery-rails'
 gem 'will_paginate'
 gem 'RedCloth'
 gem 'validates_timeliness'
-gem 'capistrano'
+gem 'capistrano', '~> 2.15'
 gem 'dynamic_form'
 gem 'newrelic_rpm'
 gem 'prawn', '0.8.4'
-gem 'prawn-flexible-table', :require => 'prawn/flexible-table'
+gem 'prawn-flexible-table', require: 'prawn/flexible-table'
 
 group :assets do
   gem 'sass-rails'
@@ -24,5 +24,5 @@ end
 
 group :test do
   gem 'ruby-prof'
-  gem 'turn', :require => false
+  gem 'turn', require: false
 end
