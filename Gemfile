@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.2.14'
 gem 'pg'
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 2.3'
 gem 'will_paginate'
 gem 'RedCloth'
 gem 'validates_timeliness'

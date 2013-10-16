@@ -54,7 +54,7 @@ GEM
     hike (1.2.3)
     i18n (0.6.5)
     journey (1.0.4)
-    jquery-rails (3.0.4)
+    jquery-rails (2.3.0)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.0)
@@ -75,10 +75,7 @@ GEM
     polyglot (0.3.3)
     prawn (0.8.4)
       prawn-core (>= 0.8.4, < 0.9)
-      prawn-core (>= 0.8.4, < 0.9)
       prawn-layout (>= 0.8.4, < 0.9)
-      prawn-layout (>= 0.8.4, < 0.9)
-      prawn-security (>= 0.8.4, < 0.9)
       prawn-security (>= 0.8.4, < 0.9)
     prawn-core (0.8.4)
     prawn-flexible-table (0.1.2)
@@ -148,7 +145,7 @@ DEPENDENCIES
   capistrano (~> 2.15)
   coffee-rails
   dynamic_form
-  jquery-rails
+  jquery-rails (~> 2.3)
   newrelic_rpm
   pg
   prawn (= 0.8.4)
