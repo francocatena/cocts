@@ -194,8 +194,8 @@ class QuestionsController < ApplicationController
 
   def question_params
     params.require(:question).permit(
-      :dimension, :code, :question, answers_attributes: [
-        :category, :order, :clarification, :answer
+      :dimension, :code, :question, :lock_version, answers_attributes: [
+        :category, :order, :clarification, :answer, :lock_version, :_destroy
       ]
     )
   end
