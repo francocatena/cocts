@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class ProjectsController < ApplicationController
-  before_filter :auth
+  before_action :auth
   layout proc { |controller| controller.request.xhr? ? false : 'application' }
 
   # * GET /projects
@@ -64,7 +64,7 @@ class ProjectsController < ApplicationController
     @title = t :'projects.new_title'
     params[:project][:question_ids] ||= []
     params[:project][:teaching_unit_ids] ||= []
-    @project = Project.new(params[:project])
+    @project = Project.new(project_params)
     @project.user = @auth_user unless @auth_user.admin
 
     if @project.questions.empty? && @project.teaching_units.empty?
@@ -118,7 +118,7 @@ class ProjectsController < ApplicationController
       @project.user = @auth_user unless @auth_user.admin
       params[:project][:identifier] = @project.generate_identifier
 
-      if @project.update_attributes(params[:project])
+      if @project.update_attributes(project_params)
         flash[:notice] = t :'projects.correctly_updated'
         go_to = session[:go_to]
         session[:go_to] = nil
@@ -192,4 +192,14 @@ class ProjectsController < ApplicationController
   def preview_form
     render :partial => "#{params[:form]}"
   end
+
+  private
+
+    def project_params 
+      params.require(:project).permit(
+        :name, :identifier, :description, :year, :user_id, :group_name, :group_type, 
+        :lock_version, :test_type, :project_type, :valid_until, forms: [], question_ids: [],
+        teaching_unit_ids: []
+      )
+    end
 end
