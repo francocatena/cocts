@@ -1,7 +1,7 @@
 jQuery ($)->
   $(document).on 'change', 'input.autocomplete_field', ->
     if /^\s*$/.test($(this).val())
-      $(this).prev('input.autocomplete_id:first').val('')
+      $(this).prevAll('input.autocomplete_id:first').val('')
 
   $(document).on 'focus', 'input.autocomplete_field:not([data-observed])', ->
     input = $(this)
@@ -29,13 +29,13 @@ jQuery ($)->
         selected = ui.item
         input.val(selected.value)
         input.data('item', selected.item)
-        input.prev('input.autocomplete_id').val(selected.item.id)
+        input.prevAll('input.autocomplete_id').val(selected.item.id)
         input.trigger 'autocomplete:update', input
 
         false
       open: -> $('.ui-menu').css('width', input.width())
 
-    input.data('autocomplete')._renderItem = (ul, item)->
+    input.data('ui-autocomplete')._renderItem = (ul, item)->
       $('<li></li>').data('item.autocomplete', item).append(
         $('<a></a>').html(item.label)
       ).appendTo(ul)

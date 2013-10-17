@@ -70,7 +70,7 @@ window.Helper =
       $(this).remove()
       if jQuery.isFunction(callback)
         callback()
-
+    
 # Utilidades varias
 Util =
      # Reemplaza todas las ocurrencias de la expresión regular 'regex' con un ID
@@ -84,7 +84,7 @@ jQuery ($) ->
   # Para que los navegadores que no soportan HTML5 funcionen con autofocus
   $('*[autofocus]:not([readonly]):not([disabled]):visible:first').focus()
 
-  $('a[data-event]').on 'click', (event) ->
+  $(document).on 'click', 'a[data-event]', (event) ->
     if (event.stopped)
       return
     element = $(this)
