@@ -48,9 +48,9 @@ CoctsApp::Application.routes.draw do
     member do
       get :logout
       get :edit_password
-      put :update_password
+      patch :update_password
       get :edit_personal_data
-      put :update_personal_data
+      patch :update_personal_data
     end
   end
  
