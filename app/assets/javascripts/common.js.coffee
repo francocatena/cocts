@@ -9,12 +9,10 @@ $ ->
 
   $("#questions_search input").keyup ->
     setTimeout(searchQuestions, 400)
-    $(this).event.stopPropagation()
     false
 
   $("#projects_search input").keyup ->
     setTimeout(searchQuestions, 400)
-    $(this).event.stopPropagation()
     false
 
 searchQuestions = ->
@@ -94,7 +92,7 @@ jQuery ($) ->
       event.preventDefault()
       event.stopPropagation()
 
-  $('input.autocomplete_field').on 'change', ->
+  $(document).on 'change', 'input.autocomplete_field', ->
     element = $(this)
 
     if /^\s*$/.test(element.val())
@@ -104,13 +102,13 @@ jQuery ($) ->
     ajaxStart: -> $(this).show()
     ajaxStop: -> $(this).hide()
 
-  $('input.calendar:not(.hasDatepicker)').on 'focus', ->
+  $(document).on 'focus', 'input.calendar:not(.hasDatepicker)', ->
     if $(this).data('time')
       $(this).datetimepicker(showOn: 'both').focus()
     else
       $(this).datepicker(showOn: 'both').focus()
 
-  $('a.search').on 'click', (event) ->
+  $(document).on 'click', 'a.search', (event) ->
     $('#search_form').fadeIn 300, -> $('#search_form *[autofocus]').focus()
     false
 
