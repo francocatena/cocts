@@ -115,7 +115,7 @@ class QuestionsController < ApplicationController
   def csv_import_questions
     if params[:dump_questions] && File.extname(params[:dump_questions][:file].original_filename).downcase == '.csv'
       uploaded_file = params[:dump_questions][:file]
-      file_name = uploaded_file.tempfile.to_path.to_s
+      file_name = uploaded_file.path.to_s
       text = File.read(
         file_name,
         { :encoding => 'UTF-8',
@@ -146,7 +146,7 @@ class QuestionsController < ApplicationController
   def csv_import_answers
     if params[:dump_answers] && File.extname(params[:dump_answers][:file].original_filename).downcase == '.csv'
       uploaded_file = params[:dump_answers][:file]
-      file_name = uploaded_file.tempfile.to_path.to_s
+      file_name = uploaded_file.path.to_s
       text = File.read(
         file_name,
         { :encoding => 'UTF-8',
