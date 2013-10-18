@@ -1,22 +1,27 @@
 require 'bundler/capistrano'
 
+default_run_options[:shell] = '/bin/bash --login'
+
+set :default_environment, {
+  'PATH' => '$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH'
+}
+
 set :application, 'cocts'
-set :repository,  'https://github.com/francocatena/cocts.git'
-set :deploy_to, '/var/rails/cocts'
 set :user, 'deployer'
+set :deploy_to, "/home/#{user}/apps/#{application}"
 set :group_writable, false
 set :shared_children, %w(log private)
 set :use_sudo, false
 
-set :scm, :git
+set :repository,  'git://github.com/francocatena/cocts.git'
 set :branch, 'master'
+set :scm, :git
 set :deploy_via, :remote_cache
 
-role :web, 'cocts.com.ar'
-role :app, 'cocts.com.ar'
-role :db,  'cocts.com.ar', :primary => true
+server 'cocts.com.ar', :web, :app, :db, primary: true
 
 after 'deploy:finalize_update', 'deploy:create_shared_symlinks'
+after 'deploy:restart', 'deploy:cleanup'
 
 namespace :deploy do
   task :start do
@@ -25,7 +30,7 @@ namespace :deploy do
   task :stop do
   end
 
-  task :restart, :roles => :app, :except => { :no_release => true } do
+  task :restart, roles: :app, except: { no_release: true } do
     run "touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 
