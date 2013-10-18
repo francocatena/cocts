@@ -11,7 +11,7 @@ class ProjectInstancesController < ApplicationController
        :per_page => APP_LINES_PER_PAGE)
       @project = Project.find(params[:id])
     else
-      @project_instances = ProjectInstance.scoped.paginate(:page => params[:page],
+      @project_instances = ProjectInstance.all.paginate(:page => params[:page],
        :per_page => APP_LINES_PER_PAGE)
     end
     respond_to do |format|
