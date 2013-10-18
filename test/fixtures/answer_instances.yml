@@ -5,7 +5,7 @@ one:
   answer: '10111_1'
   answer_category: 1
   answer_text: 'el estudio de campos tales como biología, química, geología y física'
-  valuation: 6
+  valuation: '6'
   order: 1
 
 two:
@@ -13,5 +13,5 @@ two:
   answer: '10111_2'
   answer_category: 2
   answer_text: 'un cuerpo de conocimientos, tales como principios, leyes y teorías que explican el mundo que nos rodea (materia, energía y vida)'
-  valuation: 1
+  valuation: '1'
   order: 2

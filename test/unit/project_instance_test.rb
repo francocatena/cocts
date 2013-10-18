@@ -30,8 +30,6 @@ class ProjectInstanceTest < ActiveSupport::TestCase
         :student_status => 'no_study',
         :teacher_status => 'in_training',
         :teacher_level => 'primary',
-        :profession_certification => ['social', 'science'],
-        :profession_ocuppation => ['engineering', 'mix'],
         :educational_center_name => 'UNCuyo',
         :educational_center_city => 'Mza',
         :study_subjects_different => 2,

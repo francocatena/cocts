@@ -9,7 +9,7 @@ manual:
   project_type: <%= Project::TYPES[:manual] %>
   valid_until: <%= 1.month.from_now.to_date %>
   forms: <%= Project::SOCIODEMOGRAPHIC_FORMS.to_yaml.inspect %>
-  questions: '10111'
+  questions: ['10111']
   user: admin
 
 interactive:
