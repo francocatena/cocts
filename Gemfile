@@ -15,10 +15,6 @@ gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'
 
-gem 'sass-rails'
-gem 'coffee-rails'
-gem 'uglifier'
-
 group :development do
   gem 'unicorn'
   gem 'unicorn-rails'
