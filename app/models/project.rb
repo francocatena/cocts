@@ -335,7 +335,9 @@ class Project < ApplicationModel
           pdf.text "#{I18n.t 'projects.attitudinal_index_category_naive'}: %.2f" % (naive_index/count)
           pdf.font_size((PDF_FONT_SIZE * 1.2).round) do
           pdf.move_down pdf.font_size
-            pdf.text "#{I18n.t 'projects.attitudinal_global_index'}: %.2f" % (global_index/count)
+          pdf.text "#{I18n.t 'projects.attitudinal_global_index'}: %.2f" % (global_index/count)
+          pdf.move_down pdf.font_size
+          pdf.text "#{I18n.t 'projects.standard_deviation'}: %.2f" % standard_deviation(global_index)
           end
         end
         pdf.move_down pdf.font_size
@@ -350,6 +352,30 @@ class Project < ApplicationModel
 
     FileUtils.mkdir_p File.dirname(self.pdf_full_path)
     pdf.render_file self.pdf_full_path
+  end
+
+  def standard_deviation(average)
+    summation = 0
+    n = 0
+
+    self.project_instances.each do |instance|
+      instance.question_instances.each do |question|
+        question.answer_instances.each do |answer|
+          p "assessment: #{answer.attitudinal_assessment}"
+          if attitudinal_assessment = answer.calculate_attitudinal_assessment
+            p attitudinal_assessment
+            summation += (attitudinal_assessment - average) ** 2
+            n += 1
+          end
+        end
+      end
+    end
+ 
+    if n > 1 
+      Math.sqrt(summation.abs / (n - 1)) 
+    else
+      0
+    end
   end
 
   def to_pdf
