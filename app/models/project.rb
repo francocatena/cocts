@@ -337,7 +337,7 @@ class Project < ApplicationModel
           pdf.move_down pdf.font_size
           pdf.text "#{I18n.t 'projects.attitudinal_global_index'}: %.2f" % (global_index/count)
           pdf.move_down pdf.font_size
-          pdf.text "#{I18n.t 'projects.standard_deviation'}: %.2f" % standard_deviation(global_index)
+          pdf.text "#{I18n.t 'projects.standard_deviation'}: %.2f" % standard_deviation(global_index/count)
           end
         end
         pdf.move_down pdf.font_size
@@ -357,22 +357,19 @@ class Project < ApplicationModel
   def standard_deviation(average)
     summation = 0
     n = 0
-
     self.project_instances.each do |instance|
       instance.question_instances.each do |question|
         question.answer_instances.each do |answer|
-          p "assessment: #{answer.attitudinal_assessment}"
           if attitudinal_assessment = answer.calculate_attitudinal_assessment
-            p attitudinal_assessment
             summation += (attitudinal_assessment - average) ** 2
             n += 1
           end
         end
       end
     end
- 
-    if n > 1 
-      Math.sqrt(summation.abs / (n - 1)) 
+
+    if n > 1
+      Math.sqrt(summation.abs / (n - 1))
     else
       0
     end
