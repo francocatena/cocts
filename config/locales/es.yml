@@ -80,10 +80,6 @@
       teaching_units: 'Secuencias de Enseñanza Aprendizaje'
 
     attributes:
-      answer_instance:
-        answeppr_category: 'Categoría'
-        valuation: 'Valor'
-        answer_text: 'Respuesta'
       question_instance:
         question_text: 'Cuestión'
       project_instance:

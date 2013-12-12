@@ -206,7 +206,7 @@ class Project < ApplicationModel
 
         pdf.move_down pdf.font_size
 
-        data[0] = [I18n.t('projects.alumn_title'), I18n.t('projects.global_attitudinal_index_title')]
+        data[0] = [I18n.t('projects.alumn_title'), I18n.t('projects.global_attitudinal_index_title'), I18n.t('projects.standard_deviation')]
 
         adecuate_index = plausible_index = naive_index = global_index = 0
 
@@ -239,13 +239,12 @@ class Project < ApplicationModel
           end
 
           unless alumn_answers == 0
+            average_assessments = alumn_assessments / alumn_answers
             count += 1
-            data[count] = [instance.student_data, '%.2f' % (alumn_assessments / alumn_answers) ]
+            data[count] = [instance.student_data, '%.2f' % average_assessments,
+              '%.2f' % instance.standard_deviation(average_assessments)
+            ]
           end
-        end
-
-        unless answers == 0
-          data << [I18n.t('projects.global_attitudinal_index_title'),'%.2f' % (attitudinal_assessments / answers)]
         end
 
         if professors.present?
@@ -253,18 +252,18 @@ class Project < ApplicationModel
           pdf.move_down pdf.font_size
         end
 
-        pdf.flexible_table data,
-          :width => pdf.margin_box.width,
-          :align => :center,
-          :vertical_padding => 3,
-          :border_style => :grid,
-          :size => (PDF_FONT_SIZE * 0.75).round
+        add_pdf_table(pdf, data)
 
-        pdf.move_down pdf.font_size
+        unless answers == 0
+          pdf.text "#{I18n.t('projects.global_attitudinal_index_title')}: #{'%.2f' % (attitudinal_assessments / answers)}"
+        end
+
         data.clear
 
         # Attitudinal index by question
-        data[0] = [I18n.t('activerecord.models.question'), I18n.t('projects.global_attitudinal_index_title')]
+        data[0] = [I18n.t('activerecord.models.question'), I18n.t('projects.global_attitudinal_index_title'),
+          I18n.t('projects.standard_deviation')
+        ]
         questions = {}
 
         if project.questions.present?
@@ -300,7 +299,9 @@ class Project < ApplicationModel
               index_by_question = index_by_question.abs
             end
 
-            data[index] = [q.code, '%.2f' % (index_by_question/total) ]
+            data[index] = [q.code, '%.2f' % (index_by_question/total),
+              '%.2f' % q.standard_deviation(project, index_by_question/total)
+            ]
           end
         end
 
@@ -310,16 +311,8 @@ class Project < ApplicationModel
         end
         pdf.move_down pdf.font_size
 
-        pdf.flexible_table data,
-          :width => pdf.margin_box.width,
-          :align => :center,
-          :vertical_padding => 3,
-          :border_style => :grid,
-          :size => (PDF_FONT_SIZE * 0.75).round
+        add_pdf_table(pdf, data)
 
-        pdf.font_size((PDF_FONT_SIZE * 0.2).round) do
-          pdf.move_down pdf.font_size
-        end
         data.clear
 
         pdf.text "Media de los #{project.project_instances.count} individuos por cuestión"
@@ -329,15 +322,26 @@ class Project < ApplicationModel
           pdf.text I18n.t('projects.attitudinal_index_by_category_title')
           pdf.move_down pdf.font_size
         end
+
         unless count == 0
-          pdf.text "#{I18n.t 'projects.attitudinal_index_category_adecuate'}: %.2f" % (adecuate_index/count)
-          pdf.text "#{I18n.t 'projects.attitudinal_index_category_plausible'}: %.2f" % (plausible_index/count)
-          pdf.text "#{I18n.t 'projects.attitudinal_index_category_naive'}: %.2f" % (naive_index/count)
+          data << [I18n.t('activerecord.attributes.answer.category'), I18n.t('projects.attitudinal_index_title'),
+            I18n.t('projects.standard_deviation')
+          ]
+          data << [I18n.t('questions.answers.long_type.adecuate'), '%.2f' % (adecuate_index/count),
+            '%.2f' % standard_deviation_by_answer_type(adecuate_index/count, 2)]
+          data << [I18n.t('questions.answers.long_type.plausible'), '%.2f' % (plausible_index/count),
+            '%.2f' % standard_deviation_by_answer_type(plausible_index/count, 1)]
+          data << [I18n.t('questions.answers.long_type.naive'), '%.2f' % (naive_index/count),
+            '%.2f' % standard_deviation_by_answer_type(naive_index/count, 0)]
+
+          add_pdf_table(pdf, data)
+          data.clear
+
           pdf.font_size((PDF_FONT_SIZE * 1.2).round) do
-          pdf.move_down pdf.font_size
-          pdf.text "#{I18n.t 'projects.attitudinal_global_index'}: %.2f" % (global_index/count)
-          pdf.move_down pdf.font_size
-          pdf.text "#{I18n.t 'projects.standard_deviation'}: %.2f" % standard_deviation(global_index/count)
+            pdf.move_down pdf.font_size
+            pdf.text "#{I18n.t 'projects.attitudinal_global_index'}: %.2f" % (global_index/count)
+            pdf.move_down pdf.font_size
+            pdf.text "#{I18n.t 'projects.standard_deviation'}: %.2f" % standard_deviation(global_index/count)
           end
         end
         pdf.move_down pdf.font_size
@@ -373,6 +377,40 @@ class Project < ApplicationModel
     else
       0
     end
+  end
+
+  def standard_deviation_by_answer_type(average, category)
+    summation = 0
+    n = 0
+    self.project_instances.each do |instance|
+      instance.question_instances.each do |question|
+        question.answer_instances.each do |answer|
+          if answer.answer_category == category
+            if attitudinal_assessment = answer.calculate_attitudinal_assessment
+              summation += (attitudinal_assessment - average) ** 2
+              n += 1
+            end
+          end
+        end
+      end
+    end
+
+    if n > 1
+      Math.sqrt(summation.abs / (n - 1))
+    else
+      0
+    end
+  end
+
+  def add_pdf_table(pdf, data)
+    pdf.table(data) do
+      row(0).style(
+        :background_color => 'cccccc',
+        :padding => [(PDF_FONT_SIZE * 0.5).round, (PDF_FONT_SIZE * 0.3).round]
+      )
+    end
+
+    pdf.move_down pdf.font_size
   end
 
   def to_pdf

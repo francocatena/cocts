@@ -143,6 +143,25 @@ class ProjectInstance < ApplicationModel
     (self.plausible_attitude_index + self.naive_attitude_index + self.adecuate_attitude_index) / 3
   end
 
+  def standard_deviation(average)
+    summation = 0                                                                                                                                                                     
+    n = 0
+    self.question_instances.each do |question|
+      question.answer_instances.each do |answer|
+        if attitudinal_assessment = answer.calculate_attitudinal_assessment
+          summation += (attitudinal_assessment - average) ** 2
+          n += 1
+        end
+      end
+    end
+
+    if n > 1
+      Math.sqrt(summation.abs / (n - 1))
+    else
+      0
+    end
+  end
+
   def to_pdf
     i18n_scope = [:projects, :questionnaire]
     pdf = Prawn::Document.new(PDF_OPTIONS)
