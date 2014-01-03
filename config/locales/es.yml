@@ -349,6 +349,9 @@
     attitudinal_index_category_adecuate: 'Índice actitudinal de categoría adecuada'
     attitudinal_index_category_plausible: 'Índice actitudinal de categoría plausible'
     attitudinal_index_category_naive: 'Índice actitudinal de categoría ingenua'
+    average_by_question:
+      one: 'Media de %{count} individuo por cuestión'
+      other: 'Media de los %{count} individuos por cuestión'
     standard_deviation: 'Desviación estándar'
     attitudinal_global_index: 'Índice actitudinal global ponderado'
     alumn_title: 'Alumno'

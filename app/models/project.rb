@@ -315,7 +315,8 @@ class Project < ApplicationModel
 
         data.clear
 
-        pdf.text "Media de los #{project.project_instances.count} individuos por cuestión"
+        pdf.text I18n.t('projects.average_by_question',
+          count: project.project_instances.count)
 
         pdf.font_size((PDF_FONT_SIZE * 1.2).round) do
           pdf.move_down pdf.font_size
