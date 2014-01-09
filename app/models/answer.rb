@@ -1,11 +1,4 @@
 class Answer < ApplicationModel
-  # Constantes
-  CATEGORIES = {
-    :adecuate => 2,
-    :plausible => 1,
-    :naive => 0
-  }
-
   # Restricciones
   validates :answer, :category, :order, :presence => true
   validates_numericality_of :order, :category, :only_integer => true,

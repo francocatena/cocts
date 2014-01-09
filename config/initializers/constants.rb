@@ -1,5 +1,10 @@
 require 'prawn/measurement_extensions'
-
+# Categorias de respuestas
+CATEGORIES = {
+  :adecuate => 2,
+  :plausible => 1,
+  :naive => 0
+}
 # Cantidad de filas a mostrar en los paginados
 APP_LINES_PER_PAGE = 10
 # Ruta a la carpeta pública
