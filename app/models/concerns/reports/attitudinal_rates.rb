@@ -72,7 +72,7 @@ module Reports::AttitudinalRates
     elsif self.questions.present?
       pdf.font_size((PDF_FONT_SIZE * 1.4).round) do
         self.questions.each do |question|
-          question_codes += question.code
+          question_codes << question.code
         end
         pdf.move_down pdf.font_size
         pdf.text "#{I18n.t('actioncontroller.questions')}: #{question_codes.join(', ')}"
