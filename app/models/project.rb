@@ -133,7 +133,24 @@ class Project < ApplicationModel
     pdf = Prawn::Document.new(PDF_OPTIONS)
     pdf.font_size = PDF_FONT_SIZE
 
-    # Presentación
+    add_presentation(pdf, i18n_scope)
+    add_scale_explanation(pdf, i18n_scope)
+    add_example_question(pdf)
+    add_sociodemographic_forms(pdf, i18n_scope) if self.forms.present?
+    prepare_questions(pdf)
+
+    # Numeración en pie de página
+    pdf.page_count.times do |i|
+      pdf.go_to_page(i+1)
+      pdf.draw_text "#{i+1} / #{pdf.page_count}", :at=>[1,1], :size => (PDF_FONT_SIZE * 0.75).round
+    end
+
+    FileUtils.mkdir_p File.dirname(self.pdf_full_path)
+
+    pdf.render_file self.pdf_full_path
+  end
+
+  def add_presentation(pdf, i18n_scope)
     pdf.font_size((PDF_FONT_SIZE * 1.5).round) do
       pdf.text I18n.t(:presentation, :scope => i18n_scope), :style => :bold,
         :align => :center
@@ -145,60 +162,9 @@ class Project < ApplicationModel
       pdf.text I18n.t(:presentation_text, :scope => i18n_scope)
       pdf.move_down pdf.font_size
     end
+  end
 
-    # Explicación de la escala
-    i18n_scope << :scale_table
-    i18n_scope << :disagreement
-
-    data = [[], ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'E', 'S']]
-
-    [:'1', :'2', :'3', :'4'].each do |opt|
-      data[0] << I18n.t(opt, :scope => i18n_scope)
-    end
-
-    i18n_scope[-1] = :undecided
-
-    [:'5'].each { |opt| data[0] << I18n.t(opt, :scope => i18n_scope) }
-
-    i18n_scope[-1] = :in_agreement
-
-    [:'6', :'7', :'8', :'9'].each do |opt|
-      data[0] << I18n.t(opt, :scope => i18n_scope)
-    end
-
-    i18n_scope[-1] = :others
-
-    [:'E', :'S'].each { |opt| data[0] << I18n.t(opt, :scope => i18n_scope) }
-
-    i18n_scope.slice!(-1)
-
-    pdf.flexible_table data,
-      :headers => [
-        {
-          :text => I18n.t(:disagreement_title, :scope => i18n_scope),
-          :colspan => 4
-        },
-        I18n.t(:undecided_title, :scope => i18n_scope),
-        {
-          :text => I18n.t(:in_agreement_title, :scope => i18n_scope),
-          :colspan => 4
-        },
-        {:text => I18n.t(:others_title, :scope => i18n_scope), :colspan => 2}
-      ],
-      :width => pdf.margin_box.width,
-      :align => :center,
-      :vertical_padding => 3,
-      :border_style => :grid,
-      :size => (PDF_FONT_SIZE * 0.75).round
-
-    i18n_scope.slice!(-1)
-
-    pdf.font_size((PDF_FONT_SIZE * 0.75).round) do
-      pdf.move_down(pdf.font_size)
-      pdf.text I18n.t(:scale_clarification, :scope => i18n_scope)
-    end
-
-    # Pregunta de ejemplo
+  def add_example_question(pdf)
     i18n_scope = [:projects, :questionnaire, :answer_example]
 
     pdf.move_down(pdf.font_size)
@@ -224,92 +190,19 @@ class Project < ApplicationModel
         )
       end
     end
+  end
 
-    # Datos sociodemográficos
-    unless self.forms.empty?
-      i18n_scope.slice!(-2, 2)
-      pdf.move_down(pdf.font_size)
-      pdf.text I18n.t(:sociodemographic_forms_title,
-        :scope => i18n_scope).gsub(/\*/, '')
+  def add_sociodemographic_forms(pdf, i18n_scope)
+    pdf.move_down(pdf.font_size)
+    pdf.text I18n.t('sociodemographic_forms_title',
+      :scope => i18n_scope).gsub(/\*/, '')
 
-      self.forms.each do |form|
-        pdf.font_size((PDF_FONT_SIZE * 0.6).round) do
-          pdf.move_down(pdf.font_size)
-
-          self.send(:"add_#{form}_form", pdf)
-        end
+    self.forms.each do |form|
+      pdf.font_size((PDF_FONT_SIZE * 0.6).round) do
+        pdf.move_down(pdf.font_size)
+        self.send(:"add_#{form}_form", pdf)
       end
     end
-      pdf.start_new_page
-      i18n_scope = [:projects, :questionnaire]
-      pdf.text I18n.t(:questions_warning, :scope => i18n_scope), :style => :bold,
-        :align => :center
-      pdf.move_down(pdf.font_size)
-
-   if self.teaching_units.empty?
-
-      self.questions.each do |question|
-        letter = 'A'
-
-        pdf.font_size((PDF_FONT_SIZE * 0.75).round) do
-          pdf.move_down(pdf.font_size)
-          pdf.text "#{question.code} #{question.question}", :style => :bold_italic
-
-          question.answers.each do |answer|
-            pdf.text answer.clarification
-
-            pdf.text "[__] #{letter}. #{answer.answer}",
-              :indent_paragraphs => pdf.font_size
-
-            letter.next!
-          end
-        end
-      end
-
-   else
-     self.teaching_units.each do |teaching_unit|
-       subtopic = teaching_unit.subtopic
-       topic = subtopic.try(:topic)
-
-       pdf.move_down(pdf.font_size)
-       pdf.text "#{I18n.t('activerecord.models.teaching_unit')}: #{teaching_unit.title}", :style => :bold_italic
-
-       if subtopic.present? && topic.present?
-           pdf.font_size((PDF_FONT_SIZE * 0.75).round) do
-           pdf.move_down(pdf.font_size)
-           pdf.text "Tema: #{topic.code}- #{topic.title}"
-           pdf.text "Subtema: #{subtopic.code}- #{subtopic.title}"
-         end
-       end
-       teaching_unit.questions.each do |question|
-          letter = 'A'
-
-          pdf.font_size((PDF_FONT_SIZE * 0.75).round) do
-            pdf.move_down(pdf.font_size)
-            pdf.text "#{question.code} #{question.question}", :style => :bold_italic
-
-            question.answers.each do |answer|
-              pdf.text answer.clarification
-
-              pdf.text "[__] #{letter}. #{answer.answer}",
-                :indent_paragraphs => pdf.font_size
-
-              letter.next!
-            end
-          end
-        end
-     end
-   end
-
-    # Numeración en pie de página
-    pdf.page_count.times do |i|
-      pdf.go_to_page(i+1)
-      pdf.draw_text "#{i+1} / #{pdf.page_count}", :at=>[1,1], :size => (PDF_FONT_SIZE * 0.75).round
-    end
-
-    FileUtils.mkdir_p File.dirname(self.pdf_full_path)
-
-    pdf.render_file self.pdf_full_path
   end
 
   def pdf_name
@@ -528,5 +421,117 @@ class Project < ApplicationModel
     end
 
     pdf.text "#{question} #{teacher_levels.join('  ')}"
+  end
+
+  def add_scale_explanation(pdf, i18n_scope)
+    i18n_scope << :scale_table
+    i18n_scope << :disagreement
+
+    data = [[], ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'E', 'S']]
+
+    [:'1', :'2', :'3', :'4'].each do |opt|
+      data[0] << I18n.t(opt, :scope => i18n_scope)
+    end
+
+    i18n_scope[-1] = :undecided
+
+    [:'5'].each { |opt| data[0] << I18n.t(opt, :scope => i18n_scope) }
+
+    i18n_scope[-1] = :in_agreement
+
+    [:'6', :'7', :'8', :'9'].each do |opt|
+      data[0] << I18n.t(opt, :scope => i18n_scope)
+    end
+
+    i18n_scope[-1] = :others
+
+    [:'E', :'S'].each { |opt| data[0] << I18n.t(opt, :scope => i18n_scope) }
+
+    i18n_scope.slice!(-1)
+
+    add_example_table(pdf, data, i18n_scope)
+
+    i18n_scope.slice!(-1)
+
+    pdf.font_size((PDF_FONT_SIZE * 0.75).round) do
+      pdf.move_down(pdf.font_size)
+      pdf.text I18n.t(:scale_clarification, :scope => i18n_scope)
+    end
+  end
+
+  def prepare_questions(pdf)
+    pdf.start_new_page
+
+    add_warning(pdf)
+
+    if self.teaching_units.empty?
+      self.questions.each do |question|
+        add_question(pdf, question)
+      end
+    else
+      add_teaching_units(pdf)
+    end
+  end
+
+  def add_warning(pdf)
+    i18n_scope = [:projects, :questionnaire]
+    pdf.text I18n.t(:questions_warning, :scope => i18n_scope), :style => :bold,
+      :align => :center
+    pdf.move_down(pdf.font_size)
+  end
+
+  def add_question(pdf, question)
+    letter = 'A'
+
+    pdf.font_size((PDF_FONT_SIZE * 0.75).round) do
+      pdf.move_down(pdf.font_size)
+      pdf.text "#{question.code} #{question.question}", :style => :bold_italic
+      question.answers.each do |answer|
+        pdf.text answer.clarification
+        pdf.text "[__] #{letter}. #{answer.answer}",
+          :indent_paragraphs => pdf.font_size
+        letter.next!
+      end
+    end
+  end
+
+  def add_teaching_units(pdf)
+    self.teaching_units.each do |teaching_unit|
+      subtopic = teaching_unit.subtopic
+      pdf.move_down(pdf.font_size)
+      pdf.text "#{I18n.t('activerecord.models.teaching_unit')}: #{teaching_unit.title}", :style => :bold_italic
+
+      if subtopic.present? 
+        pdf.font_size((PDF_FONT_SIZE * 0.75).round) do
+          pdf.move_down(pdf.font_size)
+          pdf.text "#{t 'actioncontroller.subtopics'} #{subtopic.code} - #{subtopic.title}"
+        end
+      end
+
+      teaching_unit.questions.each do |question|
+        add_question(pdf, question)
+      end
+    end
+  end
+
+  def add_example_table(pdf, data, i18n_scope)
+    pdf.flexible_table data,
+      :headers => [
+        {
+          :text => I18n.t(:disagreement_title, :scope => i18n_scope),
+          :colspan => 4
+        },
+        I18n.t(:undecided_title, :scope => i18n_scope),
+        {
+          :text => I18n.t(:in_agreement_title, :scope => i18n_scope),
+          :colspan => 4
+        },
+        {:text => I18n.t(:others_title, :scope => i18n_scope), :colspan => 2}
+      ],
+      :width => pdf.margin_box.width,
+      :align => :center,
+      :vertical_padding => 3,
+      :border_style => :grid,
+      :size => (PDF_FONT_SIZE * 0.75).round
   end
 end
