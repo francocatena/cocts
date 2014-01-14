@@ -1,5 +1,4 @@
 class Question < ApplicationModel
-  DIMENSIONS = 1..9
   # Scopes
   default_scope { order(
     [

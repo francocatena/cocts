@@ -1,12 +1,5 @@
 class AnswerInstance < ApplicationModel
   scope :ordered, -> { order("position") }
-  # Constantes
-  CATEGORIES = {
-    :adecuate => 2,
-    :plausible => 1,
-    :naive => 0
-  }
-  VALUATIONS = (1..9).map(&:to_s) + ['E', 'S']
 
   # Relaciones
   belongs_to :question_instance

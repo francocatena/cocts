@@ -1,14 +1,10 @@
 require 'prawn/measurement_extensions'
-# Categorias de respuestas
-CATEGORIES = {
-  :adecuate => 2,
-  :plausible => 1,
-  :naive => 0
-}
 # Cantidad de filas a mostrar en los paginados
 APP_LINES_PER_PAGE = 10
+
 # Ruta a la carpeta pública
 PUBLIC_PATH = File.join(Rails.root, 'public')
+
 # Opciones por defecto para los PDFs
 PDF_OPTIONS = {
   :page_size => 'A4',
@@ -16,14 +12,51 @@ PDF_OPTIONS = {
   # Margen T, R, B, L
   :margin => [20.mm, 15.mm, 20.mm, 20.mm]
 }
+
 # Tamaño de fuente normal en los PDFs
 PDF_FONT_SIZE = 11
 
+# Dimensiones de cuestiones
+DIMENSIONS = 1..9
+
+# Categorías de respuestas
+CATEGORIES = {
+  :adecuate => 2,
+  :plausible => 1,
+  :naive => 0
+}
+
+# Valoraciones de respuestas
+VALUATIONS = (1..9).map(&:to_s) + ['E', 'S']
+
+# Indices actitudinales por categoría de respuesta y valoración
 CORRESPONDENCE_WITH_NORMALIZED_INDEX = {
   2 => ['x',-1,-0.75,-0.5,-0.25,0,0.25,0.5,0.75,1],
   1 => ['x',-1,-0.25,0.25,0.5,1,0.5,0.25,-0.25,-1],
   0 => ['x',1,0.75,0.5,0.25,0,-0.25,-0.5,-0.75,-1]
 }
+
+# Tipos de proyecto
+TYPES = {
+  :manual => 0,
+  :interactive => 1
+}
+
+# Formularios sociodemográficos
+SOCIODEMOGRAPHIC_FORMS = [
+  'name',
+  'professor_name',
+  'country',
+  'age',
+  'genre',
+  'degree_school',
+  'degree_university',
+  'study_subjects_different',
+  'study_subjects',
+  'study_subjects_choose',
+  'educational_center_name',
+  'educational_center_city'
+]
 
 # Paises disponibles en el formulario
 COUNTRIES = [
@@ -36,6 +69,7 @@ COUNTRIES = [
   :panama,
   :other
 ]
+
 # Titulación o grado académico más alto
 DEGREES = [
   :doctor,
@@ -45,6 +79,7 @@ DEGREES = [
   :baccalaureate,
   :other
 ]
+
 # Grado en la escuela
 DEGREES_SCHOOL = [
   :first_year,
@@ -63,6 +98,8 @@ DEGREES_SCHOOL = [
   :fourteenth_year,
   :fifteenth_year  
 ]
+
+# Tipos de test en proyectos
 TEST_TYPES = [
   :pre_test,
   :pos_test
@@ -80,6 +117,7 @@ DEGREES_UNIVERSITY = [
   :master,
   :other  
 ]
+
 # Géneros disponibles en el formulario
 GENRES = [:male, :female]
 
@@ -92,6 +130,7 @@ GROUP_TYPES = [
 
 # Profesiones disponibles en el formulario
 PROFESSIONS = [:arts, :humanities, :social, :engineering, :science, :mix, :none]
+
 # Estados del estudiante disponibles en el formulario
 STUDENT_STATUSES = [
   :pre_university,
@@ -99,6 +138,7 @@ STUDENT_STATUSES = [
   :end_university,
   :no_study
 ]
+
 # Elección de materias de ciencias o tecnología
 STUDY_SUBJECTS_CHOOSE = [
   :nothing_choose,
@@ -106,8 +146,10 @@ STUDY_SUBJECTS_CHOOSE = [
   :choose_part,
   :choose_all
 ]
+
 # Estados del profesor disponibles en el formulario
 TEACHER_STATUSES = [:in_training, :in_exercise, :not_a_teacher]
+
 # Niveles de profesores disponibles en el formulario
 TEACHER_LEVELS = [
   :primary,
@@ -117,6 +159,7 @@ TEACHER_LEVELS = [
   :university,
   :other
 ]
+
 # Adaptador de base de datos
 DB_ADAPTER = ActiveRecord::Base.connection.adapter_name
 

@@ -10,27 +10,6 @@ class Project < ApplicationModel
   attr_accessor :nested_question
   attr_accessor :nested_teaching_unit
 
-  # Constantes
-  TYPES = {
-    :manual => 0,
-    :interactive => 1
-  }
-
-  SOCIODEMOGRAPHIC_FORMS = [
-    'name',
-    'professor_name',
-    'country',
-    'age',
-    'genre',
-    'degree_school',
-    'degree_university',
-    'study_subjects_different',
-    'study_subjects',
-    'study_subjects_choose',
-    'educational_center_name',
-    'educational_center_city'
-  ]
-
   # Restricciones
   validates :name, :test_type, :group_name, :group_type, :description, :valid_until,
     :presence => true

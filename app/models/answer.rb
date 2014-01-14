@@ -8,7 +8,7 @@ class Answer < ApplicationModel
 
   # Relaciones
   belongs_to :question
-  
+
   def ==(other)
     if other.kind_of?(Answer)
       if other.new_record?
@@ -24,11 +24,11 @@ class Answer < ApplicationModel
 
     I18n.t :"projects.answers.#{type}.#{CATEGORIES.invert[self.category]}"
   end
-  
+
   def calculate_global_attitudinal_assessment
     index = 0
     total = 0
-    answer_instances = AnswerInstance.where(:answer_text => self.answer, 
+    answer_instances = AnswerInstance.where(:answer_text => self.answer,
       :order => self.order, :answer_category => self.category)
     if answer_instances
       answer_instances.each do |ai|
@@ -40,7 +40,6 @@ class Answer < ApplicationModel
       else
         index/total
       end
-    end  
+    end
   end
-  
 end

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class ProjectInstance < ApplicationModel
   serialize :forms, Array
   # Scopes
@@ -12,27 +11,6 @@ class ProjectInstance < ApplicationModel
   belongs_to :project
   has_many :question_instances, :dependent => :destroy
   accepts_nested_attributes_for :question_instances
-
-  # Constantes
-  TYPES = {
-    :manual => 0,
-    :interactive => 1
-  }
-
-  SOCIODEMOGRAPHIC_FORMS = [
-    'name',
-    'professor_name',
-    'country',
-    'age',
-    'genre',
-    'degree_school',
-    'degree_university',
-    'study_subjects_different',
-    'study_subjects',
-    'study_subjects_choose',
-    'educational_center_name',
-    'educational_center_city'
-  ]
 
   # Restricciones
   validates :first_name, :presence => true
@@ -144,7 +122,7 @@ class ProjectInstance < ApplicationModel
   end
 
   def standard_deviation(average)
-    summation = 0                                                                                                                                                                     
+    summation = 0
     n = 0
     self.question_instances.each do |question|
       question.answer_instances.each do |answer|
