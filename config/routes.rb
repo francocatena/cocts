@@ -1,5 +1,5 @@
 CoctsApp::Application.routes.draw do
-    
+
   resources :teaching_units
 
   resources :subtopics do
@@ -53,8 +53,8 @@ CoctsApp::Application.routes.draw do
       patch :update_personal_data
     end
   end
- 
-  root to: "users#login", contrainsts: {subdomain: 'admin'}, as: :authenticated_user
-    
-  root to: "project_instances#new"
+
+  root 'project_instances#new', constraints: { subdomain: /\d+-[[:alpha:]]-[[:alpha:]]{3}/ }
+
+  root 'users#login', contrainsts: {subdomain: 'admin'}, as: :authenticated_user
 end
