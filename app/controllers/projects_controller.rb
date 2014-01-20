@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class ProjectsController < ApplicationController
   before_action :auth
   layout proc { |controller| controller.request.xhr? ? false : 'application' }
@@ -73,28 +72,28 @@ class ProjectsController < ApplicationController
     elsif !@project.teaching_units.empty? && !@project.questions.empty?
       @project.errors[:base] << t(:'projects.questions_error')
       render :action => :new
-    else respond_to do |format|
-      @project.transaction do
-        if @project.save
-          @project.update_column :identifier, @project.generate_identifier
-          go_to = session[:go_to]
-          session[:go_to] = nil
-          flash[:notice] = t :'projects.correctly_created'
-          if go_to
-            format.html { redirect_to go_to }
-          else
-            format.html { redirect_to projects_path }
-          end
+    else
+      respond_to do |format|
+        @project.transaction do
+          if @project.save
+            @project.update_column :identifier, @project.generate_identifier
+            go_to = session[:go_to]
+            session[:go_to] = nil
+            flash[:notice] = t :'projects.correctly_created'
+            if go_to
+              format.html { redirect_to go_to }
+            else
+              format.html { redirect_to projects_path }
+            end
 
-          format.xml  { render :xml => @project, :status => :created, :location => @project }
-        else
-          format.html { render :action => :new }
-          format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
+            format.xml  { render :xml => @project, :status => :created, :location => @project }
+          else
+            format.html { render :action => :new }
+            format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
+          end
         end
       end
-     end
     end
-
   end
 
   # * PUT /projects/1
