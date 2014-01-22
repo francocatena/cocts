@@ -164,7 +164,7 @@ module Reports::PdfProject
         degrees << "#{I18n.t(:'projects.sociodemographic_forms.degree_school.courses')}: [__] #{I18n.t(degree, :scope => i18n_scope)} "
       end
 
-      text = "#{question}: #{degrees.join(' ')}", :indent_paragraphs => 10
+      text = "#{question}: #{degrees.join(' ')}"
     else
       text = "#{question}: #{I18n.t(self.degree_school, :scope => i18n_scope)}"
     end
@@ -188,6 +188,7 @@ module Reports::PdfProject
         else
           degrees << "#{I18n.t(degree, :scope => i18n_scope)} ______________"
         end
+      end
 
       text = pdf.text "#{question}: #{degrees.join(' ')}"
     else
@@ -284,8 +285,6 @@ module Reports::PdfProject
     i18n_scope = [:projects, :questionnaire, :profession, :options]
     data = []
 
-    if @project
-
     PROFESSIONS.each_with_index do |profession, i|
       if @project
         data << [I18n.t(profession, :scope => i18n_scope), "[__]",
@@ -339,7 +338,7 @@ module Reports::PdfProject
 
       pdf.text "#{question} #{student_statuses.join(' ')}"
     else
-      pdf.text "#{question} #{I18n.t(self.student_status, :scope => i18n_scope}"
+      pdf.text "#{question} #{I18n.t(self.student_status, :scope => i18n_scope)}"
     end
   end
 
@@ -356,7 +355,7 @@ module Reports::PdfProject
 
       pdf.text "#{question} #{teacher_statuses.join(' ')}"
     else
-      pdf.text "#{question} #{I18n.t(self.teacher_status, :scope => i18n_scope}"
+      pdf.text "#{question} #{I18n.t(self.teacher_status, :scope => i18n_scope)}"
     end
   end
 
@@ -373,7 +372,7 @@ module Reports::PdfProject
 
       pdf.text "#{question} #{teacher_levels.join(' ')}"
     else
-      pdf.text "#{question} #{I18n.t(self.teacher_level, :scope => i18n_scope}"
+      pdf.text "#{question} #{I18n.t(self.teacher_level, :scope => i18n_scope)}"
     end
   end
 
@@ -418,12 +417,17 @@ module Reports::PdfProject
 
     add_warning(pdf)
 
-    if self.teaching_units.empty?
-      self.questions.each do |question|
+    has_teaching_units = @project ? self.teaching_units.present? : 
+      self.project.teaching_units.present?
+
+    if has_teaching_units
+      add_teaching_units(pdf)
+    else
+      questions = @project ? self.questions : self.project.questions
+
+      questions.each do |question|
         add_question(pdf, question)
       end
-    else
-      add_teaching_units(pdf)
     end
   end
 
