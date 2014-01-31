@@ -146,16 +146,6 @@ module ApplicationHelper
     textiled.html_safe
   end
 
-  def calendar_text_field(form, attribute, time = false, value = nil)
-    value ||= form.object.send(attribute)
-    options = {:class => :calendar}
-
-    options[:value] = l(value, :format => time ? :minimal : :default) if value
-    options[:'data-time'] = true if time
-
-    form.text_field attribute, options
-  end
-
   def link_to_show(*args)
     options = args.extract_options!
 
