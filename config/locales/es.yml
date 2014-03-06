@@ -150,6 +150,8 @@
         admin: 'Administrador'
 
   app_title: 'COCTS'
+  app_welcome: '¡Bienvenido a COCTS!'
+  app_description: 'Cuestionario de Opiniones sobre Ciencia, Tecnología y Sociedad.'
   help_title: 'Ayuda'
 
   # Overrides model and default messages

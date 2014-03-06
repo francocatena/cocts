@@ -1,20 +1,17 @@
-<div id="login">
-  <%= form_for @user, :url => create_session_users_path do |f| %>
-    <%= f.error_messages %>
-    <div class="cocts">
-      <p><%= image_tag 'login.gif', :alt => "Bienvenido a COCTS" %></p>
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <div class="well">
+      <h1><%= t 'app_welcome' %></h1>
+      <p><%= t 'app_description' %></p>
+      <%= simple_form_for @user, url: create_session_users_path do |f| %>
+        <div class="form-inputs">
+          <%= f.input :user, input_html: { maxlength: 20, autofocus: true } %>
+          <%= f.input :password, input_html: { maxlength: 20 } %>
+        </div>
+        <div class="form-actions">
+          <%= f.submit t('users.enter'), class: 'btn btn-primary' %>
+        </div>
+      <% end %>
     </div>
-    <div class="field">
-      <%= f.label :user %>
-      <%= f.text_field :user, :maxlength => 30, :autofocus => true %>
-    </div>
-    <div class="field">
-      <%= f.label :password %>
-      <%= f.password_field :password, :maxlength => 128 %>
-    </div>
-    
-    <div class="field">
-      <span><%= f.submit t(:'users.enter') %></span>
-    </div>
-  <% end %>
+  </div>
 </div>
