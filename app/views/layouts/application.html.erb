@@ -1,35 +1,39 @@
-<!DOCTYPE html>
+<!doctype html>
+<!--[if lt IE 8]> <html class="lt-ie8"> <![endif]-->
+<!--[if gt IE 7]><!--> <html lang="<%= locale %>"> <!--<![endif]-->
+<% @title ||= t("actioncontroller.#{controller.controller_name}") %>
+<head>
+  <meta charset="utf-8">
+  <title><%= t 'app_title' %> | <%= @title %></title>
+  <%= stylesheet_link_tag 'application' %>
+  <%= javascript_include_tag 'application' %>
+  <!--[if lt IE 8]>
+    <%= stylesheet_link_tag 'application-ie', data: { turbolinks_track: true }, media: 'all' %>
+  <![endif]-->
+  <!--[if lt IE 9]>
+  < %= javascript_include_tag 'application-ie', data: { turbolinks_track: true } %>
+  <![endif]-->
+  <%= favicon_link_tag %>
+  <%= csrf_meta_tags %>
+  <%= javascript_tag do %>
+    <%= raw "State.unsavedDataWarning = '#{t('message.unsaved_data_warning')}';" %>
+    <%= raw "State.validationFailedMessage = '#{t('message.validation_failed_message')}';" %>
+    <%= yield :js_extra %>
+  <% end %>
+</head>
+<body data-controller="<%= controller_name %>">
+  <div class="alert alert-warning hidden loading-caption">
+    <strong><%= t 'navigation.loading' %></strong>
+  </div>
+  <div class="container">
+    <%= render 'shared/menu' %>
+    <%= yield %>
+    <%= render 'shared/flash' if flash_message.present? %>
 
-<% @title ||= t(:"actioncontroller.#{controller.controller_name}") %>
-<html>
-  <head>
-    <meta charset=utf-8>
-    
-    <title><%= t(:app_title) %> | <%= @title %></title>
-    <%= stylesheet_link_tag 'application' %>
-    <%= javascript_include_tag 'application' %>
-    <%= javascript_tag do %>
-      <%= yield :js_extra %>
-    <% end %>
-    <%= favicon_link_tag %>
-    <%= csrf_meta_tags %>
-  </head>
-  <body>
-    <div id="loading" style="display: none;">
-      <%= image_tag 'loading.gif', :size => '43x11', :alt => t(:'messages.loading') %>
-    </div>
-    <div id="menu_container">
-      <%= render :partial => 'shared/menu' %>
-    </div>
-    <div id="main_container">
-      <div id="app_content">
-        <%= yield %>
-      </div>
-      <%= render :partial => 'shared/notice' if flash[:notice] %>
-      <%= render :partial => 'shared/alert' if flash[:alert] %>
-    </div>
     <%= javascript_tag do %>
       <%= yield :js_extra_bottom %>
     <% end %>
-  </body>
+    <%= yield :extra_html_bottom %>
+  </div>
+</body>
 </html>

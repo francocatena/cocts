@@ -11,22 +11,37 @@
   <% end %>
 </div>
 
-<div id="questions">
-  <%= render :partial => 'questions' %>
-</div>
-  
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th><%= Question.human_attribute_name :dimension %></th>
+      <th><%= Question.human_attribute_name :code %></th>
+      <th><%= Question.human_attribute_name :question %></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @questions.each do |question| %>
+      <tr class="<%= cycle(:even, :odd) %>">
+        <td><%= content_tag :abbr, question.dimension,
+            :title => question.dimension_text %></td>
+        <td><%= question.code %></td>
+        <td><%= truncate(question.question, :length => 30, :omission => '...') %></td>
+        <td><%= link_to_show question %></td>
+        <td><%= link_to_edit edit_question_path(question) %></td>
+        <td><%= link_to_destroy question if @auth_user.admin? %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 <div id="links">
   <%= pagination_links @questions %>
   <%= link_to t(:'labels.new'), new_question_path,
     :class => :btn %> <br /><br />
-  <%= link_to t(:'questions.import_csv_file'), import_csv_questions_path, 
+  <%= link_to t(:'questions.import_csv_file'), import_csv_questions_path,
     :class => :important_action %>
 </div>
-
-
-  
-
-
-
-
-
