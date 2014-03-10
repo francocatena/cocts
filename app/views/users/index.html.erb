@@ -38,7 +38,11 @@
   </tbody>
 </table>
 
-<div id="links">
-  <%= pagination_links @users %>
-  <%= link_to t(:'labels.new'), new_user_path, :class => :btn %>
+<hr />
+
+<div>
+  <div class='pull-right'>
+    <%= pagination_links @users %>
+  </div>
+  <%= link_to t(:'labels.new'), new_user_path, class: 'btn btn-primary' %>
 </div>

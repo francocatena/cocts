@@ -26,8 +26,12 @@
 <% end %>
 </table>
 
-<div id="links">
-  <%= pagination_links @subtopics %>
-  <%= link_to t(:'labels.new'), new_subtopic_path, :class => :btn %>
+<hr />
+
+<div>
+  <div class='pull-right'>
+    <%= pagination_links @subtopics %>
+  </div>
+  <%= link_to t('labels.new'), new_subtopic_path, class: 'btn btn-primary' %>
 </div>
 
