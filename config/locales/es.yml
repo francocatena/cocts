@@ -250,7 +250,7 @@
     by: 'por'
     change: 'Cambiar'
     close: 'Cerrar'
-    delete: 'Eliminar'
+    destroy: 'Eliminar'
     download: 'Descargar'
     edit: 'Editar'
     generated_on: 'Generado el'
