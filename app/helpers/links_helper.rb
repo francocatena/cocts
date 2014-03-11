@@ -1,10 +1,20 @@
 module LinksHelper
-  def pagination_links(objects)
-    will_paginate objects,
-      :previous_label => "&laquo; #{t :'labels.previous'}",
-      :next_label => "#{t :'labels.next'} &raquo;",
-      :inner_window => 1,
-      :outer_window => 1
+  def pagination_links(objects, params = nil)
+    pagination_links = will_paginate objects,
+      inner_window: 1, outer_window: 1, params: params,
+      renderer: BootstrapPaginationHelper::LinkRenderer,
+      class: 'pagination pagination-sm pull-right'
+    page_entries = content_tag(:div,
+      content_tag(:small,
+        page_entries_info(objects),
+        class: 'page-entries text-muted'
+      ),
+      class: 'hidden-lg pull-right'
+    )
+
+    pagination_links ||= empty_pagination_links
+
+    content_tag(:div, pagination_links + page_entries, class: 'pagination-container')
   end
 
   def link_to_back
