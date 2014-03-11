@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-
+<!--[if lt IE 8]> <html class="lt-ie8"> <![endif]-->
+<!--[if gt IE 7]><!--> <html lang="<%= locale %>"> <!--<![endif]-->
 <% @title ||= t("actioncontroller.#{controller.controller_name}") %>
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title><%= t(:app_title) %> | <%= @title %></title>
+    <meta charset="utf-8" />
+    <title><%= t 'app_title' %> | <%= @title %></title>
     <%= stylesheet_link_tag 'application' %>
     <%= javascript_include_tag 'application' %>
     <%= favicon_link_tag %>
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <div id="content">
-      <%= yield %>
-    </div>
-    <%= render :partial => 'shared/notice' if flash[:notice] %>
+      <div class="well">
+        <h1><%= t 'app_title' %> <small><%= t 'app_description' %></small></h1>
+      </div>
+      <div class="container">
+        <%= yield %>
+      </div>
+    <%= render 'shared/flash' if flash[:notice] %>
   </body>
 </html>

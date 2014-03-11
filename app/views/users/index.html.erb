@@ -8,7 +8,7 @@
     </div>
   <% end %>
 </div>
-<table>
+<table class="table table-hover">
   <thead>
     <tr>
       <th><%= User.human_attribute_name 'user' %></th>
@@ -38,7 +38,11 @@
   </tbody>
 </table>
 
-<div id="links">
-  <%= pagination_links @users %>
-  <%= link_to t(:'labels.new'), new_user_path, :class => :btn %>
+<hr />
+
+<div>
+  <div class='pull-right'>
+    <%= pagination_links @users %>
+  </div>
+  <%= link_to t(:'labels.new'), new_user_path, class: 'btn btn-primary' %>
 </div>

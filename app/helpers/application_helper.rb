@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 module ApplicationHelper
   # Ordena un array que será utilizado en un select por el valor de los campos
   # que serán mostrados
@@ -16,61 +15,6 @@ module ApplicationHelper
   #                     formulario
   def render_form
     content_tag :div, render(:partial => 'form'), :class => :form_container
-  end
-
-  # Devuelve el HTML con los links para navegar una lista paginada
-  #
-  # * _objects_:: Objetos con los que se genera la lista paginada
-  def pagination_links(objects)
-    will_paginate objects,
-      :previous_label => "&laquo; #{t :'labels.previous'}",
-      :next_label => "#{t :'labels.next'} &raquo;",
-      :inner_window => 1,
-      :outer_window => 1
-  end
-
-  # Devuelve el HTML de un vínculo para volver (history.back())
-  def link_to_back
-    link_to '&#x2190;'.html_safe, :back, :class => :iconic,
-      :'data-show-tooltip' => true, :title => t(:'labels.back')
-  end
-
-  # Devuelve HTML con un link para eliminar un componente de un formulario
-  #
-  # * _fields_:: El objeto form para el que se va a generar el link
-  def remove_item_link(fields = nil, class_for_remove = nil)
-    new_record = fields.nil? || fields.object.new_record?
-    out = String.new.html_safe
-    out << fields.hidden_field(:_destroy, :class => :destroy,
-      :value => fields.object.marked_for_destruction? ? 1 : 0) unless new_record
-    out << link_to('X', '#', :title => t(:'labels.delete'),
-      :'data-target' => ".#{class_for_remove || fields.object.class.name.underscore}",
-      :'data-event' => (new_record ? 'removeItem' : 'hideItem'))
-  end
-
-   # Devuelve HTML con un link para eliminar un componente de una lista de un
-  #  formulario
-  #
-  # * _fields_:: El objeto form para el que se va a generar el link
-  def remove_list_item_link(fields, remove_class = nil)
-    link_to('X', "#", :title => t(:'labels.delete'),
-      :'data-target' => ".#{remove_class || fields.object.class.name.underscore}",
-      :'data-event' => 'removeItem')
-  end
-
-  # Devuelve el HTML de un vínculo para mover un ítem.
-  #
-  # * <em>*args</em>:: Las mismas opciones que link_to sin la etiqueta
-  def link_to_move(*args)
-    options = {
-      :class => 'image_link move',
-      :onclick => 'return false;',
-      :title => t(:'labels.move')
-    }
-    options.merge!(args.pop) if args.last.kind_of?(Hash)
-
-    link_to(image_tag('move.gif', :size => '11x11', :alt => '[M]'), '#',
-      *(args << options))
   end
 
   # Devuelve el HTML (con el tag <script>) para establecer el foco en un
@@ -145,43 +89,4 @@ module ApplicationHelper
 
     textiled.html_safe
   end
-
-  def link_to_show(*args)
-    options = args.extract_options!
-
-    options['class'] ||= 'iconic'
-    options['title'] ||= t('labels.show')
-    options['data-show-tooltip'] ||= true
-
-    args << options
-
-    link_to '&#xe074;'.html_safe, *args
-  end
-
-  def link_to_edit(*args)
-    options = args.extract_options!
-
-    options['class'] ||= 'iconic'
-    options['title'] ||= t('labels.edit')
-    options['data-show-tooltip'] ||= true
-
-    args << options
-
-    link_to '&#x270e;'.html_safe, *args
-  end
-
-  def link_to_destroy(*args)
-    options = args.extract_options!
-
-    options['class'] ||= 'btn btn-small btn-danger'
-    options['title'] ||= t('labels.delete')
-    options['data'] ||= { :confirm => t('messages.confirmation_question') }
-    options['method'] ||= :delete
-
-    args << options
-
-    link_to "<span class=iconic>&#xe05a;</span> #{t('labels.delete')}".html_safe,
-      *args
-  end
-
 end

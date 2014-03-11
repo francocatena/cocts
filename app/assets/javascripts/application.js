@@ -13,5 +13,5 @@
 //= require popover
 //= require project_instances
 //= require autocomplete
-
+//= require bootstrap
 

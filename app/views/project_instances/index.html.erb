@@ -1,7 +1,7 @@
 <div id="showed_data">
 <h4><%= "#{t('activerecord.models.project')}: #{@project.try(:name)}"%></h4>
 </div>
-<table>
+<table class="table table-hover">
   <tr>
     <th><%= ProjectInstance.human_attribute_name :first_name %></th>
     <th><%= ProjectInstance.human_attribute_name :professor_name %></th>
