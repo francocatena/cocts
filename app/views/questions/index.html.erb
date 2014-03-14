@@ -1,16 +1,3 @@
-<%= javascript_include_tag 'pagination' %>
-
-<div id="search_link">
-  <%= link_to t(:'questions.search_questions'), '#', :class => 'search' %>
-</div>
-<div id="search_form" style="display: none;">
-  <%= form_tag questions_path, :method => 'get', :id => "questions_search" do %>
-    <div id="field">
-      <%= text_field_tag :search, params[:search], :autofocus => true %>
-    </div>
-  <% end %>
-</div>
-
 <table class="table table-hover">
   <thead>
     <tr>
