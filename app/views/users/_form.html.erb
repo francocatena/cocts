@@ -1,57 +1,25 @@
-<!--[form:user]-->
-<%= form_for @user do |f| %>
+<%= simple_form_for @user do |f| %>
   <%= f.error_messages %>
-  <div class="one_column_form">
-    <div class="field">
-      <%= f.label :name, 'data-show-popover' => true, 'data-content' =>
-        t(:'users.name_help'), :title => t(:'activerecord.attributes.user.name') %>
-      <%= f.text_field :name, :maxlength => 255, :autofocus => true %>
-    </div>
-    <div class="field">
-      <%= f.label :lastname, 'data-show-popover' => true, 'data-content' =>
-        t(:'users.lastname_help'), :title => t(:'activerecord.attributes.user.lastname') %>
-      <%= f.text_field :lastname, :maxlength => 255 %>
-    </div>
-    <div class="field">
-      <%= f.label :user, 'data-show-popover' => true, 'data-content' => t(:'users.user_help'),
-        :title => t(:'activerecord.attributes.user.user') %>
-      <%= f.text_field :user, :maxlength => 30 %>
-    </div>
-    <div class="field">
-      <%= f.label :password, 'data-show-popover' => true, 'data-content' =>
-        t(:'users.password_help'), :title => t(:'activerecord.attributes.user.password') %>
-      <%= f.password_field :password, :maxlength => 128 %>
-    </div>
-    <div class="field">
-      <%= f.label :password_confirmation, 'data-show-popover' => true, 'data-content' =>
-        t(:'users.password_confirmation_help'), :title => t(:'activerecord.attributes.user.password_confirmation') %>
-      <%= f.password_field :password_confirmation, :maxlength => 128 %>
-    </div>
-    <div class="field">
-      <%= f.label :email, 'data-show-popover' => true, 'data-content' =>
-          t(:'users.email_help'), :title => t(:'activerecord.attributes.user.email') %>
-      <%= f.text_field :email %>
-    </div>
-    <div class="field">
-      <%= f.label :enable, 'data-show-popover' => true, 'data-content' =>
-          t(:'users.enable_help'), :title => t(:'activerecord.attributes.user.enable') %>
-      <%= f.check_box :enable %>
-    </div>
-    <div class="field">
-      <%= f.label :private, 'data-show-popover' => true, 'data-content' =>
-          t(:'users.private_help'), :title => t(:'activerecord.attributes.user.private') %>
-      <%= f.check_box :private %>
-    </div>
-    <div class="field">
-      <%= f.label :admin, 'data-show-popover' => true, 'data-content' =>
-          t(:'users.admin_help'), :title => t(:'activerecord.attributes.user.admin') %>
-      <%= f.check_box :admin %>
-    </div>
+  <div class="form-inputs">
+    <div class="row">
+      <div class="col-md-4">
+        <%= f.input :user, input_html: { maxlength: 30, autofocus: true } %>
+        <%= f.input :name, input_html: { maxlength: 100 } %>
+        <%= f.input :lastname, input_html: { maxlength: 100 } %>
+        <%= f.input :email, input_hltm: { maxlength: 100 } %>
+        <%= f.input :password, input_html: { maxlength: 128 } %>
+        <%= f.input :password_confirmation, input_html: { :maxlength => 128 } %>
+        <%= f.input :admin, label: false, inline_label: true %>
+        <%= f.input :enable, label: false, inline_label: true %>
+        <%= f.input :private, label: false, inline_label: true %>
+      </div>
+   </div>
   </div>
 
+  <hr />
+
   <%= hidden_lock_version(f) %>
-  <div class="actions">
-    <span><%= f.submit %></span>
+  <div class="form-actions form-footer">
+    <%= f.submit class: 'btn btn-primary' %>
   </div>
 <% end %>
-<!--[eoform:user] -->
