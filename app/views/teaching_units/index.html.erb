@@ -1,10 +1,12 @@
 <table class="table table-hover">
-  <tr>
-    <th><%= TeachingUnit.human_attribute_name :title %></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+  <thead>
+    <tr>
+      <th><%= TeachingUnit.human_attribute_name :title %></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
 
 <% @teaching_units.each do |teaching_unit| %>
   <tr class="<%= cycle(:even, :odd) %>">
