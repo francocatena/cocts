@@ -7,7 +7,7 @@ class SubtopicsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @subtopics }
+      format.json { render json: @subtopics }
     end
   end
 
@@ -18,7 +18,7 @@ class SubtopicsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json => @subtopic }
+      format.json { render json: @subtopic }
     end
   end
 
@@ -29,7 +29,7 @@ class SubtopicsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render :json => @subtopic }
+      format.json { render json: @subtopic }
     end
   end
 
@@ -45,11 +45,11 @@ class SubtopicsController < ApplicationController
 
     respond_to do |format|
       if @subtopic.save
-        format.html { redirect_to subtopics_path, :notice => t(:'subtopic.correctly_created') }
-        format.json { render :json => @subtopic, :status => :created, :location => @subtopic }
+        format.html { redirect_to subtopics_path, notice: t('subtopics.correctly_created') }
+        format.json { render json: @subtopic, status: :created, location: @subtopic }
       else
-        format.html { render :action => "new" }
-        format.json { render :json => @subtopic.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.json { render json: @subtopic.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -62,11 +62,11 @@ class SubtopicsController < ApplicationController
 
     respond_to do |format|
       if @subtopic.update_attributes(subtopic_params)
-        format.html { redirect_to @subtopic, :notice => t(:'subtopic.correctly_updated') }
+        format.html { redirect_to @subtopic, notice:  t('subtopics.correctly_updated') }
         format.json { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.json { render :json => @subtopic.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.json { render json: @subtopic.errors, status: :unprocessable_entity }
       end
     end
   end

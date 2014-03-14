@@ -346,7 +346,7 @@
           tb: 'TB'
 
   projects:
-    search_projects: 'Buscar proyectos'
+    search: 'Buscar proyectos'
     global_attitudinal_index_title: 'Índice global actitudinal medio'
     attitudinal_index_category_adecuate: 'Índice actitudinal de categoría adecuada'
     attitudinal_index_category_plausible: 'Índice actitudinal de categoría plausible'
@@ -625,7 +625,7 @@
     question_number: 'Pregunta %{count} de %{total}'
 
   questions:
-    search_questions: 'Buscar cuestiones'
+    search: 'Buscar cuestiones'
     dimension_help: 'Categoría en la cual se encuentra la cuestión.'
     code_help: 'Campo que identifica unívocamente a la cuestión.'
     question_help: 'Texto de la cuestión.'
@@ -676,14 +676,15 @@
       '8': 'Construcción social de la tecnología'
       '9': 'Naturaleza de la ciencia'
 
-  subtopic:
-    search_subtopics: 'Buscar temas/subtemas'
+  subtopics:
+    search: 'Buscar subtemas'
     correctly_created: 'Subtema creado correctamente.'
     correctly_updated: 'Subtema actualizado correctamente.'
     stale_object_error: 'El subtema no pudo ser actualizado, intente nuevamente.'
+    add_new_teaching_unit: 'Agregar secuencia de enseñanza aprendizaje'
 
   teaching_units:
-    search_teaching_units: 'Buscar SEAs'
+    search: 'Buscar SEAs'
     correctly_created: 'Secuencia Enseñanza Aprendizaje creada correctamente.'
     correctly_updated: 'Secuencia Enseñanza Aprendizaje actualizada correctamente.'
     stale_object_error: 'La Secuencia Enseñanza Aprendizaje no pudo ser actualizada, intente nuevamente.'
@@ -704,7 +705,7 @@
     pm: 'pm'
 
   users:
-    search_users: 'Buscar usuarios'
+    search: 'Buscar usuarios'
     new_password_label: 'Nueva contraseña'
     admin_error: 'Usted no cuenta con privilegios de administrador.'
     project_error: 'El usuario no pudo ser eliminado ya que se encuentra asociado a un proyecto.'
@@ -741,6 +742,3 @@
     confirmación.'
     password_correctly_updated: 'Contraseña actualizada correctamente.'
     password_stale_object_error: 'La contraseña no pudo ser actualizada, intente nuevamente.'
-
-  subtopics:
-    add_new_teaching_unit: 'Agregar secuencia de enseñanza aprendizaje'
