@@ -45,7 +45,6 @@
     <%= pagination_links @questions %>
   </div>
   <%= link_to t('labels.new'), new_question_path,
-    class: 'btn btn-primary' %>
-  <%= link_to t('questions.import_csv_file'), import_csv_questions_path,
-    class: 'btn btn-primary' %>
+    class: 'btn btn-primary' %> |
+  <%= link_to t('questions.import_csv_file'), import_csv_questions_path %>
 </div>
