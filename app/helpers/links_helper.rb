@@ -18,8 +18,7 @@ module LinksHelper
   end
 
   def link_to_back
-    link_to '&#x2190;'.html_safe, :back, :class => :iconic,
-      :'data-show-tooltip' => true, :title => t(:'labels.back')
+    link_to t('labels.back'), '#', 'data-event' => 'historyBack'
   end
 
   def remove_item_link(fields = nil, class_for_remove = nil)
