@@ -30,8 +30,8 @@ module ApplicationHelper
   #
   # * _form_:: Formulario que se utilizará para generar el campo oculto
   def hidden_lock_version(form)
-    content_tag :div, form.hidden_field(:lock_version),
-      :style => 'display: none;'
+    content_tag(:div, form.hidden_field(:lock_version),
+      :style => 'display: none;').html_safe
   end
 
   # Devuelve una etiqueta con el mismo nombre que el del objeto para que sea
