@@ -1,18 +1,19 @@
-<div id="showed_data">
-<h4><%= "#{t('activerecord.models.project')}: #{@project.try(:name)}"%></h4>
-</div>
-<table class="table table-hover">
-  <tr>
-    <th><%= ProjectInstance.human_attribute_name :first_name %></th>
-    <th><%= ProjectInstance.human_attribute_name :professor_name %></th>
-    <th><%= ProjectInstance.human_attribute_name :age %></th>
-    <th><%= ProjectInstance.human_attribute_name :genre %></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<h4><%= @project.try(:name) %></h4>
 
-<%  @project_instances.each do |project_instance| %>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th><%= ProjectInstance.human_attribute_name :first_name %></th>
+      <th><%= ProjectInstance.human_attribute_name :professor_name %></th>
+      <th><%= ProjectInstance.human_attribute_name :age %></th>
+      <th><%= ProjectInstance.human_attribute_name :genre %></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+<% @project_instances.each do |project_instance| %>
   <tr class="<%= cycle(:even, :odd) %>">
     <td><%= project_instance.first_name if project_instance.first_name.present?%></td>
     <td><%= project_instance.professor_name  if project_instance.professor_name.present? %></td>
@@ -24,7 +25,12 @@
   </tr>
 <% end %>
 </table>
-<div id="links">
+
+<hr />
+
+<div>
+  <div class="pull-right">
+    <%= pagination_links @project_instances %>
+  </div>
   <%= link_to_back %>
-  <%= pagination_links @project_instances %>
 </div>
