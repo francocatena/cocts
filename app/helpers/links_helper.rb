@@ -74,4 +74,19 @@ module LinksHelper
         content_tag :span, nil, class: "glyphicon #{options.fetch(:icon)}"
       end
     end
+
+  def empty_pagination_links
+    previous_tag = content_tag(
+      :li,
+      content_tag(:a, t('will_paginate.previous_label').html_safe),
+      class: 'previous disabled'
+    )
+    next_tag = content_tag(
+      :li,
+      content_tag(:a, t('will_paginate.next_label').html_safe),
+      class: 'next disabled'
+    )
+
+    content_tag(:ul, previous_tag + next_tag, class: 'pager pull-right')
+  end
 end
