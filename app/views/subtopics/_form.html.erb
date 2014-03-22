@@ -1,44 +1,35 @@
-<div id="form_topics">
-<%= form_for(@subtopic) do |f| %>
+<%= simple_form_for(@subtopic) do |f| %>
   <%= content_for :js_extra do %>
     <%= raw "var teaching_unit='#{escape_javascript(render(:partial => 'teaching_unit',
         :object => TeachingUnit.new, :locals => {:f => f}))}';" %>
   <% end %>
-  <%= f.error_messages %>
-  
-  <div class="field">
-    <%= f.label :code %><br />
-    <%= f.text_field :code, :autofocus => true %>
-  </div>
-  <div class="field">
-    <%= f.label :title %><br />
-    <%= f.text_field :title, :maxlength => 255 %>
-  </div>
- 
-  <div class="items">
-    <div class="column_headers">
-      <div class="item_column" style="width: 90%;">
-        <h3><%= t(:'activerecord.models.teaching_units') %></h3>
-      </div>
-      <div class="item_column" style="width: 10%;"></div>
-      <div style="clear: both;">&nbsp;</div>
-    </div>
-    <div id="teaching_units">
-      <% @subtopic.teaching_units.build if @subtopic.teaching_units.empty? %>
-      <%= render :partial => 'teaching_unit', :collection => @subtopic.teaching_units,
-        :locals => {:f => f} %>
+  <%= f.error_notification %>
+
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.input :code, html_options: { maxlength: 30, autofocus: true } %>
+      <%= f.input :title, html_options: { maxlength: 255 } %>
     </div>
   </div>
 
-  <p class="add_item">
-    <%= link_to t(:'subtopics.add_new_teaching_unit'), '#',
-      :'data-template' => :teaching_unit, :'data-event' => 'addNestedItem',
-      :'data-container' => '#teaching_units', :class => :important_action %>
-  </p>  
+  <h3><%= t('activerecord.models.teaching_units') %></h3>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div id="teaching_units">
+    <% @subtopic.teaching_units.build if @subtopic.teaching_units.empty? %>
+    <%= render :partial => 'teaching_unit', :collection => @subtopic.teaching_units,
+      :locals => {:f => f} %>
+
+    <%= link_to t('subtopics.add_new_teaching_unit'), '#',
+      class: 'btn btn-default btn-sm', data: {
+        template: 'teaching_unit',
+        event: 'addNestedItem',
+        container: '#teaching_units'
+      } %>
+  </div>
+
+  <hr />
+
+  <div class="form-actions form-footer">
+    <%= f.submit class: 'btn btn-primary' %>
   </div>
 <% end %>
-  
-</div>

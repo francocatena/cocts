@@ -1,25 +1,30 @@
 <% id = "#{dynamic_object_id('teaching_unit', f)}_#{teaching_unit.new_record? ? 'NEW_RECORD' : teaching_unit.id}" %>
 <div class="teaching_unit item" id="<%= id %>">
-  <div>
-    <div class="item_field" style="width: 90%; white-space: normal;">
+  <div class="row">
+    <div class="col-md-4">
       <% if teaching_unit.new_record? %>
          <%= hidden_field_tag 'subtopic[teaching_unit_ids][]', teaching_unit.id,
-           :id => "hidden_teaching_unit_#{id}", :class => :autocomplete_id %>
+           id: "hidden_teaching_unit_#{id}", class: :autocomplete_id %>
          <div class="search">
-          <%= f.text_field :nested_teaching_unit,
-            :id => "subtopic_teaching_unit_#{id}", :class => :autocomplete_field,
-            :value => teaching_unit.title,
-            :'data-autocomplete-url' => autocomplete_for_teaching_unit_subtopics_path(:format => :json),
-            :'data-params' => ({:subject_id => @subtopic.id}.to_json unless @subtopic.new_record?),
-            :autofocus => true %>
+          <%= f.input :nested_teaching_unit, as: :string, label: false,
+            input_html: {
+              autofocus: true,
+              id: "subtopic_teaching_unit_#{id}", class: :autocomplete_field,
+              value: teaching_unit.title,
+              data: {
+                'autocomplete-url' => autocomplete_for_teaching_unit_subtopics_path(format: :json),
+                params: ({ subject_id: @subtopic.id}.to_json unless @subtopic.new_record?),
+              }
+            } %>
         </div>
       <% else %>
         <p><strong><%= teaching_unit.title %></strong></p>
-        <%= hidden_field_tag 'subject[teaching_unit_ids][]', teaching_unit.id,
-          :id => :"hidden_teaching_unit_#{id}" %>
+        <%= hidden_field_tag 'subtopic[teaching_unit_ids][]', teaching_unit.id,
+          id: "hidden_teaching_unit_#{id}" %>
       <% end %>
     </div>
-    <div class="item_field item_controls" style="width: 5%;">
+
+    <div class="col-md-4">
       <%= remove_list_item_link(nil, 'teaching_unit') %>
     </div>
   </div>
