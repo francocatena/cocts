@@ -1,5 +1,5 @@
-<%= render 'form' %>
-
-<div id="links">
+<%= content_for :form_actions do %>
   <%= link_to_back %>
-</div>
+<% end %>
+
+<%= render 'form' %>
