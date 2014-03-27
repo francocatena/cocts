@@ -1,15 +1,11 @@
 <div id="form_topics">
-<%= form_for(@teaching_unit) do |f| %>
+<%= simple_form_for(@teaching_unit) do |f| %>
   <%= content_for :js_extra do %>
     <%= raw "var question='#{escape_javascript(render(:partial => 'question',
         :object => Question.new, :locals => {:f => f}))}';" %>
   <% end %>
-  <%= f.error_messages %>
-
-  <div class="field">
-    <%= f.label :title %><br />
-    <%= f.text_field :title, :maxlength => 255, :autofocus => true %>
-  </div>
+  <%= f.error_notification %>
+  <%= f.input :title, input_html: { maxlength: 255, autofocus: true } %>
 
   <div class="items">
     <div class="column_headers">
@@ -21,7 +17,7 @@
       <div style="clear: both;">&nbsp;</div>
     </div>
 
-    <div id="questions">
+   <div id="questions">
       <% @teaching_unit.questions.build if @teaching_unit.questions.empty? %>
       <%= render :partial => 'question', :collection => @teaching_unit.questions,
         :locals => {:f => f} %>
@@ -34,8 +30,11 @@
       :'data-container' => '#questions', :class => :important_action %>
   </p>
 
-  <div class="actions">
-    <%= f.submit %>
+  <hr />
+
+  <div class="form-actions form-footer">
+    <div class="pull-right"><%= yield :form_actions %></div>
+    <%= f.button :submit, class: 'btn btn-primary' %>
   </div>
 <% end %>
 
