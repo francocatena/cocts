@@ -1,23 +1,19 @@
-<!--[form:question]-->
-<%= form_for @question do |q_f| %>
+<%= simple_form_for @question do |q_f| %>
   <%= content_for :js_extra do %>
     <%= raw "var answer='#{generate_template(q_f, :answers)}';" %>
   <% end %>
   <%= q_f.error_messages %>
   <div class="one_column_form">
     <div class="field">
-      <%= q_f.label :dimension %>
-      <%= q_f.select :dimension,
-        Question::DIMENSIONS.map { |d| ["#{d}. #{t(:"questions.dimensions.#{d}")}", d] },
-        {:prompt => true}, {:autofocus => true} %>
+      <%= q_f.input :dimension, collection: Question::DIMENSIONS.map { |d|
+        ["#{d}. #{t(:"questions.dimensions.#{d}")}", d]
+      }, prompt: true, autofocus: true %>
     </div>
     <div class="field">
-      <%= q_f.label :code %>
-      <%= q_f.text_field :code %>
+      <%= q_f.input :code %>
     </div>
     <div class="field">
-      <%= q_f.label :question %>
-      <%= q_f.text_area :question %>
+      <%= q_f.input :question %>
     </div>
   </div>
 
@@ -38,7 +34,7 @@
 
     <div id="answers">
       <% @question.answers.build if @question.answers.empty? %>
-      <%= q_f.fields_for :answers do |a_f| %>
+      <%= q_f.simple_fields_for :answers do |a_f| %>
         <%= render :partial => 'answer', :locals => {:f => a_f} %>
       <% end %>
     </div>
@@ -51,8 +47,12 @@
   </p>
 
   <%= hidden_lock_version(q_f) %>
-  <div class="actions">
-    <span><%= q_f.submit %></span>
+
+  <hr />
+
+  <div class="form-actions form-footer">
+    <div class="pull-right"><%= yield :form_actions %></div>
+    <%= q_f.submit class: 'btn btn-primary' %>
   </div>
 <% end %>
 <!--[eoform:question] -->
