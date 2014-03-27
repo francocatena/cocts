@@ -1,251 +1,246 @@
 <% i18n_scope = [:projects, :questionnaire] %>
-<div id="showed_data">
-  <p>
-    <b><%= ProjectInstance.human_attribute_name :name %>:</b>
-    <%= @project_instance.name %>
-  </p>
 
-  <p>
-    <b><%= ProjectInstance.human_attribute_name :identifier %>:</b>
-    <%= @project_instance.identifier %>
-  </p>
+<p>
+  <strong><%= ProjectInstance.human_attribute_name :name %>:</strong>
+  <%= @project_instance.name %>
+</p>
 
-  <p>
-    <b><%= ProjectInstance.human_attribute_name :description %>:</b>
-    <%= @project_instance.description %>
-  </p>
+<p>
+  <strong><%= ProjectInstance.human_attribute_name :identifier %>:</strong>
+  <%= @project_instance.identifier %>
+</p>
 
-  <p>
-    <b><%= ProjectInstance.human_attribute_name :year %>:</b>
-    <%= @project_instance.year %>
-  </p>
+<p>
+  <strong><%= ProjectInstance.human_attribute_name :description %>:</strong>
+  <%= @project_instance.description %>
+</p>
 
-  <p>
-    <b><%= ProjectInstance.human_attribute_name :project_type %>:</b>
-    <%= @project_instance.project_type_text %>
-  </p>
+<p>
+  <strong><%= ProjectInstance.human_attribute_name :year %>:</strong>
+  <%= @project_instance.year %>
+</p>
 
-  <p>
-    <b><%= ProjectInstance.human_attribute_name :valid_until %>:</b>
-    <%= l(@project_instance.valid_until, :format => :long) if @project_instance.valid_until %>
-  </p>
+<p>
+  <strong><%= ProjectInstance.human_attribute_name :project_type %>:</strong>
+  <%= @project_instance.project_type_text %>
+</p>
 
-  <% unless @project_instance.first_name.blank? %>
+<p>
+  <strong><%= ProjectInstance.human_attribute_name :valid_until %>:</strong>
+  <%= l(@project_instance.valid_until, :format => :long) if @project_instance.valid_until %>
+</p>
+
+<% unless @project_instance.first_name.blank? %>
   <p>
-    <b><%= ProjectInstance.human_attribute_name :first_name %>:</b>
+    <strong><%= ProjectInstance.human_attribute_name :first_name %>:</strong>
     <%= @project_instance.first_name %>
   </p>
-  <% end %>
+<% end %>
 
-  <% unless @project_instance.professor_name.blank?  %>
+<% unless @project_instance.professor_name.blank?  %>
   <p>
-    <b><%= ProjectInstance.human_attribute_name :professor_name %>:</b>
+    <strong><%= ProjectInstance.human_attribute_name :professor_name %>:</strong>
     <%= @project_instance.professor_name %>
   </p>
-  <% end %>
+<% end %>
 
-  <% unless @project_instance.group_name.blank?  %>
+<% unless @project_instance.group_name.blank?  %>
   <p>
-    <b><%= ProjectInstance.human_attribute_name :group_name %>:</b>
+    <strong><%= ProjectInstance.human_attribute_name :group_name %>:</strong>
     <%= @project_instance.group_name %>
   </p>
-  <% end %>
+<% end %>
 
-  <% unless @project_instance.group_type.blank?  %>
+<% unless @project_instance.group_type.blank?  %>
   <p>
-    <b><%= ProjectInstance.human_attribute_name :group_type %>:</b>
+    <strong><%= ProjectInstance.human_attribute_name :group_type %>:</strong>
     <%= t(:"projects.questionnaire.group_type.options.#{@project_instance.group_type}") %>
   </p>
-  <% end %>
+<% end %>
 
-  <% unless @project_instance.email.blank?  %>
+<% unless @project_instance.email.blank?  %>
   <p>
-    <b><%= ProjectInstance.human_attribute_name :email %>:</b>
+    <strong><%= ProjectInstance.human_attribute_name :email %>:</strong>
     <%= @project_instance.email %>
   </p>
-  <% end %>
+<% end %>
 
-  <h1 style="margin-top: 1em;"><%= t(:presentation, :scope => i18n_scope) %></h1>
-  <p><%= t(:presentation_text, :scope => i18n_scope) %></p>
-  <% i18n_scope << :scale_table %>
-  <table class="grid full_width" style="margin: 1em 0em;">
-    <thead>
-      <tr>
-        <th colspan="4"><%= t(:disagreement_title, :scope => i18n_scope) %></th>
-        <th><%= t(:undecided_title, :scope => i18n_scope) %></th>
-        <th colspan="4"><%= t(:in_agreement_title, :scope => i18n_scope) %></th>
-        <th colspan="2"><%= t(:others_title, :scope => i18n_scope) %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <% i18n_scope << :disagreement %>
+<h1><%= t(:presentation, :scope => i18n_scope) %></h1>
+
+<p><%= t(:presentation_text, :scope => i18n_scope) %></p>
+
+<% i18n_scope << :scale_table %>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th colspan="4"><%= t(:disagreement_title, :scope => i18n_scope) %></th>
+      <th><%= t(:undecided_title, :scope => i18n_scope) %></th>
+      <th colspan="4"><%= t(:in_agreement_title, :scope => i18n_scope) %></th>
+      <th colspan="2"><%= t(:others_title, :scope => i18n_scope) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <% i18n_scope << :disagreement %>
         <% [:'1', :'2', :'3', :'4'].each do |opt| %>
-          <td><%= t(opt, :scope => i18n_scope) %></td>
-        <% end %>
-        <% i18n_scope[-1] = :undecided %>
-        <% [:'5'].each do |opt| %>
-          <td><%= t(opt, :scope => i18n_scope) %></td>
-        <% end %>
-        <% i18n_scope[-1] = :in_agreement %>
-        <% [:'6', :'7', :'8', :'9'].each do |opt| %>
-          <td><%= t(opt, :scope => i18n_scope) %></td>
-        <% end %>
-        <% i18n_scope[-1] = :others %>
-        <% [:'E', :'S'].each do |opt| %>
-          <td><%= t(opt, :scope => i18n_scope) %></td>
-        <% end %>
-      </tr>
-      <tr>
-        <% ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'E', 'S'].each do |opt| %>
-          <td><%= opt %></td>
-        <% end %>
-      </tr>
-    </tbody>
-  </table>
-  <% i18n_scope.slice!(-2, 2) %>
-  <%= raw textilize(t(:scale_clarification, :scope => i18n_scope)) %>
-  <%= render 'projects/answer_example' %>
+        <td><%= t(opt, :scope => i18n_scope) %></td>
+      <% end %>
+      <% i18n_scope[-1] = :undecided %>
+      <% [:'5'].each do |opt| %>
+        <td><%= t(opt, :scope => i18n_scope) %></td>
+      <% end %>
+      <% i18n_scope[-1] = :in_agreement %>
+      <% [:'6', :'7', :'8', :'9'].each do |opt| %>
+        <td><%= t(opt, :scope => i18n_scope) %></td>
+      <% end %>
+      <% i18n_scope[-1] = :others %>
+      <% [:'E', :'S'].each do |opt| %>
+        <td><%= t(opt, :scope => i18n_scope) %></td>
+      <% end %>
+    </tr>
+    <tr>
+      <% ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'E', 'S'].each do |opt| %>
+        <td><%= opt %></td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
 
-  <h2 style="margin: 1em 0em; font-weight: normal;">
-    <%= textilize_without_paragraph t(:sociodemographic_forms_title_instance,
-      :scope => i18n_scope) %>
-  </h2>
+<% i18n_scope.slice!(-2, 2) %>
+<%= raw textilize(t(:scale_clarification, :scope => i18n_scope)) %>
+<%= render 'projects/answer_example' %>
 
+<h2><%= textilize_without_paragraph t(:sociodemographic_forms_title_instance,
+      :scope => i18n_scope) %></h2>
+
+<p>
+  <strong><%= t('projects.sociodemographic_forms.name.option') %>:</strong>
+  <%= @project_instance.first_name %>
+</p>
+
+<% unless @project_instance.professor_name.blank?  %>
   <p>
-    <b><%= t('projects.sociodemographic_forms.name.option') %>:</b>
-    <%= @project_instance.first_name %>
-  </p>
-
-  <% unless @project_instance.professor_name.blank?  %>
-  <p>
-    <b><%= t('projects.sociodemographic_forms.professor_name.option') %>:</b>
+    <strong><%= t('projects.sociodemographic_forms.professor_name.option') %>:</strong>
     <%= @project_instance.professor_name %>
   </p>
-  <% end %>
+<% end %>
 
-  <% unless @project_instance.country.blank?  %>
+<% unless @project_instance.country.blank?  %>
   <p>
-    <b><%= t('projects.sociodemographic_forms.country.option') %>:</b>
+    <strong><%= t('projects.sociodemographic_forms.country.option') %>:</strong>
     <%= @project_instance.country %>
   </p>
-  <% end %>
+<% end %>
 
-  <% unless @project_instance.age.blank? %>
+<% unless @project_instance.age.blank? %>
   <p>
-    <b><%= t('projects.sociodemographic_forms.age.option') %>:</b>
+    <strong><%= t('projects.sociodemographic_forms.age.option') %>:</strong>
     <%= @project_instance.age %>
   </p>
-  <% end %>
+<% end %>
 
-  <% unless @project_instance.genre.blank?  %>
+<% unless @project_instance.genre.blank?  %>
   <p>
-    <b><%= t('projects.sociodemographic_forms.genre.option') %>:</b>
+    <strong><%= t('projects.sociodemographic_forms.genre.option') %>:</strong>
     <%= t("projects.questionnaire.genre.options.#{@project_instance.genre}") %>
   </p>
-  <% end %>
+<% end %>
 
-  <% unless @project_instance.student_status.blank?  %>
+<% unless @project_instance.student_status.blank?  %>
   <p>
-    <b><%= t('projects.sociodemographic_forms.student.option') %>:</b>
+    <strong><%= t('projects.sociodemographic_forms.student.option') %>:</strong>
     <%= t("projects.questionnaire.student.options.#{@project_instance.student_status}") %>
   </p>
-  <% end %>
+<% end %>
 
-  <% unless @project_instance.teacher_status.blank?  %>
+<% unless @project_instance.teacher_status.blank?  %>
   <p>
-    <b><%= t('projects.sociodemographic_forms.teacher.option') %>:</b>
+    <strong><%= t('projects.sociodemographic_forms.teacher.option') %>:</strong>
     <%= t("projects.questionnaire.teacher.options.#{@project_instance.teacher_status}") %>
   </p>
-  <% end %>
+<% end %>
 
-  <% if @project_instance.teacher_status.present? && @project_instance.teacher_status!="not_a_teacher" %>
+<% if @project_instance.teacher_status.present? && @project_instance.teacher_status!="not_a_teacher" %>
   <p>
-    <b><%= t('projects.sociodemographic_forms.teacher_level.option') %>:</b>
+    <strong><%= t('projects.sociodemographic_forms.teacher_level.option') %>:</strong>
     <%= t("projects.questionnaire.teacher_level.options.#{@project_instance.teacher_level}") %>
   </p>
-  <% end %>
+<% end %>
 
-  <% unless @project_instance.degree.blank?  %>
+<% unless @project_instance.degree.blank?  %>
   <p>
-    <b><%= t('projects.sociodemographic_forms.degree.option') %>:</b>
+    <strong><%= t('projects.sociodemographic_forms.degree.option') %>:</strong>
     <%= t("projects.questionnaire.degree.options.#{@project_instance.degree}") %>
   </p>
-  <% end %>
+<% end %>
 
-  <% if @project_instance.degree_school.present? %>
-    <strong><%= t('projects.sociodemographic_forms.degrees.option') %>: </strong>
-  <div class="field_indent">
-    <p>
-      <b><%= t('projects.sociodemographic_forms.degree_school.option') %>:</b>
-      <%= t("projects.sociodemographic_forms.degree_school.options.#{@project_instance.degree_school}") %>
-  </p>
-  </div>
-  <% end %>
-
-  <% if @project_instance.degree_university.present? %>
-  <div class="field_indent">
-    <p>
-      <b><%= t('projects.sociodemographic_forms.degree_university.option') %>:</b>
-      <%= t("projects.sociodemographic_forms.degree_university.options.#{@project_instance.degree_university}") %>
-    </p>
-  </div>
-  <% end %>
-
-  <% if @project_instance.study_subjects_different.present? %>
+<% if @project_instance.degree_school.present? %>
+  <strong><%= t('projects.sociodemographic_forms.degrees.option') %>: </strong>
   <p>
-    <b><%= t('projects.sociodemographic_forms.study_subjects_different.option') %>:</b>
+    <strong><%= t('projects.sociodemographic_forms.degree_school.option') %>:</strong>
+    <%= t("projects.sociodemographic_forms.degree_school.options.#{@project_instance.degree_school}") %>
+  </p>
+<% end %>
+
+<% if @project_instance.degree_university.present? %>
+  <p>
+    <strong><%= t('projects.sociodemographic_forms.degree_university.option') %>:</strong>
+    <%= t("projects.sociodemographic_forms.degree_university.options.#{@project_instance.degree_university}") %>
+  </p>
+<% end %>
+
+<% if @project_instance.study_subjects_different.present? %>
+  <p>
+    <strong><%= t('projects.sociodemographic_forms.study_subjects_different.option') %>:</strong>
     <%= @project_instance.study_subjects_different %>
   </p>
-  <% end %>
+<% end %>
 
-  <% if @project_instance.study_subjects.present? %>
+<% if @project_instance.study_subjects.present? %>
   <p>
-    <b><%= t('projects.sociodemographic_forms.study_subjects.option') %>:</b>
+    <strong><%= t('projects.sociodemographic_forms.study_subjects.option') %>:</strong>
     <%= t("projects.sociodemographic_forms.study_subjects.options.#{@project_instance.study_subjects}") %>
   </p>
-  <% end %>
+<% end %>
 
-  <% if @project_instance.study_subjects_choose.present? %>
+<% if @project_instance.study_subjects_choose.present? %>
   <p>
-    <b><%= t('projects.sociodemographic_forms.study_subjects_choose.option') %>:</b>
+    <strong><%= t('projects.sociodemographic_forms.study_subjects_choose.option') %>:</strong>
     <%= t("projects.sociodemographic_forms.study_subjects_choose.options.#{@project_instance.study_subjects_choose}") %>
   </p>
-  <% end %>
+<% end %>
 
-  <% if @project_instance.educational_center_name.present? %>
+<% if @project_instance.educational_center_name.present? %>
   <p>
-    <b><%= t('projects.sociodemographic_forms.educational_center_name.option') %>:</b>
+    <strong><%= t('projects.sociodemographic_forms.educational_center_name.option') %>:</strong>
     <%= @project_instance.educational_center_name %>
   </p>
-  <% end %>
+<% end %>
 
-  <% if @project_instance.educational_center_city.present? %>
+<% if @project_instance.educational_center_city.present? %>
   <p>
-    <b><%= t('projects.sociodemographic_forms.educational_center_city.option') %>:</b>
+    <strong><%= t('projects.sociodemographic_forms.educational_center_city.option') %>:</strong>
     <%= @project_instance.educational_center_city %>
   </p>
+<% end %>
+
+<h2><%= Project.human_attribute_name :questions %></h2>
+<ul>
+  <% @project_instance.question_instances.each do |qi| %>
+    <li><strong><%= qi.question_text %></strong></li>
+
+    <% unless qi.answer_instances.empty?  %>
+      <% qi.answer_instances.each do |ai| %>
+        <%= "#{ai.valuation} - #{ai.answer_text}" %>
+      <% end %>
+    <% end %>
   <% end %>
+</ul>
 
-  <div class="questions">
-    <h2><%= Project.human_attribute_name :questions %></h2>
-      <ul class="raw_list">
-        <% @project_instance.question_instances.each do |qi| %>
-          <li><strong><%= qi.question_text %></strong></li>
+<hr />
 
-         <% unless qi.answer_instances.empty?  %>
-          <% qi.answer_instances.each do |ai| %>
-            <div class ="answer_instance">
-              <%= "#{ai.valuation} - #{ai.answer_text}" %>
-            </div>
-          <% end %>
-        <% end %>
-
-       <% end %>
-      </ul>
-  </div>
-  <%= link_to_back %>
-  <%= link_to t('labels.edit'), edit_project_instance_path(@project_instance), :class => :real%> |
-  <%= link_to t('labels.download'), project_instance_path(@project_instance, :format => :pdf),
-    :class => :real %>
+<div class="form-footer">
+  <%= link_to_back %> |
+  <%= link_to t('labels.edit'), edit_project_instance_path(@project_instance) %> |
+  <%= link_to t('labels.download'), project_instance_path(@project_instance, :format => :pdf) %>
 </div>
