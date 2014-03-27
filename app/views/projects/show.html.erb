@@ -1,144 +1,139 @@
 <% i18n_scope = [:projects, :questionnaire] %>
-<div id="showed_data">
-  <p>
-    <b><%= Project.human_attribute_name :name %>:</b>
-    <%= @project.name %>
-  </p>
 
-  <p>
-    <b><%= Project.human_attribute_name :identifier %>:</b>
-    <%= @project.identifier %>
-  </p>
+<p>
+  <strong><%= Project.human_attribute_name :name %>:</strong>
+  <%= @project.name %>
+</p>
 
-  <p>
-    <b><%= Project.human_attribute_name :description %>:</b>
-    <%= @project.description %>
-  </p>
+<p>
+  <strong><%= Project.human_attribute_name :identifier %>:</strong>
+  <%= @project.identifier %>
+</p>
 
-  <p>
-    <b><%= Project.human_attribute_name :year %>:</b>
-    <%= @project.year %>
-  </p>
+<p>
+  <strong><%= Project.human_attribute_name :description %>:</strong>
+  <%= @project.description %>
+</p>
 
-  <p>
-    <b><%= Project.human_attribute_name :group_name %>:</b>
-    <%= @project.group_name %>
-  </p>
+<p>
+  <strong><%= Project.human_attribute_name :year %>:</strong>
+  <%= @project.year %>
+</p>
 
-  <p>
-    <b><%= Project.human_attribute_name :group_type %>:</b>
-    <%= @project.project_group_type_text %>
-  </p>
+<p>
+  <strong><%= Project.human_attribute_name :group_name %>:</strong>
+  <%= @project.group_name %>
+</p>
 
-  <p>
-    <b><%= Project.human_attribute_name :project_type %>:</b>
-    <%= @project.project_type_text %>
-  </p>
+<p>
+  <strong><%= Project.human_attribute_name :group_type %>:</strong>
+  <%= @project.project_group_type_text %>
+</p>
 
-  <p>
-    <b><%= Project.human_attribute_name :test_type %>:</b>
-    <%= @project.project_test_type_text %>
-  </p>
+<p>
+  <strong><%= Project.human_attribute_name :project_type %>:</strong>
+  <%= @project.project_type_text %>
+</p>
 
-  <p>
-    <b><%= Project.human_attribute_name :valid_until %>:</b>
-    <%= l(@project.valid_until, :format => :long) if @project.valid_until %>
-  </p>
+<p>
+  <strong><%= Project.human_attribute_name :test_type %>:</strong>
+  <%= @project.project_test_type_text %>
+</p>
 
-  <h1 style="margin-top: 1em;"><%= t(:presentation, :scope => i18n_scope) %></h1>
-  <p><%= t(:presentation_text, :scope => i18n_scope) %></p>
-  <% i18n_scope << :scale_table %>
-  <table class="grid full_width" style="margin: 1em 0em;">
-    <thead>
-      <tr>
-        <th colspan="4"><%= t(:disagreement_title, :scope => i18n_scope) %></th>
-        <th><%= t(:undecided_title, :scope => i18n_scope) %></th>
-        <th colspan="4"><%= t(:in_agreement_title, :scope => i18n_scope) %></th>
-        <th colspan="2"><%= t(:others_title, :scope => i18n_scope) %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <% i18n_scope << :disagreement %>
-        <% [:'1', :'2', :'3', :'4'].each do |opt| %>
-          <td><%= t(opt, :scope => i18n_scope) %></td>
-        <% end %>
-        <% i18n_scope[-1] = :undecided %>
-        <% [:'5'].each do |opt| %>
-          <td><%= t(opt, :scope => i18n_scope) %></td>
-        <% end %>
-        <% i18n_scope[-1] = :in_agreement %>
-        <% [:'6', :'7', :'8', :'9'].each do |opt| %>
-          <td><%= t(opt, :scope => i18n_scope) %></td>
-        <% end %>
-        <% i18n_scope[-1] = :others %>
-        <% [:'E', :'S'].each do |opt| %>
-          <td><%= t(opt, :scope => i18n_scope) %></td>
-        <% end %>
-      </tr>
-      <tr>
-        <% ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'E', 'S'].each do |opt| %>
-          <td><%= opt %></td>
-        <% end %>
-      </tr>
-    </tbody>
-  </table>
-  <% i18n_scope.slice!(-2, 2) %>
-  <%= raw textilize(t(:scale_clarification, :scope => i18n_scope)) %>
-  <%= render 'answer_example' %>
+<p>
+  <strong><%= Project.human_attribute_name :valid_until %>:</strong>
+  <%= l(@project.valid_until, :format => :long) if @project.valid_until %>
+</p>
 
-  <h2 style="margin: 1em 0em; font-weight: normal;">
-    <%= textilize_without_paragraph t(:sociodemographic_forms_title,
-      :scope => i18n_scope) %>
-  </h2>
-
-  <% unless @project.forms.empty? %>
-    <% @project.forms.each do |form| %>
-      <div class="project_form_part"><%= render form %></div>
-    <% end %>
-  <% end %>
-
-  <% unless @project.teaching_units.empty? %>
-    <h2><%= t('activerecord.models.teaching_units') %></h2>
-
-    <% @project.teaching_units.each do |teaching_unit| %>
-      <% subtopic = teaching_unit.subtopic  %>
-      <h3><%= teaching_unit.title %>:</h3>
-      <% unless subtopic.blank? %>
-        <h4><%= "#{t'activerecord.models.subtopic'}: #{subtopic.code}-
-          #{subtopic.title}" %></h4>
+<h1 style="margin-top: 1em;"><%= t(:presentation, :scope => i18n_scope) %></h1>
+<p><%= t(:presentation_text, :scope => i18n_scope) %></p>
+<% i18n_scope << :scale_table %>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th colspan="4"><%= t(:disagreement_title, :scope => i18n_scope) %></th>
+      <th><%= t(:undecided_title, :scope => i18n_scope) %></th>
+      <th colspan="4"><%= t(:in_agreement_title, :scope => i18n_scope) %></th>
+      <th colspan="2"><%= t(:others_title, :scope => i18n_scope) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <% i18n_scope << :disagreement %>
+      <% [:'1', :'2', :'3', :'4'].each do |opt| %>
+        <td><%= t(opt, :scope => i18n_scope) %></td>
       <% end %>
+      <% i18n_scope[-1] = :undecided %>
+      <% [:'5'].each do |opt| %>
+        <td><%= t(opt, :scope => i18n_scope) %></td>
+      <% end %>
+      <% i18n_scope[-1] = :in_agreement %>
+      <% [:'6', :'7', :'8', :'9'].each do |opt| %>
+        <td><%= t(opt, :scope => i18n_scope) %></td>
+      <% end %>
+      <% i18n_scope[-1] = :others %>
+      <% [:'E', :'S'].each do |opt| %>
+        <td><%= t(opt, :scope => i18n_scope) %></td>
+      <% end %>
+    </tr>
+    <tr>
+      <% ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'E', 'S'].each do |opt| %>
+        <td><%= opt %></td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
 
-      <h4><%= Project.human_attribute_name :questions %></h4>
+<% i18n_scope.slice!(-2, 2) %>
+<%= raw textilize(t(:scale_clarification, :scope => i18n_scope)) %>
+<%= render 'answer_example' %>
 
-        <% teaching_unit.questions.each do |question| %>
-          <div class="questions">
-            <ul class="raw_list">
-              <li><strong><%= question.code %></strong> - <%= question.question %></li>
-            </ul>
-          </div>
-        <% end %>
-   <% end %>
-  <% else %>
-    <div class="questions">
-      <h2><%= Project.human_attribute_name :questions %></h2>
-      <ul class="raw_list">
-        <% @project.questions.each do |question| %>
-          <li><strong><%= question.code %></strong> - <%= question.question %></li>
-        <% end %>
-      </ul>
-    </div>
+<h2>
+  <%= textilize_without_paragraph t(:sociodemographic_forms_title,
+    :scope => i18n_scope) %>
+</h2>
+
+<% unless @project.forms.empty? %>
+  <% @project.forms.each do |form| %>
+    <div class="project_form_part"><%= render form %></div>
   <% end %>
+<% end %>
 
-  <div id="links">
-    <%= link_to_back %>
-    <%= link_to t('labels.edit'), edit_project_path(@project), :class => :real %> |
-    <%= link_to t('labels.download'), project_path(@project, :format => :pdf),
-      :class => :real %> |
-    <% if @project.project_instances.present? %>
-      <%= link_to t('labels.rates'), pdf_rates_project_path(@project, :format => :pdf),
-        :class => :real %> |
+<% unless @project.teaching_units.empty? %>
+  <h2><%= t('activerecord.models.teaching_units') %></h2>
+
+  <% @project.teaching_units.each do |teaching_unit| %>
+    <% subtopic = teaching_unit.subtopic  %>
+    <h3><%= teaching_unit.title %>:</h3>
+    <% unless subtopic.blank? %>
+      <h4><%= "#{t'activerecord.models.subtopic'}: #{subtopic.code}-
+        #{subtopic.title}" %></h4>
     <% end %>
-    <%= link_to t('labels.list'), projects_path, :class => :real %>
-  </div>
+
+    <h4><%= Project.human_attribute_name :questions %></h4>
+      <% teaching_unit.questions.each do |question| %>
+        <ul class="raw_list">
+          <li><strong><%= question.code %></strong> - <%= question.question %></li>
+        </ul>
+      <% end %>
+ <% end %>
+<% else %>
+  <h2><%= Project.human_attribute_name :questions %></h2>
+  <ul>
+    <% @project.questions.each do |question| %>
+      <li><strong><%= question.code %></strong> - <%= question.question %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<hr />
+
+<div class="form-footer">
+  <%= link_to_back %> |
+  <%= link_to t('labels.edit'), edit_project_path(@project) %> |
+  <%= link_to t('labels.download'), project_path(@project, :format => :pdf) %> |
+  <% if @project.project_instances.present? %>
+    <%= link_to t('labels.rates'), pdf_rates_project_path(@project, :format => :pdf) %> |
+  <% end %>
+  <%= link_to t('labels.list'), projects_path %>
 </div>
