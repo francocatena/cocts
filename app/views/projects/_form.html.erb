@@ -115,7 +115,8 @@
 
   <hr />
 
-  <div class="form-actions form-submit">
+  <div class="form-actions form-footer">
+    <div class="pull-right"><%= yield :form_actions %></div>
     <%= f.submit class: 'btn btn-primary' %>
   </div>
   </div>
