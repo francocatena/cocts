@@ -1,41 +1,37 @@
-<div id="showed_data">
-  <p>
-    <b><%= User.human_attribute_name 'user' %>:</b>
-    <%= @user.user %>
-  </p>
+<h2><%= @user.user %></h2>
 
-  <p>
-    <b><%= User.human_attribute_name 'name' %>:</b>
-    <%= @user.name %>
-  </p>
+<p>
+  <strong><%= User.human_attribute_name 'name' %>:</strong>
+  <%= @user.name %>
+</p>
 
-  <p>
-    <b><%= User.human_attribute_name 'lastname' %>:</b>
-    <%= @user.lastname %>
-  </p>
+<p>
+  <strong><%= User.human_attribute_name 'lastname' %>:</strong>
+  <%= @user.lastname %>
+</p>
 
-  <p>
-    <b><%= User.human_attribute_name 'enable' %>:</b>
-    <%=t @user.enable ? :'labels.yes' : :'labels.no' %>
-  </p>
+<p>
+  <strong><%= User.human_attribute_name 'enable' %>:</strong>
+  <%= t @user.enable ? :'labels.yes' : :'labels.no' %>
+</p>
 
-  <p>
-    <b><%= User.human_attribute_name 'private' %>:</b>
-    <%=t @user.private ? :'labels.yes' : :'labels.no' %>
-  </p>  
-  <p>
-    <b><%= User.human_attribute_name 'admin' %>:</b>
-    <%=t @user.admin ? :'labels.yes' : :'labels.no' %>
-  </p>
+<p>
+  <strong><%= User.human_attribute_name 'private' %>:</strong>
+  <%= t @user.private ? :'labels.yes' : :'labels.no' %>
+</p>
 
-  <p>
-    <b><%= User.human_attribute_name 'email' %>:</b>
-    <%= @user.email %>
-  </p>
-</div>
+<p>
+  <strong><%= User.human_attribute_name 'admin' %>:</strong>
+  <%= t @user.admin ? :'labels.yes' : :'labels.no' %>
+</p>
 
-<div id="links">
-  <%= link_to_back %>
-  <%= link_to t(:'labels.edit'), edit_user_path(@user), :class => :real %> |
-  <%= link_to t(:'labels.list'), users_path, :class => :real %>
-</div>
+<p>
+  <strong><%= User.human_attribute_name 'email' %>:</strong>
+  <%= @user.email %>
+</p>
+
+<hr />
+
+<%= link_to_back %> |
+<%= link_to t('labels.edit'), edit_user_path(@user) %> |
+<%= link_to t('labels.list'), users_path %>
