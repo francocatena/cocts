@@ -1,7 +1,7 @@
-<%= render 'form' %>
 <% if request.subdomains.first == 'admin' %>
-<div id="links">
-  <%= link_to_back %>
-</div>
+  <%= content_for :form_actions do %>
+    <%= link_to_back %>
+  <% end %>
 <% end %>
 
+<%= render 'form' %>
