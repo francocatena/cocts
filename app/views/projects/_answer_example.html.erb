@@ -1,16 +1,17 @@
 <% i18n_scope = [:projects, :questionnaire, :answer_example] %>
-<div class="box">
-  <h3><%= t(:title, :scope => i18n_scope) %></h3>
-  <p><%= t(:clarification, :scope => i18n_scope) %></p>
-  <h4 class="question"><%= t(:question, :scope => i18n_scope) %></h4>
-  <ul class="answers">
-    <% i18n_scope << :answers %>
-    <li><em>1</em> <b>A.</b> <%= t(:A, :scope => i18n_scope) %></li>
-    <li><em>6</em> <b>B.</b> <%= t(:B, :scope => i18n_scope) %></li>
-    <li><em>8</em> <b>C.</b> <%= t(:C, :scope => i18n_scope) %></li>
-    <li><em>9</em> <b>D.</b> <%= t(:D, :scope => i18n_scope) %></li>
-    <li><em>7</em> <b>E.</b> <%= t(:E, :scope => i18n_scope) %></li>
-    <li><em>8</em> <b>F.</b> <%= t(:F, :scope => i18n_scope) %></li>
-    <li><em>2</em> <b>G.</b> <%= t(:G, :scope => i18n_scope) %></li>
-  </ul>
-</div>
+
+<h3><%= t(:title, :scope => i18n_scope) %></h3>
+
+<p><%= t(:clarification, :scope => i18n_scope) %></p>
+
+<h4><%= t(:question, :scope => i18n_scope) %></h4>
+
+<% i18n_scope << :answers %>
+
+<em>1</em> <b>A.</b> <%= t(:A, :scope => i18n_scope) %><br />
+<em>6</em> <b>B.</b> <%= t(:B, :scope => i18n_scope) %><br />
+<em>8</em> <b>C.</b> <%= t(:C, :scope => i18n_scope) %><br />
+<em>9</em> <b>D.</b> <%= t(:D, :scope => i18n_scope) %><br />
+<em>7</em> <b>E.</b> <%= t(:E, :scope => i18n_scope) %><br />
+<em>8</em> <b>F.</b> <%= t(:F, :scope => i18n_scope) %><br />
+<em>2</em> <b>G.</b> <%= t(:G, :scope => i18n_scope) %><br />

@@ -65,8 +65,9 @@
   </p>
 <% end %>
 
-<h1><%= t(:presentation, :scope => i18n_scope) %></h1>
+<br />
 
+<h2><%= t(:presentation, :scope => i18n_scope) %></h2>
 <p><%= t(:presentation_text, :scope => i18n_scope) %></p>
 
 <% i18n_scope << :scale_table %>
@@ -110,7 +111,9 @@
 <%= raw textilize(t(:scale_clarification, :scope => i18n_scope)) %>
 <%= render 'projects/answer_example' %>
 
-<h2><%= textilize_without_paragraph t(:sociodemographic_forms_title_instance,
+<br />
+
+<h2><%= t(:sociodemographic_forms_title_instance,
       :scope => i18n_scope) %></h2>
 
 <p>
@@ -224,7 +227,8 @@
   </p>
 <% end %>
 
-<h2><%= Project.human_attribute_name :questions %></h2>
+<h3><%= Project.human_attribute_name :questions %></h3>
+
 <ul>
   <% @project_instance.question_instances.each do |qi| %>
     <li><strong><%= qi.question_text %></strong></li>
