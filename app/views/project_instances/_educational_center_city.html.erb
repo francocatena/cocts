@@ -1,6 +1,2 @@
-<strong>
-  <%= t(:question, :scope => [:projects, :sociodemographic_forms, 
-      :educational_center_city]) %>
-</strong>
-<%= text_field_tag 'project_instance[educational_center_city]', 
-  @project_instance.educational_center_city %>
+<%= f.input :educational_center_city, html_options: {
+      value:  @project_instance.educational_center_city } %>
