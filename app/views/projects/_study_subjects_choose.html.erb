@@ -2,15 +2,12 @@
 <strong>
   <%= t(:question, :scope => [:projects, :sociodemographic_forms, :study_subjects_choose]) %>
 </strong>
-<ul class="horizontal_list">
-  <% STUDY_SUBJECTS_CHOOSE.each_with_index do |study, i| %>
-    <% study_id = :"#{study}_study_subjects_choose" %>
-    <li>
-      <%= radio_button_tag :study_subjects_choose, study, false, :id => study_id %>
-      <label for="<%= study_id %>">
-        <%= t(study, :scope => i18n_scope) %>
-      </label>
-    </li>
-    <br>
-  <% end %>
-</ul>
+
+<% STUDY_SUBJECTS_CHOOSE.each_with_index do |study, i| %>
+  <% study_id = :"#{study}_study_subjects_choose" %>
+  <%= radio_button_tag :study_subjects_choose, study, false, :id => study_id %>
+  <label for="<%= study_id %>">
+    <%= t(study, :scope => i18n_scope) %>
+  </label>
+  <br>
+<% end %>

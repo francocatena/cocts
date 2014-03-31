@@ -1,27 +1,17 @@
 <% i18n_scope = [:projects, :sociodemographic_forms, :degree_school, :options] %>
 
-<div class="field">   
-  <strong><%= t(:'projects.sociodemographic_forms.degrees.question') %></strong>
-</div>
+<strong><%= t('projects.sociodemographic_forms.degrees.question') %></strong>
 
-<div class ="field_degree">
-  <strong>
-    <%= t(:'projects.sociodemographic_forms.degree_school.question') %>
-  </strong>
-</div>
-<ul class="horizontal_list">
-  <% DEGREES_SCHOOL.each_with_index do |degree, i| %>
-    <% degree_school_id = i %>
-    <% if i == 0 %>
-      <strong><%= t(:'projects.sociodemographic_forms.degree_school.courses') %>: </strong>
-    <% end %>
-    <li>
-      <%= radio_button_tag :degree_shool, i, false, :id => degree_school_id %>
-      <label for="<%= degree_school_id %>">
-         <%= t(degree, :scope => i18n_scope) %>
-      </label>
-    </li>
+<strong> <%= t('projects.sociodemographic_forms.degree_school.question') %></strong>
+
+<% DEGREES_SCHOOL.each_with_index do |degree, i| %>
+  <% degree_school_id = i %>
+  <% if i == 0 %>
+    <strong><%= t('projects.sociodemographic_forms.degree_school.courses') %>: </strong>
   <% end %>
-    
-</ul>
 
+  <%= radio_button_tag :degree_shool, i, false, :id => degree_school_id %>
+  <label for="<%= degree_school_id %>">
+    <%= t(degree, :scope => i18n_scope) %>
+  </label>
+<% end %>
