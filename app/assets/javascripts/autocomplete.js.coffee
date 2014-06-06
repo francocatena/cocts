@@ -1,42 +1,63 @@
-jQuery ($)->
-  $(document).on 'change', 'input.autocomplete_field', ->
-    if /^\s*$/.test($(this).val())
-      $(this).prevAll('input.autocomplete_id:first').val('')
+class Autocomplete
+  constructor: (@element) ->
+    @targetElement = $ @element.data('autocompleteTarget')
 
-  $(document).on 'focus', 'input.autocomplete_field:not([data-observed])', ->
-    input = $(this)
+    @_init()
 
-    input.autocomplete
-      source: (request, response)->
-        $.ajax
-          url: input.data('autocompleteUrl')
-          dataType: 'json'
-          data: { q: request.term }
-          success: (data)->
-            response $.map data, (item)->
-              content = $('<div></div>')
-
-              content.append $('<span class="label"></span>').text(item.label)
-
-              if item.informal
-                content.append(
-                  $('<span class="informal"></span>').text(item.informal)
-                )
-
-              { label: content.html(), value: item.label, item: item }
+  _init: ->
+    @element.autocomplete
+      source: (request, response) => @_source request, response
       type: 'get'
-      select: (event, ui)->
-        selected = ui.item
-        input.val(selected.value)
-        input.data('item', selected.item)
-        input.prevAll('input.autocomplete_id').val(selected.item.id)
-        input.trigger 'autocomplete:update', input
+      minLength: @element.data 'autocompleteMinLength'
+      select: (event, ui) => @_selected event, ui
 
-        false
-      open: -> $('.ui-menu').css('width', input.width())
+    @_rewriteDefaultRenderItem()
+    @_markAsObserved()
+    @_listenChanges()
 
-    input.data('ui-autocomplete')._renderItem = (ul, item)->
-      $('<li></li>').data('item.autocomplete', item).append(
-        $('<a></a>').html(item.label)
-      ).appendTo(ul)
-  .attr('data-observed', true)
+  _listenChanges: ->
+    @element.change => @targetElement.val undefined unless @element.val().trim()
+
+  _markAsObserved: -> @element.attr 'data-observed', true
+
+  _renderItem: (item) ->
+    content = $ '<div></div>'
+    item.label ||= item.name
+
+    content.append $('<span class="title"></span>').text item.label
+    content.append $('<small></small>').text item.informal if item.informal
+
+    label: content.html(), value: item.label, item: item
+
+  _renderResponse: (data, response) ->
+    if data.length
+      response jQuery.map data, (item) => @_renderItem item
+    else
+      emptyResultLabel = @element.data('emptyResultLabel') || '---'
+
+      response [ label: emptyResultLabel, value: '', item: {} ]
+
+  _rewriteDefaultRenderItem: ->
+    @element.data('ui-autocomplete')._renderItem = (ul, item) ->
+      $('<li></li>').append($('<a></a>').html(item.label)).appendTo ul
+
+  _selected: (event, ui) ->
+    selected = ui.item
+
+    @targetElement.val selected.item.id
+    @element.val selected.value
+    @element.trigger type: 'update.autocomplete', element: @element, item: selected.item
+
+    false
+
+  _source: (request, response) ->
+    jQuery.ajax
+      url: @element.data('autocompleteUrl')
+      dataType: 'json'
+      data: { q: request.term }
+      success: (data) => @_renderResponse data, response
+
+jQuery ($) ->
+  selector = 'input[data-autocomplete-url]:not([data-observed])'
+
+  $(document).on 'focus', selector, -> new Autocomplete $(this)
