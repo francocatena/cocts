@@ -1,164 +1,173 @@
-<%= form_for @project_instance do |f| %>
+<p>
+  <strong><%= ProjectInstance.human_attribute_name :name %>:</strong>
+  <%= @project_instance.name %>
+</p>
+
+<p>
+  <strong><%= ProjectInstance.human_attribute_name :identifier %>:</strong>
+  <%= @project_instance.identifier %>
+</p>
+
+<p>
+  <strong><%= ProjectInstance.human_attribute_name :description %>:</strong>
+  <%= @project_instance.description %>
+</p>
+
+<p>
+  <strong><%= ProjectInstance.human_attribute_name :year %>:</strong>
+  <%= @project_instance.year %>
+</p>
+
+<p>
+  <strong><%= ProjectInstance.human_attribute_name :group_name %>:</strong>
+  <%= @project_instance.group_name %>
+</p>
+
+<p>
+  <strong><%= ProjectInstance.human_attribute_name :group_type %>:</strong>
+  <%= t(:"projects.questionnaire.group_type.options.#{@project_instance.group_type}") %>
+</p>
+
+<p>
+  <strong><%= ProjectInstance.human_attribute_name :project_type %>:</strong>
+  <%= @project_instance.project_type_text %>
+</p>
+
+<p>
+  <strong><%= ProjectInstance.human_attribute_name :valid_until %>:</strong>
+  <%= l(@project_instance.valid_until, :format => :long) if @project_instance.valid_until %>
+</p>
+
+<% i18n_scope = [:projects, :questionnaire] %>
+
+<h2><%= t(:presentation, :scope => i18n_scope) %></h2>
+
+<p><%= t(:presentation_text, :scope => i18n_scope) %></p>
+
+<% i18n_scope << :scale_table %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th colspan="4"><%= t(:disagreement_title, :scope => i18n_scope) %></th>
+      <th><%= t(:undecided_title, :scope => i18n_scope) %></th>
+      <th colspan="4"><%= t(:in_agreement_title, :scope => i18n_scope) %></th>
+      <th colspan="2"><%= t(:others_title, :scope => i18n_scope) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <% i18n_scope << :disagreement %>
+      <% [:'1', :'2', :'3', :'4'].each do |opt| %>
+        <td><%= t(opt, :scope => i18n_scope) %></td>
+      <% end %>
+      <% i18n_scope[-1] = :undecided %>
+      <% [:'5'].each do |opt| %>
+        <td><%= t(opt, :scope => i18n_scope) %></td>
+      <% end %>
+      <% i18n_scope[-1] = :in_agreement %>
+      <% [:'6', :'7', :'8', :'9'].each do |opt| %>
+        <td><%= t(opt, :scope => i18n_scope) %></td>
+      <% end %>
+      <% i18n_scope[-1] = :others %>
+      <% [:'E', :'S'].each do |opt| %>
+        <td><%= t(opt, :scope => i18n_scope) %></td>
+      <% end %>
+    </tr>
+    <tr>
+      <% ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'E', 'S'].each do |opt| %>
+        <td><%= opt %></td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
+
+<% i18n_scope.slice!(-2, 2) %>
+<%= raw textilize(t(:scale_clarification, :scope => i18n_scope)) %>
+<%= render 'projects/answer_example' %>
+
+<h2><%= textilize_without_paragraph t(:sociodemographic_forms_title,
+      :scope => i18n_scope) %></h2>
+
+<%= simple_form_for @project_instance do |f| %>
   <%= f.error_messages %>
-    
-  <% i18n_scope = [:projects, :questionnaire] %>
-  
-  <div class="data" style="display:none;">
-    <%= f.text_field :name %>
-    <%= f.text_field :identifier %>
-    <%= f.text_area :description %>
-    <%= f.text_field :year %>
-    <%= project_type_field f %>
-    <%= calendar_text_field f, :valid_until %>
-  </div>
 
-  <div id="showed_data">
-  <p>
-    <b><%= ProjectInstance.human_attribute_name :name %>:</b>
-    <%= @project_instance.name %>
-  </p>
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.input :name, as: :hidden %>
+      <%= f.input :identifier, as: :hidden %>
+      <%= f.input :description, as: :hidden %>
+      <%= f.input :year, as: :hidden %>
+      <%= f.input :project_type, as: :hidden %>
+      <%= f.input :valid_until, as: :hidden %>
 
-  <p>
-    <b><%= ProjectInstance.human_attribute_name :identifier %>:</b>
-    <%= @project_instance.identifier %>
-  </p>
-
-  <p>
-    <b><%= ProjectInstance.human_attribute_name :description %>:</b>
-    <%= @project_instance.description %>
-  </p>
-
-  <p>
-    <b><%= ProjectInstance.human_attribute_name :year %>:</b>
-    <%= @project_instance.year %>
-  </p>
-
-  <p>
-    <b><%= ProjectInstance.human_attribute_name :group_name %>:</b>
-    <%= @project_instance.group_name %>
-  </p>
-  
-  <p>
-    <b><%= ProjectInstance.human_attribute_name :group_type %>:</b>
-    <%= t(:"projects.questionnaire.group_type.options.#{@project_instance.group_type}") %>
-  </p>
-  
-  <p>
-    <b><%= ProjectInstance.human_attribute_name :project_type %>:</b>
-    <%= @project_instance.project_type_text %>
-  </p>
-
-  <p>
-    <b><%= ProjectInstance.human_attribute_name :valid_until %>:</b>
-    <%= l(@project_instance.valid_until, :format => :long) if @project_instance.valid_until %>
-  </p>
-      <h1 style="margin-top: 1em;"><%= t(:presentation, :scope => i18n_scope) %></h1>
-      <p><%= t(:presentation_text, :scope => i18n_scope) %></p>
-      <% i18n_scope << :scale_table %>
-      <table class="grid full_width" style="margin: 1em 0em;">
-        <thead>
-          <tr>
-            <th colspan="4"><%= t(:disagreement_title, :scope => i18n_scope) %></th>
-            <th><%= t(:undecided_title, :scope => i18n_scope) %></th>
-            <th colspan="4"><%= t(:in_agreement_title, :scope => i18n_scope) %></th>
-            <th colspan="2"><%= t(:others_title, :scope => i18n_scope) %></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <% i18n_scope << :disagreement %>
-            <% [:'1', :'2', :'3', :'4'].each do |opt| %>
-              <td><%= t(opt, :scope => i18n_scope) %></td>
-            <% end %>
-            <% i18n_scope[-1] = :undecided %>
-            <% [:'5'].each do |opt| %>
-              <td><%= t(opt, :scope => i18n_scope) %></td>
-            <% end %>
-            <% i18n_scope[-1] = :in_agreement %>
-            <% [:'6', :'7', :'8', :'9'].each do |opt| %>
-              <td><%= t(opt, :scope => i18n_scope) %></td>
-            <% end %>
-            <% i18n_scope[-1] = :others %>
-            <% [:'E', :'S'].each do |opt| %>
-              <td><%= t(opt, :scope => i18n_scope) %></td>
-            <% end %>
-          </tr>
-          <tr>
-            <% ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'E', 'S'].each do |opt| %>
-              <td><%= opt %></td>
-            <% end %>
-          </tr>
-        </tbody>
-      </table>
-      <% i18n_scope.slice!(-2, 2) %>
-      <%= raw textilize(t(:scale_clarification, :scope => i18n_scope)) %>
-      <%= render 'projects/answer_example' %>
-  
-  <h2 style="margin: 1em 0em; font-weight: normal;">
-        <%= textilize_without_paragraph t(:sociodemographic_forms_title,
-          :scope => i18n_scope) %>
-  </h2>
-
-    <% unless @project_instance.forms.empty? %>
+      <% unless @project_instance.forms.empty? %>
         <% @project_instance.forms.each do |form| %>
-          <div class="project_form_part"><%= render form %></div>
-    <% end %>
-    <% end %>
-    <%= f.hidden_field :project_id, {:value => @project_instance.project.id} %>
-</div>
+          <div class="project_form_part"><%= render form, f: f %></div>
+        <% end %>
+      <% end %>
 
-<div class="cuestionnaire">
-  <p class ="show_questions">
-    <%= link_to t(:'project_instances.answer_cuestionnaire'), '#', :id => :show_questions,
-      :"data-href" => params[:action] %>
-  </p> 
+      <%= f.input :project_id, as: :hidden, value: @project_instance.project.id %>
 
-<div class="project_instance_data" style="display:none;">  
-  <div class ="one_column_form project_instance">      
-  </div>
-  
-  
-  <% @project_instance.question_instances.build if @project_instance.question_instances.empty? %>
-    
-    <% count = 0 %>
-    <% questions_count = @project_instance.question_instances.size %>
-    <%= f.fields_for :question_instances do |qi_f| %>
-      <div class="question_instance" data-number="<%= count += 1 %>" style="display: none;">
-        <h4 class="question">
-          <%= qi_f.object.question_text %>
-          <%= qi_f.hidden_field :question_text %>
-          <%= qi_f.hidden_field :question_id %>
-        </h4>
-        
-        <%= qi_f.fields_for :answer_instances do |qa_f| %>
-          <div class="answer_instance">
-            <%= qa_f.select("valuation", AnswerInstance::VALUATIONS.map{|v| [v,v]}) %>
-            <%= qa_f.object.answer_text %>
-            <%= qa_f.hidden_field :answer_text %>
-            <%= qa_f.hidden_field :answer_category %>
-            <%= qa_f.hidden_field :answer_id %>
-            <%= qa_f.hidden_field :order %>
+      <p>
+        <%= link_to t(:'project_instances.answer_cuestionnaire'), '#', :id => :show_questions,
+          :"data-href" => params[:action] %>
+      </p>
+
+      <div class="project_instance_data" style="display:none;">
+        <div class ="one_column_form project_instance">
+        </div>
+
+        <% @project_instance.question_instances.build if @project_instance.question_instances.empty? %>
+        <% count = 0 %>
+        <% questions_count = @project_instance.question_instances.size %>
+
+        <%= f.simple_fields_for :question_instances do |qi_f| %>
+          <div class="question_instance" data-number="<%= count += 1 %>" style="display: none;">
+            <h4 class="question">
+              <%= qi_f.object.question_text %>
+              <%= qi_f.input :question_text, as: :hidden %>
+              <%= qi_f.input :question_id, as: :hidden %>
+            </h4>
+
+            <%= qi_f.simple_fields_for :answer_instances do |qa_f| %>
+              <div class="answer_instance">
+                <%= qa_f.input :valuation, collection: AnswerInstance::VALUATIONS.map{|v| [v,v]} %>
+                <%= qa_f.object.answer_text %>
+                <%= qa_f.input :answer_text, as: :hidden %>
+                <%= qa_f.input :answer_category, as: :hidden %>
+                <%= qa_f.input :answer_id, as: :hidden %>
+                <%= qa_f.input :order, as: :hidden %>
+              </div>
+            <% end %>
+
+            <br />
+
+            <p>
+              <strong><%= t('project_instances.question_number', count: count, total: questions_count) %></strong>
+            </p>
           </div>
         <% end %>
-        
-        <div class="page_number">
-          <%= t(:'project_instances.question_number', :count => count, :total => questions_count) %>
-        </div>
+
+      <p>
+        <%= link_to raw("&laquo; #{t 'labels.previous'}"), '#', id: :prev_question %> |
+        <%= link_to raw("#{t 'labels.next'} &raquo;"), '#', id: :next_question %>
+      </p>
+
+      <p class="show_complete_cuestionnaire">
+        <%= link_to t('project_instances.show_project_data'), '#', id: :show_complete_data, visible: false %>
+      </p>
+
+      <p class="hide_complete_cuestionnaire">
+        <%= link_to t(:'project_instances.hide_project_data'), '#', id: :hide_complete_data, visible: false %>
+      </p>
+
+      <hr />
+
+      <div class="form-actions form-footer">
+        <div class="pull-right"><%= yield :form_actions %></div>
+        <%= f.submit class: 'btn btn-primary' %>
       </div>
-    <% end %>
-    <p class="add_item">
-      <%= link_to raw("&laquo; #{t :'labels.previous'}"), '#', :id => :prev_question %> |
-      <%= link_to raw("#{t :'labels.next'} &raquo;"), '#', :id => :next_question %>
-    </p>
-    <p class="show_complete_cuestionnaire">
-      <%= link_to t(:'project_instances.show_project_data'), '#', :id => :show_complete_data, :visible => false %>
-    </p>
-    <p class="hide_complete_cuestionnaire">
-      <%= link_to t(:'project_instances.hide_project_data'), '#', :id => :hide_complete_data, :visible => false %>
-    </p>
-    <div class="actions">
-      <%= f.submit nil, :disabled => questions_count > 1 %>
     </div>
   </div>
-</div>
 <% end %>

@@ -19,12 +19,7 @@
     <%= render :partial => 'teaching_unit', :collection => @subtopic.teaching_units,
       :locals => {:f => f} %>
 
-    <%= link_to t('subtopics.add_new_teaching_unit'), '#',
-      class: 'btn btn-default btn-sm', data: {
-        template: 'teaching_unit',
-        event: 'addNestedItem',
-        container: '#teaching_units'
-      } %>
+    <%= link_to_add_fields t('subtopics.add_new_teaching_unit'), f, :teaching_units, 'teaching_unit' %>
   </div>
 
   <hr />

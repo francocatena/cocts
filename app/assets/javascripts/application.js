@@ -13,4 +13,4 @@
 //= require project_instances
 //= require autocomplete
 //= require bootstrap
-
+//= require dynamic_form

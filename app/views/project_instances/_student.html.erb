@@ -1,17 +1,9 @@
 <% i18n_scope = [:projects, :questionnaire, :student, :options] %>
-<strong>
-  <%= t(:question, :scope => [:projects, :sociodemographic_forms, :student]) %>
-</strong>
-<ul class="horizontal_list">
-  <% STUDENT_STATUSES.each_with_index do |student_status, i| %>
-    <% student_status_id = :"#{student_status}_student_status" %>
-    <li>
-      <%= radio_button_tag 'project_instance[student_status]', student_status, 
-        @project_instance.student_status.eql?("#{student_status}"),
-        :id => student_status_id %>
-      <label for="<%= student_status_id %>">
-        <%= t(student_status, :scope => i18n_scope) %>
-      </label>
-    </li>
-  <% end %>
-</ul>
+<%= statuses = [] %>
+
+<% STUDENT_STATUSES.each do |student_status| %>
+  <% statuses << [t(student_status, :scope => i18n_scope), student_status] %>
+<% end %>
+
+<%= f.input :student, collection: statuses, as: :radio_button,
+  checked: @project_instance.student %>

@@ -1,27 +1,9 @@
-  <% i18n_scope = [:projects, :questionnaire, :degree, :options] %>
-<strong>
-  <%= t(:question, :scope => [:projects, :sociodemographic_forms, :degree]) %>
-</strong>
-<ul class="horizontal_list">
-  <% DEGREES.each_with_index do |degree, i| %>
-    <% degree_id = :"#{degree}_degree" %>
-    <li>
-      <label for="<%= degree_id %>">
-        <%= t(degree, :scope => i18n_scope) %>
-        <span class="subscript"><%= i + 1 %></span>
-      </label>
-      <% unless degree == DEGREES.last %>
-        <%= radio_button_tag 'project_instance[degree]', degree, 
-          @project_instance.degree.eql?("#{degree}"), :id => degree_id %>
-      <% else %>
-        <% if @project_instance.degree.present? && DEGREES.exclude?(@project_instance.degree.to_sym) %>
-          <%= text_field_tag 'project_instance[degree]', @project_instance.degree,
-            :id => degree_id %>
-        <% else %>
-          <%= text_field_tag 'project_instance[manual_degree]',
-            @project_instance.manual_degree, :id => degree_id %>
-        <% end %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
+<% i18n_scope = [:projects, :questionnaire, :degree, :options] %>
+<% degrees = [] %>
+
+<% DEGREES.each do |degree| %>
+  <% degrees << t(degree, :scope => i18n_scope) %>
+<% end %>
+
+<%= f.input :degree, collection: degrees, as: :radio_buttons,
+  checked: @project_instance.degree %>

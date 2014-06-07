@@ -1,36 +1,25 @@
-<div class="form_container">
-  <%= form_for @user, :url => update_personal_data_user_path(@user) do |f| %>
-    <div class="one_column_form">
-      <%= f.error_messages %>
-      <div class="field">
-        <%= f.label :user %>
-        <% if @user.admin? %>
-          <%= f.text_field :user, :size => nil %>
-        <% else %>
+<%= simple_form_for @user, :url => update_personal_data_user_path(@user) do |f| %>
+  <%= f.error_messages %>
+
+  <div class="row">
+    <div class="col-md-4">
+      <% if @user.admin? %>
+        <%= f.input :user %>
+      <% else %>
         <strong><%=":  #{@user.user}" %></strong>
-        <% end %>
-      </div>
-      <div class="field">
-        <%= f.label :name %>
-        <%= f.text_field :name, :maxlength => 255, :autofocus => true %>
-      </div>
-      <div class="field">
-        <%= f.label :lastname %>
-        <%= f.text_field :lastname, :maxlength => 255 %>
-      </div>
-      <div class="field">
-        <%= f.label :email %>
-        <%= f.text_field :email, :maxlength => 100 %>
+      <% end %>
+      <%= f.input :name, html_options: { maxlength: 255, autofocus: true } %>
+      <%= f.input :lastname, html_options: { maxlength: 255 } %>
+      <%= f.input :email, html_options: { maxlength: 100 } %>
+
+      <%= hidden_lock_version(f) %>
+
+      <hr />
+
+      <div class="form-actions">
+        <div class="pull-right"><%= link_to_back %></div>
+          <%= f.submit t('labels.modify'), class: 'btn btn-primary' %>
       </div>
     </div>
-
-    <%= hidden_lock_version(f) %>
-    <div class="actions">
-      <span><%= f.submit t(:'labels.modify') %></span>
-    </div>
-  <% end %>
-</div>
-
-<div id="links">
-  <%= link_to_back %>
-</div>
+  </div>
+<% end %>

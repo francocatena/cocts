@@ -1,5 +1,6 @@
+<%= content_for :form_actions do %>
+  <%= link_to_back %> |
+  <%= link_to t('labels.show'), @project_instance %>
+<% end %>
+
 <%= render 'form' %>
-<div id="showed_data">
-  <%= link_to_back %>
-  <%= link_to t(:'labels.show'), @project_instance %> 
-</div>

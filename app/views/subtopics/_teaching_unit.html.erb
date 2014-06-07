@@ -1,26 +1,29 @@
-<% id = "#{dynamic_object_id('teaching_unit', f)}_#{teaching_unit.new_record? ? 'NEW_RECORD' : teaching_unit.id}" %>
-<div class="teaching_unit item" id="<%= id %>">
+<% id = f.object.object_id %>
+<fieldset class="teaching_unit">
   <div class="row">
     <div class="col-md-4">
-      <% if teaching_unit.new_record? %>
-         <%= hidden_field_tag 'subtopic[teaching_unit_ids][]', teaching_unit.id,
-           id: "hidden_teaching_unit_#{id}", class: :autocomplete_id %>
-         <div class="search">
-          <%= f.input :nested_teaching_unit, as: :string, label: false,
-            input_html: {
-              autofocus: true,
-              id: "subtopic_teaching_unit_#{id}", class: :autocomplete_field,
-              value: teaching_unit.title,
-              data: {
-                'autocomplete-url' => autocomplete_for_teaching_unit_subtopics_path(format: :json),
-                params: ({ subject_id: @subtopic.id}.to_json unless @subtopic.new_record?),
-              }
-            } %>
-        </div>
+      <% if f.object.new_record? %>
+        <%= f.input :teaching_unit_id, as: :string, label: false,
+          input_html: {
+            id: "subtopic_teaching_unit_#{id}",
+            class: 'autocomplete_field', autofocus: true,
+            value: (f.object.title if f.object.persisted?),
+            data: {
+              autocomplete_url: autocomplete_for_teaching_unit_subtopics_path(format: :json),
+              autocomplete_params: ({subtopic_id: @subtopic.id}.to_json unless @subtopic.new_record?),
+              autocomplete_target: "#teaching_unit_id_#{id}"
+            }
+          } %>
+        <%= f.input :teaching_unit_id, as: :hidden, input_html: {
+          name: 'subtopic[teaching_unit_ids][]', value: f.object.id,
+          id: "teaching_unit_id_#{id}", class: :autocomplete_id
+          } %>
       <% else %>
         <p><strong><%= teaching_unit.title %></strong></p>
-        <%= hidden_field_tag 'subtopic[teaching_unit_ids][]', teaching_unit.id,
-          id: "hidden_teaching_unit_#{id}" %>
+        <%= f.input :teaching_unit_id, as: :hidden, input_html: {
+            name: 'subtopic[teaching_unit_ids][]', value: teaching_unit.id,
+            id: "teaching_unit_id#{id}", class: :autocomplete_id
+          } %>
       <% end %>
     </div>
 
@@ -28,9 +31,4 @@
       <%= remove_list_item_link(nil, 'teaching_unit') %>
     </div>
   </div>
-</div>
-<% if teaching_unit.new_record? %>
-  <script type="text/javascript">
-    $('#<%= "subtopic_teaching_unit_#{id}" %>').focus();
-  </script>
-<% end %>
+</fieldset>
