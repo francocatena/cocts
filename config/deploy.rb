@@ -13,17 +13,11 @@ set :linked_files, %w{config/app_config.yml}
 set :linked_dirs, %w{log}
 
 set :rbenv_type, :user
-set :rbenv_ruby, '2.1.0'
+set :rbenv_ruby, '2.1.2'
 
 set :keep_releases, 5
 
 namespace :deploy do
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      execute 'service unicorn_cocts upgrade'
-    end
-  end
-
+  after :publishing, :restart
   after :finishing, 'deploy:cleanup'
 end
