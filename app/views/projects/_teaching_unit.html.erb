@@ -1,7 +1,7 @@
 <% id = f.object.object_id %>
 <fieldset class="teaching_unit">
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-9">
       <% if f.object.new_record? %>
         <%= f.input :teaching_unit_id, as: :string, label: false,
           input_html: {
@@ -27,7 +27,7 @@
       <% end %>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-3">
       <%= remove_list_item_link(nil, 'teaching_unit') %>
     </div>
   </div>
