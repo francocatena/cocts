@@ -99,7 +99,7 @@ class SubtopicsController < ApplicationController
 
   def subtopic_params
     params.require(:subtopic).permit(
-      :title, :code, teaching_units_ids: []
+      :title, :code, teaching_unit_ids: []
     )
   end
 end
