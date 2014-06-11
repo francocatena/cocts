@@ -7,23 +7,21 @@
   <div class="row">
     <div class="col-md-6">
       <%= f.input :dimension, collection: Question::DIMENSIONS.map { |d|
-        ["#{d}. #{t(:"questions.dimensions.#{d}")}", d]
-      }, prompt: true, autofocus: true %>
+          ["#{d}. #{t(:"questions.dimensions.#{d}")}", d]
+        }, prompt: true, autofocus: true %>
       <%= f.input :code %>
       <%= f.input :question %>
     </div>
   </div>
 
-  <% @question.answers.build if @question.answers.empty? %>
-  <%= f.simple_fields_for :answers do |a_f| %>
-    <%= render partial: 'answer', locals: {f: a_f} %>
-  <% end %>
+  <div id="answers" class="panel-body">
+    <% @question.answers.build if @question.answers.empty? %>
+    <%= f.simple_fields_for :answers do |a_f| %>
+      <%= render partial: 'answer', locals: {f: a_f} %>
+    <% end %>
 
-  <p class="add_item">
-    <%= link_to t(:'questions.add_answer'), '#', :'data-template' => :answer,
-      :'data-event' => 'addNestedItem', :'data-container' => '#answers',
-      :class => :important_action %>
-  </p>
+    <%= link_to_add_fields t('questions.add_answer'), f, :answers, 'answer' %>
+  </div>
 
   <%= hidden_lock_version(f) %>
 

@@ -1,6 +1,6 @@
-<div class="row">
+<fieldset class="answer">
   <div class="col-md-3">
-    <%= f.input :clarification %>
+    <%= f.input :answer, input_html: { autofocus: true } %>
   </div>
   <div class="col-md-3">
     <%= f.input :category, collection: Answer::CATEGORIES.map { |k, v|
@@ -8,14 +8,17 @@
       }, prompt: true %>
   </div>
   <div class="col-md-3">
-    <%= f.input :answer %>
+    <%= f.input :clarification %>
   </div>
   <div class="col-md-3">
-    <%= f.input :order, as: :hidden, class: :sort_number %>
-    <%= remove_item_link(f) %>
+    <%= f.input :order, as: :hidden, input_html: {
+        class: :sort_number
+      } %>
+    <%= link_to_remove_nested_item f %>
     <%= hidden_lock_version(f) %>
   </div>
-</div>
+</fieldset>
+
 <script type="text/javascript">
   FormUtil.completeSortNumbers();
 </script>
