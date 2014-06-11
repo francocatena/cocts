@@ -5,7 +5,7 @@
       <%= raw "var teaching_unit='#{escape_javascript(render(:partial => 'teaching_unit',
           :object => TeachingUnit.new, :locals => {:f => f}))}';" %>
     <% end %>
-    <%= f.error_messages %>
+    <%= f.error_notification %>
 
     <div class="row">
       <div class="col-md-6">
@@ -86,32 +86,24 @@
         <%= render :partial => 'teaching_unit', :collection => @project.teaching_units,
           :locals => {:f => f} %>
       <% end %>
+
+      <%= link_to_add_fields t('subtopics.add_new_teaching_unit'), f, :teaching_units, 'teaching_unit' %>
     </div>
 
-    <p>
-      <%= link_to t(:'subtopics.add_new_teaching_unit'), '#',
-        :'data-template' => :teaching_unit, :'data-event' => 'addNestedItem',
-        :'data-container' => '#teaching_units' %>
-    </p>
+    <h3><%= t('projects.label_questions') %></h3>
 
-  <h3><%= t('projects.label_questions') %></h3>
+    <div id="questions">
+      <% if @project.questions.empty? %>
+        <% @project.questions.build %>
+      <% else %>
+        <%= render :partial => 'question', :collection => @project.questions,
+          :locals => {:f => f} %>
+      <% end %>
 
-  <div id="questions">
-    <% if @project.questions.empty? %>
-      <% @project.questions.build %>
-    <% else %>
-      <%= render :partial => 'question', :collection => @project.questions,
-        :locals => {:f => f} %>
-    <% end %>
-  </div>
+      <%= link_to_add_fields t('projects.add_question'), f, :questions, 'question' %>
+    </div>
 
-  <p>
-    <%= link_to t(:'projects.add_question'), '#',
-      :'data-template' => :question, :'data-event' => 'addNestedItem',
-      :'data-container' => '#questions', :class => :important_action %>
-  </p>
-
-  <%= hidden_lock_version(f) %>
+    <%= hidden_lock_version(f) %>
 
   <hr />
 

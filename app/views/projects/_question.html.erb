@@ -1,30 +1,33 @@
-<% id = "#{dynamic_object_id('question', f)}_#{question.new_record? ? 'NEW_RECORD' : question.id}" %>
-<div class="question item" id="<%= id %>">
-  <div>
-    <div class="item_field" style="width: 90%; white-space: normal;">
-      <% if question.new_record? %>
-        <div class="search">
-          <%= hidden_field_tag 'project[question_ids][]', question.id,
-            :id => "hidden_question_#{id}", :class => :autocomplete_id %>
-          <%= f.text_field :nested_question,
-            :id => "project_question_#{id}", :class => :autocomplete_field,
-            :value => question.question,
-            :'data-autocomplete-url' => autocomplete_for_question_projects_path(:format => :json),
-            :'data-params' => ({:project_id => @project.id}.to_json unless @project.new_record?) %>
-        </div>
+<% id = f.object.object_id %>
+<fieldset class="question">
+  <div class="row">
+    <div class="col-md-6">
+      <% if f.object.new_record? %>
+        <%= f.input :question, as: :string, label: false,
+          input_html: {
+            id: "project_question_#{id}", class: :autocomplete_field,
+            value: f.object.question, autofocus: true,
+            data: {
+              autocomplete_url: autocomplete_for_question_projects_path(format: :json),
+              autocomplete_params: ({project_id: @project.id}.to_json unless @project.new_record?),
+              autocomplete_target: "#question_id_#{id}"
+            }
+          } %>
+        <%= f.input :question, as: :hidden, input_html: {
+          name: 'project[question_ids][]', value: f.object.id,
+          id: "question_id_#{id}", class: :autocomplete_id
+        }%>
       <% else %>
         <p><strong><%= question.code %></strong> - <%= question.question %></p>
-        <%= hidden_field_tag 'project[question_ids][]', question.id,
-          :id => :"hidden_question_#{id}" %>
+        <%= f.input :question, as: :hidden, input_html: {
+            name: 'project[question_ids][]', value: question.id,
+            id: "question_#{id}"
+        } %>
       <% end %>
     </div>
-    <div class="item_field item_controls" style="width: 5%;">
+
+    <div class="col-md-4">
       <%= remove_list_item_link(nil, 'question') %>
     </div>
   </div>
-</div>
-<% if question.new_record? %>
-  <script type="text/javascript">
-    $('#<%= "project_question_#{id}" %>').focus();
-  </script>
-<% end %>
+</fieldset>

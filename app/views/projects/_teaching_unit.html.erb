@@ -1,30 +1,34 @@
-<% id = "#{dynamic_object_id('teaching_unit', f)}_#{teaching_unit.new_record? ? 'NEW_RECORD' : teaching_unit.id}" %>
-<div class="teaching_unit item" id="<%= id %>">
-  <div>
-    <div class="item_field" style="width: 90%; white-space: normal;">
-      <% if teaching_unit.new_record? %>
-        <div class="search">
-          <%= hidden_field_tag 'project[teaching_unit_ids][]', teaching_unit.id,
-            :id => "hidden_teaching_unit_#{id}", :class => :autocomplete_id %>
-          <%= f.text_field :nested_teaching_unit,
-            :id => "project_teaching_unit_#{id}", :class => :autocomplete_field,
-            :value => teaching_unit.title,
-            :'data-autocomplete-url' => autocomplete_for_teaching_unit_subtopics_path(:format => :json),
-            :'data-params' => ({:subject_id => @project.id}.to_json unless @project.new_record?) %>
-        </div>
+<% id = f.object.object_id %>
+<fieldset class="teaching_unit">
+  <div class="row">
+    <div class="col-md-4">
+      <% if f.object.new_record? %>
+        <%= f.input :teaching_unit_id, as: :string, label: false,
+          input_html: {
+            id: "project_teaching_unit_#{id}",
+            class: 'autocomplete_field', autofocus: true,
+            value: (f.object.title if f.object.persisted?),
+            data: {
+              autocomplete_url: autocomplete_for_teaching_unit_subtopics_path(format: :json),
+              autocomplete_params: ({project_id: @project.id}.to_json unless @project.new_record?),
+              autocomplete_target: "#teaching_unit_id_#{id}"
+            }
+          } %>
+        <%= f.input :teaching_unit_id, as: :hidden, input_html: {
+          name: 'project[teaching_unit_ids][]', value: f.object.id,
+          id: "teaching_unit_id_#{id}", class: :autocomplete_id
+          } %>
       <% else %>
         <p><strong><%= teaching_unit.title %></strong></p>
-        <%= hidden_field_tag 'project[teaching_unit_ids][]', teaching_unit.id,
-          :id => :"hidden_teaching_unit_#{id}" %>
+        <%= f.input :teaching_unit_id, as: :hidden, input_html: {
+            name: 'project[teaching_unit_ids][]', value: teaching_unit.id,
+            id: "teaching_unit_id#{id}", class: :autocomplete_id
+          } %>
       <% end %>
     </div>
-    <div class="item_field item_controls" style="width: 5%;">
+
+    <div class="col-md-4">
       <%= remove_list_item_link(nil, 'teaching_unit') %>
     </div>
   </div>
-</div>
-<% if teaching_unit.new_record? %>
-  <script type="text/javascript">
-    $('#<%= "project_teaching_unit_#{id}" %>').focus();
-  </script>
-<% end %>
+</fieldset>
