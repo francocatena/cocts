@@ -14,3 +14,4 @@
 //= require autocomplete
 //= require bootstrap
 //= require dynamic_form
+//= require effect_helper
