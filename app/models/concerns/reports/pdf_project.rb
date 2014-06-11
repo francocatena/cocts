@@ -462,7 +462,7 @@ module Reports::PdfProject
       if subtopic.present?
         pdf.font_size((PDF_FONT_SIZE * 0.75).round) do
           pdf.move_down(pdf.font_size)
-          pdf.text "#{t 'actioncontroller.subtopics'} #{subtopic.code} - #{subtopic.title}"
+          pdf.text "#{I18n.t 'actioncontroller.subtopics'} #{subtopic.code} - #{subtopic.title}"
         end
       end
 
