@@ -50,7 +50,7 @@ module DynamicFormHelper
     out << form.hidden_field(:_destroy, class: 'destroy', value: destroy, id: "destroy_hidden_#{form.object.id}") unless new_record
     out << link_to(
       content_tag(:span, nil, class: 'glyphicon glyphicon-remove-circle'), '#',
-      title: t('label.delete'),
+      title: t('labels.destroy'),
       data: {
         'dynamic-target' => ".#{form.object.class.name.underscore}",
         'dynamic-form-event' => (new_record ? 'removeItem' : 'hideItem'),
@@ -64,7 +64,7 @@ module DynamicFormHelper
   def link_to_remove_child_item(form)
     link_to(
       content_tag(:span, nil, class: 'glyphicon glyphicon-remove-circle'), '#',
-      title: t('label.delete'),
+      title: t('labels.destroy'),
       data: {
         'dynamic-target' => '.child',
         'dynamic-form-event' => 'removeItem',
