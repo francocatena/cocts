@@ -1,109 +1,67 @@
 <%= simple_form_for @project do |f| %>
-  <%= content_for :js_extra do %>
-    <%= raw "var question='#{escape_javascript(render(:partial => 'question',
-        :object => Question.new, :locals => {:f => f}))}';" %>
-      <%= raw "var teaching_unit='#{escape_javascript(render(:partial => 'teaching_unit',
-          :object => TeachingUnit.new, :locals => {:f => f}))}';" %>
+  <%= f.error_notification %>
+
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.input :name, input_html: { readonly: @name, maxlength: 100 } %>
+      <%= f.input :identifier, input_html: { readonly: !@auth_user.admin?, maxlength: 30 } %>
+      <%= f.input :description, input_html: { maxlength: 255 } %>
+      <%= f.input :year, input_html: { maxlength: 4 } %>
+      <% if @auth_user.admin %>
+        <%= f.input :user_id, collection: User.all.map { |u|
+              [u.user, u.id]
+            }, prompt: true %>
+      <% end %>
+      <%= f.input :group_name, input_html: { maxlength: 255 } %>
+      <%= f.input :group_type, collection: GROUP_TYPES.map { |group, value|
+            [t("projects.questionnaire.group_type.options.#{group}"), value]
+          }, as: :radio_buttons, checked: @project.group_type %>
+      <%= hidden_field_tag :parent_group_type, @group %>
+      <%= f.input :test_type, collection: TEST_TYPES.map { |test, value|
+            [t("projects.questionnaire.test_type.options.#{test}"), value]
+          }, as: :radio_buttons, checked: @project.test_type %>
+      <%= hidden_field_tag :parent_test_type, @test %>
+      <%= hidden_field_tag :parent_project_id, params[:parent_project_id] %>
+      <%= f.input :project_type, collection: TYPES.map { |k, v|
+        [t("projects.#{k}_type"), v] }, prompt: true %>
+      <%= f.input :valid_until, as: :string, input_html: { class: 'calendar' }  %>
+
+      <p>
+        <%= link_to t('projects.sociodemographic_label'), '#', onclick:
+          "$('#sociodemographic').slideToggle()" %>
+      </p>
+
+      <%= render "sociodemographic_forms" %>
+    </div>
+  </div>
+
+  <h3><%= t('activerecord.models.teaching_units') %></h3>
+
+  <div id="teaching_units">
+    <% if @project.teaching_units.empty? %>
+      <% @project.teaching_units.build %>
+    <% else %>
+      <%= render :partial => 'teaching_unit', :collection => @project.teaching_units,
+        :locals => {:f => f} %>
     <% end %>
-    <%= f.error_notification %>
 
-    <div class="row">
-      <div class="col-md-6">
-        <%= f.input :name, input_html: { readonly: @name, maxlength: 100 } %>
-        <%= f.input :identifier, input_html: { readonly: !@auth_user.admin?, maxlength: 30 } %>
-        <%= f.input :description, input_html: { maxlength: 255 } %>
-        <%= f.input :year, input_html: { maxlength: 4 } %>
-        <% if @auth_user.admin %>
-          <%= f.input :user_id, collection: User.all.map { |u|
-                [u.user, u.id]
-              }, prompt: true %>
-        <% end %>
-        <%= f.input :group_name, input_html: { maxlength: 255 } %>
-        <%= f.input :group_type, collection: GROUP_TYPES.map { |group, value|
-              [t("projects.questionnaire.group_type.options.#{group}"), value]
-            }, as: :radio_buttons, checked: @project.group_type %>
-        <%= hidden_field_tag :parent_group_type, @group %>
-        <%= f.input :test_type, collection: TEST_TYPES.map { |test, value|
-              [t("projects.questionnaire.test_type.options.#{test}"), value]
-            }, as: :radio_buttons, checked: @project.test_type %>
-        <%= hidden_field_tag :parent_test_type, @test %>
-        <%= hidden_field_tag :parent_project_id, params[:parent_project_id] %>
-        <%= f.input :project_type, collection: TYPES.map { |k, v|
-          [t("projects.#{k}_type"), v] }, prompt: true %>
-        <%= f.input :valid_until, as: :string, input_html: { class: 'calendar' }  %>
+    <%= link_to_add_fields t('subtopics.add_new_teaching_unit'), f, :teaching_units, 'teaching_unit' %>
+  </div>
 
-    <p>
-      <%= link_to t('projects.sociodemographic_label'), '#', onclick:
-        "$('#sociodemographic').slideToggle()" %>
-    </p>
+  <h3><%= t('projects.label_questions') %></h3>
 
-    <div id="sociodemographic" style="display: none;">
-      <div style="margin: 1em 0em;">
-        <% Project::SOCIODEMOGRAPHIC_FORMS.each do |sociodemographic_form| %>
-          <% i18n_scope = [:projects, :sociodemographic_forms, sociodemographic_form] %>
-          <%  if sociodemographic_form.eql? 'name' %>
-            <% checked = true %>
-          <% else %>
-            <% checked = @project.forms.include? sociodemographic_form %>
-          <% end %>
+  <div id="questions">
+    <% if @project.questions.empty? %>
+      <% @project.questions.build %>
+    <% else %>
+      <%= render :partial => 'question', :collection => @project.questions,
+        :locals => {:f => f} %>
+    <% end %>
 
-        <% if sociodemographic_form.eql? 'degree_school' %>
-          <div class="field">
-            <strong><%= t(:'projects.sociodemographic_forms.degrees.question') %></strong>
-          </div>
-        <% end %>
+    <%= link_to_add_fields t('projects.add_question'), f, :questions, 'question' %>
+  </div>
 
-        <% if sociodemographic_form.eql?('degree_school') ||
-            sociodemographic_form.eql?('degree_university') %>
-          <div class="field_degree">
-        <% else %>
-          <div class="field">
-        <% end %>
-        <%= check_box_tag "project[forms][]", sociodemographic_form,
-              checked, :id => "project_form_#{sociodemographic_form}" %>
-            <%= label_tag "project_form_#{sociodemographic_form}_label",
-              t(:option, :scope => i18n_scope),
-              :for => "project_form_#{sociodemographic_form}",
-              :title => t(:question, :scope => i18n_scope), :class => :inline %>
-            <%= link_to t(:'projects.preview_label'),
-              preview_form_projects_path(:form => sociodemographic_form, :format => :html),
-              :class => :sociodemographic_form, :remote => true, :method => :get %>
-            <div class="form_details"></div>
-            <%= link_to t(:'projects.close_label'), '#', :onclick =>
-              "$(this).prev('div.form_details').hide(); $(this).hide()",
-              :class => :hide_form_details, :style => 'display: none;' %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-
-    <h3><%= t('activerecord.models.teaching_units') %></h3>
-
-    <div id="teaching_units">
-      <% if @project.teaching_units.empty? %>
-        <% @project.teaching_units.build %>
-      <% else %>
-        <%= render :partial => 'teaching_unit', :collection => @project.teaching_units,
-          :locals => {:f => f} %>
-      <% end %>
-
-      <%= link_to_add_fields t('subtopics.add_new_teaching_unit'), f, :teaching_units, 'teaching_unit' %>
-    </div>
-
-    <h3><%= t('projects.label_questions') %></h3>
-
-    <div id="questions">
-      <% if @project.questions.empty? %>
-        <% @project.questions.build %>
-      <% else %>
-        <%= render :partial => 'question', :collection => @project.questions,
-          :locals => {:f => f} %>
-      <% end %>
-
-      <%= link_to_add_fields t('projects.add_question'), f, :questions, 'question' %>
-    </div>
-
-    <%= hidden_lock_version(f) %>
+  <%= hidden_lock_version(f) %>
 
   <hr />
 
@@ -111,8 +69,6 @@
     <div class="pull-right"><%= yield :form_actions %></div>
     <%= f.submit class: 'btn btn-primary' %>
   </div>
-  </div>
-</div>
 <% end %>
 
 <script type="text/javascript">

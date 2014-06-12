@@ -1,0 +1,22 @@
+<div id="sociodemographic" style="display: none;">
+  <% Project::SOCIODEMOGRAPHIC_FORMS.each do |sociodemographic_form| %>
+    <% i18n_scope = [:projects, :sociodemographic_forms, sociodemographic_form] %>
+    <% checked = @project.forms.include? sociodemographic_form %>
+
+    <div class="field">
+      <%= check_box_tag "project[forms][]", sociodemographic_form,
+        checked, id: "project_form_#{sociodemographic_form}" %>
+      <%= label_tag "project_form_#{sociodemographic_form}_label",
+        t('option', scope: i18n_scope),
+        for: "project_form_#{sociodemographic_form}",
+        title: t('question', scope: i18n_scope), class: :inline %>
+      <%= link_to t('projects.preview_label'),
+        preview_form_projects_path(form: sociodemographic_form, format: :html),
+        class: :sociodemographic_form, remote: true, method: :get %>
+      <div class="form_details"></div>
+      <%= link_to t('projects.close_label'), '#', onclick:
+        "$(this).prev('div.form_details').hide(); $(this).hide()",
+        class: :hide_form_details, :style => 'display: none;' %>
+    </div>
+  <% end %>
+</div>
