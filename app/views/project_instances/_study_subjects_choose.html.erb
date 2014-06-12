@@ -5,5 +5,5 @@
   <% subjects_choose << [t(study, :scope => i18n_scope), study] %>
 <% end %>
 
-<%= f.input :study_subjects_choose, collection: subjects_choose, as: :radio_button,
-  checked: @project_instance.studi_subjects_choose %>
+<%= f.input :study_subjects_choose, collection: subjects_choose, as: :radio_buttons,
+  checked: @project_instance.study_subjects_choose %>
