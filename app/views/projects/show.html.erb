@@ -45,7 +45,7 @@
   <%= l(@project.valid_until, :format => :long) if @project.valid_until %>
 </p>
 
-<h1 style="margin-top: 1em;"><%= t(:presentation, :scope => i18n_scope) %></h1>
+<h1><%= t(:presentation, :scope => i18n_scope) %></h1>
 <p><%= t(:presentation_text, :scope => i18n_scope) %></p>
 <% i18n_scope << :scale_table %>
 <table class="table table-hover">
@@ -95,7 +95,7 @@
 
 <% unless @project.forms.empty? %>
   <% @project.forms.each do |form| %>
-    <div class="project_form_part"><%= render form %></div>
+    <div><%= render form %></div>
   <% end %>
 <% end %>
 
