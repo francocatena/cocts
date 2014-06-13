@@ -1,0 +1,46 @@
+<div class="project_instance_data" style="display:none;">
+  <div class ="one_column_form project_instance"></div>
+  <% @project_instance.question_instances.build if @project_instance.question_instances.empty? %>
+  <% count = 0 %>
+  <% questions_count = @project_instance.question_instances.size %>
+
+  <%= f.simple_fields_for :question_instances do |qi_f| %>
+    <div class="question_instance" data-number="<%= count += 1 %>" style="display: none;">
+      <div class="row">
+        <h4 class="col-md-9">
+          <%= qi_f.object.question_text %>
+          <%= qi_f.input :question_text, as: :hidden %>
+          <%= qi_f.input :question_id, as: :hidden %>
+        </h4>
+      </div>
+      <%= qi_f.simple_fields_for :answer_instances do |qa_f| %>
+        <div class="answer_instance row">
+          <div class="col-md-1">
+            <%= qa_f.input :valuation, collection: AnswerInstance::VALUATIONS.map{|v| [v,v]} %>
+          </div>
+          <div class="col-md-9">
+            <%= qa_f.input :answer_text %>
+            <%= qa_f.input :answer_text, as: :hidden %>
+            <%= qa_f.input :answer_category, as: :hidden %>
+            <%= qa_f.input :answer_id, as: :hidden %>
+            <%= qa_f.input :order, as: :hidden %>
+          </div>
+        </div>
+      <% end %>
+      <strong><%= t('project_instances.question_number', count: count, total: questions_count) %></strong>
+    </div>
+  <% end %>
+
+  <p>
+    <%= link_to raw("&laquo; #{t 'labels.previous'}"), '#', id: :prev_question %> |
+    <%= link_to raw("#{t 'labels.next'} &raquo;"), '#', id: :next_question %>
+  </p>
+
+  <p class="show_complete_cuestionnaire">
+    <%= link_to t('project_instances.show_project_data'), '#', id: :show_complete_data, visible: false %>
+  </p>
+
+  <p class="hide_complete_cuestionnaire">
+    <%= link_to t(:'project_instances.hide_project_data'), '#', id: :hide_complete_data, visible: false %>
+  </p>
+</div>
