@@ -227,19 +227,26 @@
   </p>
 <% end %>
 
-<h3><%= Project.human_attribute_name :questions %></h3>
 
-<ul>
-  <% @project_instance.question_instances.each do |qi| %>
-    <li><strong><%= qi.question_text %></strong></li>
-
-    <% unless qi.answer_instances.empty?  %>
-      <% qi.answer_instances.each do |ai| %>
-        <%= "#{ai.valuation} - #{ai.answer_text}" %>
-      <% end %>
+<% @project_instance.question_instances.each do |qi| %>
+  <br />
+  <div class="panel panel-info">
+    <div class="panel-heading"><strong><%= Question.model_name.human %></strong></div>
+    <div class="panel-body"><strong><%= qi.question_text %></strong></div>
+    <% unless qi.answer_instances.empty? %>
+      <table class="table table-hover">
+        <th><%= AnswerInstance.human_attribute_name :valuation %></th>
+        <th><%= AnswerInstance.human_attribute_name :answer_text %></th>
+        <% qi.answer_instances.each do |ai| %>
+          <tr>
+            <td><strong><%= ai.valuation %></strong></td>
+            <td><%= ai.answer_text %></td>
+          </tr>
+        <% end %>
+      </table>
     <% end %>
-  <% end %>
-</ul>
+  </div>
+<% end %>
 
 <hr />
 
