@@ -1,7 +1,7 @@
 <% id = f.object.object_id %>
 <fieldset class="teaching_unit">
   <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-6">
       <% if f.object.new_record? %>
         <%= f.input :teaching_unit_id, as: :string, label: false,
           input_html: {
@@ -19,7 +19,9 @@
           id: "teaching_unit_id_#{id}", class: :autocomplete_id
           } %>
       <% else %>
-        <p><strong><%= teaching_unit.title %></strong></p>
+        <%= f.input :teaching_unit, label: false, input_html: {
+            value: teaching_unit.title, readonly: true
+          }, wrapper_html: { class: ('has-error' if @project.errors[:question_ids].any?) } %>
         <%= f.input :teaching_unit_id, as: :hidden, input_html: {
             name: 'project[teaching_unit_ids][]', value: teaching_unit.id,
             id: "teaching_unit_id#{id}", class: :autocomplete_id
