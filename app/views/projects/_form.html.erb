@@ -13,12 +13,12 @@
             }, prompt: true %>
       <% end %>
       <%= f.input :group_name, input_html: { maxlength: 255 } %>
-      <%= f.input :group_type, collection: GROUP_TYPES.map { |group, value|
-            [t("projects.questionnaire.group_type.options.#{group}"), value]
+      <%= f.input :group_type, collection: GROUP_TYPES.map { |group|
+            [t("projects.questionnaire.group_type.options.#{group}"), group]
           }, as: :radio_buttons, checked: @project.group_type %>
       <%= hidden_field_tag :parent_group_type, @group %>
-      <%= f.input :test_type, collection: TEST_TYPES.map { |test, value|
-            [t("projects.questionnaire.test_type.options.#{test}"), value]
+      <%= f.input :test_type, collection: TEST_TYPES.map { |test|
+            [t("projects.questionnaire.test_type.options.#{test}"), test]
           }, as: :radio_buttons, checked: @project.test_type %>
       <%= hidden_field_tag :parent_test_type, @test %>
       <%= hidden_field_tag :parent_project_id, params[:parent_project_id] %>
@@ -38,12 +38,8 @@
   <h3><%= t('activerecord.models.teaching_units') %></h3>
 
   <div id="teaching_units">
-    <% if @project.teaching_units.empty? %>
-      <% @project.teaching_units.build %>
-    <% else %>
-      <%= render :partial => 'teaching_unit', :collection => @project.teaching_units,
-        :locals => {:f => f} %>
-    <% end %>
+    <%= render :partial => 'teaching_unit', :collection => @project.teaching_units,
+      :locals => {:f => f} %>
 
     <%= link_to_add_fields t('subtopics.add_new_teaching_unit'), f, :teaching_units, 'teaching_unit' %>
   </div>
@@ -51,12 +47,8 @@
   <h3><%= t('projects.label_questions') %></h3>
 
   <div id="questions">
-    <% if @project.questions.empty? %>
-      <% @project.questions.build %>
-    <% else %>
-      <%= render :partial => 'question', :collection => @project.questions,
-        :locals => {:f => f} %>
-    <% end %>
+    <%= render :partial => 'question', :collection => @project.questions,
+       :locals => {:f => f} %>
 
     <%= link_to_add_fields t('projects.add_question'), f, :questions, 'question' %>
   </div>
