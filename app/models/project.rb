@@ -106,7 +106,9 @@ class Project < ApplicationModel
   end
 
   def generate_identifier
-    "#{self.id}-#{self.short_group_type_text}-#{self.short_test_type_text}"
+    self.update_attribute(:identifier,
+      [self.id, self.short_group_type_text, self.short_test_type_text].join('-')
+    )
   end
 
   private

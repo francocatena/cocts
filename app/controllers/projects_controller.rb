@@ -73,7 +73,7 @@ class ProjectsController < ApplicationController
       respond_to do |format|
         @project.transaction do
           if @project.save
-            @project.update_column :identifier, @project.generate_identifier
+            @project.generate_identifier
             go_to = session[:go_to]
             session[:go_to] = nil
             flash[:notice] = t :'projects.correctly_created'
@@ -107,9 +107,9 @@ class ProjectsController < ApplicationController
     else
       respond_to do |format|
         @project.user = @auth_user unless @auth_user.admin
-        params[:project][:identifier] = @project.generate_identifier
 
         if @project.update_attributes(project_params)
+          @project.generate_identifier
           flash[:notice] = t :'projects.correctly_updated'
           go_to = session[:go_to]
           session[:go_to] = nil
@@ -186,9 +186,9 @@ class ProjectsController < ApplicationController
 
   private
 
-    def project_params 
+    def project_params
       params.require(:project).permit(
-        :name, :identifier, :description, :year, :user_id, :group_name, :group_type, 
+        :name, :description, :year, :user_id, :group_name, :group_type,
         :lock_version, :test_type, :project_type, :valid_until, forms: [], question_ids: [],
         teaching_unit_ids: []
       )

@@ -4,7 +4,7 @@
   <div class="row">
     <div class="col-md-6">
       <%= f.input :name, input_html: { readonly: @name, maxlength: 100 } %>
-      <%= f.input :identifier, input_html: { readonly: !@auth_user.admin?, maxlength: 30 } %>
+      <%= f.input :identifier, input_html: { readonly: true, maxlength: 30 } %>
       <%= f.input :description, input_html: { maxlength: 255 } %>
       <%= f.input :year, input_html: { maxlength: 4 } %>
       <% if @auth_user.admin %>
