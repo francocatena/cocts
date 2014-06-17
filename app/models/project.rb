@@ -26,6 +26,7 @@ class Project < ApplicationModel
       record.errors.add attr, :inclusion
     end
   end
+  validate :questions_xor_teaching_units
 
   # Relaciones
   has_and_belongs_to_many :questions, :validate => false
@@ -107,4 +108,12 @@ class Project < ApplicationModel
   def generate_identifier
     "#{self.id}-#{self.short_group_type_text}-#{self.short_test_type_text}"
   end
+
+  private
+
+    def questions_xor_teaching_units
+      if !(questions.blank? ^ teaching_units.blank?)
+        self.errors[:question_ids] << t('projects.empty_questions_error')
+      end
+    end
 end

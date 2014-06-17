@@ -66,11 +66,8 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
     @project.user = @auth_user unless @auth_user.admin
 
-    if @project.questions.empty? && @project.teaching_units.empty?
+    if !(@project.questions.empty? ^ @project.teaching_units.empty?)
       @project.errors[:base] << t(:'projects.empty_questions_error')
-      render :action => :new
-    elsif !@project.teaching_units.empty? && !@project.questions.empty?
-      @project.errors[:base] << t(:'projects.questions_error')
       render :action => :new
     else
       respond_to do |format|
@@ -104,35 +101,30 @@ class ProjectsController < ApplicationController
     params[:project][:question_ids] ||= []
     params[:project][:teaching_unit_ids] ||= []
 
-    # Validación de que solo tenga cuestiones ya sean de UDs O cuestiones individuales
-    if params[:project][:question_ids].empty? && params[:project][:teaching_unit_ids].empty?
-      @project.errors[:base] << t(:'projects.empty_questions_error')
+    if !(params[:project][:question_ids].empty? ^ params[:project][:teaching_unit_ids].empty?)
+      @project.errors[:question_ids] << t(:'projects.empty_questions_error')
       render :action => :edit
-    # Validación de que no tenga cuestiones de UDs Y cuestiones individuales
-    elsif !(params[:project][:question_ids].blank? || @project.questions.empty?) && !(params[:project][:teaching_unit_ids].blank? || @project.teaching_units.empty?)
-      @project.errors[:base] << t(:'projects.questions_error')
-      render :action => :edit
+    else
+      respond_to do |format|
+        @project.user = @auth_user unless @auth_user.admin
+        params[:project][:identifier] = @project.generate_identifier
 
-    else respond_to do |format|
-      @project.user = @auth_user unless @auth_user.admin
-      params[:project][:identifier] = @project.generate_identifier
+        if @project.update_attributes(project_params)
+          flash[:notice] = t :'projects.correctly_updated'
+          go_to = session[:go_to]
+          session[:go_to] = nil
+          if go_to
+            format.html { redirect_to go_to }
+          else
+            format.html { redirect_to projects_path }
+          end
 
-      if @project.update_attributes(project_params)
-        flash[:notice] = t :'projects.correctly_updated'
-        go_to = session[:go_to]
-        session[:go_to] = nil
-        if go_to
-          format.html { redirect_to go_to }
+          format.xml  { render :xml => @project, :status => :created, :location => @project }
         else
-          format.html { redirect_to projects_path }
+          format.html { render :action => :edit }
+          format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
         end
-
-        format.xml  { render :xml => @project, :status => :created, :location => @project }
-      else
-        format.html { render :action => :edit }
-        format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
       end
-     end
     end
 
   rescue ActiveRecord::StaleObjectError
