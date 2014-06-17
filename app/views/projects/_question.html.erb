@@ -1,12 +1,12 @@
 <% id = f.object.object_id %>
 <fieldset class="question">
   <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-6">
       <% if f.object.new_record? %>
         <%= f.input :question, as: :string, label: false,
           input_html: {
             id: "project_question_#{id}", class: :autocomplete_field,
-            value: f.object.question, autofocus: true,
+            value: (f.object.question if f.object.persisted?), autofocus: true,
             data: {
               autocomplete_url: autocomplete_for_question_projects_path(format: :json),
               autocomplete_params: ({project_id: @project.id}.to_json unless @project.new_record?),
@@ -18,7 +18,9 @@
           id: "question_id_#{id}", class: :autocomplete_id
         }%>
       <% else %>
-        <p><strong><%= question.code %></strong> - <%= question.question %></p>
+        <%= f.input :question, label: false, input_html: {
+            value: "#{question.code} - #{question.question}", readonly: true
+          }, wrapper_html: { class: ('has-error' if @project.errors[:question_ids].any?) } %>
         <%= f.input :question, as: :hidden, input_html: {
             name: 'project[question_ids][]', value: question.id,
             id: "question_#{id}"
