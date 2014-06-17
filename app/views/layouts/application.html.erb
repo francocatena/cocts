@@ -27,8 +27,8 @@
   </div>
   <div class="container">
     <%= render 'shared/menu' %>
-    <%= yield %>
     <%= render 'shared/flash' if flash_message.present? %>
+    <%= yield %>
 
     <%= javascript_tag do %>
       <%= yield :js_extra_bottom %>
