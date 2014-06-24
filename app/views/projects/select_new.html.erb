@@ -1,22 +1,33 @@
-<div id="new_project">
-  <h3><%= t('projects.new_title') %></h3>
-
-  <div id="items">
-    <%= t('projects.new_help') %>
-    <%= link_to t('labels.new'), new_project_path,
-        :class => :important_action %>
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <%= t('projects.new_title') %>
+      </div>
+      <div class="panel-body">
+        <%= t('projects.new_help') %>
+        <%= link_to t('labels.new'), new_project_path %>
+      </div>
+    </div>
   </div>
+</div>
 
-  <h3><%= t('projects.existing_title') %></h3>
-
-  <div id="items">
-    <%= t('projects.existing_help') %>
-  </div>
-  <div id="option">
-    <%= form_tag new_project_path, :method => 'get' do %>
-      <%= select_tag(:project_name, options_from_collection_for_select(@projects,
-          :name, :name)) %>
-      <%= submit_tag t('labels.select') %>
-    <% end %>
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <%= t('projects.existing_title') %>
+      </div>
+      <div class="panel-body">
+        <%= t('projects.existing_help') %>
+        <%= form_tag new_project_path, method: 'get' do %>
+          <br />
+          <%= select_tag(:project_name, options_from_collection_for_select(@projects,
+            :name, :name), class: 'form-control') %>
+          <br />
+          <%= submit_tag t('labels.select') %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
