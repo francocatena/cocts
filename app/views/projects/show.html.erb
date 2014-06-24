@@ -50,14 +50,15 @@
 <br />
 
 <h2>
-  <%= textilize_without_paragraph t(:sociodemographic_forms_title,
-    :scope => i18n_scope) %>
+  <%= t 'projects.sociodemographic_label' %>
 </h2>
 
 <% unless @project.forms.empty? %>
-  <% @project.forms.each do |form| %>
-    <div><%= render form %></div>
-  <% end %>
+  <ul>
+    <% @project.forms.each do |form| %>
+      <li><%= t "projects.sociodemographic_forms.#{form}.option" %></li>
+    <% end %>
+  </ul>
 <% end %>
 
 <% unless @project.teaching_units.empty? %>
@@ -67,7 +68,7 @@
     <% subtopic = teaching_unit.subtopic  %>
     <h3><%= teaching_unit.title %>:</h3>
     <% unless subtopic.blank? %>
-      <h4><%= "#{t'activerecord.models.subtopic'}: #{subtopic.code}-
+      <h4><%= "#{t 'activerecord.models.subtopic'}: #{subtopic.code}-
         #{subtopic.title}" %></h4>
     <% end %>
 
