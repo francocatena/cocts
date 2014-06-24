@@ -6,4 +6,5 @@
 <% end %>
 
 <%= f.input :degree_school, collection: degrees, as: :radio_buttons,
-  checked: @project_instance.degree_school %>
+  checked: @project_instance.degree_school, wrapper_html: {
+    class: 'form-inline' }, input_html: { style: 'width: 30px' } %>
