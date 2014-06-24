@@ -21,22 +21,6 @@ module LinksHelper
     link_to t('labels.back'), '#', 'data-event' => 'historyBack'
   end
 
-  def remove_item_link(fields = nil, class_for_remove = nil)
-    new_record = fields.nil? || fields.object.new_record?
-    out = String.new.html_safe
-    out << fields.hidden_field(:_destroy, :class => :destroy,
-      :value => fields.object.marked_for_destruction? ? 1 : 0) unless new_record
-    out << link_to('X', '#', :title => t(:'labels.delete'),
-      :'data-target' => ".#{class_for_remove || fields.object.class.name.underscore}",
-      :'data-event' => (new_record ? 'removeItem' : 'hideItem'))
-  end
-
-  def remove_list_item_link(fields, remove_class = nil)
-    link_to('X', "#", title: t('labels.destroy'),
-      :'data-target' => ".#{remove_class || fields.object.class.name.underscore}",
-      :'data-event' => 'removeItem')
-  end
-
   def link_to_move(*args)
     options = {
       :class => 'image_link move',
