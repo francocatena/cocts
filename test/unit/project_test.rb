@@ -127,9 +127,17 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   test 'generate project identifier' do
-    id_project = @project.generate_identifier
-    id = "#{@project.id}-#{@project.short_group_type_text}-#{@project.short_test_type_text}"
-    assert_equal id_project, id
+    @project.group_type = 'experimental'
+    @project.test_type = 'pos_test'
+    @project.generate_identifier
+
+    new_id = [
+      @project.id,
+      @project.short_group_type_text,
+      @project.short_test_type_text
+    ].join('-')
+
+    assert_equal @project.identifier, new_id
   end
 
   test 'conversion to pdf' do

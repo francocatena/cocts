@@ -4,8 +4,8 @@ manual:
   description: 'Description of the manual project'
   year: 2010
   group_name: 'Grupo manual'
-  group_type: test
-  test_type: Pre-test
+  group_type: control
+  test_type: pre_test
   project_type: <%= Project::TYPES[:manual] %>
   valid_until: <%= 1.month.from_now.to_date %>
   forms: <%= Project::SOCIODEMOGRAPHIC_FORMS.to_yaml.inspect %>
@@ -19,7 +19,7 @@ interactive:
   year: 2009
   group_name: 'Grupo interactivo'
   group_type: experimental
-  test_type: Pos-test
+  test_type: pos_test
   project_type: <%= Project::TYPES[:interactive] %>
   valid_until: <%= 3.days.from_now.to_date %>
   forms: <%= Project::SOCIODEMOGRAPHIC_FORMS.to_yaml.inspect %>
