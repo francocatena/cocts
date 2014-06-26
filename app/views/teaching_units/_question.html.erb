@@ -6,7 +6,7 @@
         <%= f.input :question, as: :string, label: false,
           input_html: {
             id: "teaching_unit_question_#{id}", class: :autocomplete_field,
-            value: f.object.question, autofocus: true,
+            value: (f.object.question if f.object.persisted?), autofocus: true,
             data: {
               autocomplete_url: autocomplete_for_question_projects_path(format: :json),
               autocomplete_params: ({teaching_unit_id: @teaching_unit.id}.to_json unless @teaching_unit.new_record?),
