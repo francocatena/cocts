@@ -7,16 +7,6 @@ module ApplicationHelper
     options_array.sort { |o_1, o_2| o_1.first <=> o_2.first }
   end
 
-  # Devuelve el HTML devuelto por un render :partial => 'form', con el texto en
-  # el botón submit reemplazado por el indicado. El resultado está "envuelto" en
-  # un div con la clase "form_container"
-  #
-  # * _submit_label_::  Etiqueta que se quiere mostrar en el botón submit del
-  #                     formulario
-  def render_form
-    content_tag :div, render(:partial => 'form'), :class => :form_container
-  end
-
   # Devuelve el HTML (con el tag <script>) para establecer el foco en un
   # elemento
   #
