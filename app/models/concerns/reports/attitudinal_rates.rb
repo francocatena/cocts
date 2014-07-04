@@ -1,5 +1,4 @@
 module Reports::AttitudinalRates
-
   def generate_pdf_rates(projects, user)
     pdf = Prawn::Document.new(PDF_OPTIONS)
     pdf.font_size = PDF_FONT_SIZE
@@ -311,7 +310,7 @@ module Reports::AttitudinalRates
   end
 
   def add_pdf_table(pdf, data)
-    pdf.table(data) do
+    pdf.flexible_table(data) do
       row(0).style(
         :background_color => 'cccccc',
         :padding => [(PDF_FONT_SIZE * 0.5).round, (PDF_FONT_SIZE * 0.3).round]

@@ -37,7 +37,7 @@ EventHandler =
     FormUtil.completeSortNumbers()
 
   # Elimina el elemento del DOM
-   removeItem: (e) ->
+  removeItem: (e) ->
     target = e.parents(e.data('target'))
     Helper.removeItem(target)
     target.trigger('item:removed', target)
@@ -47,7 +47,7 @@ EventHandler =
 window.FormUtil =
   # Completa todos los inputs con la clase "sort_number" con números en secuencia
    completeSortNumbers: ->
-    $('input.sort_number').val((i) ->  i + 1)
+     $('input.sort_number').val((i) ->  i + 1)
 
 # Utilidades varias para asistir con efectos sobre los elementos
 window.Helper =

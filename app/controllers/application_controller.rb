@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
   end
 
   def restart_session
-    flash_temp = flash
+    flash_temp = flash.to_hash
     reset_session
     flash.replace flash_temp
   end
