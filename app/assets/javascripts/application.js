@@ -5,7 +5,8 @@
 // the compiled file.
 //
 //= require jquery
-//= require jquery.ui.all
+//= require jquery-ui/autocomplete
+//= require jquery-ui/datepicker
 //= require jquery_ujs
 //= require datepicker/jquery.ui.datepicker-es
 //= require common
