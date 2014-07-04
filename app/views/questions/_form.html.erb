@@ -11,6 +11,7 @@
         }, prompt: true, autofocus: true %>
       <%= f.input :code %>
       <%= f.input :question %>
+      <%= f.input :lock_version, as: :hidden %>
     </div>
   </div>
 
@@ -22,8 +23,6 @@
 
     <%= link_to_add_fields t('questions.add_answer'), f, :answers, 'answer' %>
   </div>
-
-  <%= hidden_lock_version(f) %>
 
   <hr />
 

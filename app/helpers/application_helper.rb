@@ -26,14 +26,6 @@ module ApplicationHelper
     javascript_tag "Form.Element.focus.delay(#{delay}, '#{dom_id.to_s}');"
   end
 
-  # Devuelve el HTML de un campo lock_version oculto dentro de un div oculto
-  #
-  # * _form_:: Formulario que se utilizará para generar el campo oculto
-  def hidden_lock_version(form)
-    content_tag(:div, form.hidden_field(:lock_version),
-      :style => 'display: none;').html_safe
-  end
-
   # Devuelve una etiqueta con el mismo nombre que el del objeto para que sea
   # reemplazado con un ID único por la rutina que reemplaza todo en el navegador
   def dynamic_object_id(prefix, form_builder)

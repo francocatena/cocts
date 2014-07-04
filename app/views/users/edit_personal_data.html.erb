@@ -11,8 +11,7 @@
       <%= f.input :name, html_options: { maxlength: 255, autofocus: true } %>
       <%= f.input :lastname, html_options: { maxlength: 255 } %>
       <%= f.input :email, html_options: { maxlength: 100 } %>
-
-      <%= hidden_lock_version(f) %>
+      <%= f.input :lock_version, as: :hidden %>
 
       <hr />
 

@@ -13,8 +13,7 @@
           } %>
       <%= f.input :admin, label: false, inline_label: true %>
       <%= f.input :private, label: false, inline_label: true %>
-
-      <%= hidden_lock_version(f) %>
+      <%= f.input :lock_version, as: :hidden %>
    </div>
   </div>
 

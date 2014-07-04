@@ -14,8 +14,8 @@
     <%= f.input :order, as: :hidden, input_html: {
         class: :sort_number
       } %>
+    <%= f.input :lock_version, as: :hidden %>
     <%= link_to_remove_nested_item f %>
-    <%= hidden_lock_version(f) %>
   </div>
 </fieldset>
 

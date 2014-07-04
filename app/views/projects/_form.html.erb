@@ -16,6 +16,7 @@
       <%= f.input :group_type, collection: GROUP_TYPES.map { |group|
             [t("projects.questionnaire.group_type.options.#{group}"), group]
           }, as: :radio_buttons, checked: @project.group_type %>
+      <%= f.input :lock_version, as: :hidden %>
       <%= hidden_field_tag :parent_group_type, @group %>
       <%= f.input :test_type, collection: TEST_TYPES.map { |test|
             [t("projects.questionnaire.test_type.options.#{test}"), test]
@@ -52,8 +53,6 @@
 
     <%= link_to_add_fields t('projects.add_question'), f, :questions, 'question' %>
   </div>
-
-  <%= hidden_lock_version(f) %>
 
   <hr />
 
