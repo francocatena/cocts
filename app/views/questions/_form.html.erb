@@ -1,7 +1,4 @@
 <%= simple_form_for @question do |f| %>
-  <%= content_for :js_extra do %>
-    <%= raw "var answer='#{generate_template(f, :answers)}';" %>
-  <% end %>
   <%= f.error_notification %>
 
   <div class="row">

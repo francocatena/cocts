@@ -84,11 +84,10 @@
   </table>
 
   <% i18n_scope.slice!(-2, 2) %>
-  <%= raw textilize(t(:scale_clarification, :scope => i18n_scope)) %>
+  <%= t(:scale_clarification, scope: i18n_scope) %>
   <%= render 'projects/answer_example' %>
 
-  <h2><%= textilize_without_paragraph t(:sociodemographic_forms_title,
-    :scope => i18n_scope) %></h2>
+  <h2><%= t(:sociodemographic_forms_title, scope: i18n_scope) %></h2>
 
   <%= simple_form_for @project_instance do |f| %>
     <%= f.error_messages %>
