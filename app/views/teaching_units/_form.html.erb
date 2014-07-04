@@ -1,8 +1,4 @@
 <%= simple_form_for(@teaching_unit) do |f| %>
-  <%= content_for :js_extra do %>
-    <%= raw "var question='#{escape_javascript(render(:partial => 'question',
-        :object => Question.new, :locals => {:f => f}))}';" %>
-  <% end %>
   <%= f.error_notification %>
 
   <div class="row">

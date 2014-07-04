@@ -1,8 +1,4 @@
 <%= simple_form_for(@subtopic) do |f| %>
-  <%= content_for :js_extra do %>
-    <%= raw "var teaching_unit='#{escape_javascript(render(:partial => 'teaching_unit',
-        :object => TeachingUnit.new, :locals => {:f => f}))}';" %>
-  <% end %>
   <%= f.error_notification %>
 
   <div class="row">
