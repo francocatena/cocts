@@ -191,8 +191,12 @@
     <div class="panel-body"><strong><%= qi.question_text %></strong></div>
     <% unless qi.answer_instances.empty? %>
       <table class="table table-hover">
-        <th><%= AnswerInstance.human_attribute_name :valuation %></th>
-        <th><%= AnswerInstance.human_attribute_name :answer_text %></th>
+        <thead>
+          <tr>
+            <th><%= AnswerInstance.human_attribute_name :valuation %></th>
+            <th><%= AnswerInstance.human_attribute_name :answer_text %></th>
+          </tr>
+        </thead>
         <% qi.answer_instances.each do |ai| %>
           <tr>
             <td><strong><%= ai.valuation %></strong></td>
