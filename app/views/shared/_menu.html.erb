@@ -2,7 +2,7 @@
 
 <% if @auth_user %>
 
-<nav class="navbar navbar-inverse navbar-fixed-top" role="banner">
+<nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -16,15 +16,15 @@
 
     <div class="collapse navbar-collapse" role="navigation">
       <ul class="nav navbar-nav">
-        <li class=<%= "active" if controller == :users %>>
+        <li <%= 'class=active' if controller == :users %>>
           <%= link_to t('menu.users'), users_path if @auth_user.admin? %></li>
-        <li class=<%= "active" if controller == :projects %>>
+        <li <%= 'class=active' if controller == :projects %>>
           <%= link_to t('menu.projects'), projects_path %></li>
-        <li class=<%= "active" if controller == :questions %>>
+        <li <%= 'class=active' if controller == :questions %>>
           <%= link_to t('menu.questions'), questions_path %></li>
-        <li class=<%= "active" if controller == :teaching_units %>>
+        <li <%= 'class=active' if controller == :teaching_units %>>
           <%= link_to t('menu.teaching_units'), teaching_units_path %></li>
-        <li class=<%= "active" if controller == :subtopics %>>
+        <li <%= 'class=active' if controller == :subtopics %>>
           <%= link_to t('menu.subtopics'), subtopics_path %></li>
       </ul>
       <form class="navbar-form navbar-left" action="
@@ -57,8 +57,8 @@
           </ul>
         </li>
       </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+    </div>
+  </div>
 </nav>
 
 <% end %>
