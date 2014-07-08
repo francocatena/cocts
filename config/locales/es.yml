@@ -614,6 +614,7 @@
         question: 'Si es profesor, en formación o en ejercicio, ¿de qué nivel educativo...?'
 
   project_instances:
+    search: 'Buscar cuestionarios'
     answer_cuestionnaire: 'Ver preguntas'
     show_project_data: 'Ver datos proyecto'
     hide_project_data: 'Ocultar datos proyecto'
