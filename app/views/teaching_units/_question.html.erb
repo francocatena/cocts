@@ -21,7 +21,7 @@
         <p><strong><%= question.code %></strong> - <%= question.question %></p>
         <%= f.input :question, as: :hidden, input_html: {
             name: 'teaching_unit[question_ids][]', value:  question.id,
-            id: "question_#{id}"
+            id: "question_#{question.id}"
         } %>
       <% end %>
     </div>
