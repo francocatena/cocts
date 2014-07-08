@@ -22,7 +22,7 @@
         <p><strong><%= teaching_unit.title %></strong></p>
         <%= f.input :teaching_unit_id, as: :hidden, input_html: {
             name: 'subtopic[teaching_unit_ids][]', value: teaching_unit.id,
-            id: "teaching_unit_id#{id}", class: :autocomplete_id
+            id: "teaching_unit_#{teaching_unit.id}", class: :autocomplete_id
           } %>
       <% end %>
     </div>
