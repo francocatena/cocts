@@ -6,7 +6,7 @@
       <%= f.input :name, input_html: { readonly: @name, maxlength: 100 } %>
       <%= f.input :identifier, input_html: { readonly: true, maxlength: 30 } %>
       <%= f.input :description, input_html: { maxlength: 255 } %>
-      <%= f.input :year, input_html: { maxlength: 4 } %>
+      <%= f.input :year %>
       <% if @auth_user.admin %>
         <%= f.input :user_id, collection: User.all.map { |u|
               [u.user, u.id]
