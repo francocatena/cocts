@@ -1,9 +1,7 @@
 class User < ApplicationModel
   include Users::Password
   include Users::Validations
-
-  # Relaciones
-  has_many :projects
+  include Users::Relations
 
   before_destroy :can_be_destroyed?
 
