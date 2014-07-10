@@ -2,6 +2,7 @@ class Project < ApplicationModel
   include Reports::AttitudinalRates
   include Reports::PdfProject
   include Projects::Validations
+  include Projects::Relations
 
   serialize :forms, Array
   # Scopes
@@ -10,12 +11,6 @@ class Project < ApplicationModel
   # Atributos no persistentes
   attr_accessor :nested_question
   attr_accessor :nested_teaching_unit
-
-  # Relaciones
-  has_and_belongs_to_many :questions, :validate => false
-  has_and_belongs_to_many :teaching_units, -> { uniq }, :validate => false
-  has_many :project_instances
-  belongs_to :user
 
   # Callbacks
   before_destroy :can_be_destroyed?
