@@ -1,6 +1,7 @@
 class Project < ApplicationModel
   include Reports::AttitudinalRates
   include Reports::PdfProject
+  include Projects::Validations
 
   serialize :forms, Array
   # Scopes
@@ -9,24 +10,6 @@ class Project < ApplicationModel
   # Atributos no persistentes
   attr_accessor :nested_question
   attr_accessor :nested_teaching_unit
-
-  # Restricciones
-  validates :name, :test_type, :group_name, :group_type, :description, :valid_until,
-    :presence => true
-  validates_uniqueness_of :identifier, :allow_nil => true, :allow_blank => true
-  validates_numericality_of :year, :only_integer => true, :allow_nil => true,
-    :allow_blank => true, :greater_than => 1000, :less_than => 3000
-  validates_length_of :name, :identifier, :maximum => 255, :allow_nil => true,
-    :allow_blank => true
-  validates :identifier, :exclusion => { :in => %w(admin ayuda help) }
-  validates_date :valid_until, :on_or_after => lambda { Date.today },
-    :allow_nil => false, :allow_blank => false, :if => :interactive?
-  validates_each :forms do |record, attr, value|
-    unless (value || []).all? { |value| SOCIODEMOGRAPHIC_FORMS.include?(value) }
-      record.errors.add attr, :inclusion
-    end
-  end
-  validate :questions_xor_teaching_units
 
   # Relaciones
   has_and_belongs_to_many :questions, :validate => false
@@ -110,12 +93,4 @@ class Project < ApplicationModel
       [self.id, self.short_group_type_text, self.short_test_type_text].join('-')
     )
   end
-
-  private
-
-    def questions_xor_teaching_units
-      if !(questions.blank? ^ teaching_units.blank?)
-        self.errors[:question_ids] << t('projects.empty_questions_error')
-      end
-    end
 end
