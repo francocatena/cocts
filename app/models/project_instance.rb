@@ -6,11 +6,6 @@ class ProjectInstance < ApplicationModel
   # Atributos no persistentes
   attr_accessor :manual_degree, :manual_degree_university
 
-  # Relaciones
-  belongs_to :project
-  has_many :question_instances, :dependent => :destroy
-  accepts_nested_attributes_for :question_instances
-
   # Restricciones
   validates :first_name, :presence => true
   validates_numericality_of :age, :only_integer => true, :allow_nil => true,
