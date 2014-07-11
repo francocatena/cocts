@@ -6,9 +6,7 @@ class Project < ApplicationModel
   include Projects::Search
   include Projects::CustomAttributes
   include Projects::Callbacks
-
-  # Scopes
-  default_scope { order('name') }
+  include Projects::Scopes
 
   def initialize(attributes = nil, options = {})
     super(attributes, options)
