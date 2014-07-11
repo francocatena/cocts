@@ -5,12 +5,10 @@ class Project < ApplicationModel
   include Projects::Relations
   include Projects::Search
   include Projects::CustomAttributes
+  include Projects::Callbacks
 
   # Scopes
   default_scope { order('name') }
-
-  # Callbacks
-  before_destroy :can_be_destroyed?
 
   def initialize(attributes = nil, options = {})
     super(attributes, options)
@@ -25,10 +23,6 @@ class Project < ApplicationModel
 
   def to_param
     self.identifier
-  end
-
-  def can_be_destroyed?
-    self.project_instances.blank?
   end
 
   TYPES.each do |type, value|
