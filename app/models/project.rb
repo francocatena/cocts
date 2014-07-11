@@ -4,14 +4,10 @@ class Project < ApplicationModel
   include Projects::Validations
   include Projects::Relations
   include Projects::Search
+  include Projects::CustomAttributes
 
-  serialize :forms, Array
   # Scopes
   default_scope { order('name') }
-
-  # Atributos no persistentes
-  attr_accessor :nested_question
-  attr_accessor :nested_teaching_unit
 
   # Callbacks
   before_destroy :can_be_destroyed?
