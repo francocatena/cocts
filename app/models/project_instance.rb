@@ -2,9 +2,6 @@ class ProjectInstance < ApplicationModel
   include Reports::PdfProject
 
   serialize :forms, Array
-  # Scopes
-  default_scope { order('first_name') }
-  scope :with_project, ->(project_id) { where('project_id = :id', id: project_id) }
 
   # Atributos no persistentes
   attr_accessor :manual_degree, :manual_degree_university
