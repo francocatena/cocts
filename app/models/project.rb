@@ -3,6 +3,7 @@ class Project < ApplicationModel
   include Reports::PdfProject
   include Projects::Validations
   include Projects::Relations
+  include Projects::Search
 
   serialize :forms, Array
   # Scopes
@@ -68,19 +69,6 @@ class Project < ApplicationModel
 
   def project_test_type_text
     I18n.t "projects.questionnaire.test_type.options.#{self.test_type}"
-  end
-
-  def self.search(search, user, page)
-    if search
-      sql_search = where("#{Project.table_name}.name ILIKE :q OR #{Project.table_name}.identifier ILIKE :q", :q => "%#{search}%")
-    else
-      sql_search = all
-    end
-    if user.private
-      sql_search.where('user_id = :id', :id => user.id).paginate(:page => page, :per_page => APP_LINES_PER_PAGE)
-    else
-      sql_search.paginate(:page => page, :per_page => APP_LINES_PER_PAGE )
-    end
   end
 
   def generate_identifier
