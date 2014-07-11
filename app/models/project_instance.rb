@@ -4,11 +4,7 @@ class ProjectInstance < ApplicationModel
   include ProjectInstances::Scopes
   include ProjectInstances::Relations
   include ProjectInstances::Rates
-
-  serialize :forms, Array
-
-  # Atributos no persistentes
-  attr_accessor :manual_degree, :manual_degree_university
+  include ProjectInstances::CustomAttributes
 
   def initialize(attributes = nil, options = {})
     super(attributes, options)
