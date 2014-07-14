@@ -1,6 +1,7 @@
 class Question < ApplicationModel
   include Questions::Validations
   include Questions::Relations
+  include Questions::Search
 
   # Scopes
   default_scope { order(
@@ -42,16 +43,6 @@ class Question < ApplicationModel
     self.projects.blank?
   end
 
-  def self.search(search, page = 12)
-    if search
-      where('question ILIKE :q OR code ILIKE :q', :q => "%#{search}%").paginate(
-        :page => page, :per_page => APP_LINES_PER_PAGE
-      )
-    else
-      all.paginate(:page => page, :per_page => APP_LINES_PER_PAGE)
-    end
-  end
-
   def standard_deviation(project, average)
     summation = 0
     n = 0
@@ -73,15 +64,5 @@ class Question < ApplicationModel
     else
       0
     end
-  end
-
-  def self.full_text(query_terms)
-    options = text_query(query_terms, 'code','question')
-    conditions = [options[:query]]
-    parameters = options[:parameters]
-
-    where(
-      conditions.map { |c| "(#{c})" }.join(' OR '), parameters
-    ).order(options[:order])
   end
 end
