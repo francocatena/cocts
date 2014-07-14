@@ -2,14 +2,7 @@ class Question < ApplicationModel
   include Questions::Validations
   include Questions::Relations
   include Questions::Search
-
-  # Scopes
-  default_scope { order(
-    [
-      "#{Question.table_name}.dimension ASC",
-      "#{Question.table_name}.code ASC"
-    ].join(', ')
-  )}
+  include Questions::Scopes
 
   # Alias de atributos
   alias_attribute :informal, :question
