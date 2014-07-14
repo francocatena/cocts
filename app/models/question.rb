@@ -4,12 +4,7 @@ class Question < ApplicationModel
   include Questions::Search
   include Questions::Scopes
   include Questions::Rates
-
-  # Alias de atributos
-  alias_attribute :informal, :question
-  alias_attribute :label, :code
-
-  accepts_nested_attributes_for :answers, :allow_destroy => true
+  include Questions::CustomAttributes
 
   before_destroy :can_be_destroyed?
 
