@@ -5,8 +5,7 @@ class Question < ApplicationModel
   include Questions::Scopes
   include Questions::Rates
   include Questions::CustomAttributes
-
-  before_destroy :can_be_destroyed?
+  include Questions::Callbacks
 
   def ==(other)
     if other.kind_of?(Question)
@@ -26,9 +25,5 @@ class Question < ApplicationModel
 
   def dimension_text
     I18n.t :"questions.dimensions.#{self.dimension}"
-  end
-
-  def can_be_destroyed?
-    self.projects.blank?
   end
 end
