@@ -1,13 +1,7 @@
 class Answer < ApplicationModel
-  # Restricciones
-  validates :answer, :category, :order, :presence => true
-  validates_numericality_of :order, :category, :only_integer => true,
-    :allow_nil => true, :allow_blank => true
-  validates_inclusion_of :category, :in => CATEGORIES.values,
-    :allow_nil => true, :allow_blank => true
-
-  # Relaciones
-  belongs_to :question
+  include Answers::Validations
+  include Answers::Relations
+  include Answers::Rates
 
   def ==(other)
     if other.kind_of?(Answer)
@@ -23,23 +17,5 @@ class Answer < ApplicationModel
     type = short ? :shor_type : :long_type
 
     I18n.t :"projects.answers.#{type}.#{CATEGORIES.invert[self.category]}"
-  end
-
-  def calculate_global_attitudinal_assessment
-    index = 0
-    total = 0
-    answer_instances = AnswerInstance.where(:answer_text => self.answer,
-      :order => self.order, :answer_category => self.category)
-    if answer_instances
-      answer_instances.each do |ai|
-        index+= ai.attitudinal_assessment
-        total+= 1
-      end
-      if total == 0
-        total
-      else
-        index/total
-      end
-    end
   end
 end
