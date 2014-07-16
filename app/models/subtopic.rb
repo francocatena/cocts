@@ -1,8 +1,6 @@
 class Subtopic < ApplicationModel
   include Subtopics::CustomAttributes
-
-  belongs_to :topic
-  has_many :teaching_units
+  include Subtopics::Relations
 
   validates :title, :code, :presence => true
   validates_uniqueness_of :title
