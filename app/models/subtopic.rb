@@ -1,7 +1,5 @@
 class Subtopic < ApplicationModel
-  attr_accessor :nested_teaching_unit
-
-  alias_attribute :label, :title
+  include Subtopics::CustomAttributes
 
   belongs_to :topic
   has_many :teaching_units
