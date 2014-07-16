@@ -1,9 +1,6 @@
 class TeachingUnit < ApplicationModel
   include TeachingUnits::CustomAttributes
-
-  has_and_belongs_to_many :questions
-  has_and_belongs_to_many :projects
-  belongs_to :subtopic
+  include TeachingUnits::Relations
 
   validates :title, :presence => true
   validates_uniqueness_of :title
