@@ -1,9 +1,6 @@
 class AnswerInstance < ApplicationModel
   include AnswerInstances::Scopes
-
-  # Relaciones
-  belongs_to :question_instance
-  belongs_to :answer
+  include AnswerInstances::Relations
 
   # Restricciones
   validates :answer_text, :order, :valuation, :answer_category, :presence => true
