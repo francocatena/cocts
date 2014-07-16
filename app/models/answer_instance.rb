@@ -1,5 +1,5 @@
 class AnswerInstance < ApplicationModel
-  scope :ordered, -> { order("position") }
+  include AnswerInstances::Scopes
 
   # Relaciones
   belongs_to :question_instance
