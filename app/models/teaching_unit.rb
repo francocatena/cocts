@@ -1,15 +1,7 @@
 class TeachingUnit < ApplicationModel
   include TeachingUnits::CustomAttributes
   include TeachingUnits::Relations
-
-  validates :title, :presence => true
-  validates_uniqueness_of :title
-
-  validates_each :questions do |record, attr, value|
-    if value.empty?
-      record.errors.add attr, :blank
-    end
-  end
+  include TeachingUnits::Validations
 
   def initialize(attributes = nil, options = {})
     super(attributes, options)
