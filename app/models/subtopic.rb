@@ -1,11 +1,7 @@
 class Subtopic < ApplicationModel
   include Subtopics::CustomAttributes
   include Subtopics::Relations
-
-  validates :title, :code, :presence => true
-  validates_uniqueness_of :title
-  validates_numericality_of :code, :only_integer => true, :allow_nil => true,
-    :allow_blank => true
+  include Subtopics::Validations
 
   def initialize(attributes = nil, options = {})
     super(attributes, options)
