@@ -1,7 +1,5 @@
 class TeachingUnit < ApplicationModel
-  attr_accessor :nested_question
-
-  alias_attribute :label, :title
+  include TeachingUnits::CustomAttributes
 
   has_and_belongs_to_many :questions
   has_and_belongs_to_many :projects
