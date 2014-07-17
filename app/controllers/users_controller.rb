@@ -7,16 +7,13 @@ class UsersController < ApplicationController
       'clean' : 'application'
   }
 
+  respond_to :html
+
   # * GET /users
   # * GET /users.xml
   def index
     @title = t :'users.index_title'
     @users = User.search(params[:search], params[:page])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @users }
-    end
   end
 
   # * GET /users/1
@@ -24,11 +21,6 @@ class UsersController < ApplicationController
   def show
     @title = t :'users.show_title'
     @user = User.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @user }
-    end
   end
 
   # * GET /users/new
@@ -36,11 +28,6 @@ class UsersController < ApplicationController
   def new
     @title = t :'users.new_title'
     @user = User.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @user }
-    end
   end
 
   # * GET /users/1/edit
