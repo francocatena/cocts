@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   include Users::Sessions
+  include Users::PersonalData
 
   before_action :set_title, except: [:destroy, :update_password,
     :logout, :update_personal_data]
@@ -90,27 +91,6 @@ class UsersController < ApplicationController
       flash[:alert] = t :'users.admin_error'
       redirect_to projects_path
     end
-  end
-
-  # * GET /users/edit_personal_data/1
-  def edit_personal_data
-    @user = User.find(session[:user_id])
-  end
-
-  # * PUT /users/update_personal_data/1
-  def update_personal_data
-    @user = User.find(session[:user_id])
-
-    if @user.valid?
-      if @user.update_attributes(user_params)
-        flash[:notice] = t :'users.personal_data_correctly_updated'
-      end
-    end
-    render :action => :edit_personal_data
-
-  rescue ActiveRecord::StaleObjectError
-    flash[:alert] = t :'users.stale_object_error'
-    redirect_to edit_personal_data_user_path(@user)
   end
 
   private
