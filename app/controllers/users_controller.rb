@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  before_action :auth, :except => [:login, :create_session]
-  before_action :admin, :except => [:login, :create_session, :edit_password,
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :auth, except: [:login, :create_session]
+  before_action :admin, except: [:login, :create_session, :edit_password,
     :update_password, :edit_personal_data, :update_personal_data,:logout]
   layout proc { |controller|
     ['login', 'session'].include?(controller.action_name) ?
@@ -20,7 +21,6 @@ class UsersController < ApplicationController
   # * GET /users/1.xml
   def show
     @title = t :'users.show_title'
-    @user = User.find(params[:id])
   end
 
   # * GET /users/new
@@ -33,7 +33,6 @@ class UsersController < ApplicationController
   # * GET /users/1/edit
   def edit
     @title = t :'users.edit_title'
-    @user = User.find(params[:id])
   end
 
   # * POST /users
@@ -60,7 +59,6 @@ class UsersController < ApplicationController
   # * PUT /users/1.xml
   def update
     @title = t :'users.edit_title'
-    @user = User.find(params[:id])
 
     if params[:user][:password].blank?
       params[:user].delete(:password)
@@ -86,7 +84,6 @@ class UsersController < ApplicationController
   # * DELETE /users/1
   # * DELETE /users/1.xml
   def destroy
-    @user = User.find(params[:id])
     unless @user.destroy
       flash[:alert] = t :'users.project_error'
     end
@@ -215,10 +212,14 @@ class UsersController < ApplicationController
 
   private
 
-  def user_params
-    params.require(:user).permit(
-      :user, :name, :lastname, :password, :password_confirmation, :email, :enable,
-      :private, :admin, :lock_version
-    )
-  end
+    def set_user
+      @user = User.find params[:id]
+    end
+
+    def user_params
+      params.require(:user).permit(
+        :user, :name, :lastname, :password, :password_confirmation, :email, :enable,
+        :private, :admin, :lock_version
+      )
+    end
 end
