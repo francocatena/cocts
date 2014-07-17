@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :set_title, except: [:destroy, :update_password,
+    :logout, :update_personal_data]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :auth, except: [:login, :create_session]
   before_action :admin, except: [:login, :create_session, :edit_password,
@@ -11,34 +13,25 @@ class UsersController < ApplicationController
   respond_to :html
 
   # * GET /users
-  # * GET /users.xml
   def index
-    @title = t :'users.index_title'
     @users = User.search(params[:search], params[:page])
   end
 
   # * GET /users/1
-  # * GET /users/1.xml
   def show
-    @title = t :'users.show_title'
   end
 
   # * GET /users/new
-  # * GET /users/new.xml
   def new
-    @title = t :'users.new_title'
     @user = User.new
   end
 
   # * GET /users/1/edit
   def edit
-    @title = t :'users.edit_title'
   end
 
   # * POST /users
-  # * POST /users.xml
   def create
-    @title = t :'users.new_title'
     pass = params[:user][:password]
     @user = User.new(user_params)
 
@@ -56,10 +49,7 @@ class UsersController < ApplicationController
   end
 
   # * PUT /users/1
-  # * PUT /users/1.xml
   def update
-    @title = t :'users.edit_title'
-
     if params[:user][:password].blank?
       params[:user].delete(:password)
       params[:user].delete(:password_confirmation)
@@ -82,7 +72,6 @@ class UsersController < ApplicationController
   end
 
   # * DELETE /users/1
-  # * DELETE /users/1.xml
   def destroy
     unless @user.destroy
       flash[:alert] = t :'users.project_error'
@@ -103,14 +92,11 @@ class UsersController < ApplicationController
 
   # * GET /users/login
   def login
-    @title = t :'users.login_title'
     @user = User.new
   end
 
   # * POST /users/create_session
   def create_session
-    @title = t :'users.login_title'
-
     @user = User.new user_params
     auth_user = User.find_by_user @user.user
     @user.salt = auth_user.salt if auth_user
@@ -129,14 +115,11 @@ class UsersController < ApplicationController
   end
 
   # * GET /users/edit_password/1
-  # * GET /users/edit_password/1.xml
   def edit_password
-    @title = t :'users.edit_password_title'
     @auth_user.password = nil
   end
 
   # * PUT /users/update_password/1
-  # * PUT /users/update_password/1.xml
   def update_password
     @user = User.new
     @user.user = @auth_user.user
@@ -172,17 +155,14 @@ class UsersController < ApplicationController
 
       @auth_user.password, @auth_user.password_confirmation = nil, nil
     end
+
   rescue ActiveRecord::StaleObjectError
     flash[:alert] = t :'users.password_stale_object_error'
     redirect_to edit_password_user_path(@auth_user)
   end
 
-
-
   # * GET /users/edit_personal_data/1
-  # * GET /users/edit_personal_data/1.xml
   def edit_personal_data
-    @title = t :'users.edit_personal_data_title'
     @user = User.find(session[:user_id])
   end
 
