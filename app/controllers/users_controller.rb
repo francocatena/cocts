@@ -58,20 +58,9 @@ class UsersController < ApplicationController
       params[:user].delete(:password_confirmation)
     end
 
-    respond_to do |format|
-      if @user.update_attributes(user_params)
-        flash[:notice] = t :'users.correctly_updated'
-        format.html { redirect_to(users_path) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => :edit }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
-      end
-    end
+    update_resource @user, user_params
 
-  rescue ActiveRecord::StaleObjectError
-    flash[:alert] = t :'users.stale_object_error'
-    redirect_to edit_user_path(@user)
+    respond_with @user, location: users_url unless response_body
   end
 
   # * DELETE /users/1

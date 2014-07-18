@@ -1,0 +1,22 @@
+es:
+  flash:
+    actions:
+      create:
+        notice: '%{resource_name} creado'
+        alert: ''
+      update:
+        notice: '%{resource_name} actualizado'
+        alert: ''
+        stale: '%{resource_name} no pudo ser actualizado, intente nuevamente'
+      destroy:
+        notice: '%{resource_name} eliminado'
+        alert: '%{resource_name} no pudo ser eliminado'
+
+    users:
+      create:
+        notice: 'Usuario agregado correctamente'
+      update:
+        notice: 'Usuario actualizado correctamente'
+        stale: 'El usuario no fue actualizado, intente nuevamente'
+      destroy:
+        lotice: 'Usuario eliminado'

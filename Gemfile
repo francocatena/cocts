@@ -16,6 +16,7 @@ gem 'simple_form', '~> 3.0.1'
 gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'
+gem 'irreverent'
 
 gem 'unicorn'
 

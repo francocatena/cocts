@@ -12,6 +12,6 @@ module ActionTitle
   private
 
     def action_title
-      [controller_path.gsub('/', '.'), "#{action_aliases[action_name] || action_name}_title"].join '.'
+      [controller_path.gsub('/', '.'), action_aliases[action_name] || action_name, 'title'].join '.'
     end
 end

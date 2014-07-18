@@ -1,0 +1,16 @@
+es:
+  users:
+    index:
+      title: 'Listado de usuarios'
+    show:
+      title: 'Detalle usuario'
+    new:
+      title: 'Agregar usuario'
+    edit:
+      title: 'Modificar usuario'
+    login:
+      title: 'Autenticación de usuarios'
+    edit_password:
+      title: 'Modificar contraseña'
+    edit_personal_data:
+      title: 'Modificar datos personales'
