@@ -38,17 +38,8 @@ class UsersController < ApplicationController
     pass = params[:user][:password]
     @user = User.new(user_params)
 
-    respond_to do |format|
-      if @user.save
-        UserMailer.new_user_notification(@user, pass).deliver
-        flash[:notice] = t :'users.correctly_created'
-        format.html { redirect_to(users_path) }
-        format.xml  { render :xml => @user, :status => :created, :location => @user }
-      else
-        format.html { render :action => :new }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
-      end
-    end
+    UserMailer.new_user_notification(@user, pass).deliver if @user.save
+    respond_with @user, location: users_url
   end
 
   # * PUT /users/1
@@ -65,14 +56,9 @@ class UsersController < ApplicationController
 
   # * DELETE /users/1
   def destroy
-    unless @user.destroy
-      flash[:alert] = t :'users.project_error'
-    end
+    flash[:alert] = t 'users.project_error' unless @user.destroy
 
-    respond_to do |format|
-      format.html { redirect_to(users_url) }
-      format.xml  { head :ok }
-    end
+    respond_with @user, location: users_url
   end
 
   def admin
