@@ -1,28 +1,21 @@
 class ProjectsController < ApplicationController
+  respond_to :html
+
   before_action :auth
+  before_action :set_title, except: [:destroy, :pdf_rates]
+  before_action :set_project, only: [:show, :edit, :update, :destroy]
   layout proc { |controller| controller.request.xhr? ? false : 'application' }
 
   # * GET /projects
-  # * GET /projects.xml
   def index
-    @title = t :'projects.index_title'
     @projects = Project.search(params[:search], @auth_user, params[:page])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @projects }
-    end
   end
 
   # * GET /projects/1
-  # * GET /projects/1.xml
   def show
-    @title = t :'projects.show_title'
-    @project = Project.find_by_identifier(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @project }
+      format.html
       format.pdf  {
         @project.to_pdf
         redirect_to "/#{@project.pdf_relative_path}"
@@ -31,9 +24,7 @@ class ProjectsController < ApplicationController
   end
 
   # * GET /projects/new
-  # * GET /projects/new.xml
   def new
-    @title = t :'projects.new_title'
     @project = Project.new
     session[:go_to] = request.env['HTTP_REFERER']
 
@@ -44,23 +35,15 @@ class ProjectsController < ApplicationController
       @type = project.group_type
       @test = project.test_type
     end
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @project }
-    end
   end
 
   # * GET /projects/1/edit
   def edit
     session[:go_to] = request.env['HTTP_REFERER']
-    @title = t :'projects.edit_title'
-    @project = Project.find_by_identifier(params[:id])
   end
 
   # * POST /projects
-  # * POST /projects.xml
   def create
-    @title = t :'projects.new_title'
     params[:project][:question_ids] ||= []
     params[:project][:teaching_unit_ids] ||= []
     @project = Project.new(project_params)
@@ -94,10 +77,7 @@ class ProjectsController < ApplicationController
   end
 
   # * PUT /projects/1
-  # * PUT /projects/1.xml
   def update
-    @title = t :'projects.edit_title'
-    @project = Project.find_by_identifier(params[:id])
     params[:project][:question_ids] ||= []
     params[:project][:teaching_unit_ids] ||= []
 
@@ -133,20 +113,13 @@ class ProjectsController < ApplicationController
   end
 
   # DELETE /projects/1
-  # DELETE /projects/1.xml
   def destroy
-    @project = Project.find_by_identifier(params[:id])
-    unless @project.destroy
-      flash[:alert] = t :'projects.project_instance_error'
-    end
-    respond_to do |format|
-      format.html { redirect_to(projects_url) }
-      format.xml  { head :ok }
-    end
+    flash[:alert] = t 'projects.project_instance_error' unless @project.destroy
+
+    respond_with @project, location: projects_url
   end
 
   def pdf_rates
-    @project = Project.find_by_identifier(params[:id])
     projects = Project.where('name = ?', @project.name).order('group_type DESC, test_type DESC')
     respond_to do |format|
        format.pdf  {
@@ -181,10 +154,13 @@ class ProjectsController < ApplicationController
   end
 
   def preview_form
-    render :partial => "#{params[:form]}"
+    render partial: "#{params[:form]}"
   end
 
   private
+    def set_project
+      @project = Project.find_by_identifier(params[:id])
+    end
 
     def project_params
       params.require(:project).permit(

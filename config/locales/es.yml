@@ -394,19 +394,14 @@
     cuestión al proyecto ingrese el código o texto de la misma si y solo si no va a asociar
     ninguna Secuencia de Enseñanza Aprendizaje al proyecto.'
     group_name_help: 'Nombre del grupo al cual se va a aplicar el proyecto.'
-    index_title: 'Listado de proyectos'
-    show_title: 'Detalle del proyecto'
-    new_title: 'Nuevo proyecto'
     new_help: 'En caso de que quiera crear un nuevo proyecto presione'
     new_link: 'Crear un nuevo proyecto'
     existing_title: 'Proyecto existente'
     existing_help: 'Si desea utilizar un proyecto existente con un nuevo tipo de grupo "Control"
   o "Experimental", o un nuevo tipo de test "Pre-Test" o "Pos-Test", seleccione el
   proyecto correspondiente:'
-    edit_title: 'Modificar proyecto'
     correctly_created: 'Proyecto creado correctamente.'
     correctly_updated: 'Proyecto actualizado correctamente.'
-    stale_object_error: 'El proyecto no pudo ser actualizado, intente nuevamente.'
     instances: 'Instancias'
     add: 'Crear proyecto'
     preview_label: 'Previsualizar'

@@ -19,4 +19,14 @@ es:
         notice: 'Usuario actualizado correctamente'
         stale: 'El usuario no fue actualizado, intente nuevamente'
       destroy:
-        lotice: 'Usuario eliminado'
+        notice: 'Usuario eliminado'
+
+    projects:
+      create:
+        notice: 'Proyecto agregado correctamente'
+      update:
+        notice: 'Proyecto actualizado correctamente'
+        stale: 'El proyecto no fue actualizado, intente nuevamente'
+      destroy:
+        notice: 'Proyecto eliminado'
+        alert: 'El proyecto no pudo ser eliminado'

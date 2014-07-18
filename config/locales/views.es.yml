@@ -14,3 +14,15 @@ es:
       title: 'Modificar contraseña'
     edit_personal_data:
       title: 'Modificar datos personales'
+
+  projects:
+    index:
+      title: 'Listado de proyectos'
+    show:
+      title: 'Detalle proyecto'
+    new:
+      title: 'Agregar proyecto'
+    edit:
+      title: 'Modificar proyecto'
+    select_new:
+      title: 'Nuevo proyecto'
