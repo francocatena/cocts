@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
 
   before_action :auth
   before_action :set_title, except: [:destroy, :pdf_rates]
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :pdf_rates]
   layout proc { |controller| controller.request.xhr? ? false : 'application' }
 
   # * GET /projects
@@ -85,31 +85,11 @@ class ProjectsController < ApplicationController
       @project.errors[:question_ids] << t(:'projects.empty_questions_error')
       render :action => :edit
     else
-      respond_to do |format|
-        @project.user = @auth_user unless @auth_user.admin
-
-        if @project.update_attributes(project_params)
-          @project.generate_identifier
-          flash[:notice] = t :'projects.correctly_updated'
-          go_to = session[:go_to]
-          session[:go_to] = nil
-          if go_to
-            format.html { redirect_to go_to }
-          else
-            format.html { redirect_to projects_path }
-          end
-
-          format.xml  { render :xml => @project, :status => :created, :location => @project }
-        else
-          format.html { render :action => :edit }
-          format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
-        end
-      end
+      update_resource @project, project_params
+      @project.generate_identifier
+      @project.user = @auth_user unless @auth_user.admin
+      respond_with @project, location: projects_url unless response_body
     end
-
-  rescue ActiveRecord::StaleObjectError
-    flash[:alert] = t :'projects.stale_object_error'
-    redirect_to edit_project_path(@project)
   end
 
   # DELETE /projects/1
