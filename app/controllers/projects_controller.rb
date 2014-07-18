@@ -51,28 +51,10 @@ class ProjectsController < ApplicationController
 
     if !(@project.questions.empty? ^ @project.teaching_units.empty?)
       @project.errors[:base] << t(:'projects.empty_questions_error')
-      render :action => :new
+      render action: :new
     else
-      respond_to do |format|
-        @project.transaction do
-          if @project.save
-            @project.generate_identifier
-            go_to = session[:go_to]
-            session[:go_to] = nil
-            flash[:notice] = t :'projects.correctly_created'
-            if go_to
-              format.html { redirect_to go_to }
-            else
-              format.html { redirect_to projects_path }
-            end
-
-            format.xml  { render :xml => @project, :status => :created, :location => @project }
-          else
-            format.html { render :action => :new }
-            format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
-          end
-        end
-      end
+      @project.generate_identifier if @project.save
+      respond_with @project, location: projects_url
     end
   end
 
