@@ -1,8 +1,10 @@
 class ProjectInstancesController < ApplicationController
+  respond_to :html
+
   before_action :auth, except: [:new, :create]
   before_action :load_auth_user, only: [:new, :create]
   before_action :set_title, except: :destroy
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_project_instance, only: [:show, :edit, :update, :destroy]
 
   # GET /project_instances
   def index
@@ -100,22 +102,10 @@ class ProjectInstancesController < ApplicationController
 
   # PUT /project_instances/1
   def update
-    respond_to do |format|
-      if @project_instance.update_attributes(project_instance_params)
-        go_to = session[:go_to]
-        session[:go_to] = nil
-        if go_to
-          format.html { redirect_to go_to, :notice => t('project_instances.correctly_updated')}
-        else
-          format.html { redirect_to(@project_instance, :notice => t(:'project_instances.correctly_updated')) }
-        end
+    update_resource @project_instance, project_instance_params
+    go_to = session[:go_to] ||= project_instance_url
 
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @project_instance.errors, :status => :unprocessable_entity }
-      end
-    end
+    respond_with @project_instance, location: go_to
   end
 
   # DELETE /project_instances/1
