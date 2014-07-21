@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/francocatena/validates_timeliness.git
+  revision: 0bf3b50e0d51f7a6890c3984147ecd05547746cb
+  specs:
+    validates_timeliness (3.0.14)
+      timeliness (~> 0.3.7)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -46,16 +53,18 @@ GEM
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
-    coffee-script (2.2.0)
+    coffee-script (2.3.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.7.0)
+    coffee-script-source (1.7.1)
     colorize (0.7.3)
     dynamic_form (1.1.4)
     erubis (2.7.0)
     execjs (2.2.1)
     hike (1.2.3)
-    i18n (0.6.9)
+    i18n (0.6.11)
+    irreverent (0.0.4)
+      rails (>= 4.0)
     jquery-rails (3.1.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
@@ -67,7 +76,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25.1)
-    minitest (5.3.5)
+    minitest (5.4.0)
     multi_json (1.10.1)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -133,7 +142,7 @@ GEM
     ttfunk (1.2.0)
     tzinfo (1.2.1)
       thread_safe (~> 0.1)
-    uglifier (2.5.1)
+    uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unicorn (4.8.3)
@@ -143,8 +152,6 @@ GEM
     unicorn-rails (2.1.1)
       rack
       unicorn
-    validates_timeliness (3.0.14)
-      timeliness (~> 0.3.6)
     will_paginate (3.0.7)
 
 PLATFORMS
@@ -158,18 +165,19 @@ DEPENDENCIES
   capistrano-rbenv
   coffee-rails
   dynamic_form
+  irreverent
   jquery-rails
   jquery-ui-rails
   newrelic_rpm
   pg
   prawn (~> 1.1.0)
   prawn-flexible-table
-  rails (~> 4.1.2)
+  rails (~> 4.1.4)
   sass-rails
-  simple_form (~> 3.0.1)
+  simple_form (~> 3.0.2)
   spring
   uglifier
   unicorn
   unicorn-rails
-  validates_timeliness
+  validates_timeliness!
   will_paginate

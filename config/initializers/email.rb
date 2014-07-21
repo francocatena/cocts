@@ -1,9 +1,7 @@
 CoctsApp::Application.config.action_mailer.default_url_options = {
   :host => URL_HOST
 }
-CoctsApp::Application.config.action_mailer.raise_delivery_errors =
-  !Rails.env.production?
-CoctsApp::Application.config.action_mailer.delivery_method = :smtp
+CoctsApp::Application.config.action_mailer.raise_delivery_errors = !Rails.env.production?
 CoctsApp::Application.config.action_mailer.smtp_settings = {
   :address => 'smtp.gmail.com',
   :domain => 'mawidabp.com',
