@@ -1,0 +1,14 @@
+namespace :deploy do
+  namespace :check do
+    task linked_files: 'config/application.yml'
+  end
+end
+
+remote_file 'config/application.yml' => 'config/application.example.yml', roles: :app
+
+file 'config/application.example.yml' do |t|
+  on roles(:app) do
+    info "Now edit the config files in #{shared_path}."
+    upload! t.name shared_path.join('config/application.yml')
+  end
+end

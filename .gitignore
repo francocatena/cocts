@@ -1,10 +1,9 @@
 .DS_Store
 doc/
 log/
-nbproject/private/
 public/pdfs/
 tmp/
-config/app_config.yml
+config/application.yml
 [#]*
 *~
 # No ignorar

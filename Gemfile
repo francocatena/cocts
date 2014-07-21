@@ -17,6 +17,7 @@ gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'
 gem 'irreverent'
+gem 'figaro'
 
 gem 'unicorn'
 
