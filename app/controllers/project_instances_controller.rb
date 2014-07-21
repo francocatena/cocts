@@ -1,7 +1,8 @@
 class ProjectInstancesController < ApplicationController
-  before_action :auth, :except => [:new, :create]
-  before_action :load_auth_user, :only => [:new, :create]
+  before_action :auth, except: [:new, :create]
+  before_action :load_auth_user, only: [:new, :create]
   before_action :set_title, except: :destroy
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /project_instances
   def index
@@ -21,8 +22,6 @@ class ProjectInstancesController < ApplicationController
 
   # GET /project_instances/1
   def show
-    @project_instance = ProjectInstance.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @project_instance }
@@ -69,12 +68,10 @@ class ProjectInstancesController < ApplicationController
   # GET /project_instances/1/edit
   def edit
     session[:go_to] = request.env['HTTP_REFERER']
-    @project_instance = ProjectInstance.find(params[:id])
   end
 
 
   # POST /project_instances
-  # POST /project_instances.xml
   def create
     @project_instance = ProjectInstance.new(project_instance_params)
 
@@ -103,8 +100,6 @@ class ProjectInstancesController < ApplicationController
 
   # PUT /project_instances/1
   def update
-    @project_instance = ProjectInstance.find(params[:id])
-
     respond_to do |format|
       if @project_instance.update_attributes(project_instance_params)
         go_to = session[:go_to]
@@ -125,7 +120,6 @@ class ProjectInstancesController < ApplicationController
 
   # DELETE /project_instances/1
   def destroy
-    @project_instance = ProjectInstance.find(params[:id])
     id = @project_instance.project_id
     @project_instance.destroy
 
@@ -137,19 +131,23 @@ class ProjectInstancesController < ApplicationController
 
   private
 
-  def project_instance_params
-    params.require(:project_instance).permit(
-      :first_name, :professor_name, :email, :name, :identifier, :description, :age,
-      :degree, :genre, :student_status, :teacher_level, :teacher_status, :country,
-      :educational_center_name, :educational_center_city, :study_subjects_different,
-      :year, :project_type, :valid_until, :country, :study_subjects, :project_type,
-      :study_subjects_choose, :degree_school, :manual_degree_university, :group_type,
-      :group_name, :project_id,
-      question_instances_attributes: [
-        :question_id, :question_text, answer_instances_attributes: [
-          :answer_id, :valuation, :order, :answer_text, :answer_category
+    def set_project_instance
+      @project_instance = ProjectInstance.find(params[:id])
+    end
+
+    def project_instance_params
+      params.require(:project_instance).permit(
+        :first_name, :professor_name, :email, :name, :identifier, :description, :age,
+        :degree, :genre, :student_status, :teacher_level, :teacher_status, :country,
+        :educational_center_name, :educational_center_city, :study_subjects_different,
+        :year, :project_type, :valid_until, :country, :study_subjects, :project_type,
+        :study_subjects_choose, :degree_school, :manual_degree_university, :group_type,
+        :group_name, :project_id,
+        question_instances_attributes: [
+          :question_id, :question_text, answer_instances_attributes: [
+            :answer_id, :valuation, :order, :answer_text, :answer_category
+          ]
         ]
-      ]
-    )
-  end
+      )
+    end
 end
