@@ -1,11 +1,10 @@
 class ProjectInstancesController < ApplicationController
   before_action :auth, :except => [:new, :create]
   before_action :load_auth_user, :only => [:new, :create]
+  before_action :set_title, except: :destroy
 
   # GET /project_instances
-  # GET /project_instances.xml
   def index
-    @title = t :'project_instances.index_title'
     if params[:id]
       @project_instances = ProjectInstance.with_project(params[:id]).paginate(:page => params[:page],
        :per_page => APP_LINES_PER_PAGE)
@@ -21,9 +20,7 @@ class ProjectInstancesController < ApplicationController
   end
 
   # GET /project_instances/1
-  # GET /project_instances/1.xml
   def show
-    @title = t :'project_instances.show_title'
     @project_instance = ProjectInstance.find(params[:id])
 
     respond_to do |format|
@@ -37,9 +34,7 @@ class ProjectInstancesController < ApplicationController
   end
 
   # GET /project_instances/new
-  # GET /project_instances/new.xml
   def new
-    @title = t :'project_instances.new_title'
     session[:go_to] = request.env['HTTP_REFERER']
     if params[:identifier]
       @project = Project.find_by_identifier(params[:identifier])
@@ -74,7 +69,6 @@ class ProjectInstancesController < ApplicationController
   # GET /project_instances/1/edit
   def edit
     session[:go_to] = request.env['HTTP_REFERER']
-    @title = t :'project_instances.edit_title'
     @project_instance = ProjectInstance.find(params[:id])
   end
 
@@ -82,9 +76,8 @@ class ProjectInstancesController < ApplicationController
   # POST /project_instances
   # POST /project_instances.xml
   def create
-    @title = t :'project_instances.new_title'
     @project_instance = ProjectInstance.new(project_instance_params)
-    
+
     respond_to do |format|
       if @project_instance.save
         if @project_instance.manual?
@@ -109,9 +102,7 @@ class ProjectInstancesController < ApplicationController
   end
 
   # PUT /project_instances/1
-  # PUT /project_instances/1.xml
   def update
-    @title = t :'project_instances.edit_title'
     @project_instance = ProjectInstance.find(params[:id])
 
     respond_to do |format|
@@ -133,7 +124,6 @@ class ProjectInstancesController < ApplicationController
   end
 
   # DELETE /project_instances/1
-  # DELETE /project_instances/1.xml
   def destroy
     @project_instance = ProjectInstance.find(params[:id])
     id = @project_instance.project_id
@@ -149,12 +139,12 @@ class ProjectInstancesController < ApplicationController
 
   def project_instance_params
     params.require(:project_instance).permit(
-      :first_name, :professor_name, :email, :name, :identifier, :description, :age, 
-      :degree, :genre, :student_status, :teacher_level, :teacher_status, :country, 
-      :educational_center_name, :educational_center_city, :study_subjects_different, 
-      :year, :project_type, :valid_until, :country, :study_subjects, :project_type, 
+      :first_name, :professor_name, :email, :name, :identifier, :description, :age,
+      :degree, :genre, :student_status, :teacher_level, :teacher_status, :country,
+      :educational_center_name, :educational_center_city, :study_subjects_different,
+      :year, :project_type, :valid_until, :country, :study_subjects, :project_type,
       :study_subjects_choose, :degree_school, :manual_degree_university, :group_type,
-      :group_name, :project_id, 
+      :group_name, :project_id,
       question_instances_attributes: [
         :question_id, :question_text, answer_instances_attributes: [
           :answer_id, :valuation, :order, :answer_text, :answer_category
