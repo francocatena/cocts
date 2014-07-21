@@ -26,3 +26,13 @@ es:
       title: 'Modificar proyecto'
     select_new:
       title: 'Nuevo proyecto'
+
+  project_instances:
+    index:
+      title: 'Listado de instancias de proyectos'
+    show:
+      title: 'Detalle instancia de proyecto'
+    new:
+      title: 'Agregar instancia de proyecto'
+    edit:
+      title: 'Modificar instancia de proyecto'

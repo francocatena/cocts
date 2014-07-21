@@ -613,10 +613,6 @@
     answer_cuestionnaire: 'Ver preguntas'
     show_project_data: 'Ver datos proyecto'
     hide_project_data: 'Ocultar datos proyecto'
-    index_title: 'Listado de instancias de proyectos'
-    show_title: 'Detalle de instancia de proyecto'
-    new_title: 'Crear una nueva instancia de proyecto'
-    edit_title: 'Modificar instancia de proyecto'
     correctly_created: 'Instancia de proyecto creada correctamente.'
     correctly_created_interactive: 'Sus datos han sido almacenados satisfactoriamente.
     ¡Muchas gracias por su colaboración!'
