@@ -38,20 +38,9 @@ class QuestionsController < ApplicationController
 
   # PUT /questions/1
   def update
-    respond_to do |format|
-      if @question.update_attributes(question_params)
-        flash[:notice] = t :'questions.correctly_updated'
-        format.html { redirect_to(questions_path) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => :edit }
-        format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
-      end
-    end
+    update_resource @question, question_params
 
-  rescue ActiveRecord::StaleObjectError
-    flash[:alert] = t :'questions.stale_object_error'
-    redirect_to edit_question_path(@question)
+    respond_with @question, location: questions_url
   end
 
   # DELETE /questions/1
