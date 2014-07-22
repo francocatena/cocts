@@ -16,17 +16,12 @@ class ProjectInstancesController < ApplicationController
       @project_instances = ProjectInstance.all.paginate(:page => params[:page],
        :per_page => APP_LINES_PER_PAGE)
     end
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @project_instances }
-    end
   end
 
   # GET /project_instances/1
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @project_instance }
       format.pdf  {
         @project_instance.to_pdf
         redirect_to "/#{@project_instance.pdf_relative_path}"
@@ -37,33 +32,27 @@ class ProjectInstancesController < ApplicationController
   # GET /project_instances/new
   def new
     session[:go_to] = request.env['HTTP_REFERER']
+
     if params[:identifier]
       @project = Project.find_by_identifier(params[:identifier])
-      @project_instance = ProjectInstance.new(:project =>  @project)
-
+      @project_instance = ProjectInstance.new(project: @project)
     else
       @project = Project.find_by_identifier(request.subdomains.first)
       if @project
         unless @project.is_valid?
-          flash[:alert]= t :'projects.valid_until_error'
+          flash[:alert]= t 'projects.valid_until_error'
           redirect_to login_users_path
         end
         if @project.interactive?
-          @project_instance = ProjectInstance.new(:project => @project)
+          @project_instance = ProjectInstance.new(project: @project)
         else
-          flash[:alert]= t :'project_instances.error_manual_type'
+          flash[:alert]= t 'project_instances.error_manual_type'
           redirect_to login_users_path
         end
-
       else
-        flash[:alert]= t :'project_instances.error_subdomain'
+        flash[:alert]= t 'project_instances.error_subdomain'
         redirect_to login_users_path
       end
-    end
-
-   respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @project_instance }
     end
   end
 
@@ -82,20 +71,18 @@ class ProjectInstancesController < ApplicationController
         if @project_instance.manual?
           go_to = session[:go_to]
           session[:go_to] = nil
-          flash[:notice] = t :'project_instances.correctly_created'
+          flash[:notice] = t 'project_instances.correctly_created'
           if go_to
             format.html { redirect_to go_to }
           else
             format.html { redirect_to projects_path }
           end
-          format.xml  { render :xml => @project_instance, :status => :created, :location => @project_instance }
         else
-          flash[:notice] = t :'project_instances.correctly_created_interactive'
-          format.html { render :action => 'show', :id => @project_instance.to_param}
+          flash[:notice] = t 'project_instances.correctly_created_interactive'
+          format.html { render action: 'show', id: @project_instance.to_param}
         end
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @project_instance.errors, :status => :unprocessable_entity }
+        format.html { render action: 'new' }
       end
     end
   end
@@ -113,10 +100,7 @@ class ProjectInstancesController < ApplicationController
     id = @project_instance.project_id
     @project_instance.destroy
 
-    respond_to do |format|
-      format.html { redirect_to(project_instances_url(:id => id)) }
-      format.xml  { head :ok }
-    end
+    respond_with @project_instance, location: project_instances_url
   end
 
   private

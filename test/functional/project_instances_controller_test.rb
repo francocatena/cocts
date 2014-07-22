@@ -160,7 +160,7 @@ class ProjectInstancesControllerTest < ActionController::TestCase
       delete :destroy, :id => @project_instance.to_param
     end
 
-    assert_redirected_to project_instances_url(:id => id_project)
+    assert_redirected_to project_instances_url
   end
 
   test 'show project instance in pdf' do
