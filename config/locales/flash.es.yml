@@ -30,3 +30,13 @@ es:
       destroy:
         notice: 'Proyecto eliminado'
         alert: 'El proyecto no pudo ser eliminado'
+
+    project_instances:
+      create:
+        notice: 'Instancia de proyecto agregada correctamente'
+      update:
+        notice: 'Instancia de proyecto actualizada correctamente'
+        stale: 'La instancia de proyecto no fue actualizado, intente nuevamente'
+      destroy:
+        notice: 'Instancia de proyecto eliminada'
+        alert: 'La instancia de proyecto no pudo ser eliminada'
