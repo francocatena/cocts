@@ -36,3 +36,15 @@ es:
       title: 'Agregar instancia de proyecto'
     edit:
       title: 'Modificar instancia de proyecto'
+
+  questions:
+    index:
+      title: 'Listado de cuestiones'
+    show:
+      title: 'Detalle cuestión'
+    new:
+      title: 'Agregar cuestión'
+    edit:
+      title: 'Modificar cuestión'
+    import_csv:
+      title: 'Importar cuestiones'

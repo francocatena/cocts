@@ -1,15 +1,13 @@
-# -*- coding: utf-8 -*-
 class QuestionsController < ApplicationController
-  before_action :auth
-  before_action :admin, :except => [:index, :show]
   require 'csv'
+  before_action :auth
+  before_action :admin, except:  [:index, :show]
+  before_action :set_title, only: [:index, :edit, :new, :show, :import_csv]
 
   layout proc{ |controller| controller.request.xhr? ? false : 'application' }
 
   # * GET /questions
-  # * GET /questions.xml
   def index
-    @title = t :'questions.index_title'
     @questions = Question.search(params[:search], params[:page])
 
     respond_to do |format|
@@ -20,9 +18,7 @@ class QuestionsController < ApplicationController
   end
 
   # * GET /questions/1
-  # * GET /questions/1.xml
   def show
-    @title = t :'questions.show_title'
     @question = Question.find(params[:id])
 
     respond_to do |format|
@@ -32,9 +28,7 @@ class QuestionsController < ApplicationController
   end
 
   # * GET /questions/new
-  # * GET /questions/new.xml
   def new
-    @title = t :'questions.new_title'
     @question = Question.new
 
     respond_to do |format|
@@ -45,14 +39,11 @@ class QuestionsController < ApplicationController
 
   # * GET /questions/1/edit
   def edit
-    @title = t :'questions.edit_title'
     @question = Question.find(params[:id])
   end
 
   # POST /questions
-  # POST /questions.xml
   def create
-    @title = t :'questions.new_title'
     @question = Question.new(question_params)
 
     respond_to do |format|
@@ -68,9 +59,7 @@ class QuestionsController < ApplicationController
   end
 
   # PUT /questions/1
-  # PUT /questions/1.xml
   def update
-    @title = t :'questions.edit_title'
     @question = Question.find(params[:id])
 
     respond_to do |format|
@@ -90,7 +79,6 @@ class QuestionsController < ApplicationController
   end
 
   # DELETE /questions/1
-  # DELETE /questions/1.xml
   def destroy
     @question = Question.find(params[:id])
     unless @question.destroy
