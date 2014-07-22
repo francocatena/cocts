@@ -3,6 +3,7 @@ class QuestionsController < ApplicationController
   before_action :auth
   before_action :admin, except:  [:index, :show]
   before_action :set_title, only: [:index, :edit, :new, :show, :import_csv]
+  before_action :set_question, only: [:show, :edit, :update, :destroy]
 
   layout proc{ |controller| controller.request.xhr? ? false : 'application' }
 
@@ -19,8 +20,6 @@ class QuestionsController < ApplicationController
 
   # * GET /questions/1
   def show
-    @question = Question.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @question }
@@ -39,7 +38,6 @@ class QuestionsController < ApplicationController
 
   # * GET /questions/1/edit
   def edit
-    @question = Question.find(params[:id])
   end
 
   # POST /questions
@@ -60,8 +58,6 @@ class QuestionsController < ApplicationController
 
   # PUT /questions/1
   def update
-    @question = Question.find(params[:id])
-
     respond_to do |format|
       if @question.update_attributes(question_params)
         flash[:notice] = t :'questions.correctly_updated'
@@ -80,7 +76,6 @@ class QuestionsController < ApplicationController
 
   # DELETE /questions/1
   def destroy
-    @question = Question.find(params[:id])
     unless @question.destroy
       flash[:alert] = t :'questions.project_error'
     end
@@ -180,11 +175,15 @@ class QuestionsController < ApplicationController
 
   private
 
-  def question_params
-    params.require(:question).permit(
-      :dimension, :code, :question, :lock_version, answers_attributes: [
-        :id, :category, :order, :clarification, :answer, :lock_version, :_destroy
-      ]
-    )
+    def set_question
+      @question = Question.find(params[:id])
+    end
+
+    def question_params
+      params.require(:question).permit(
+        :dimension, :code, :question, :lock_version, answers_attributes: [
+          :id, :category, :order, :clarification, :answer, :lock_version, :_destroy
+        ]
+      )
+    end
   end
-end
