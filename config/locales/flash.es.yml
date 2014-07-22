@@ -36,7 +36,17 @@ es:
         notice: 'Instancia de proyecto agregada correctamente'
       update:
         notice: 'Instancia de proyecto actualizada correctamente'
-        stale: 'La instancia de proyecto no fue actualizado, intente nuevamente'
+        stale: 'La instancia de proyecto no fue actualizada, intente nuevamente'
       destroy:
         notice: 'Instancia de proyecto eliminada'
         alert: 'La instancia de proyecto no pudo ser eliminada'
+
+    questions:
+      create:
+        notice: 'Cuestión agregada correctamente'
+      update:
+        notice: 'Cuestión actualizada correctamente'
+        stale: 'La cuestión no fue actualizada, intente nuevamente'
+      destroy:
+        notice: 'Cuestión eliminada'
+        alert: 'La cuestión no pudo ser eliminada'
