@@ -1,5 +1,8 @@
 class QuestionsController < ApplicationController
   require 'csv'
+
+  respond_to :html
+
   before_action :auth
   before_action :admin, except:  [:index, :show]
   before_action :set_title, only: [:index, :edit, :new, :show, :import_csv]
@@ -10,30 +13,15 @@ class QuestionsController < ApplicationController
   # * GET /questions
   def index
     @questions = Question.search(params[:search], params[:page])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.js
-      format.xml  { render :xml => @questions }
-    end
   end
 
   # * GET /questions/1
   def show
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @question }
-    end
   end
 
   # * GET /questions/new
   def new
     @question = Question.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @question }
-    end
   end
 
   # * GET /questions/1/edit
@@ -43,17 +31,9 @@ class QuestionsController < ApplicationController
   # POST /questions
   def create
     @question = Question.new(question_params)
+    @question.save
 
-    respond_to do |format|
-      if @question.save
-        flash[:notice] = t :'questions.correctly_created'
-        format.html { redirect_to(questions_path) }
-        format.xml  { render :xml => @question, :status => :created, :location => @question }
-      else
-        format.html { render :action => :new }
-        format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
-      end
-    end
+    respond_with @question, location: questions_url
   end
 
   # PUT /questions/1
@@ -76,13 +56,9 @@ class QuestionsController < ApplicationController
 
   # DELETE /questions/1
   def destroy
-    unless @question.destroy
-      flash[:alert] = t :'questions.project_error'
-    end
-    respond_to do |format|
-      format.html { redirect_to(questions_url) }
-      format.xml  { head :ok }
-    end
+    flash[:alert] = t 'questions.project_error' unless @question.destroy
+
+    respond_with @question, location: questions_url
   end
 
   def import_csv
