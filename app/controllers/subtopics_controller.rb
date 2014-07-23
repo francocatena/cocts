@@ -2,6 +2,7 @@ class SubtopicsController < ApplicationController
   respond_to :html
 
   before_filter :auth
+  before_filter :set_subtopic, only: [:show, :edit, :update, :destroy]
 
   # GET /subtopics
   def index
@@ -10,7 +11,6 @@ class SubtopicsController < ApplicationController
 
   # GET /subtopics/1
   def show
-    @subtopic = Subtopic.find(params[:id])
   end
 
   # GET /subtopics/new
@@ -20,7 +20,6 @@ class SubtopicsController < ApplicationController
 
   # GET /subtopics/1/edit
   def edit
-    @subtopic = Subtopic.find(params[:id])
   end
 
   # POST /subtopics
@@ -32,7 +31,6 @@ class SubtopicsController < ApplicationController
 
   # PUT /subtopics/1
   def update
-    @subtopic = Subtopic.find(params[:id])
     params[:subtopic][:teaching_unit_ids] ||= []
 
     respond_to do |format|
@@ -48,7 +46,6 @@ class SubtopicsController < ApplicationController
 
   # DELETE /subtopics/1
   def destroy
-    @subtopic = Subtopic.find(params[:id])
     @subtopic.destroy
     respond_with @subtopic
   end
@@ -67,9 +64,13 @@ class SubtopicsController < ApplicationController
 
   private
 
-  def subtopic_params
-    params.require(:subtopic).permit(
-      :title, :code, teaching_unit_ids: []
-    )
-  end
+    def set_subtopic
+      @subtopic = Subtopic.find(params[:id])
+    end
+
+    def subtopic_params
+      params.require(:subtopic).permit(
+        :title, :code, teaching_unit_ids: []
+      )
+    end
 end
