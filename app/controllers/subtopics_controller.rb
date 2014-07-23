@@ -35,15 +35,8 @@ class SubtopicsController < ApplicationController
   def update
     params[:subtopic][:teaching_unit_ids] ||= []
 
-    respond_to do |format|
-      if @subtopic.update_attributes(subtopic_params)
-        format.html { redirect_to @subtopic, notice:  t('subtopics.correctly_updated') }
-        format.json { head :ok }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @subtopic.errors, status: :unprocessable_entity }
-      end
-    end
+    update_resource @subtopic, subtopic_params
+    respond_with @subtopic
   end
 
   # DELETE /subtopics/1
