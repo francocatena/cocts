@@ -48,3 +48,13 @@ es:
       title: 'Modificar cuestión'
     import_csv:
       title: 'Importar cuestiones'
+
+  subtopics:
+    index:
+      title: 'Listado de subtemas'
+    show:
+      title: 'Detalle subtema'
+    new:
+      title: 'Agregar subtema'
+    edit:
+      title: 'Modificar subtema'

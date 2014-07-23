@@ -5,6 +5,7 @@ class SubtopicsController < ApplicationController
 
   before_filter :auth
   before_filter :set_subtopic, only: [:show, :edit, :update, :destroy]
+  before_filter :set_title, except: :destroy
 
   # GET /subtopics
   def index
