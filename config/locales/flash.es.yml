@@ -50,3 +50,13 @@ es:
       destroy:
         notice: 'Cuestión eliminada'
         alert: 'La cuestión no pudo ser eliminada'
+
+    subtopics:
+      create:
+        notice: 'Subtema agregado correctamente'
+      update:
+        notice: 'Subtema actualizado correctamente'
+        stale: 'Eñ subtema no fue actualizado, intente nuevamente'
+      destroy:
+        notice: 'Subtema eliminado'
+        alert: 'El subtema no pudo ser eliminado'
