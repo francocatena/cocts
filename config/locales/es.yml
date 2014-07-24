@@ -676,9 +676,6 @@
 
   teaching_units:
     search: 'Buscar SEAs'
-    correctly_created: 'Secuencia Enseñanza Aprendizaje creada correctamente.'
-    correctly_updated: 'Secuencia Enseñanza Aprendizaje actualizada correctamente.'
-    stale_object_error: 'La Secuencia Enseñanza Aprendizaje no pudo ser actualizada, intente nuevamente.'
 
   support:
     # Used in array.to_sentence.

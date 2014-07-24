@@ -56,7 +56,17 @@ es:
         notice: 'Subtema agregado correctamente'
       update:
         notice: 'Subtema actualizado correctamente'
-        stale: 'Eñ subtema no fue actualizado, intente nuevamente'
+        stale: 'El subtema no fue actualizado, intente nuevamente'
       destroy:
         notice: 'Subtema eliminado'
         alert: 'El subtema no pudo ser eliminado'
+
+    teaching_units:
+      create:
+        notice: 'Unidad didáctica agregada correctamente'
+      update:
+        notice: 'Unidad didáctica actualizada correctamente'
+        stale: 'La unidad didáctica no fue actualizada, intente nuevamente'
+      destroy:
+        notice: 'Unidad didáctica eliminada'
+        alert: 'La unidad didáctica no pudo ser eliminada'
