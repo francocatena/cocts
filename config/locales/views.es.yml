@@ -58,3 +58,13 @@ es:
       title: 'Agregar subtema'
     edit:
       title: 'Modificar subtema'
+
+  teaching_units:
+    index:
+      title: 'Listado de unidades didácticas'
+    show:
+      title: 'Detalle unidad didáctica'
+    new:
+      title: 'Agregar unidad didáctica'
+    edit:
+      title: 'Modificar unidad didáctica'
