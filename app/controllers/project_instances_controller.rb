@@ -44,18 +44,18 @@ class ProjectInstancesController < ApplicationController
       @project = Project.find_by_identifier(request.subdomains.first)
       if @project
         unless @project.is_valid?
-          flash[:alert]= t :'projects.valid_until_error'
+          flash[:alert]= t 'projects.valid_until_error'
           redirect_to login_users_path
         end
         if @project.interactive?
           @project_instance = ProjectInstance.new(:project => @project)
         else
-          flash[:alert]= t :'project_instances.error_manual_type'
+          flash[:alert]= t 'project_instances.error_manual_type'
           redirect_to login_users_path
         end
 
       else
-        flash[:alert]= t :'project_instances.error_subdomain'
+        flash[:alert]= t 'project_instances.error_subdomain'
         redirect_to login_users_path
       end
     end
@@ -83,7 +83,7 @@ class ProjectInstancesController < ApplicationController
         if @project_instance.manual?
           go_to = session[:go_to]
           session[:go_to] = nil
-          flash[:notice] = t :'project_instances.correctly_created'
+          flash[:notice] = t 'project_instances.correctly_created'
           if go_to
             format.html { redirect_to go_to }
           else
@@ -91,7 +91,7 @@ class ProjectInstancesController < ApplicationController
           end
           format.xml  { render :xml => @project_instance, :status => :created, :location => @project_instance }
         else
-          flash[:notice] = t :'project_instances.correctly_created_interactive'
+          flash[:notice] = t 'project_instances.correctly_created_interactive'
           format.html { render :action => 'show', :id => @project_instance.to_param}
         end
       else
@@ -112,7 +112,7 @@ class ProjectInstancesController < ApplicationController
         if go_to
           format.html { redirect_to go_to, :notice => t('project_instances.correctly_updated')}
         else
-          format.html { redirect_to(@project_instance, :notice => t(:'project_instances.correctly_updated')) }
+          format.html { redirect_to(@project_instance, :notice => t('project_instances.correctly_updated')) }
         end
 
         format.xml  { head :ok }

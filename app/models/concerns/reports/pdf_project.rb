@@ -26,7 +26,7 @@ module Reports::PdfProject
 
   def add_project_data(pdf)
     pdf.move_down(pdf.font_size)
-    pdf.text I18n.t(:'projects.questionnaire.project_data_title').gsub(/\*/, ''),
+    pdf.text I18n.t('projects.questionnaire.project_data_title').gsub(/\*/, ''),
         :style => :bold
     pdf.move_down(pdf.font_size)
 
@@ -102,7 +102,7 @@ module Reports::PdfProject
   end
 
   def pdf_name
-    I18n.t(:'projects.pdf_name', :identifier => self.identifier)
+    I18n.t('projects.pdf_name', :identifier => self.identifier)
   end
 
   def pdf_relative_path
@@ -161,7 +161,7 @@ module Reports::PdfProject
 
     if @project
       DEGREES_SCHOOL.each do |degree|
-        degrees << "#{I18n.t(:'projects.sociodemographic_forms.degree_school.courses')}: [__] #{I18n.t(degree, :scope => i18n_scope)} "
+        degrees << "#{I18n.t('projects.sociodemographic_forms.degree_school.courses')}: [__] #{I18n.t(degree, :scope => i18n_scope)} "
       end
 
       text = "#{question}: #{degrees.join(' ')}"
@@ -183,7 +183,7 @@ module Reports::PdfProject
       DEGREES_UNIVERSITY.each_with_index do |degree, i|
         unless degree == DEGREES.last
           degrees << "#{I18n.t(
-              :'projects.sociodemographic_forms.degree_university.degrees')
+              'projects.sociodemographic_forms.degree_university.degrees')
             }: [__] #{I18n.t(degree, :scope => i18n_scope)}"
         else
           degrees << "#{I18n.t(degree, :scope => i18n_scope)} ______________"

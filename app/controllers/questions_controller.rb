@@ -9,7 +9,7 @@ class QuestionsController < ApplicationController
   # * GET /questions
   # * GET /questions.xml
   def index
-    @title = t :'questions.index_title'
+    @title = t 'questions.index_title'
     @questions = Question.search(params[:search], params[:page])
 
     respond_to do |format|
@@ -22,7 +22,7 @@ class QuestionsController < ApplicationController
   # * GET /questions/1
   # * GET /questions/1.xml
   def show
-    @title = t :'questions.show_title'
+    @title = t 'questions.show_title'
     @question = Question.find(params[:id])
 
     respond_to do |format|
@@ -34,7 +34,7 @@ class QuestionsController < ApplicationController
   # * GET /questions/new
   # * GET /questions/new.xml
   def new
-    @title = t :'questions.new_title'
+    @title = t 'questions.new_title'
     @question = Question.new
 
     respond_to do |format|
@@ -45,19 +45,19 @@ class QuestionsController < ApplicationController
 
   # * GET /questions/1/edit
   def edit
-    @title = t :'questions.edit_title'
+    @title = t 'questions.edit_title'
     @question = Question.find(params[:id])
   end
 
   # POST /questions
   # POST /questions.xml
   def create
-    @title = t :'questions.new_title'
+    @title = t 'questions.new_title'
     @question = Question.new(question_params)
 
     respond_to do |format|
       if @question.save
-        flash[:notice] = t :'questions.correctly_created'
+        flash[:notice] = t 'questions.correctly_created'
         format.html { redirect_to(questions_path) }
         format.xml  { render :xml => @question, :status => :created, :location => @question }
       else
@@ -70,12 +70,12 @@ class QuestionsController < ApplicationController
   # PUT /questions/1
   # PUT /questions/1.xml
   def update
-    @title = t :'questions.edit_title'
+    @title = t 'questions.edit_title'
     @question = Question.find(params[:id])
 
     respond_to do |format|
       if @question.update_attributes(question_params)
-        flash[:notice] = t :'questions.correctly_updated'
+        flash[:notice] = t 'questions.correctly_updated'
         format.html { redirect_to(questions_path) }
         format.xml  { head :ok }
       else
@@ -85,7 +85,7 @@ class QuestionsController < ApplicationController
     end
 
   rescue ActiveRecord::StaleObjectError
-    flash[:alert] = t :'questions.stale_object_error'
+    flash[:alert] = t 'questions.stale_object_error'
     redirect_to edit_question_path(@question)
   end
 
@@ -94,7 +94,7 @@ class QuestionsController < ApplicationController
   def destroy
     @question = Question.find(params[:id])
     unless @question.destroy
-      flash[:alert] = t :'questions.project_error'
+      flash[:alert] = t 'questions.project_error'
     end
     respond_to do |format|
       format.html { redirect_to(questions_url) }
@@ -107,7 +107,7 @@ class QuestionsController < ApplicationController
 
   def admin
     unless @auth_user.admin?
-      flash[:alert] = t :'users.admin_error'
+      flash[:alert] = t 'users.admin_error'
       redirect_to questions_path
     end
   end
@@ -134,9 +134,9 @@ class QuestionsController < ApplicationController
           n+=1
         end
       end
-      flash[:notice] = t(:'questions.csv_import', :count => n)
+      flash[:notice] = t('questions.csv_import', :count => n)
     else
-      flash[:alert] = t :'questions.error_file_extension'
+      flash[:alert] = t 'questions.error_file_extension'
     end
     respond_to do |format|
       format.html { redirect_to(questions_path) }
@@ -181,9 +181,9 @@ class QuestionsController < ApplicationController
           question.answers << a
         end
       end
-      flash[:notice] = t(:'questions.answers.csv_import', :count => n)
+      flash[:notice] = t('questions.answers.csv_import', :count => n)
     else
-      flash[:alert] = t :'questions.error_file_extension'
+      flash[:alert] = t 'questions.error_file_extension'
     end
     respond_to do |format|
       format.html { redirect_to(questions_path) }

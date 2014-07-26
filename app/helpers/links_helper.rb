@@ -25,7 +25,7 @@ module LinksHelper
     options = {
       :class => 'image_link move',
       :onclick => 'return false;',
-      :title => t(:'labels.move')
+      :title => t('labels.move')
     }
     options.merge!(args.pop) if args.last.kind_of?(Hash)
 

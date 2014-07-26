@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   # para mostrar un mensaje de error personalizado
   rescue_from Exception do |exception|
     begin
-      @title = t :'errors.title'
+      @title = t 'errors.title'
 
       unless response.redirect_url
         render :template => 'errors/show', :locals => { :error => exception }
@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
       }
       session[:go_to] = go_to unless action == :logout
       @auth_user = nil
-      redirect_to_login t(:'messages.must_be_authenticated')
+      redirect_to_login t 'messages.must_be_authenticated'
     else
       response.headers['Cache-Control'] = 'no-cache, no-store'
     end
