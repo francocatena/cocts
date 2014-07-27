@@ -23,13 +23,13 @@ module LinksHelper
 
   def link_to_move(*args)
     options = {
-      :class => 'image_link move',
-      :onclick => 'return false;',
-      :title => t('labels.move')
+      class: 'image_link move',
+      onclick: 'return false;',
+      title: t('labels.move')
     }
     options.merge!(args.pop) if args.last.kind_of?(Hash)
 
-    link_to(image_tag('move.gif', :size => '11x11', :alt => '[M]'), '#',
+    link_to(image_tag('move.gif', size: '11x11', alt: '[M]'), '#',
       *(args << options))
   end
 
