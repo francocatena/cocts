@@ -15,7 +15,7 @@ class ActiveSupport::TestCase
   def perform_auth(user = users(:admin))
     temp_controller, @controller = @controller, UsersController.new
 
-    post :create_session, :user => {:user => user.user, :password => user.password}
+    post :create_session, user: {user: user.user, password: user.password}
     assert_not_nil session[:user_id]
     auth_user = User.find(session[:user_id])
     assert_redirected_to projects_path

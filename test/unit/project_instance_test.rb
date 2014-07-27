@@ -21,21 +21,21 @@ class ProjectInstanceTest < ActiveSupport::TestCase
   test 'create' do
     assert_difference 'ProjectInstance.count' do
       @project_instance = ProjectInstance.create(
-        :first_name => 'Name',
-        :professor_name => 'Professor name',
-        :email => 'email@cirope.com.ar',
-        :age => 25,
-        :degree => 'doctor',
-        :genre => 'male',
-        :student_status => 'no_study',
-        :teacher_status => 'in_training',
-        :teacher_level => 'primary',
-        :educational_center_name => 'UNCuyo',
-        :educational_center_city => 'Mza',
-        :study_subjects_different => 2,
-        :country => 'Brasil',
-        :question_instances => [question_instances(:one)],
-        :project => projects(:manual)
+        first_name: 'Name',
+        professor_name: 'Professor name',
+        email: 'email@cirope.com.ar',
+        age: 25,
+        degree: 'doctor',
+        genre: 'male',
+        student_status: 'no_study',
+        teacher_status: 'in_training',
+        teacher_level: 'primary',
+        educational_center_name: 'UNCuyo',
+        educational_center_city: 'Mza',
+        study_subjects_different: 2,
+        country: 'Brasil',
+        question_instances: [question_instances(:one)],
+        project: projects(:manual)
       )
     end
   end
@@ -43,8 +43,8 @@ class ProjectInstanceTest < ActiveSupport::TestCase
   # Prueba de actualización de una instancia de proyecto
   test 'update' do
     assert_no_difference 'ProjectInstance.count' do
-      assert @project_instance.update_attributes(:first_name => 'Updated name',
-        :email => 'email@cirope.com'),
+      assert @project_instance.update_attributes(first_name: 'Updated name',
+        email: 'email@cirope.com'),
         @project_instance.errors.full_messages.join('; ')
     end
 
@@ -73,9 +73,9 @@ class ProjectInstanceTest < ActiveSupport::TestCase
     assert @project_instance.invalid?
     assert_equal 2, @project_instance.errors.count
     assert_equal [error_message_from_model(@project_instance, :first_name, :too_long,
-      :count => 255)], @project_instance.errors[:first_name]
+      count: 255)], @project_instance.errors[:first_name]
     assert_equal [error_message_from_model(@project_instance, :professor_name, :too_long,
-      :count => 255)], @project_instance.errors[:professor_name]
+      count: 255)], @project_instance.errors[:professor_name]
   end
 
   test 'validates blank attributes' do

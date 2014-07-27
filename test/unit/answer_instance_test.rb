@@ -22,12 +22,12 @@ class AnswerInstanceTest < ActiveSupport::TestCase
   test 'create' do
     assert_difference 'AnswerInstance.count' do
       @answer_instance = AnswerInstance.create(
-        :answer => answers(:'10111_1'),
-        :answer_category => answers(:'10111_1').category,
-        :answer_text => answers(:'10111_1').answer,
-        :valuation => '5',
-        :question_instance => question_instances(:one),
-        :order => '4'
+        answer: answers(:'10111_1'),
+        answer_category: answers(:'10111_1').category,
+        answer_text: answers(:'10111_1').answer,
+        valuation: '5',
+        question_instance: question_instances(:one),
+        order: '4'
     )
     end
   end
@@ -35,8 +35,8 @@ class AnswerInstanceTest < ActiveSupport::TestCase
   # Prueba de actualización de una instancia de respuesta
   test 'update' do
     assert_no_difference 'AnswerInstance.count' do
-      assert @answer_instance.update_attributes(:answer_text => 'Updated answer instance',
-        :valuation => '2', :answer_category => AnswerInstance::CATEGORIES[:adecuate]),
+      assert @answer_instance.update_attributes(answer_text: 'Updated answer instance',
+        valuation: '2', answer_category: AnswerInstance::CATEGORIES[:adecuate]),
         @answer_instance.errors.full_messages.join('; ')
     end
 

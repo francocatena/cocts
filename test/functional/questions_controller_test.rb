@@ -14,7 +14,7 @@ class QuestionsControllerTest < ActionController::TestCase
   # Prueba que sin realizar autenticación esten accesibles las partes publicas
   # y no accesibles las privadas
   test 'public and private actions' do
-    id_param = {:id => @question.to_param}
+    id_param = {id: @question.to_param}
     public_actions = []
     private_actions = [
       [:get, :index],
@@ -49,7 +49,7 @@ class QuestionsControllerTest < ActionController::TestCase
 
   test 'show question' do
     perform_auth
-    get :show, :id => @question.to_param
+    get :show, id: @question.to_param
     assert_response :success
     assert_not_nil assigns(:question)
     assert_select '#error_body', false
@@ -69,18 +69,18 @@ class QuestionsControllerTest < ActionController::TestCase
     perform_auth
     assert_difference ['Question.count', 'Answer.count'] do
       post :create, {
-        :question => {
-          :dimension => Question::DIMENSIONS.first,
-          :code => '10211',
-          :question => 'Definir qué es la tecnología puede resultar difícil ' +
+        question: {
+          dimension: Question::DIMENSIONS.first,
+          code: '10211',
+          question: 'Definir qué es la tecnología puede resultar difícil ' +
             'porque ésta sirve para muchas cosas. Pero la tecnología ' +
             'PRINCIPALMENTE es:',
-          :answers_attributes => [
+          answers_attributes: [
             {
-              :category => Answer::CATEGORIES[:plausible],
-              :order => 1,
-              :clarification => 'New clarification',
-              :answer => 'New answer'
+              category: Answer::CATEGORIES[:plausible],
+              order: 1,
+              clarification: 'New clarification',
+              answer: 'New answer'
             }
           ]
         }
@@ -95,7 +95,7 @@ class QuestionsControllerTest < ActionController::TestCase
 
   test 'edit question' do
     perform_auth
-    get :edit, :id => @question.to_param
+    get :edit, id: @question.to_param
     assert_response :success
     assert_not_nil assigns(:question)
     assert_select '#error_body', false
@@ -107,33 +107,33 @@ class QuestionsControllerTest < ActionController::TestCase
     assert_no_difference'Question.count' do
       assert_difference 'Answer.count' do
         put :update, {
-          :id => @question.to_param,
-          :question => {
-            :dimension => Question::DIMENSIONS.first,
-            :code => '10211',
-            :question => 'Definir qué es la tecnología puede resultar difícil ' +
+          id: @question.to_param,
+          question: {
+            dimension: Question::DIMENSIONS.first,
+            code: '10211',
+            question: 'Definir qué es la tecnología puede resultar difícil ' +
               'porque ésta sirve para muchas cosas. Pero la tecnología ' +
               'PRINCIPALMENTE es:',
-            :answers_attributes => [
+            answers_attributes: [
               {
-                :category => Answer::CATEGORIES[:plausible],
-                :order => 1,
-                :clarification => 'New clarification',
-                :answer => 'New answer'
+                category: Answer::CATEGORIES[:plausible],
+                order: 1,
+                clarification: 'New clarification',
+                answer: 'New answer'
               },
               {
-                :id => answers(:'10111_1').id,
-                :category => Answer::CATEGORIES[:plausible],
-                :order => 2,
-                :clarification => 'Updated clarification 1',
-                :answer => 'Updated answer 1'
+                id: answers(:'10111_1').id,
+                category: Answer::CATEGORIES[:plausible],
+                order: 2,
+                clarification: 'Updated clarification 1',
+                answer: 'Updated answer 1'
               },
               {
-                :id => answers(:'10111_2').id,
-                :category => Answer::CATEGORIES[:adecuate],
-                :order => 3,
-                :clarification => 'Updated clarification 2',
-                :answer => 'Updated answer 2'
+                id: answers(:'10111_2').id,
+                category: Answer::CATEGORIES[:adecuate],
+                order: 3,
+                clarification: 'Updated clarification 2',
+                answer: 'Updated answer 2'
               }
             ]
           }
@@ -151,11 +151,11 @@ class QuestionsControllerTest < ActionController::TestCase
   test 'destroy question' do
     perform_auth
     assert_no_difference('Question.count') do
-      delete :destroy, :id => @question.to_param
+      delete :destroy, id: @question.to_param
     end
     @question.projects.clear
     assert_difference('Question.count', -1) do
-      delete :destroy, :id => @question.to_param
+      delete :destroy, id: @question.to_param
     end
 
     assert_redirected_to questions_path
@@ -164,19 +164,19 @@ class QuestionsControllerTest < ActionController::TestCase
   test 'import csv questions' do
     perform_auth
     assert_difference('Question.count', 2) do
-      post :csv_import_questions, :dump_questions => {
-        :file => fixture_file_upload('../files/test_questions.csv', 'text/csv')
+      post :csv_import_questions, dump_questions: {
+        file: fixture_file_upload('../files/test_questions.csv', 'text/csv')
       }
     end
 
     assert_no_difference('Question.count') do
-      post :csv_import_questions, :dump_questions => {}
+      post :csv_import_questions, dump_questions: {}
     end
 
     # Prueba adjuntar un archivo que no sea csv
     assert_no_difference('Question.count') do
-      post :csv_import_questions, :dump_questions => {
-        :file => fixture_file_upload('../files/test_questions.txt', 'text/csv')
+      post :csv_import_questions, dump_questions: {
+        file: fixture_file_upload('../files/test_questions.txt', 'text/csv')
       }
     end
     assert_redirected_to questions_path
@@ -185,19 +185,19 @@ class QuestionsControllerTest < ActionController::TestCase
   test 'import csv answers' do
     perform_auth
     assert_difference('Answer.count', 3) do
-      post :csv_import_answers, :dump_answers => {
-        :file => fixture_file_upload('../files/test_answers.csv', 'text/csv')
+      post :csv_import_answers, dump_answers: {
+        file: fixture_file_upload('../files/test_answers.csv', 'text/csv')
       }
     end
     # Prueba de enviar el formulario sin el archivo csv
     assert_no_difference('Answer.count') do
-      post :csv_import_answers, :dump_answers => {}
+      post :csv_import_answers, dump_answers: {}
     end
 
     # Prueba adjuntar un archivo que no sea csv
     assert_no_difference('Answer.count') do
-      post :csv_import_answers, :dump_answers => {
-        :file => fixture_file_upload('../files/test_answers.txt', 'text/csv')
+      post :csv_import_answers, dump_answers: {
+        file: fixture_file_upload('../files/test_answers.txt', 'text/csv')
       }
     end
     assert_redirected_to questions_path

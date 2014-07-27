@@ -12,7 +12,7 @@ class ProjectsControllerTest < ActionController::TestCase
   # Prueba que sin realizar autenticación esten accesibles las partes publicas
   # y no accesibles las privadas
   test 'public and private actions' do
-    id_param = {:id => @project.to_param}
+    id_param = {id: @project.to_param}
     public_actions = []
     private_actions = [
       [:get, :index],
@@ -58,7 +58,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test 'show project' do
     perform_auth
-    get :show, :id => @project.to_param
+    get :show, id: @project.to_param
     assert_response :success
     assert_not_nil assigns(:project)
     assert_template 'projects/show'
@@ -66,7 +66,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test 'show project in pdf' do
     perform_auth
-    get :show, :id => @project.to_param, :format => 'pdf'
+    get :show, id: @project.to_param, format: 'pdf'
     assert_redirected_to "/#{@project.pdf_relative_path}"
     assert_not_nil assigns(:project)
     assert_select '#error_body', false
@@ -74,7 +74,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test 'rates in pdf' do
     perform_auth
-    get :pdf_rates, :id => @project.to_param, :format => 'pdf'
+    get :pdf_rates, id: @project.to_param, format: 'pdf'
     assert_redirected_to "/#{@project.pdf_relative_path}"
     assert_not_nil assigns(:project)
     assert_select '#error_body', false
@@ -93,21 +93,21 @@ class ProjectsControllerTest < ActionController::TestCase
     perform_auth
     assert_difference 'Project.count' do
       post :create, {
-        :project => {
-          :name => 'New name',
-          :identifier => 'new-project',
-          :description => 'New description',
-          :group_name => 'New Group',
-          :group_type => 'Group type',
-          :test_type => 'Pre-test',
-          :year => Date.today.year,
-          :project_type => Project::TYPES[:manual],
-          :valid_until => 1.month.from_now.to_date,
-          :forms => [
+        project: {
+          name: 'New name',
+          identifier: 'new-project',
+          description: 'New description',
+          group_name: 'New Group',
+          group_type: 'Group type',
+          test_type: 'Pre-test',
+          year: Date.today.year,
+          project_type: Project::TYPES[:manual],
+          valid_until: 1.month.from_now.to_date,
+          forms: [
             Project::SOCIODEMOGRAPHIC_FORMS.first,
             Project::SOCIODEMOGRAPHIC_FORMS.last
           ],
-          :question_ids => [questions('10111').id]
+          question_ids: [questions('10111').id]
         }
       }
     end
@@ -120,7 +120,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test 'edit project' do
     perform_auth
-    get :edit, :id => @project.to_param
+    get :edit, id: @project.to_param
     assert_response :success
     assert_not_nil assigns(:project)
     assert_select '#error_body', false
@@ -133,19 +133,19 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_no_difference 'Project.count' do
       assert_difference '@project.reload.questions.size' do
         put :update, {
-          :id => @project.to_param,
-          :project => {
-            :name => 'Updated name',
-            :identifier => 'updated-identifier',
-            :description => 'Updated description',
-            :year => Date.today.year,
-            :project_type => Project::TYPES[:manual],
-            :valid_until => 1.month.from_now.to_date,
-            :forms => [
+          id: @project.to_param,
+          project: {
+            name: 'Updated name',
+            identifier: 'updated-identifier',
+            description: 'Updated description',
+            year: Date.today.year,
+            project_type: Project::TYPES[:manual],
+            valid_until: 1.month.from_now.to_date,
+            forms: [
               Project::SOCIODEMOGRAPHIC_FORMS.first,
               Project::SOCIODEMOGRAPHIC_FORMS.last
             ],
-            :question_ids => [questions('10111').id, questions('10113').id]
+            question_ids: [questions('10111').id, questions('10113').id]
           }
         }
       end
@@ -160,11 +160,11 @@ class ProjectsControllerTest < ActionController::TestCase
   test 'destroy project' do
     perform_auth
     assert_no_difference('Project.count') do
-      delete :destroy, :id => @project.to_param
+      delete :destroy, id: @project.to_param
     end
     @project.project_instances.clear
     assert_difference('Project.count', -1) do
-      delete :destroy, :id => @project.to_param
+      delete :destroy, id: @project.to_param
     end
 
     assert_redirected_to projects_path
@@ -178,7 +178,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test 'autocomplete for question' do
     perform_auth
-    get :autocomplete_for_question, { :q => '10111', :format => :json }
+    get :autocomplete_for_question, { q: '10111', format: :json }
     assert_response :success
 
     questions = ActiveSupport::JSON.decode(@response.body)
@@ -186,7 +186,7 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_equal 1, questions.size
     assert questions.all? { |q| ("#{q['label']} #{q['informal']}").match /10111/i }
 
-    get :autocomplete_for_question, { :q => 'ciencia', :format => :json }
+    get :autocomplete_for_question, { q: 'ciencia', format: :json }
     assert_response :success
 
     questions = ActiveSupport::JSON.decode(@response.body)
@@ -194,7 +194,7 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_equal 2, questions.size
     assert questions.all? { |q| ("#{q['label']} #{q['informal']}").match /ciencia/i }
 
-    get :autocomplete_for_question, { :q => 'xyz', :format => :json }
+    get :autocomplete_for_question, { q: 'xyz', format: :json }
     assert_response :success
 
     questions = ActiveSupport::JSON.decode(@response.body)

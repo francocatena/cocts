@@ -19,8 +19,8 @@ class SubtopicTest < ActiveSupport::TestCase
   test 'create' do
     assert_difference 'Subtopic.count' do
       @subtopic = Subtopic.create(
-        :title => 'Ciencia en la escuela',
-        :code => '009'
+        title: 'Ciencia en la escuela',
+        code: '009'
       )
     end
   end
@@ -28,7 +28,7 @@ class SubtopicTest < ActiveSupport::TestCase
   # Prueba de actualización de un subtema
   test 'update' do
     assert_no_difference 'Subtopic.count' do
-      assert @subtopic.update_attributes(:code => 0001, :title => 'Updated title'),
+      assert @subtopic.update_attributes(code: 0001, title: 'Updated title'),
         @subtopic.errors.full_messages.join('; ')
     end
 

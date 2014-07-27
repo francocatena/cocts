@@ -24,11 +24,11 @@ class AnswerTest < ActiveSupport::TestCase
   test 'create' do
     assert_difference 'Answer.count' do
       @answer = Answer.create(
-        :question => questions('10111'),
-        :category => Answer::CATEGORIES[:plausible],
-        :order => 1,
-        :clarification => 'New clarification',
-        :answer => 'New answer'
+        question: questions('10111'),
+        category: Answer::CATEGORIES[:plausible],
+        order: 1,
+        clarification: 'New clarification',
+        answer: 'New answer'
       )
     end
   end
@@ -36,7 +36,7 @@ class AnswerTest < ActiveSupport::TestCase
   # Prueba de actualización de una respuesta
   test 'update' do
     assert_no_difference 'Answer.count' do
-      assert @answer.update_attributes(:answer => 'Updated answer'),
+      assert @answer.update_attributes(answer: 'Updated answer'),
         @answer.errors.full_messages.join('; ')
     end
 

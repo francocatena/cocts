@@ -11,9 +11,9 @@ class ProjectInstancesControllerTest < ActionController::TestCase
   # Prueba que sin realizar autenticación esten accesibles las partes publicas
   # y no accesibles las privadas
   test 'public and private actions' do
-    id_param = {:id => @project_instance.to_param}
-    identifier_project = {:identifier => projects(:manual).to_param}
-    id_project = {:id => projects(:manual).to_param}
+    id_param = {id: @project_instance.to_param}
+    identifier_project = {identifier: projects(:manual).to_param}
+    id_project = {id: projects(:manual).to_param}
     public_actions = [
       [:post, :create],
       [:get, :new, identifier_project]
@@ -49,7 +49,7 @@ class ProjectInstancesControllerTest < ActionController::TestCase
 
   test 'show project instance' do
     perform_auth
-    get :show, :id => @project_instance.to_param
+    get :show, id: @project_instance.to_param
     assert_response :success
     assert_not_nil assigns(:project_instance)
     assert_select '#error_body', false
@@ -57,7 +57,7 @@ class ProjectInstancesControllerTest < ActionController::TestCase
   end
 
   test 'new project instance' do
-    get :new, :identifier => @project_instance.to_param
+    get :new, identifier: @project_instance.to_param
     assert_response :success
     assert_not_nil assigns(:project_instance)
     assert_template 'project_instances/new'
@@ -71,42 +71,42 @@ class ProjectInstancesControllerTest < ActionController::TestCase
 
     assert_difference 'ProjectInstance.count' do
       post :create, {
-        :project_instance => {
-          :first_name => 'Firstname',
-          :professor_name => 'Professorname',
-          :email => 'test@cirope.com.ar',
-          :age => 25,
-          :degree => 'doctor',
-          :genre => 'male',
-          :student_status => 'no_study',
-          :teacher_status => 'in_training',
-          :teacher_level => 'primary',
-          :country => 'Argentina',
-          :educational_center_name => 'UNCuyo',
-          :project_type => 0,
-          :educational_center_city => 'Mza',
-          :study_subjects_different => 2,
-          :project_id => projects(:manual).id,
+        project_instance: {
+          first_name: 'Firstname',
+          professor_name: 'Professorname',
+          email: 'test@cirope.com.ar',
+          age: 25,
+          degree: 'doctor',
+          genre: 'male',
+          student_status: 'no_study',
+          teacher_status: 'in_training',
+          teacher_level: 'primary',
+          country: 'Argentina',
+          educational_center_name: 'UNCuyo',
+          project_type: 0,
+          educational_center_city: 'Mza',
+          study_subjects_different: 2,
+          project_id: projects(:manual).id,
           question_instances_attributes: [
             { 
-              :question_id => question.id, 
-              :question_text => question.question,
-              :code => question.code,
-              :dimension => question.dimension,
+              question_id: question.id, 
+              question_text: question.question,
+              code: question.code,
+              dimension: question.dimension,
               answer_instances_attributes: [
                 { 
-                  :answer_id => answers.first.id, 
-                  :valuation => '1',
-                  :order => answers.first.order,
-                  :answer_text => answers.first.answer, 
-                  :answer_category => answers.first.category
+                  answer_id: answers.first.id, 
+                  valuation: '1',
+                  order: answers.first.order,
+                  answer_text: answers.first.answer, 
+                  answer_category: answers.first.category
                 },
                 {
-                  :answer_id => answers.last.id,
-                  :valuation => '3',
-                  :order => answers.last.order,
-                  :answer_text => answers.last.answer,                                                    
-                  :answer_category => answers.last.category
+                  answer_id: answers.last.id,
+                  valuation: '3',
+                  order: answers.last.order,
+                  answer_text: answers.last.answer,                                                    
+                  answer_category: answers.last.category
                 }
               ]
             }
@@ -123,7 +123,7 @@ class ProjectInstancesControllerTest < ActionController::TestCase
 
   test 'edit project instance' do
     perform_auth
-    get :edit, :id => @project_instance.to_param
+    get :edit, id: @project_instance.to_param
     assert_response :success
     assert_not_nil assigns(:project_instance)
     assert_template 'project_instances/edit'
@@ -137,11 +137,11 @@ class ProjectInstancesControllerTest < ActionController::TestCase
     
     assert_no_difference ['ProjectInstance.count', 'QuestionInstance.count'] do
       put :update, {
-        :id => @project_instance.to_param,
-        :project_instance => {
-          :first_name => 'Updated firstname',
-          :professor_name => 'Updated professorname',
-          :email => 'updated@cirope.com.ar',
+        id: @project_instance.to_param,
+        project_instance: {
+          first_name: 'Updated firstname',
+          professor_name: 'Updated professorname',
+          email: 'updated@cirope.com.ar',
         }
       }
     end
@@ -157,15 +157,15 @@ class ProjectInstancesControllerTest < ActionController::TestCase
     perform_auth
     id_project = @project_instance.project_id
     assert_difference('ProjectInstance.count', -1) do
-      delete :destroy, :id => @project_instance.to_param
+      delete :destroy, id: @project_instance.to_param
     end
 
-    assert_redirected_to project_instances_url(:id => id_project)
+    assert_redirected_to project_instances_url(id: id_project)
   end
 
   test 'show project instance in pdf' do
     perform_auth
-    get :show, :id => @project_instance.to_param, :format => 'pdf'
+    get :show, id: @project_instance.to_param, format: 'pdf'
     assert_redirected_to "/#{@project_instance.pdf_relative_path}"
     assert_not_nil assigns(:project_instance)
     assert_select '#error_body', false
