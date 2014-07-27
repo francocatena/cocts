@@ -20,8 +20,8 @@ module ProjectInstances::Initializer
         self.project.questions.each do |question|
           unless self.question_instances.detect {|qi| qi.question_id == question.id}
             self.question_instances.build(
-              :question => question,
-              :question_text => "[#{question.code}] #{question.question}"
+              question: question,
+              question_text: "[#{question.code}] #{question.question}"
             )
           end
         end
@@ -30,8 +30,8 @@ module ProjectInstances::Initializer
           teaching_unit.questions.each do |question|
             unless self.question_instances.detect {|qi| qi.question_id == question.id}
               self.question_instances.build(
-                :question => question,
-                :question_text => "[#{question.code}] #{question.question}"
+                question: question,
+                question_text: "[#{question.code}] #{question.question}"
               )
             end
           end
