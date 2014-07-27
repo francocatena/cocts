@@ -11,8 +11,8 @@ class CreateQuestionInstances < ActiveRecord::Migration
   end
 
   def self.down
-    remove_index :question_instances, :column => :project_instance_id
-    remove_index :question_instances, :column => :question_id
+    remove_index :question_instances, column: :project_instance_id
+    remove_index :question_instances, column: :question_id
     drop_table :question_instances
   end
 end

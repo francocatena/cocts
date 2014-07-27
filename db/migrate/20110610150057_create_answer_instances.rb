@@ -6,7 +6,7 @@ class CreateAnswerInstances < ActiveRecord::Migration
       t.text :answer_text
       t.integer :order
       t.integer :answer_category
-      t.string :valuation, :limit => 1
+      t.string :valuation, limit: 1
 
       t.timestamps
     end
@@ -15,8 +15,8 @@ class CreateAnswerInstances < ActiveRecord::Migration
   end
 
   def self.down
-    remove_index :answer_instances, :column => :question_instance_id
-    remove_index :answer_instances, :column => :answer_id
+    remove_index :answer_instances, column: :question_instance_id
+    remove_index :answer_instances, column: :answer_id
     drop_table :answer_instances
   end
 end

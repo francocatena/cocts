@@ -6,7 +6,7 @@ class CreateAnswers < ActiveRecord::Migration
       t.text :clarification
       t.text :answer
       t.references :question
-      t.integer :lock_version, :default => 0
+      t.integer :lock_version, default: 0
 
       t.timestamps
     end
@@ -15,7 +15,7 @@ class CreateAnswers < ActiveRecord::Migration
   end
 
   def self.down
-    remove_index :answers, :column => :question_id
+    remove_index :answers, column: :question_id
 
     drop_table :answers
   end
