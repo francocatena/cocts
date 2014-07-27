@@ -91,7 +91,7 @@ class SubtopicsController < ApplicationController
     @teaching_units = @teaching_units.limit(10)
 
     respond_to do |format|
-      format.json { render :json => @teaching_units }
+      format.json { render json: @teaching_units }
     end
   end
 

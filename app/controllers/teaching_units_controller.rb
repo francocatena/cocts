@@ -7,7 +7,7 @@ class TeachingUnitsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @teaching_units }
+      format.json { render json: @teaching_units }
     end
   end
 
@@ -18,7 +18,7 @@ class TeachingUnitsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json => @teaching_unit }
+      format.json { render json: @teaching_unit }
     end
   end
 
@@ -29,7 +29,7 @@ class TeachingUnitsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render :json => @teaching_unit }
+      format.json { render json: @teaching_unit }
     end
   end
 
@@ -45,11 +45,11 @@ class TeachingUnitsController < ApplicationController
 
     respond_to do |format|
       if @teaching_unit.save
-        format.html { redirect_to teaching_units_path, :notice => t('teaching_units.correctly_created') }
-        format.json { render :json => @teaching_unit, :status => :created, :location => @teaching_unit }
+        format.html { redirect_to teaching_units_path, notice: t('teaching_units.correctly_created') }
+        format.json { render json: @teaching_unit, status: :created, location: @teaching_unit }
       else
-        format.html { render :action => "new" }
-        format.json { render :json => @teaching_unit.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.json { render json: @teaching_unit.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -61,11 +61,11 @@ class TeachingUnitsController < ApplicationController
     params[:teaching_unit][:question_ids] ||= []
     respond_to do |format|
       if @teaching_unit.update_attributes(teaching_unit_params)
-        format.html { redirect_to teaching_units_path, :notice => t('teaching_units.correctly_updated') }
+        format.html { redirect_to teaching_units_path, notice: t('teaching_units.correctly_updated') }
         format.json { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.json { render :json => @teaching_unit.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.json { render json: @teaching_unit.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -86,7 +86,7 @@ class TeachingUnitsController < ApplicationController
 
   def teaching_unit_params
     params.require(:teaching_unit).permit(
-      :title, :question_ids => []
+      :title, question_ids: []
     )
   end
 end

@@ -1,21 +1,21 @@
 class ProjectInstancesController < ApplicationController
-  before_action :auth, :except => [:new, :create]
-  before_action :load_auth_user, :only => [:new, :create]
+  before_action :auth, except: [:new, :create]
+  before_action :load_auth_user, only: [:new, :create]
   before_action :set_title, except: :destroy
 
   # GET /project_instances
   def index
     if params[:id]
-      @project_instances = ProjectInstance.with_project(params[:id]).paginate(:page => params[:page],
-       :per_page => APP_LINES_PER_PAGE)
+      @project_instances = ProjectInstance.with_project(params[id]).paginate(page: params[:page],
+       per_page: APP_LINES_PER_PAGE)
       @project = Project.find(params[:id])
     else
-      @project_instances = ProjectInstance.all.paginate(:page => params[:page],
-       :per_page => APP_LINES_PER_PAGE)
+      @project_instances = ProjectInstance.all.paginate(page: params[:page],
+       per_page: APP_LINES_PER_PAGE)
     end
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @project_instances }
+      format.xml  { render xml: @project_instances }
     end
   end
 
@@ -25,7 +25,7 @@ class ProjectInstancesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @project_instance }
+      format.xml  { render xml: @project_instance }
       format.pdf  {
         @project_instance.to_pdf
         redirect_to "/#{@project_instance.pdf_relative_path}"
@@ -38,7 +38,7 @@ class ProjectInstancesController < ApplicationController
     session[:go_to] = request.env['HTTP_REFERER']
     if params[:identifier]
       @project = Project.find_by_identifier(params[:identifier])
-      @project_instance = ProjectInstance.new(:project =>  @project)
+      @project_instance = ProjectInstance.new(project:  @project)
 
     else
       @project = Project.find_by_identifier(request.subdomains.first)
@@ -48,7 +48,7 @@ class ProjectInstancesController < ApplicationController
           redirect_to login_users_path
         end
         if @project.interactive?
-          @project_instance = ProjectInstance.new(:project => @project)
+          @project_instance = ProjectInstance.new(project: @project)
         else
           flash[:alert]= t 'project_instances.error_manual_type'
           redirect_to login_users_path
@@ -62,7 +62,7 @@ class ProjectInstancesController < ApplicationController
 
    respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @project_instance }
+      format.xml  { render xml: @project_instance }
     end
   end
 
@@ -89,14 +89,14 @@ class ProjectInstancesController < ApplicationController
           else
             format.html { redirect_to projects_path }
           end
-          format.xml  { render :xml => @project_instance, :status => :created, :location => @project_instance }
+          format.xml  { render xml: @project_instance, status: :created, location: @project_instance }
         else
           flash[:notice] = t 'project_instances.correctly_created_interactive'
-          format.html { render :action => 'show', :id => @project_instance.to_param}
+          format.html { render action: 'show', id: @project_instance.to_param}
         end
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @project_instance.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @project_instance.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -110,15 +110,15 @@ class ProjectInstancesController < ApplicationController
         go_to = session[:go_to]
         session[:go_to] = nil
         if go_to
-          format.html { redirect_to go_to, :notice => t('project_instances.correctly_updated')}
+          format.html { redirect_to go_to, notice: t('project_instances.correctly_updated')}
         else
-          format.html { redirect_to(@project_instance, :notice => t('project_instances.correctly_updated')) }
+          format.html { redirect_to(@project_instance, notice: t('project_instances.correctly_updated')) }
         end
 
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @project_instance.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @project_instance.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -130,7 +130,7 @@ class ProjectInstancesController < ApplicationController
     @project_instance.destroy
 
     respond_to do |format|
-      format.html { redirect_to(project_instances_url(:id => id)) }
+      format.html { redirect_to(project_instances_url(id: id)) }
       format.xml  { head :ok }
     end
   end

@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
       @title = t 'errors.title'
 
       unless response.redirect_url
-        render :template => 'errors/show', :locals => { :error => exception }
+        render template: 'errors/show', locals: { error: exception }
       end
 
     # En caso que la presentación misma de la excepción no salga como se espera
@@ -42,10 +42,10 @@ class ApplicationController < ActionController::Base
 
     unless login_check
       go_to = {
-        :action => (params[:action] == 'create' ? :new :
+        action: (params[:action] == 'create' ? :new :
           params[:action] == 'update' ? :edit : params[:action]),
-        :controller => params[:controller],
-        :id => params[:id]
+        controller: params[:controller],
+        id: params[:id]
       }
       session[:go_to] = go_to unless action == :logout
       @auth_user = nil

@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 class QuestionsController < ApplicationController
   before_action :auth
-  before_action :admin, :except => [:index, :show]
+  before_action :admin, except: [:index, :show]
   require 'csv'
 
   layout proc{ |controller| controller.request.xhr? ? false : 'application' }
@@ -15,7 +14,7 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.js
-      format.xml  { render :xml => @questions }
+      format.xml  { render xml: @questions }
     end
   end
 
@@ -27,7 +26,7 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @question }
+      format.xml  { render xml: @question }
     end
   end
 
@@ -39,7 +38,7 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @question }
+      format.xml  { render xml: @question }
     end
   end
 
@@ -59,10 +58,10 @@ class QuestionsController < ApplicationController
       if @question.save
         flash[:notice] = t 'questions.correctly_created'
         format.html { redirect_to(questions_path) }
-        format.xml  { render :xml => @question, :status => :created, :location => @question }
+        format.xml  { render xml: @question, status: :created, location: @question }
       else
-        format.html { render :action => :new }
-        format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
+        format.html { render action: :new }
+        format.xml  { render xml: @question.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -79,8 +78,8 @@ class QuestionsController < ApplicationController
         format.html { redirect_to(questions_path) }
         format.xml  { head :ok }
       else
-        format.html { render :action => :edit }
-        format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
+        format.html { render action: :edit }
+        format.xml  { render xml: @question.errors, status: :unprocessable_entity }
       end
     end
 
@@ -118,12 +117,12 @@ class QuestionsController < ApplicationController
       file_name = uploaded_file.path.to_s
       text = File.read(
         file_name,
-        { :encoding => 'UTF-8',
-          :delimiter => ';'
+        { encoding: 'UTF-8',
+          delimiter: ';'
         }
       )
 
-      @parsed_file=CSV.parse(text, :col_sep => ';')
+      @parsed_file=CSV.parse(text, col_sep: ';')
       n=0
       @parsed_file.each  do |row|
         q = Question.new
@@ -134,7 +133,7 @@ class QuestionsController < ApplicationController
           n+=1
         end
       end
-      flash[:notice] = t('questions.csv_import', :count => n)
+      flash[:notice] = t('questions.csv_import', count: n)
     else
       flash[:alert] = t 'questions.error_file_extension'
     end
@@ -149,12 +148,12 @@ class QuestionsController < ApplicationController
       file_name = uploaded_file.path.to_s
       text = File.read(
         file_name,
-        { :encoding => 'UTF-8',
-          :delimiter => ';'
+        { encoding: 'UTF-8',
+          delimiter: ';'
         }
       )
 
-      @parsed_file=CSV.parse(text, :col_sep => ';')
+      @parsed_file=CSV.parse(text, col_sep: ';')
       n=0
       @parsed_file.each  do |row|
         a = Answer.new
@@ -181,7 +180,7 @@ class QuestionsController < ApplicationController
           question.answers << a
         end
       end
-      flash[:notice] = t('questions.answers.csv_import', :count => n)
+      flash[:notice] = t('questions.answers.csv_import', count: n)
     else
       flash[:alert] = t 'questions.error_file_extension'
     end
