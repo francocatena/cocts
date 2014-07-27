@@ -7,10 +7,10 @@ PUBLIC_PATH = File.join(Rails.root, 'public')
 
 # Opciones por defecto para los PDFs
 PDF_OPTIONS = {
-  :page_size => 'A4',
-  :page_layout => :portrait,
+  page_size: 'A4',
+  page_layout: :portrait,
   # Margen T, R, B, L
-  :margin => [20.mm, 15.mm, 20.mm, 20.mm]
+  margin: [20.mm, 15.mm, 20.mm, 20.mm]
 }
 
 # Tamaño de fuente normal en los PDFs
@@ -21,9 +21,9 @@ DIMENSIONS = 1..9
 
 # Categorías de respuestas
 CATEGORIES = {
-  :adecuate => 2,
-  :plausible => 1,
-  :naive => 0
+  adecuate: 2,
+  plausible: 1,
+  naive: 0
 }
 
 # Valoraciones de respuestas
@@ -38,8 +38,8 @@ CORRESPONDENCE_WITH_NORMALIZED_INDEX = {
 
 # Tipos de proyecto
 TYPES = {
-  :manual => 0,
-  :interactive => 1
+  manual: 0,
+  interactive: 1
 }
 
 # Formularios sociodemográficos

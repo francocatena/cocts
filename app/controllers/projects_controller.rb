@@ -68,7 +68,7 @@ class ProjectsController < ApplicationController
 
     if !(params[:project][:question_ids].empty? ^ params[:project][:teaching_unit_ids].empty?)
       @project.errors[:question_ids] << t('projects.empty_questions_error')
-      render :action => :edit
+      render action: :edit
     else
       update_resource @project, project_params
       @project.generate_identifier

@@ -15,7 +15,7 @@ module Users::Sessions
         auth_user.password == @user.password then
       session[:last_access] = Time.now
       session[:user_id] = auth_user.id
-      go_to = {:controller => :projects, :action => :index}
+      go_to = {controller: :projects, action: :index}
       session[:go_to] = nil
       redirect_to go_to
     else
@@ -49,17 +49,17 @@ module Users::Sessions
         @auth_user.encrypt_password
 
         if @auth_user.update_attributes(
-            :password => @auth_user.password,
-            :password_confirmation => @auth_user.password
+            password: @auth_user.password,
+            password_confirmation: @auth_user.password
           )
 
           flash[:notice] = t 'users.password_correctly_updated'
           redirect_to login_users_url
         else
-          render :action => :edit_password
+          render action: :edit_password
         end
       else
-        render :action => :edit_password
+        render action: :edit_password
       end
 
       @auth_user.password, @auth_user.password_confirmation = nil, nil
