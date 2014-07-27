@@ -18,7 +18,7 @@ class Question < ApplicationModel
   end
 
   def as_json(options = nil)
-    default_options = { :only => [:id], :methods => [:label, :informal] }
+    default_options = { only: [:id], methods: [:label, :informal] }
 
     super(default_options.merge(options || {}))
   end
