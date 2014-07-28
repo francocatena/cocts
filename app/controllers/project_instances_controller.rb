@@ -9,12 +9,12 @@ class ProjectInstancesController < ApplicationController
   # GET /project_instances
   def index
     if params[:id]
-      @project_instances = ProjectInstance.with_project(params[:id]).paginate(:page => params[:page],
-       :per_page => APP_LINES_PER_PAGE)
+      @project_instances = ProjectInstance.with_project(params[id]).paginate(page: params[:page],
+       per_page: APP_LINES_PER_PAGE)
       @project = Project.find(params[:id])
     else
-      @project_instances = ProjectInstance.all.paginate(:page => params[:page],
-       :per_page => APP_LINES_PER_PAGE)
+      @project_instances = ProjectInstance.all.paginate(page: params[:page],
+       per_page: APP_LINES_PER_PAGE)
     end
   end
 

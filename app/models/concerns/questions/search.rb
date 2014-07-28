@@ -14,11 +14,11 @@ module Questions::Search
 
     def search(search, page = 12)
       if search
-        where('question ILIKE :q OR code ILIKE :q', :q => "%#{search}%").paginate(
-          :page => page, :per_page => APP_LINES_PER_PAGE
+        where('question ILIKE :q OR code ILIKE :q', q: "%#{search}%").paginate(
+          page: page, per_page: APP_LINES_PER_PAGE
         )
       else
-        all.paginate(:page => page, :per_page => APP_LINES_PER_PAGE)
+        all.paginate(page: page, per_page: APP_LINES_PER_PAGE)
       end
     end
   end

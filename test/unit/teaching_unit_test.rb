@@ -19,8 +19,8 @@ class TeachingUnitTest < ActiveSupport::TestCase
   test 'create' do
     assert_difference 'TeachingUnit.count' do
       @teaching_unit = TeachingUnit.create(
-        :questions => [questions('10111')],
-        :title => 'Title'
+        questions: [questions('10111')],
+        title: 'Title'
       )
     end
   end
@@ -28,7 +28,7 @@ class TeachingUnitTest < ActiveSupport::TestCase
   # Prueba de actualización de una UD
   test 'update' do
     assert_no_difference 'TeachingUnit.count' do
-      assert @teaching_unit.update_attributes(:title => 'Updated title'),
+      assert @teaching_unit.update_attributes(title: 'Updated title'),
         @teaching_unit.errors.full_messages.join('; ')
     end
 

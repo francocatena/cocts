@@ -13,8 +13,8 @@ class AddIndexesToQuestions < ActiveRecord::Migration
     if DB_ADAPTER == 'PostgreSQL'
       execute 'DROP INDEX index_questions_on_code_and_question'
     else
-      remove_index :questions, :column => :code
-      remove_index :questions, :column => :question
+      remove_index :questions, column: :code
+      remove_index :questions, column: :question
     end
   end
 end

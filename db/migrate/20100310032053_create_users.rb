@@ -8,16 +8,16 @@ class CreateUsers < ActiveRecord::Migration
       t.boolean :enable
       t.string :email
       t.string :salt
-      t.integer :lock_version, :default => 0
+      t.integer :lock_version, default: 0
 
       t.timestamps
     end
 
-    add_index :users, :user, :unique => true
+    add_index :users, :user, unique: true
   end
 
   def self.down
-    remove_index :users, :column => :user
+    remove_index :users, column: :user
 
     drop_table :users
   end

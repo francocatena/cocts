@@ -4,7 +4,7 @@ module QuestionsHelper
       [t("questions.answers.long_type.#{k}"), v]
     end
 
-    form.select :category, sort_options_array(options), {:prompt => true}
+    form.select :category, sort_options_array(options), {prompt: true}
   end
 
   def add_question_link

@@ -52,7 +52,7 @@ class TeachingUnitsController < ApplicationController
 
     def teaching_unit_params
       params.require(:teaching_unit).permit(
-        :title, :question_ids => []
+        :title, question_ids: []
       )
     end
 end

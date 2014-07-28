@@ -13,7 +13,7 @@ class SubtopicsControllerTest < ActionController::TestCase
   # Prueba que sin realizar autenticación esten accesibles las partes publicas
   # y no accesibles las privadas
   test 'public and private actions' do
-    id_param = {:id => @subtopic.to_param}
+    id_param = {id: @subtopic.to_param}
     public_actions = []
     private_actions = [
       [:get, :index],
@@ -49,7 +49,7 @@ class SubtopicsControllerTest < ActionController::TestCase
 
   test 'show subtopic' do
     perform_auth
-    get :show, :id => @subtopic.to_param
+    get :show, id: @subtopic.to_param
     assert_response :success
     assert_not_nil assigns(:subtopic)
     assert_select '#error_body', false
@@ -69,10 +69,10 @@ class SubtopicsControllerTest < ActionController::TestCase
     perform_auth
     assert_difference ['Subtopic.count'] do
       post :create, {
-        :subtopic => {
-          :title => 'Las mujeres y la ciencia',
-          :code => 001,
-          :teaching_unit_ids => [teaching_units(:udII).id]
+        subtopic: {
+          title: 'Las mujeres y la ciencia',
+          code: 001,
+          teaching_unit_ids: [teaching_units(:udII).id]
         }
       }
     end
@@ -84,7 +84,7 @@ class SubtopicsControllerTest < ActionController::TestCase
 
   test 'edit subtopic' do
     perform_auth
-    get :edit, :id => @subtopic.to_param
+    get :edit, id: @subtopic.to_param
     assert_response :success
     assert_not_nil assigns(:subtopic)
     assert_select '#error_body', false
@@ -95,10 +95,10 @@ class SubtopicsControllerTest < ActionController::TestCase
     perform_auth
     assert_no_difference'Subtopic.count' do
       put :update, {
-          :id => @subtopic.to_param,
-          :subtopic => {
-            :code => 10211,
-            :title => 'Ciencias sociales'
+          id: @subtopic.to_param,
+          subtopic: {
+            code: 10211,
+            title: 'Ciencias sociales'
           }
         }
       end
@@ -111,7 +111,7 @@ class SubtopicsControllerTest < ActionController::TestCase
   test 'destroy subtopic' do
     perform_auth
     assert_difference('Subtopic.count', -1) do
-      delete :destroy, :id => @subtopic.to_param
+      delete :destroy, id: @subtopic.to_param
     end
 
     assert_redirected_to subtopics_path
@@ -119,7 +119,7 @@ class SubtopicsControllerTest < ActionController::TestCase
 
   test 'autocomplete for teaching_unit' do
     perform_auth
-    get :autocomplete_for_teaching_unit, { :q => 'UD II', :format => :json }
+    get :autocomplete_for_teaching_unit, { q: 'UD II', format: :json }
     assert_response :success
 
     teaching_units = ActiveSupport::JSON.decode(@response.body)
@@ -127,7 +127,7 @@ class SubtopicsControllerTest < ActionController::TestCase
     assert_equal 1, teaching_units.size
     assert teaching_units.all? { |q| ("#{q['label']}").match /UD I/i }
 
-    get :autocomplete_for_teaching_unit, { :q => 'ud', :format => :json }
+    get :autocomplete_for_teaching_unit, { q: 'ud', format: :json }
     assert_response :success
 
     teaching_units = ActiveSupport::JSON.decode(@response.body)
@@ -135,7 +135,7 @@ class SubtopicsControllerTest < ActionController::TestCase
     assert_equal 2, teaching_units.size
     assert questions.all? { |q| ("#{q['label']}").match /ud/i }
 
-    get :autocomplete_for_teaching_unit, { :q => 'xyz', :format => :json }
+    get :autocomplete_for_teaching_unit, { q: 'xyz', format: :json }
     assert_response :success
 
     teaching_units = ActiveSupport::JSON.decode(@response.body)

@@ -53,7 +53,7 @@ class ProjectsController < ApplicationController
     @project.user = @auth_user unless @auth_user.admin
 
     if !(@project.questions.empty? ^ @project.teaching_units.empty?)
-      @project.errors[:base] << t(:'projects.empty_questions_error')
+      @project.errors[:base] << t('projects.empty_questions_error')
       render action: :new
     else
       @project.generate_identifier if @project.save
@@ -67,8 +67,8 @@ class ProjectsController < ApplicationController
     params[:project][:teaching_unit_ids] ||= []
 
     if !(params[:project][:question_ids].empty? ^ params[:project][:teaching_unit_ids].empty?)
-      @project.errors[:question_ids] << t(:'projects.empty_questions_error')
-      render :action => :edit
+      @project.errors[:question_ids] << t('projects.empty_questions_error')
+      render action: :edit
     else
       update_resource @project, project_params
       @project.generate_identifier

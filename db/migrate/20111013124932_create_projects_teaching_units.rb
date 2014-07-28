@@ -1,6 +1,6 @@
 class CreateProjectsTeachingUnits < ActiveRecord::Migration
   def up
-    create_table :projects_teaching_units, :id => false do |t|
+    create_table :projects_teaching_units, id: false do |t|
       t.column :teaching_unit_id, :integer
       t.column :project_id, :integer
     end
@@ -10,7 +10,7 @@ class CreateProjectsTeachingUnits < ActiveRecord::Migration
   end
   
   def down
-    remove_index :projects_teaching_unit, :column => [:teaching_unit_id, :project_id]
+    remove_index :projects_teaching_unit, column: [:teaching_unit_id, :project_id]
     
     drop_table :projects_teaching_units
   end

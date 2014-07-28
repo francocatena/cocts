@@ -30,9 +30,8 @@ class QuestionsController < ApplicationController
 
   # POST /questions
   def create
-    @question = Question.new(question_params)
+    @question = Question.new question_params
     @question.save
-
     respond_with @question, location: questions_url
   end
 
@@ -55,7 +54,7 @@ class QuestionsController < ApplicationController
 
   def admin
     unless @auth_user.admin?
-      flash[:alert] = t :'users.admin_error'
+      flash[:alert] = t 'users.admin_error'
       redirect_to questions_path
     end
   end

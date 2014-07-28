@@ -89,18 +89,18 @@ module Reports::AttitudinalRates
   end
 
   def add_generated_label(pdf, user)
-    date = I18n.l(Date.today, :format => :long)
+    date = I18n.l(Date.today, format: :long)
     name = "#{user.name} #{user.lastname}"
 
     pdf.font_size((PDF_FONT_SIZE * 0.7).round) do
       pdf.move_down pdf.font_size
-      pdf.text "#{I18n.t 'labels.generated_on'} #{date} #{I18n.t 'labels.by'} #{name}", :align => :right
+      pdf.text "#{I18n.t 'labels.generated_on'} #{date} #{I18n.t 'labels.by'} #{name}", align: :right
     end
 
     pdf.font_size((PDF_FONT_SIZE * 1.6).round) do
       pdf.move_down pdf.font_size
-      pdf.text "#{I18n.t('activerecord.models.project')} #{self.name}", :style => :bold,
-        :align => :center
+      pdf.text "#{I18n.t('activerecord.models.project')} #{self.name}", style: :bold,
+        align: :center
       pdf.move_down pdf.font_size
     end
   end
@@ -129,7 +129,7 @@ module Reports::AttitudinalRates
   def add_footer(pdf)
     pdf.page_count.times do |i|
       pdf.go_to_page(i+1)
-      pdf.draw_text "#{i+1} / #{pdf.page_count}", :at=>[1,1], :size => (PDF_FONT_SIZE * 0.75).round
+      pdf.draw_text "#{i+1} / #{pdf.page_count}", at:[1,1], size: (PDF_FONT_SIZE * 0.75).round
     end
   end
 
@@ -312,8 +312,8 @@ module Reports::AttitudinalRates
   def add_pdf_table(pdf, data)
     pdf.flexible_table(data) do
       row(0).style(
-        :background_color => 'cccccc',
-        :padding => [(PDF_FONT_SIZE * 0.5).round, (PDF_FONT_SIZE * 0.3).round]
+        background_color: 'cccccc',
+        padding: [(PDF_FONT_SIZE * 0.5).round, (PDF_FONT_SIZE * 0.3).round]
       )
     end
 
