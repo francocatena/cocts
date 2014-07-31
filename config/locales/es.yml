@@ -150,21 +150,6 @@ es:
   teaching_units:
     search: 'Buscar SEAs'
 
-  support:
-    # Used in array.to_sentence.
-    array:
-      words_connector: ', '
-      two_words_connector: ' y '
-      last_word_connector: ' y '
-
-  time:
-    formats:
-      default: '%A, %e de %B de %Y %H:%M:%S %z'
-      short: '%e de %b %H:%M'
-      long: '%e de %B de %Y %H:%M'
-    am: 'am'
-    pm: 'pm'
-
   users:
     search: 'Buscar usuarios'
     new_password_label: 'Nueva contraseña'
