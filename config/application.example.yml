@@ -1,10 +1,10 @@
 SMTP_ADDRESS: 'smtp.gmail.com'
-SMTP_PORT: 587
+SMTP_PORT: '587'
 SMTP_DOMAIN: 'gmail.com'
 SMTP_USER_NAME: 'username@change.me'
 SMTP_PASSWORD: '<password>'
 SMTP_AUTHENTICATION: 'plain'
-SMTP_ENABLE_STARTTLS_AUTO: True
+SMTP_ENABLE_STARTTLS_AUTO: 'true'
 
 APP_HOST: 'public.domain.com'
 APP_PROTOCOL: 'http'
