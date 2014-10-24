@@ -70,14 +70,14 @@ class QuestionsControllerTest < ActionController::TestCase
     assert_difference ['Question.count', 'Answer.count'] do
       post :create, {
         question: {
-          dimension: Question::DIMENSIONS.first,
+          dimension: DIMENSIONS.first,
           code: '10211',
           question: 'Definir qué es la tecnología puede resultar difícil ' +
             'porque ésta sirve para muchas cosas. Pero la tecnología ' +
             'PRINCIPALMENTE es:',
           answers_attributes: [
             {
-              category: Answer::CATEGORIES[:plausible],
+              category: CATEGORIES[:plausible],
               order: 1,
               clarification: 'New clarification',
               answer: 'New answer'
@@ -109,28 +109,28 @@ class QuestionsControllerTest < ActionController::TestCase
         put :update, {
           id: @question.to_param,
           question: {
-            dimension: Question::DIMENSIONS.first,
+            dimension: DIMENSIONS.first,
             code: '10211',
             question: 'Definir qué es la tecnología puede resultar difícil ' +
               'porque ésta sirve para muchas cosas. Pero la tecnología ' +
               'PRINCIPALMENTE es:',
             answers_attributes: [
               {
-                category: Answer::CATEGORIES[:plausible],
+                category: CATEGORIES[:plausible],
                 order: 1,
                 clarification: 'New clarification',
                 answer: 'New answer'
               },
               {
                 id: answers(:'10111_1').id,
-                category: Answer::CATEGORIES[:plausible],
+                category: CATEGORIES[:plausible],
                 order: 2,
                 clarification: 'Updated clarification 1',
                 answer: 'Updated answer 1'
               },
               {
                 id: answers(:'10111_2').id,
-                category: Answer::CATEGORIES[:adecuate],
+                category: CATEGORIES[:adecuate],
                 order: 3,
                 clarification: 'Updated clarification 2',
                 answer: 'Updated answer 2'

@@ -22,7 +22,7 @@ class QuestionTest < ActiveSupport::TestCase
   test 'create' do
     assert_difference 'Question.count' do
       @question = Question.create(
-        dimension: Question::DIMENSIONS.first,
+        dimension: DIMENSIONS.first,
         code: '10211',
         question: 'Definir qué es la tecnología puede resultar difícil ' +
           'porque ésta sirve para muchas cosas. Pero la tecnología ' +
@@ -93,7 +93,7 @@ class QuestionTest < ActiveSupport::TestCase
   end
 
   test 'validates included attributes' do
-    @question.dimension = Question::DIMENSIONS.last.next
+    @question.dimension = DIMENSIONS.last.next
     assert @question.invalid?
     assert_equal 1, @question.errors.count
     assert_equal [error_message_from_model(@question, :dimension, :inclusion)],

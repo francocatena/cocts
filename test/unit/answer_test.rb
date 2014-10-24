@@ -25,7 +25,7 @@ class AnswerTest < ActiveSupport::TestCase
     assert_difference 'Answer.count' do
       @answer = Answer.create(
         question: questions('10111'),
-        category: Answer::CATEGORIES[:plausible],
+        category: CATEGORIES[:plausible],
         order: 1,
         clarification: 'New clarification',
         answer: 'New answer'
@@ -78,7 +78,7 @@ class AnswerTest < ActiveSupport::TestCase
 
   # Prueba que las validaciones del modelo se cumplan como es esperado
   test 'validates included attributes' do
-    @answer.category = Answer::CATEGORIES.values.sort.last.next
+    @answer.category = CATEGORIES.values.sort.last.next
     assert @answer.invalid?
     assert_equal 1, @answer.errors.count
     assert_equal [error_message_from_model(@answer, :category, :inclusion)],

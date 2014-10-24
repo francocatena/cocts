@@ -101,11 +101,11 @@ class ProjectsControllerTest < ActionController::TestCase
           group_type: 'Group type',
           test_type: 'Pre-test',
           year: Date.today.year,
-          project_type: Project::TYPES[:manual],
+          project_type: TYPES[:manual],
           valid_until: 1.month.from_now.to_date,
           forms: [
-            Project::SOCIODEMOGRAPHIC_FORMS.first,
-            Project::SOCIODEMOGRAPHIC_FORMS.last
+            SOCIODEMOGRAPHIC_FORMS.first,
+            SOCIODEMOGRAPHIC_FORMS.last
           ],
           question_ids: [questions('10111').id]
         }
@@ -139,11 +139,11 @@ class ProjectsControllerTest < ActionController::TestCase
             identifier: 'updated-identifier',
             description: 'Updated description',
             year: Date.today.year,
-            project_type: Project::TYPES[:manual],
+            project_type: TYPES[:manual],
             valid_until: 1.month.from_now.to_date,
             forms: [
-              Project::SOCIODEMOGRAPHIC_FORMS.first,
-              Project::SOCIODEMOGRAPHIC_FORMS.last
+              SOCIODEMOGRAPHIC_FORMS.first,
+              SOCIODEMOGRAPHIC_FORMS.last
             ],
             question_ids: [questions('10111').id, questions('10113').id]
           }

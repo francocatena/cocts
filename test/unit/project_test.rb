@@ -32,7 +32,7 @@ class ProjectTest < ActiveSupport::TestCase
         test_type: 'Pre-test',
         group_name: 'New group',
         group_type: 'control',
-        project_type: Project::TYPES[:manual],
+        project_type: TYPES[:manual],
         valid_until: 20.days.from_now.to_date,
         questions: [questions('10111')]
       )

@@ -3,7 +3,7 @@
 
   <div class="row">
     <div class="col-md-6">
-      <%= f.input :dimension, collection: Question::DIMENSIONS.map { |d|
+      <%= f.input :dimension, collection: DIMENSIONS.map { |d|
           ["#{d}. #{t(:"questions.dimensions.#{d}")}", d]
         }, prompt: true, autofocus: true %>
       <%= f.input :code %>

@@ -6,9 +6,9 @@ manual:
   group_name: 'Grupo manual'
   group_type: control
   test_type: pre_test
-  project_type: <%= Project::TYPES[:manual] %>
+  project_type: <%= TYPES[:manual] %>
   valid_until: <%= 1.month.from_now.to_date %>
-  forms: <%= Project::SOCIODEMOGRAPHIC_FORMS.to_yaml.inspect %>
+  forms: <%= SOCIODEMOGRAPHIC_FORMS.to_yaml.inspect %>
   questions: ['10111']
   user: admin
 
@@ -20,8 +20,8 @@ interactive:
   group_name: 'Grupo interactivo'
   group_type: experimental
   test_type: pos_test
-  project_type: <%= Project::TYPES[:interactive] %>
+  project_type: <%= TYPES[:interactive] %>
   valid_until: <%= 3.days.from_now.to_date %>
-  forms: <%= Project::SOCIODEMOGRAPHIC_FORMS.to_yaml.inspect %>
+  forms: <%= SOCIODEMOGRAPHIC_FORMS.to_yaml.inspect %>
   questions: ['10111', '10113']
   user: private
