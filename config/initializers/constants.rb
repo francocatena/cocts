@@ -96,7 +96,7 @@ DEGREES_SCHOOL = [
   :twelfth_year,
   :thirteenth_year,
   :fourteenth_year,
-  :fifteenth_year  
+  :fifteenth_year
 ]
 
 # Tipos de test en proyectos
@@ -115,7 +115,7 @@ DEGREES_UNIVERSITY = [
   :sixth_year,
   :graduate,
   :master,
-  :other  
+  :other
 ]
 
 # Géneros disponibles en el formulario
@@ -123,8 +123,8 @@ GENRES = [:male, :female]
 
 # Tipos de grupos
 GROUP_TYPES = [
-  :control, 
-  :experimental, 
+  :control,
+  :experimental,
   :test
 ]
 
@@ -164,5 +164,5 @@ TEACHER_LEVELS = [
 DB_ADAPTER = ActiveRecord::Base.connection.adapter_name
 
 URL_HOST = (
-  Rails.env.development? ? 'localhost:3000' : 'mawida.com.ar'
+  Rails.env.development? ? 'localhost:3000' : 'cocts.com.ar'
 ).freeze
