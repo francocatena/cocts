@@ -13,7 +13,7 @@ class TeachingUnitsControllerTest < ActionController::TestCase
   # Prueba que sin realizar autenticación esten accesibles las partes publicas
   # y no accesibles las privadas
   test 'public and private actions' do
-    id_param = {:id => @teaching_unit.to_param}
+    id_param = {id: @teaching_unit.to_param}
     public_actions = []
     private_actions = [
       [:get, :index],
@@ -48,7 +48,7 @@ class TeachingUnitsControllerTest < ActionController::TestCase
 
   test 'show teaching_unit' do
     perform_auth
-    get :show, :id => @teaching_unit.to_param
+    get :show, id: @teaching_unit.to_param
     assert_response :success
     assert_not_nil assigns(:teaching_unit)
     assert_select '#error_body', false
@@ -68,9 +68,9 @@ class TeachingUnitsControllerTest < ActionController::TestCase
     perform_auth
     assert_difference ['TeachingUnit.count'] do
       post :create, {
-        :teaching_unit => {
-          :title => 'Enseñanza en la sociedad',
-          :question_ids => [questions('10111').id]
+        teaching_unit: {
+          title: 'Enseñanza en la sociedad',
+          question_ids: [questions('10111').id]
         }
       }
     end
@@ -81,7 +81,7 @@ class TeachingUnitsControllerTest < ActionController::TestCase
 
   test 'edit teaching_unit' do
     perform_auth
-    get :edit, :id => @teaching_unit.to_param
+    get :edit, id: @teaching_unit.to_param
     assert_response :success
     assert_not_nil assigns(:teaching_unit)
     assert_select '#error_body', false
@@ -91,10 +91,10 @@ class TeachingUnitsControllerTest < ActionController::TestCase
     perform_auth
     assert_no_difference'TeachingUnit.count' do
       put :update, {
-          :id => @teaching_unit.to_param,
-          :teaching_unit => {
-            :title => 'Ciencias',
-            :question_ids => [questions('10111').id]
+          id: @teaching_unit.to_param,
+          teaching_unit: {
+            title: 'Ciencias',
+            question_ids: [questions('10111').id]
           }
         }
       end
@@ -106,7 +106,7 @@ class TeachingUnitsControllerTest < ActionController::TestCase
   test 'destroy teaching_unit' do
     perform_auth
     assert_difference('TeachingUnit.count', -1) do
-      delete :destroy, :id => @teaching_unit.to_param
+      delete :destroy, id: @teaching_unit.to_param
     end
 
     assert_redirected_to teaching_units_path

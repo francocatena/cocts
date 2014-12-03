@@ -3,7 +3,7 @@
     <%= f.input :answer, input_html: { autofocus: true } %>
   </div>
   <div class="col-md-3">
-    <%= f.input :category, collection: Answer::CATEGORIES.map { |k, v|
+    <%= f.input :category, collection: CATEGORIES.map { |k, v|
         [t("questions.answers.long_type.#{k}"), v]
       }, prompt: true %>
   </div>

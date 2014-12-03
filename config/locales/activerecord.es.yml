@@ -1,0 +1,137 @@
+es:
+  activerecord:
+    errors:
+      messages:
+        inclusion: 'no está incluido en la lista'
+        exclusion: 'está reservado'
+        invalid: 'no es válido'
+        confirmation: 'no coincide con la confirmación'
+        accepted: 'debe ser aceptado'
+        empty: 'no puede estar vacío'
+        blank: 'no puede estar en blanco'
+        too_long: 'es demasiado largo (%{count} caracteres máximo)'
+        too_short: 'es demasiado corto (%{count} caracteres mínimo)'
+        wrong_length: 'no tiene la longitud correcta (%{count} caracteres exactos)'
+        not_a_number: 'no es un número'
+        not_an_integer: 'no es un entero'
+        greater_than: 'debe ser mayor que %{count}'
+        greater_than_or_equal_to: 'debe ser mayor que o igual a %{count}'
+        equal_to: 'debe ser igual a %{count}'
+        less_than: 'debe ser menor que %{count}'
+        less_than_or_equal_to: 'debe ser menor que o igual a %{count}'
+        odd: 'debe ser impar'
+        even: 'debe ser par'
+        record_invalid: 'La validación falló: %{errors}'
+        before: "debe ser anterior a %{restriction}"
+        on_or_before: "debe ser anterior o igual a %{restriction}"
+        after: "debe ser posterior a %{restriction}"
+        on_or_after: "debe ser posterior o igual a %{restriction}"
+        between: "debe estar entre %{earliest} y %{latest}"
+        taken: 'ya está en uso'
+      template:
+        header:
+          one: 'No se pudo guardar porque se encontró 1 error'
+          other: 'No se pudo guardar porque se encontraron %{count} errores'
+        # The variable :count is also available
+        body: 'Se encontraron problemas con los siguientes campos:'
+
+      models:
+        project:
+          attributes:
+            identifier:
+              invalid: 'debe contener solamente letras, números y/o guiones medios (-)'
+            questions:
+              blank: 'debe incluir al menos una'
+        question:
+          attributes:
+            code:
+              invalid: 'debe contener solamente números'
+
+    models:
+      answer: 'Respuesta'
+      project: 'Proyecto'
+      question: 'Cuestión'
+      questions: 'Cuestiones'
+      user: 'Usuario'
+      answer_instance: 'Instancia de respuesta'
+      question_instance: 'Instancia de pregunta'
+      project_instance: 'Instancia de proyecto'
+      subtopic: 'Subtema'
+      subtopics: 'Subtemas'
+      teaching_unit: 'Secuencia de Enseñanza Aprendizaje'
+      teaching_units: 'Secuencias de Enseñanza Aprendizaje'
+
+    attributes:
+      question_instance:
+        question_text: 'Cuestión'
+      project_instance:
+        age: 'Edad'
+        country: 'País de residencia'
+        degree: 'Grado académico'
+        degree_school: 'Estudios anteriores a la universidad'
+        degree_university: 'Estudios en la universidad'
+        genre: 'Sexo'
+        group_type: 'Tipo de grupo'
+        group_name: 'Nombre del grupo'
+        student_status: 'Nivel estudiante'
+        teacher_status: 'Nivel educativo profesor'
+        teacher_level: 'Nivel profesor'
+        profession_certification: 'Especialidad titulación'
+        profession_ocuppation: 'Especialidad ocupación'
+        educational_center_city: 'Ciudad del centro educativo'
+        educational_center_name: 'Nombre del centro educativo'
+        study_subjects: 'Asignaturas de ciencias o tecnología que estudia este año'
+        study_subjects_choose: 'Asignaturas de ciencias o tecnología que han sido elegidas'
+        study_subjects_different: 'Asignaturas diferentes que estudia este año'
+        first_name: 'Nombre'
+        professor_name: 'Nombre del profesor'
+        email: 'Email'
+        name: 'Nombre'
+        identifier: 'Identificador'
+        description: 'Descripción'
+        year: 'Año'
+        valid_until: 'Vencimiento'
+        project_type: 'Tipo de carga'
+      answer:
+        category: 'Categoría'
+        order: 'Orden'
+        clarification: 'Aclaraciones previas'
+        answer: 'Respuesta'
+      answer_instance:
+        answer_text: 'Respuesta'
+        valuation: 'Valoración'
+        anwer_category: 'Categoría'
+      project:
+        name: 'Nombre'
+        identifier: 'Identificador'
+        description: 'Descripción'
+        group_name: 'Nombre del grupo'
+        group_type: 'Tipo de grupo'
+        year: 'Año'
+        valid_until: 'Vencimiento'
+        project_type: 'Tipo de carga'
+        test_type: 'Tipo de test'
+        user_id: 'Usuario'
+        questions: 'Cuestiones'
+      question:
+        code: 'Código'
+        dimension: 'Dimensión'
+        question: 'Cuestión'
+      question_instance:
+        question_text: 'Cuestión'
+      teaching_unit:
+        title: 'Título'
+        questions: 'Cuestiones'
+      subtopic:
+        title: 'Título del Tema/Subtema'
+        code: 'Código'
+      user:
+        user: 'Usuario'
+        password: 'Contraseña'
+        password_confirmation: 'Confirmación'
+        name: 'Nombre'
+        lastname: 'Apellido'
+        email: 'E-Mail'
+        enable: 'Habilitado'
+        private: 'Privado'
+        admin: 'Administrador'

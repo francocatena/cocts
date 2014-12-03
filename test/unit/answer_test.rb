@@ -24,11 +24,11 @@ class AnswerTest < ActiveSupport::TestCase
   test 'create' do
     assert_difference 'Answer.count' do
       @answer = Answer.create(
-        :question => questions('10111'),
-        :category => Answer::CATEGORIES[:plausible],
-        :order => 1,
-        :clarification => 'New clarification',
-        :answer => 'New answer'
+        question: questions('10111'),
+        category: CATEGORIES[:plausible],
+        order: 1,
+        clarification: 'New clarification',
+        answer: 'New answer'
       )
     end
   end
@@ -36,7 +36,7 @@ class AnswerTest < ActiveSupport::TestCase
   # Prueba de actualización de una respuesta
   test 'update' do
     assert_no_difference 'Answer.count' do
-      assert @answer.update_attributes(:answer => 'Updated answer'),
+      assert @answer.update_attributes(answer: 'Updated answer'),
         @answer.errors.full_messages.join('; ')
     end
 
@@ -78,7 +78,7 @@ class AnswerTest < ActiveSupport::TestCase
 
   # Prueba que las validaciones del modelo se cumplan como es esperado
   test 'validates included attributes' do
-    @answer.category = Answer::CATEGORIES.values.sort.last.next
+    @answer.category = CATEGORIES.values.sort.last.next
     assert @answer.invalid?
     assert_equal 1, @answer.errors.count
     assert_equal [error_message_from_model(@answer, :category, :inclusion)],

@@ -10,13 +10,13 @@ def self.check_errors(record)
 end
 
 user = User.create(
-  :name => 'Administrador',
-  :lastname => 'Administrador',
-  :email => 'admin@cocts.edu',
-  :enable => true,
-  :admin => true,
-  :user => 'admin',
-  :password => 'admin123'
+  name: 'Administrador',
+  lastname: 'Administrador',
+  email: 'admin@cocts.edu',
+  enable: true,
+  admin: true,
+  user: 'admin',
+  password: 'admin123'
 )
 
 check_errors user

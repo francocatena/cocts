@@ -29,7 +29,7 @@ class CreateProjectInstances < ActiveRecord::Migration
   end
 
   def self.down
-    remove_index :project_instances, :column => :project_id
+    remove_index :project_instances, column: :project_id
     
     drop_table :project_instances
   end

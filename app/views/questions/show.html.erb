@@ -31,7 +31,7 @@
       <% @question.answers.each do |answer| %>
         <tr>
         	<td><%= answer.clarification %></td>
-          <td><%= t :"questions.answers.long_type.#{Answer::CATEGORIES.invert[answer.category]}" %></td>
+          <td><%= t :"questions.answers.long_type.#{CATEGORIES.invert[answer.category]}" %></td>
         	<td><%= answer.answer %></td>
         </tr>
       <% end %>

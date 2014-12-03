@@ -25,15 +25,15 @@ class UserTest < ActiveSupport::TestCase
   test 'create' do
     assert_difference 'User.count' do
       @user = User.create(
-        :user => 'new_user',
-        :name => 'New name',
-        :lastname => 'New lastname',
-        :password => 'new_password_123',
-        :password_confirmation => 'new_password_123',
-        :email => 'new_user@users.com',
-        :enable => true,
-        :private => false,
-        :admin => true
+        user: 'new_user',
+        name: 'New name',
+        lastname: 'New lastname',
+        password: 'new_password_123',
+        password_confirmation: 'new_password_123',
+        email: 'new_user@users.com',
+        enable: true,
+        private: false,
+        admin: true
       )
     end
   end
@@ -41,7 +41,7 @@ class UserTest < ActiveSupport::TestCase
   # Prueba de actualización de un usuario
   test 'update' do
     assert_no_difference 'User.count' do
-      assert @user.update_attributes(:user => 'updated_user'),
+      assert @user.update_attributes(user: 'updated_user'),
         @user.errors.full_messages.join('; ')
     end
 
@@ -100,9 +100,9 @@ class UserTest < ActiveSupport::TestCase
     assert @user.invalid?
     assert_equal 2, @user.errors.count
     assert_equal [error_message_from_model(@user, :user, :too_short,
-      :count => 5)], @user.errors[:user]
+      count: 5)], @user.errors[:user]
     assert_equal [error_message_from_model(@user, :password, :too_short,
-      :count => 5)], @user.errors[:password]
+      count: 5)], @user.errors[:password]
 
     @user.user = 'abcd' * 10
     @user.password = 'admin123' * 20
@@ -113,15 +113,15 @@ class UserTest < ActiveSupport::TestCase
     assert @user.invalid?
     assert_equal 5, @user.errors.count
     assert_equal [error_message_from_model(@user, :user, :too_long,
-      :count => 30)], @user.errors[:user]
+      count: 30)], @user.errors[:user]
     assert_equal [error_message_from_model(@user, :password, :too_long,
-      :count => 128)], @user.errors[:password]
+      count: 128)], @user.errors[:password]
     assert_equal [error_message_from_model(@user, :name, :too_long,
-      :count => 255)], @user.errors[:name]
+      count: 255)], @user.errors[:name]
     assert_equal [error_message_from_model(@user, :lastname, :too_long,
-      :count => 255)], @user.errors[:lastname]
+      count: 255)], @user.errors[:lastname]
     assert_equal [error_message_from_model(@user, :email, :too_long,
-      :count => 255)], @user.errors[:email]
+      count: 255)], @user.errors[:email]
   end
 
   # Prueba que las validaciones del modelo se cumplan como es esperado

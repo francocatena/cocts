@@ -22,9 +22,9 @@ class QuestionTest < ActiveSupport::TestCase
   test 'create' do
     assert_difference 'Question.count' do
       @question = Question.create(
-        :dimension => Question::DIMENSIONS.first,
-        :code => '10211',
-        :question => 'Definir qué es la tecnología puede resultar difícil ' +
+        dimension: DIMENSIONS.first,
+        code: '10211',
+        question: 'Definir qué es la tecnología puede resultar difícil ' +
           'porque ésta sirve para muchas cosas. Pero la tecnología ' +
           'PRINCIPALMENTE es:'
       )
@@ -34,7 +34,7 @@ class QuestionTest < ActiveSupport::TestCase
   # Prueba de actualización de una cuestión
   test 'update' do
     assert_no_difference 'Question.count' do
-      assert @question.update_attributes(:code => '10212'),
+      assert @question.update_attributes(code: '10212'),
         @question.errors.full_messages.join('; ')
     end
 
@@ -89,11 +89,11 @@ class QuestionTest < ActiveSupport::TestCase
     @question.code = '10001' * 52
     assert @question.invalid?
     assert_equal [error_message_from_model(@question, :code, :too_long,
-      :count => 255)], @question.errors[:code]
+      count: 255)], @question.errors[:code]
   end
 
   test 'validates included attributes' do
-    @question.dimension = Question::DIMENSIONS.last.next
+    @question.dimension = DIMENSIONS.last.next
     assert @question.invalid?
     assert_equal 1, @question.errors.count
     assert_equal [error_message_from_model(@question, :dimension, :inclusion)],

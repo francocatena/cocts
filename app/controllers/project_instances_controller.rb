@@ -1,34 +1,27 @@
 class ProjectInstancesController < ApplicationController
-  before_action :auth, :except => [:new, :create]
-  before_action :load_auth_user, :only => [:new, :create]
+  respond_to :html
+
+  before_action :auth, except: [:new, :create]
+  before_action :load_auth_user, only: [:new, :create]
+  before_action :set_title, except: :destroy
+  before_action :set_project_instance, only: [:show, :edit, :update, :destroy]
 
   # GET /project_instances
-  # GET /project_instances.xml
   def index
-    @title = t :'project_instances.index_title'
     if params[:id]
-      @project_instances = ProjectInstance.with_project(params[:id]).paginate(:page => params[:page],
-       :per_page => APP_LINES_PER_PAGE)
+      @project_instances = ProjectInstance.with_project(params[:id]).paginate(page: params[:page],
+       per_page: APP_LINES_PER_PAGE)
       @project = Project.find(params[:id])
     else
-      @project_instances = ProjectInstance.all.paginate(:page => params[:page],
-       :per_page => APP_LINES_PER_PAGE)
-    end
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @project_instances }
+      @project_instances = ProjectInstance.all.paginate(page: params[:page],
+       per_page: APP_LINES_PER_PAGE)
     end
   end
 
   # GET /project_instances/1
-  # GET /project_instances/1.xml
   def show
-    @title = t :'project_instances.show_title'
-    @project_instance = ProjectInstance.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @project_instance }
       format.pdf  {
         @project_instance.to_pdf
         redirect_to "/#{@project_instance.pdf_relative_path}"
@@ -37,129 +30,98 @@ class ProjectInstancesController < ApplicationController
   end
 
   # GET /project_instances/new
-  # GET /project_instances/new.xml
   def new
-    @title = t :'project_instances.new_title'
     session[:go_to] = request.env['HTTP_REFERER']
+
     if params[:identifier]
       @project = Project.find_by_identifier(params[:identifier])
-      @project_instance = ProjectInstance.new(:project =>  @project)
-
+      @project_instance = ProjectInstance.new(project: @project)
     else
       @project = Project.find_by_identifier(request.subdomains.first)
       if @project
         unless @project.is_valid?
-          flash[:alert]= t :'projects.valid_until_error'
+          flash[:alert]= t 'projects.valid_until_error'
           redirect_to login_users_path
         end
         if @project.interactive?
-          @project_instance = ProjectInstance.new(:project => @project)
+          @project_instance = ProjectInstance.new(project: @project)
         else
-          flash[:alert]= t :'project_instances.error_manual_type'
+          flash[:alert]= t 'project_instances.error_manual_type'
           redirect_to login_users_path
         end
-
       else
-        flash[:alert]= t :'project_instances.error_subdomain'
+        flash[:alert]= t 'project_instances.error_subdomain'
         redirect_to login_users_path
       end
-    end
-
-   respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @project_instance }
     end
   end
 
   # GET /project_instances/1/edit
   def edit
     session[:go_to] = request.env['HTTP_REFERER']
-    @title = t :'project_instances.edit_title'
-    @project_instance = ProjectInstance.find(params[:id])
   end
 
 
   # POST /project_instances
-  # POST /project_instances.xml
   def create
-    @title = t :'project_instances.new_title'
     @project_instance = ProjectInstance.new(project_instance_params)
-    
+
     respond_to do |format|
       if @project_instance.save
         if @project_instance.manual?
           go_to = session[:go_to]
           session[:go_to] = nil
-          flash[:notice] = t :'project_instances.correctly_created'
+          flash[:notice] = t 'project_instances.correctly_created'
           if go_to
             format.html { redirect_to go_to }
           else
             format.html { redirect_to projects_path }
           end
-          format.xml  { render :xml => @project_instance, :status => :created, :location => @project_instance }
         else
-          flash[:notice] = t :'project_instances.correctly_created_interactive'
-          format.html { render :action => 'show', :id => @project_instance.to_param}
+          flash[:notice] = t 'project_instances.correctly_created_interactive'
+          format.html { render action: 'show', id: @project_instance.to_param}
         end
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @project_instance.errors, :status => :unprocessable_entity }
+        format.html { render action: 'new' }
       end
     end
   end
 
   # PUT /project_instances/1
-  # PUT /project_instances/1.xml
   def update
-    @title = t :'project_instances.edit_title'
-    @project_instance = ProjectInstance.find(params[:id])
+    update_resource @project_instance, project_instance_params
+    go_to = session[:go_to] ||= project_instance_url
 
-    respond_to do |format|
-      if @project_instance.update_attributes(project_instance_params)
-        go_to = session[:go_to]
-        session[:go_to] = nil
-        if go_to
-          format.html { redirect_to go_to, :notice => t('project_instances.correctly_updated')}
-        else
-          format.html { redirect_to(@project_instance, :notice => t(:'project_instances.correctly_updated')) }
-        end
-
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @project_instance.errors, :status => :unprocessable_entity }
-      end
-    end
+    respond_with @project_instance, location: go_to
   end
 
   # DELETE /project_instances/1
-  # DELETE /project_instances/1.xml
   def destroy
-    @project_instance = ProjectInstance.find(params[:id])
     id = @project_instance.project_id
     @project_instance.destroy
 
-    respond_to do |format|
-      format.html { redirect_to(project_instances_url(:id => id)) }
-      format.xml  { head :ok }
-    end
+    respond_with @project_instance, location: project_instances_url
   end
 
   private
 
-  def project_instance_params
-    params.require(:project_instance).permit(
-      :first_name, :professor_name, :email, :name, :identifier, :description, :age, 
-      :degree, :genre, :student_status, :teacher_level, :teacher_status, :country, 
-      :educational_center_name, :educational_center_city, :study_subjects_different, 
-      :year, :project_type, :valid_until, :country, :study_subjects, :project_type, 
-      :study_subjects_choose, :degree_school, :manual_degree_university, :group_type,
-      :group_name, :project_id, 
-      question_instances_attributes: [
-        :question_id, :question_text, answer_instances_attributes: [
-          :answer_id, :valuation, :order, :answer_text, :answer_category
+    def set_project_instance
+      @project_instance = ProjectInstance.find(params[:id])
+    end
+
+    def project_instance_params
+      params.require(:project_instance).permit(
+        :first_name, :professor_name, :email, :name, :identifier, :description, :age,
+        :degree, :genre, :student_status, :teacher_level, :teacher_status, :country,
+        :educational_center_name, :educational_center_city, :study_subjects_different,
+        :year, :project_type, :valid_until, :country, :study_subjects, :project_type,
+        :study_subjects_choose, :degree_school, :manual_degree_university, :group_type,
+        :group_name, :project_id,
+        question_instances_attributes: [
+          :question_id, :question_text, answer_instances_attributes: [
+            :answer_id, :valuation, :order, :answer_text, :answer_category
+          ]
         ]
-      ]
-    )
-  end
+      )
+    end
 end

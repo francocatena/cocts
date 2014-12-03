@@ -20,8 +20,8 @@ class QuestionInstanceTest < ActiveSupport::TestCase
   test 'create' do
     assert_difference 'QuestionInstance.count' do
       @question_instance = QuestionInstance.create(
-        :question_text => 'Definir qué es la tecnología puede resultar difícil porque ésta sirve para muchas cosas. Pero la tecnología PRINCIPALMENTE es:',
-        :answer_instances => [answer_instances(:one)]
+        question_text: 'Definir qué es la tecnología puede resultar difícil porque ésta sirve para muchas cosas. Pero la tecnología PRINCIPALMENTE es:',
+        answer_instances: [answer_instances(:one)]
       )
     end
   end
@@ -29,7 +29,7 @@ class QuestionInstanceTest < ActiveSupport::TestCase
   # Prueba de actualización de una cuestión
   test 'update' do
     assert_no_difference 'QuestionInstance.count' do
-      assert @question_instance.update_attributes(:question_text => 'Question text'),
+      assert @question_instance.update_attributes(question_text: 'Question text'),
         @question_instance.errors.full_messages.join('; ')
     end
 

@@ -30,3 +30,43 @@ es:
       destroy:
         notice: 'Proyecto eliminado'
         alert: 'El proyecto no pudo ser eliminado'
+
+    project_instances:
+      create:
+        notice: 'Instancia de proyecto agregada correctamente'
+      update:
+        notice: 'Instancia de proyecto actualizada correctamente'
+        stale: 'La instancia de proyecto no fue actualizada, intente nuevamente'
+      destroy:
+        notice: 'Instancia de proyecto eliminada'
+        alert: 'La instancia de proyecto no pudo ser eliminada'
+
+    questions:
+      create:
+        notice: 'Cuestión agregada correctamente'
+      update:
+        notice: 'Cuestión actualizada correctamente'
+        stale: 'La cuestión no fue actualizada, intente nuevamente'
+      destroy:
+        notice: 'Cuestión eliminada'
+        alert: 'La cuestión no pudo ser eliminada'
+
+    subtopics:
+      create:
+        notice: 'Subtema agregado correctamente'
+      update:
+        notice: 'Subtema actualizado correctamente'
+        stale: 'El subtema no fue actualizado, intente nuevamente'
+      destroy:
+        notice: 'Subtema eliminado'
+        alert: 'El subtema no pudo ser eliminado'
+
+    teaching_units:
+      create:
+        notice: 'Unidad didáctica agregada correctamente'
+      update:
+        notice: 'Unidad didáctica actualizada correctamente'
+        stale: 'La unidad didáctica no fue actualizada, intente nuevamente'
+      destroy:
+        notice: 'Unidad didáctica eliminada'
+        alert: 'La unidad didáctica no pudo ser eliminada'

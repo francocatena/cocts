@@ -1,4 +1,7 @@
 class ProjectsController < ApplicationController
+  include Autocompletes::Questions
+  include Projects::Rates
+
   respond_to :html
 
   before_action :auth
@@ -50,7 +53,7 @@ class ProjectsController < ApplicationController
     @project.user = @auth_user unless @auth_user.admin
 
     if !(@project.questions.empty? ^ @project.teaching_units.empty?)
-      @project.errors[:base] << t(:'projects.empty_questions_error')
+      @project.errors[:base] << t('projects.empty_questions_error')
       render action: :new
     else
       @project.generate_identifier if @project.save
@@ -64,8 +67,8 @@ class ProjectsController < ApplicationController
     params[:project][:teaching_unit_ids] ||= []
 
     if !(params[:project][:question_ids].empty? ^ params[:project][:teaching_unit_ids].empty?)
-      @project.errors[:question_ids] << t(:'projects.empty_questions_error')
-      render :action => :edit
+      @project.errors[:question_ids] << t('projects.empty_questions_error')
+      render action: :edit
     else
       update_resource @project, project_params
       @project.generate_identifier
@@ -81,16 +84,6 @@ class ProjectsController < ApplicationController
     respond_with @project, location: projects_url
   end
 
-  def pdf_rates
-    projects = Project.where('name = ?', @project.name).order('group_type DESC, test_type DESC')
-    respond_to do |format|
-       format.pdf  {
-        @project.generate_pdf_rates(projects, @auth_user)
-        redirect_to "/#{@project.pdf_relative_path}"
-      }
-    end
-  end
-
   def select_new
     if @auth_user.private
       @projects = Project.select('distinct name').where('user_id = ?', @auth_user.id)
@@ -99,19 +92,6 @@ class ProjectsController < ApplicationController
     else
       @projects = Project.joins(:user).select('distinct projects.name').where(
         "#{User.table_name}.private" => false)
-    end
-  end
-
-  # POST /projects/auto_complete_for_question
-  def autocomplete_for_question
-    query = params[:q].sanitized_for_text_query
-    @query_terms = query.split(/\s+/).reject(&:blank?)
-    @questions = Question.all
-    @questions = @questions.full_text(@query_terms) unless @query_terms.empty?
-    @questions = @questions.limit(10)
-
-    respond_to do |format|
-      format.json { render :json => @questions }
     end
   end
 

@@ -1,5 +1,5 @@
 <div id="sociodemographic" style="display: none;">
-  <% Project::SOCIODEMOGRAPHIC_FORMS.each do |sociodemographic_form| %>
+  <% SOCIODEMOGRAPHIC_FORMS.each do |sociodemographic_form| %>
     <% i18n_scope = [:projects, :sociodemographic_forms, sociodemographic_form] %>
     <% checked = @project.forms.include? sociodemographic_form %>
 

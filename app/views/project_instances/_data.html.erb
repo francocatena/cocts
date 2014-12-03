@@ -16,7 +16,7 @@
       <%= qi_f.simple_fields_for :answer_instances do |qa_f| %>
         <div class="answer_instance row">
           <div class="col-md-1">
-            <%= qa_f.input :valuation, collection: AnswerInstance::VALUATIONS.map{|v| [v,v]} %>
+            <%= qa_f.input :valuation, collection: VALUATIONS.map{|v| [v,v]} %>
           </div>
           <div class="col-md-9">
             <%= qa_f.input :answer_text %>
@@ -41,6 +41,6 @@
   </p>
 
   <p class="hide_complete_cuestionnaire">
-    <%= link_to t(:'project_instances.hide_project_data'), '#', id: :hide_complete_data, visible: false %>
+    <%= link_to t('project_instances.hide_project_data'), '#', id: :hide_complete_data, visible: false %>
   </p>
 </div>

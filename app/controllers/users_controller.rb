@@ -63,7 +63,7 @@ class UsersController < ApplicationController
 
   def admin
     unless @auth_user.admin?
-      flash[:alert] = t :'users.admin_error'
+      flash[:alert] = t 'users.admin_error'
       redirect_to projects_path
     end
   end

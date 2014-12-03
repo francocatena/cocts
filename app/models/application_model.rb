@@ -9,8 +9,8 @@ class ApplicationModel < ActiveRecord::Base
 
   def self.text_query(query_terms, *args)
     parameters = {
-      :and_term => query_terms.join(' & '),
-      :wilcard_term => "%#{query_terms.join('%')}%".downcase
+      and_term: query_terms.join(' & '),
+      wilcard_term: "%#{query_terms.join('%')}%".downcase
     }
 
     if DB_ADAPTER == 'PostgreSQL'
@@ -23,7 +23,7 @@ class ApplicationModel < ActiveRecord::Base
       order = "#{args.first} ASC"
     end
 
-    {:query => query, :order => order, :parameters => parameters}
+    {query: query, order: order, parameters: parameters}
   end
 
   def self.pg_text_query(*args)
@@ -35,7 +35,7 @@ class ApplicationModel < ActiveRecord::Base
     query << " @@ to_tsquery(#{lang}, :#{term_name})"
     order = "ts_rank_cd(#{query.sub(' @@', ',')})"
 
-    {:query => query, :order => order}
+    {query: query, order: order}
   end
 
   def self.simple_text_query(*args)

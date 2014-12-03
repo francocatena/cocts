@@ -26,3 +26,45 @@ es:
       title: 'Modificar proyecto'
     select_new:
       title: 'Nuevo proyecto'
+
+  project_instances:
+    index:
+      title: 'Listado de instancias de proyectos'
+    show:
+      title: 'Detalle instancia de proyecto'
+    new:
+      title: 'Agregar instancia de proyecto'
+    edit:
+      title: 'Modificar instancia de proyecto'
+
+  questions:
+    index:
+      title: 'Listado de cuestiones'
+    show:
+      title: 'Detalle cuestión'
+    new:
+      title: 'Agregar cuestión'
+    edit:
+      title: 'Modificar cuestión'
+    import_csv:
+      title: 'Importar cuestiones'
+
+  subtopics:
+    index:
+      title: 'Listado de subtemas'
+    show:
+      title: 'Detalle subtema'
+    new:
+      title: 'Agregar subtema'
+    edit:
+      title: 'Modificar subtema'
+
+  teaching_units:
+    index:
+      title: 'Listado de unidades didácticas'
+    show:
+      title: 'Detalle unidad didáctica'
+    new:
+      title: 'Agregar unidad didáctica'
+    edit:
+      title: 'Modificar unidad didáctica'

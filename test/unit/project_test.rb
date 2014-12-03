@@ -25,16 +25,16 @@ class ProjectTest < ActiveSupport::TestCase
   test 'create' do
     assert_difference 'Project.count' do
       @project = Project.create(
-        :name => 'New name',
-        :identifier => 'new-project',
-        :description => 'New description',
-        :year => 2010,
-        :test_type => 'Pre-test',
-        :group_name => 'New group',
-        :group_type => 'control',
-        :project_type => Project::TYPES[:manual],
-        :valid_until => 20.days.from_now.to_date,
-        :questions => [questions('10111')]
+        name: 'New name',
+        identifier: 'new-project',
+        description: 'New description',
+        year: 2010,
+        test_type: 'Pre-test',
+        group_name: 'New group',
+        group_type: 'control',
+        project_type: TYPES[:manual],
+        valid_until: 20.days.from_now.to_date,
+        questions: [questions('10111')]
       )
     end
   end
@@ -42,7 +42,7 @@ class ProjectTest < ActiveSupport::TestCase
   # Prueba de actualización de un proyecto
   test 'update' do
     assert_no_difference 'Project.count' do
-      assert @project.update_attributes(:name => 'Updated name'),
+      assert @project.update_attributes(name: 'Updated name'),
         @project.errors.full_messages.join('; ')
     end
 
@@ -99,7 +99,7 @@ class ProjectTest < ActiveSupport::TestCase
     assert_equal [error_message_from_model(@project, :identifier, :exclusion)],
       @project.errors[:identifier]
     assert_equal [error_message_from_model(@project, :valid_until,
-      :on_or_after, :restriction => Time.now.strftime('%d/%m/%Y'))],
+      :on_or_after, restriction: Time.now.strftime('%d/%m/%Y'))],
       @project.errors[:valid_until]
 
   end
@@ -110,9 +110,9 @@ class ProjectTest < ActiveSupport::TestCase
     assert @project.invalid?
     assert_equal 2, @project.errors.count
     assert_equal [error_message_from_model(@project, :name, :too_long,
-      :count => 255)], @project.errors[:name]
+      count: 255)], @project.errors[:name]
     assert_equal [error_message_from_model(@project, :identifier, :too_long,
-      :count => 255)], @project.errors[:identifier]
+      count: 255)], @project.errors[:identifier]
   end
 
   test 'validates included attributes' do
@@ -153,7 +153,7 @@ class ProjectTest < ActiveSupport::TestCase
 
   test 'rates to pdf' do
     FileUtils.rm @project.pdf_full_path if File.exists?(@project.pdf_full_path)
-    projects = Project.where(:name => @project.name)
+    projects = Project.where(name: @project.name)
 
     assert !File.exists?(@project.pdf_full_path)
     assert_nothing_raised(Exception) do
