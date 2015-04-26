@@ -166,3 +166,6 @@ DB_ADAPTER = ActiveRecord::Base.connection.adapter_name
 URL_HOST = (
   Rails.env.development? ? 'localhost:3000' : 'cocts.com.ar'
 ).freeze
+
+# Email soporte
+SUPPORT_EMAIL = 'soportecocts@gmail.com'

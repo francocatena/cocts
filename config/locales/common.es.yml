@@ -101,6 +101,7 @@ es:
 
   labels:
     add: 'Agregar'
+    assistance: 'Consultas'
     back: 'Volver'
     by: 'por'
     change: 'Cambiar'
