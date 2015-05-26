@@ -10,7 +10,7 @@ class Ability
       can :manage, :all
     else
       can :read, :all
-      can :manage, User, user_id: user.id
+      can :manage, User
       can [:read, :create], ProjectInstance
       can [:read, :create], Project
     end
