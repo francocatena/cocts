@@ -17,9 +17,9 @@
             :title => question.dimension_text %></td>
         <td><%= question.code %></td>
         <td><%= truncate(question.question, :length => 30, :omission => '...') %></td>
-        <td><%= link_to_show question %></td>
-        <td><%= link_to_edit edit_question_path(question) %></td>
-        <td><%= link_to_destroy question if @auth_user.admin? %></td>
+        <td><%= link_to_show question if can? :read, Question %></td>
+        <td><%= link_to_edit edit_question_path(question) if can? :update, Question %></td>
+        <td><%= link_to_destroy question if can? :destroy, Question %></td>
       </tr>
     <% end %>
   </tbody>
@@ -32,6 +32,6 @@
     <%= pagination_links @questions %>
   </div>
   <%= link_to t('labels.new'), new_question_path,
-    class: 'btn btn-primary' %> |
-  <%= link_to t('questions.import_csv_file'), import_csv_questions_path %>
+    class: 'btn btn-primary' if can? :create, Question %>
+  <%= link_to t('questions.import_csv_file'), import_csv_questions_path if can? :import_csv, Question %>
 </div>

@@ -17,12 +17,12 @@
     <tr class="<%= cycle(:even, :odd) %>">
       <td><%= user.user %></td>
       <td><%= user.to_s %></td>
-      <td><%= user.enable ? t('labels.whether') : t('labels.not') %></td>
-       <td><%= user.private ? t('labels.whether') : t('labels.not') %></td>
-      <td><%= user.admin ? t('labels.whether') : t('labels.not') %></td>
-      <td><%= link_to_show user %></td>
-      <td><%= link_to_edit edit_user_path(user) %></td>
-      <td><%= link_to_destroy user %></td>
+      <td><%= user.enable ? t('labels.yes') : t('labels.not') %></td>
+       <td><%= user.private ? t('labels.yes') : t('labels.not') %></td>
+      <td><%= user.admin ? t('labels.yes') : t('labels.not') %></td>
+      <td><%= link_to_show user if can? :read, User %></td>
+      <td><%= link_to_edit edit_user_path(user) if can? :update, User %></td>
+      <td><%= link_to_destroy user if can? :destroy, User %></td>
     </tr>
   <% end %>
   </tbody>

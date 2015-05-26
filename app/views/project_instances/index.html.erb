@@ -20,10 +20,10 @@
     <td><%= project_instance.first_name if project_instance.first_name.present?%></td>
     <td><%= project_instance.professor_name  if project_instance.professor_name.present? %></td>
     <td><%= project_instance.age if project_instance.age.present?%></td>
-    <td><%= t "projects.questionnaire.genre.options.#{project_instance.genre}" if project_instance.genre.present?%></td>
-    <td><%= link_to_show project_instance %></td>
-    <td><%= link_to_edit edit_project_instance_path(project_instance) %></td>
-    <td><%= link_to_destroy project_instance if @auth_user.admin? %></td>
+    <td><%= t "projects.questionnaire.genre.options.#{project_instance.genre}" if project_instance.genre.present? %></td>
+    <td><%= link_to_show project_instance if can? :read, ProjectInstance %></td>
+    <td><%= link_to_edit edit_project_instance_path(project_instance) if can? :update, ProjectInstance %></td>
+    <td><%= link_to_destroy project_instance if can? :destroy, ProjectInstance %></td>
   </tr>
 <% end %>
 </table>

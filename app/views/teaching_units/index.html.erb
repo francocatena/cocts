@@ -11,9 +11,9 @@
 <% @teaching_units.each do |teaching_unit| %>
   <tr class="<%= cycle(:even, :odd) %>">
     <td><%= teaching_unit.title %></td>
-    <td><%= link_to_show teaching_unit %></td>
-    <td><%= link_to_edit edit_teaching_unit_path(teaching_unit) %></td>
-    <td><%= link_to_destroy teaching_unit if @auth_user.admin? %></td>
+    <td><%= link_to_show teaching_unit if can? :read, TeachingUnit %></td>
+    <td><%= link_to_edit edit_teaching_unit_path(teaching_unit) if can? :update, TeachingUnit %></td>
+    <td><%= link_to_destroy teaching_unit if can? :destroy, TeachingUnit %></td>
   </tr>
 <% end %>
 </table>
@@ -24,5 +24,6 @@
   <div class='pull-right'>
     <%= pagination_links @teaching_units %>
   </div>
-  <%= link_to t('labels.new'), new_teaching_unit_path, class: 'btn btn-primary' %>
+  <%= link_to t('labels.new'), new_teaching_unit_path,
+    class: 'btn btn-primary' if can? :create, TeachingUnit %>
 </div>
