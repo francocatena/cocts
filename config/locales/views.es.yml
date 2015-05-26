@@ -1,4 +1,7 @@
 es:
+  unauthorized:
+    manage:
+      all: "No cuenta con permisos para realizar la acción %{action} %{subject}."
   users:
     index:
       title: 'Listado de usuarios'

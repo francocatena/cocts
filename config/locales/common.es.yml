@@ -121,8 +121,8 @@ es:
     save: 'Guardar'
     search: 'Buscar'
     select: 'Seleccionar'
-    whether: 'Si'
     rates: 'Índices'
+    yes: 'Si'
     not: 'No'
 
   messages:

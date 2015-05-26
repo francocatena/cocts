@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '~> 4.1.8'
 
 gem 'pg'
+gem 'cancancan', '~> 1.10'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'will_paginate'
