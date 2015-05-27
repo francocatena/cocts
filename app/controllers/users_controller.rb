@@ -6,8 +6,7 @@ class UsersController < ApplicationController
     :logout, :update_personal_data]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :auth, except: [:login, :create_session]
-  before_action :admin, except: [:login, :create_session, :edit_password,
-    :update_password, :edit_personal_data, :update_personal_data,:logout]
+
   layout proc { |controller|
     ['login', 'session'].include?(controller.action_name) ?
       'clean' : 'application'
@@ -59,13 +58,6 @@ class UsersController < ApplicationController
     flash[:alert] = t 'users.project_error' unless @user.destroy
 
     respond_with @user, location: users_url
-  end
-
-  def admin
-    unless @auth_user.admin?
-      flash[:alert] = t 'users.admin_error'
-      redirect_to projects_path
-    end
   end
 
   private
