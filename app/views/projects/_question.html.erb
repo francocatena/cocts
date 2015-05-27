@@ -16,7 +16,7 @@
         <%= f.input :question, as: :hidden, input_html: {
           name: 'project[question_ids][]', value: f.object.id,
           id: "question_id_#{id}", class: :autocomplete_id
-        }%>
+        } %>
       <% else %>
         <%= f.input :question, label: false, input_html: {
             value: "#{question.code} - #{question.question}", readonly: true

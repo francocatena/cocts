@@ -14,7 +14,7 @@
     <%= render partial: 'question', collection: @teaching_unit.questions,
       locals: {f: f} %>
 
-    <%= link_to_add_fields t('questions.add_answer'), f, :questions,
+    <%= link_to_add_fields t('projects.add_question'), f, :questions,
       'question' %>
   </div>
 

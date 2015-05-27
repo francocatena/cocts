@@ -42,9 +42,7 @@
 <hr />
 
 <div>
-  <%= link_to_back %> |
-  <% if @auth_user.admin? %>
-    <%= link_to t('labels.edit'), edit_question_path(@question) %> |
-  <% end %>
+  <%= link_to_back %>
+  <%= link_to t('labels.edit'), edit_question_path(@question) if can? :update, Question %>
   <%= link_to t('labels.list'), questions_path %>
 </div>

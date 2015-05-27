@@ -34,5 +34,6 @@
   <div class='pull-right'>
     <%= pagination_links @users %>
   </div>
-  <%= link_to t('labels.new'), new_user_path, class: 'btn btn-primary' %>
+  <%= link_to t('labels.new'), new_user_path,
+    class: 'btn btn-primary' if can? :create, User  %>
 </div>
