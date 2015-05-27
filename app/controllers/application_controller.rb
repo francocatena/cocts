@@ -75,7 +75,7 @@ class ApplicationController < ActionController::Base
     end
 
     def current_ability
-      @current_ability ||= Ability.new(@auth_user)
+      @current_ability ||= Ability.new(load_auth_user)
     end
 
 end
