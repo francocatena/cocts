@@ -9,10 +9,14 @@ class Ability
     if user.admin?
       can :manage, :all
     else
-      can :read, :all
-      can :manage, User
-      can [:read, :create], ProjectInstance
-      can [:read, :create], Project
+      can [:index, :read],
+        [Project, ProjectInstance, Question, Subtopic, TeachingUnit]
+      can [:edit_password, :edit_personal_data, :logout, :login, :create_session],
+        User, id: user.id
+      can [:read, :create, :select_new, :pdf_rates, :autocomplete_for_question],
+        Project
+      can :create, ProjectInstance
+      can :autocomplete_for_teaching_unit, Subtopic
     end
     #
     # The first argument to `can` is the action you are giving the user
