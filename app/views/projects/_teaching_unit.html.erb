@@ -2,7 +2,7 @@
 <fieldset class="teaching_unit">
   <div class="row">
     <div class="col-md-6">
-      <% if f.object.new_record? %>
+      <% if !defined? teaching_unit %>
         <%= f.input :teaching_unit_id, as: :string, label: false,
           input_html: {
             id: "project_teaching_unit_#{id}",

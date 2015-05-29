@@ -2,7 +2,7 @@
 <fieldset class="question">
   <div class="row">
     <div class="col-md-6">
-      <% if f.object.new_record? %>
+      <% if !defined? question %>
         <%= f.input :question, as: :string, label: false,
           input_html: {
             id: "project_question_#{id}", class: :autocomplete_field,
