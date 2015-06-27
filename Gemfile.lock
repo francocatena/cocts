@@ -37,6 +37,7 @@ GEM
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
     builder (3.2.2)
+    cancancan (1.11.0)
     capistrano (3.3.3)
       capistrano-stats (~> 1.0.3)
       i18n
@@ -158,6 +159,7 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth
+  cancancan (~> 1.10)
   capistrano
   capistrano-bundler
   capistrano-rails
@@ -181,3 +183,6 @@ DEPENDENCIES
   unicorn-rails
   validates_timeliness!
   will_paginate
+
+BUNDLED WITH
+   1.10.5
