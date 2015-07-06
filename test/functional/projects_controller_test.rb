@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 require 'test_helper'
 
 # Pruebas para el controlador de proyectos
@@ -6,7 +5,7 @@ class ProjectsControllerTest < ActionController::TestCase
   fixtures :projects, :questions
 
   def setup
-    @project = Project.find(projects(:manual).id)
+    @project = projects :manual
   end
 
   # Prueba que sin realizar autenticación esten accesibles las partes publicas
@@ -159,9 +158,11 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test 'destroy project' do
     perform_auth
+
     assert_no_difference('Project.count') do
       delete :destroy, id: @project.to_param
     end
+
     @project.project_instances.clear
     assert_difference('Project.count', -1) do
       delete :destroy, id: @project.to_param
@@ -172,8 +173,11 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test 'preview sociodemographic form' do
     perform_auth
-    get :preview_form
-    assert_response :success
+
+    SOCIODEMOGRAPHIC_FORMS.each do |form|
+      get :preview_form, form: form
+      assert_response :success
+    end
   end
 
   test 'autocomplete for question' do

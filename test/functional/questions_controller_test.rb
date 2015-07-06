@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 require 'test_helper'
 
 # Pruebas para el controlador de cuestiones
@@ -170,7 +169,7 @@ class QuestionsControllerTest < ActionController::TestCase
     end
 
     assert_no_difference('Question.count') do
-      post :csv_import_questions, dump_questions: {}
+      post :csv_import_questions
     end
 
     # Prueba adjuntar un archivo que no sea csv
@@ -191,7 +190,7 @@ class QuestionsControllerTest < ActionController::TestCase
     end
     # Prueba de enviar el formulario sin el archivo csv
     assert_no_difference('Answer.count') do
-      post :csv_import_answers, dump_answers: {}
+      post :csv_import_answers
     end
 
     # Prueba adjuntar un archivo que no sea csv

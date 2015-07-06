@@ -6,9 +6,9 @@ class UserMailerTest < ActionMailer::TestCase
     mail = UserMailer.new_user_notification(user, 12345)
     assert_equal 'Alta de usuario en COCTS', mail.subject
     assert_equal [user.email], mail.to
-    assert_equal ['soporte@cocts.com.ar'], mail.from
+    assert_equal [ENV['EMAIL_ADDRESS']], mail.from
     assert_match "#{user.name}", mail.body.encoded
- 
+
     assert_difference 'ActionMailer::Base.deliveries.size' do
       mail.deliver
     end

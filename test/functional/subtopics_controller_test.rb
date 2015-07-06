@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 require 'test_helper'
 
 class SubtopicsControllerTest < ActionController::TestCase
@@ -7,7 +6,7 @@ class SubtopicsControllerTest < ActionController::TestCase
   # Inicializa de forma correcta todas las variables que se utilizan en las
   # pruebas
   def setup
-    @subtopic = Subtopic.find(subtopics(:subtopicI).id)
+    @subtopic = subtopics :subtopicI
   end
 
   # Prueba que sin realizar autenticación esten accesibles las partes publicas

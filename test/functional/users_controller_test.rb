@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 require 'test_helper'
 
 # Pruebas para el controlador de usuarios
@@ -6,7 +5,7 @@ class UsersControllerTest < ActionController::TestCase
   fixtures :users
 
   def setup
-    @user = User.find(users(:admin))
+    @user = users :admin
   end
 
   # Prueba que sin realizar autenticación esten accesibles las partes publicas
@@ -16,15 +15,7 @@ class UsersControllerTest < ActionController::TestCase
     public_actions = [
       [:get, :login]
     ]
-    admin_actions = [
-      [:get, :index],
-      [:get, :show, id_param],
-      [:get, :new],
-      [:get, :edit, id_param],
-      [:post, :create],
-      [:put, :update, id_param],
-      [:delete, :destroy, id_param],
-    ]
+
     private_actions = [
       [:get, :index],
       [:get, :show, id_param],
@@ -43,14 +34,7 @@ class UsersControllerTest < ActionController::TestCase
     private_actions.each do |action|
       send *action
       assert_redirected_to login_users_path
-      assert_equal I18n.t(:'messages.must_be_authenticated'), flash[:notice]
-    end
-
-    perform_auth(users(:private))
-    admin_actions.each do |action|
-      send *action
-      assert_redirected_to projects_path
-      assert_equal I18n.t(:'users.admin_error'), flash[:alert]
+      assert_equal I18n.t('messages.must_be_authenticated'), flash[:notice]
     end
 
     public_actions.each do |action|

@@ -4,19 +4,15 @@ class ProjectInstancesControllerTest < ActionController::TestCase
   fixtures :question_instances, :answer_instances, :projects
 
   setup do
-    @project_instance = ProjectInstance.find(project_instances(:one).id)
+    @project_instance = project_instances :one
+    @question = projects(:manual).questions.first
   end
 
   # Prueba que sin realizar autenticación esten accesibles las partes publicas
   # y no accesibles las privadas
-  test 'public and private actions' do
+  test 'private actions' do
     id_param = {id: @project_instance.to_param}
-    identifier_project = {identifier: projects(:manual).to_param}
     id_project = {id: projects(:manual).to_param}
-    public_actions = [
-      [:post, :create],
-      [:get, :new, identifier_project]
-    ]
     private_actions = [
       [:get, :index, id_project],
       [:get, :show, id_param],
@@ -28,12 +24,65 @@ class ProjectInstancesControllerTest < ActionController::TestCase
     private_actions.each do |action|
       send *action
       assert_redirected_to login_users_path
-      assert_equal I18n.t(:'messages.must_be_authenticated'), flash[:notice]
+      assert_equal I18n.t('messages.must_be_authenticated'), flash[:notice]
     end
+  end
+
+  test 'public actions' do
+    create_params = {
+      project_instance: {
+        first_name: 'Create Name',
+        professor_name: 'Professorname',
+        email: 'create@test.com',
+        age: 25,
+        degree: 'doctor',
+        genre: 'male',
+        student_status: 'no_study',
+        teacher_status: 'in_training',
+        teacher_level: 'primary',
+        country: 'Argentina',
+        educational_center_name: 'UTN-FRM',
+        project_type: 0,
+        educational_center_city: 'Mendoza',
+        study_subjects_different: 2,
+        project_id: projects(:interactive).id,
+        question_instances_attributes: [
+          {
+            question_id: @question.id,
+            question_text: @question.question,
+            code: @question.code,
+            dimension: @question.dimension,
+            answer_instances_attributes: [
+              {
+                answer_id: @question.answers.first.id,
+                valuation: 'E',
+                order: @question.answers.first.order,
+                answer_text: @question.answers.first.answer,
+                answer_category: @question.answers.first.category
+              },
+              {
+                answer_id: @question.answers.last.id,
+                valuation: '5',
+                order: @question.answers.last.order,
+                answer_text: @question.answers.last.answer,
+                answer_category: @question.answers.last.category
+              }
+            ]
+          }
+        ]
+      }
+    }
+
+    identifier_project = {identifier: projects(:manual).to_param}
+    public_actions = [
+      [:post, :create, create_params] ,
+      [:get, :new, identifier_project]
+    ]
 
     public_actions.each do |action|
       send *action
       assert_response :success
+      assert_not_nil assigns(:project_instance)
     end
   end
 
@@ -56,7 +105,7 @@ class ProjectInstancesControllerTest < ActionController::TestCase
   end
 
   test 'new project instance' do
-    get :new, identifier: @project_instance.to_param
+    get :new, identifier: @project_instance.project.identifier
     assert_response :success
     assert_not_nil assigns(:project_instance)
     assert_template 'project_instances/new'
@@ -65,8 +114,7 @@ class ProjectInstancesControllerTest < ActionController::TestCase
   test 'create project instance' do
     perform_auth
     @request.host = 'admin.cocts.com'
-    question = projects(:manual).questions.first
-    answers = question.answers
+    answers = @question.answers
 
     assert_difference 'ProjectInstance.count' do
       post :create, {
@@ -88,10 +136,10 @@ class ProjectInstancesControllerTest < ActionController::TestCase
           project_id: projects(:manual).id,
           question_instances_attributes: [
             {
-              question_id: question.id,
-              question_text: question.question,
-              code: question.code,
-              dimension: question.dimension,
+              question_id: @question.id,
+              question_text: @question.question,
+              code: @question.code,
+              dimension: @question.dimension,
               answer_instances_attributes: [
                 {
                   answer_id: answers.first.id,
