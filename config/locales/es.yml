@@ -86,6 +86,7 @@ es:
     answer_cuestionnaire: 'Ver preguntas'
     show_project_data: 'Ver datos proyecto'
     hide_project_data: 'Ocultar datos proyecto'
+    correctly_created: 'Los datos se guardaron satisfactoriamente.'
     correctly_created_interactive: 'Sus datos han sido almacenados satisfactoriamente.
     ¡Muchas gracias por su colaboración!'
     error_subdomain: 'El subdominio ingresado no corresponde con ningún proyecto'
