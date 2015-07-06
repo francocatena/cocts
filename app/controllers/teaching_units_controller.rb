@@ -1,7 +1,7 @@
 class TeachingUnitsController < ApplicationController
   respond_to :html
 
-  before_action :auth
+  prepend_before_action :auth
   before_action :set_teaching_unit, only: [:show, :edit, :update, :destroy]
   before_action :set_title, except: :destroy
 

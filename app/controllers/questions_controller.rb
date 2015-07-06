@@ -3,7 +3,7 @@ class QuestionsController < ApplicationController
 
   respond_to :html
 
-  before_action :auth
+  prepend_before_action :auth
   before_action :admin, except:  [:index, :show]
   before_action :set_title, only: [:index, :edit, :new, :show, :import_csv]
   before_action :set_question, only: [:show, :edit, :update, :destroy]

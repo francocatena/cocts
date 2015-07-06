@@ -1,7 +1,7 @@
 class ProjectInstancesController < ApplicationController
   respond_to :html
 
-  before_action :auth, except: [:new, :create]
+  prepend_before_action :auth, except: [:new, :create]
   before_action :load_auth_user, only: [:new, :create]
   before_action :set_title, except: :destroy
   before_action :set_project_instance, only: [:show, :edit, :update, :destroy]

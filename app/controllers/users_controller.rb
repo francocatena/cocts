@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   before_action :set_title, except: [:destroy, :update_password,
     :logout, :update_personal_data]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :auth, except: [:login, :create_session]
+  prepend_before_action :auth, except: [:login, :create_session]
 
   layout proc { |controller|
     ['login', 'session'].include?(controller.action_name) ?

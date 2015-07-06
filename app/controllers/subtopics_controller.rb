@@ -3,9 +3,9 @@ class SubtopicsController < ApplicationController
 
   respond_to :html
 
-  before_filter :auth
-  before_filter :set_subtopic, only: [:show, :edit, :update, :destroy]
-  before_filter :set_title, except: :destroy
+  prepend_before_action :auth
+  before_action :set_subtopic, only: [:show, :edit, :update, :destroy]
+  before_action :set_title, except: :destroy
 
   # GET /subtopics
   def index

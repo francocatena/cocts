@@ -16,7 +16,6 @@ class ProjectsController < ApplicationController
 
   # * GET /projects/1
   def show
-
     respond_to do |format|
       format.html
       format.pdf  {
@@ -100,6 +99,7 @@ class ProjectsController < ApplicationController
   end
 
   private
+
     def set_project
       @project = Project.find_by_identifier(params[:id])
     end
