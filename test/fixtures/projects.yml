@@ -1,6 +1,7 @@
 manual:
+  id: 1
   name: 'Manual Project'
-  identifier: test-manual-project
+  identifier: 1-c-pre
   description: 'Description of the manual project'
   year: 2010
   group_name: 'Grupo manual'
@@ -13,8 +14,9 @@ manual:
   user: admin
 
 interactive:
+  id: 2
   name: 'Interactive project'
-  identifier: test-interactive-project
+  identifier: 2-e-pos
   description: 'Description of the interactive project'
   year: 2009
   group_name: 'Grupo interactivo'

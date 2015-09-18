@@ -4,7 +4,7 @@ one:
   description: 'Test description'
   valid_until: <%= 1.month.from_now.to_date %>
   forms: <%= SOCIODEMOGRAPHIC_FORMS.to_yaml.inspect %>
-  project: manual
+  project_id: 1
   first_name: 'Gastón'
   professor_name: 'Profe'
   email: 'gaudiog@aat.com.ar'
@@ -23,7 +23,7 @@ one:
   country: 'Argentina'
 
 two:
-  project: manual
+  project_id: 1
   first_name: 'Pablo'
   professor_name: 'Professor'
   email: 'paimar@mail.com'
