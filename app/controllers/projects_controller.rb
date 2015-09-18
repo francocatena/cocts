@@ -4,9 +4,10 @@ class ProjectsController < ApplicationController
 
   respond_to :html
 
-  before_action :auth
+  prepend_before_action :auth
   before_action :set_title, except: [:destroy, :pdf_rates]
   before_action :set_project, only: [:show, :edit, :update, :destroy, :pdf_rates]
+
   layout proc { |controller| controller.request.xhr? ? false : 'application' }
 
   # * GET /projects
