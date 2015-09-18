@@ -158,10 +158,10 @@ module Reports::AttitudinalRates
       instance.calculate_attitudinal_rates
       attitudinal_global_index = instance.attitudinal_global_index
 
-      @adecuate_index += instance.adecuate_attitude_index
-      @plausible_index += instance.plausible_attitude_index
-      @naive_index += instance.naive_attitude_index
-      @global_index += instance.attitudinal_global_index
+      @adecuate_index += instance.adecuate_attitude_index.to_f
+      @plausible_index += instance.plausible_attitude_index.to_f
+      @naive_index += instance.naive_attitude_index.to_f
+      @global_index += instance.attitudinal_global_index.to_f
 
       instance.question_instances.each do |question|
         question.answer_instances.each do |answer|

@@ -8,7 +8,7 @@ class CreateAnswers < ActiveRecord::Migration
       t.references :question
       t.integer :lock_version, default: 0
 
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_index :answers, :question_id

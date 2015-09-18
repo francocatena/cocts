@@ -10,7 +10,7 @@ class UserMailerTest < ActionMailer::TestCase
     assert_match "#{user.name}", mail.body.encoded
 
     assert_difference 'ActionMailer::Base.deliveries.size' do
-      mail.deliver
+      mail.deliver_now
     end
   end
 end

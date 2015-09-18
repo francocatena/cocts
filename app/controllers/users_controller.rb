@@ -37,7 +37,7 @@ class UsersController < ApplicationController
     pass = params[:user][:password]
     @user = User.new(user_params)
 
-    UserMailer.new_user_notification(@user, pass).deliver if @user.save
+    UserMailer.new_user_notification(@user, pass).deliver_now if @user.save
     respond_with @user, location: users_url
   end
 

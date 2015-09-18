@@ -22,7 +22,7 @@ class CreateProjectInstances < ActiveRecord::Migration
       t.string :teacher_level
       t.references :project
 
-      t.timestamps
+      t.timestamps null: false
     end
     
     add_index :project_instances, :project_id

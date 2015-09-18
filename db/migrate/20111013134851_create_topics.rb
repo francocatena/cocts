@@ -3,7 +3,7 @@ class CreateTopics < ActiveRecord::Migration
     create_table :topics do |t|
       t.string :title
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

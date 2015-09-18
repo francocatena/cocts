@@ -5,7 +5,6 @@ module ProjectInstances::Rates
     self.plausible_attitude_index = calculate_attitudinal_index(1)
     self.naive_attitude_index = calculate_attitudinal_index(0)
     self.adecuate_attitude_index = calculate_attitudinal_index(2)
-
   end
 
   def calculate_attitudinal_assessment
@@ -35,7 +34,7 @@ module ProjectInstances::Rates
   end
 
   def attitudinal_global_index
-    (self.plausible_attitude_index + self.naive_attitude_index + self.adecuate_attitude_index) / 3
+    (self.plausible_attitude_index.to_f + self.naive_attitude_index.to_f + self.adecuate_attitude_index.to_f) / 3
   end
 
   def standard_deviation(average)

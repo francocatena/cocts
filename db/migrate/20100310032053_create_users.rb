@@ -10,7 +10,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :salt
       t.integer :lock_version, default: 0
 
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_index :users, :user, unique: true

@@ -8,7 +8,7 @@ class CreateAnswerInstances < ActiveRecord::Migration
       t.integer :answer_category
       t.string :valuation, limit: 1
 
-      t.timestamps
+      t.timestamps null: false
     end
     add_index :answer_instances, :question_instance_id
     add_index :answer_instances, :answer_id

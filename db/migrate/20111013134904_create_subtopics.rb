@@ -4,7 +4,7 @@ class CreateSubtopics < ActiveRecord::Migration
       t.string :title
       t.references :topic
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

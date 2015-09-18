@@ -4,7 +4,7 @@ class CreateQuestionInstances < ActiveRecord::Migration
       t.references :project_instance
       t.references :question
       t.text :question_text
-      t.timestamps
+      t.timestamps null: false
     end
     add_index :question_instances, :project_instance_id
     add_index :question_instances, :question_id

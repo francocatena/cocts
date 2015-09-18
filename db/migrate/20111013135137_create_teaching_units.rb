@@ -4,7 +4,7 @@ class CreateTeachingUnits < ActiveRecord::Migration
       t.string :title
       t.references :subtopic
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

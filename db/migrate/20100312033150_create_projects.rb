@@ -10,7 +10,7 @@ class CreateProjects < ActiveRecord::Migration
       t.text :forms
       t.integer :lock_version, default: 0
 
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_index :projects, :identifier, unique: true
